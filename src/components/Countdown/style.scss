@@ -1,0 +1,16 @@
+.countdown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .num {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 4px;
+        padding: 24px 0;
+        width: 64px;
+        background: rgba(131, 156, 220, 0.32);
+        border-radius: 10px;
+    }
+    .unit {
+    }
+}

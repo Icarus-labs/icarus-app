@@ -1,0 +1,79 @@
+.app-header {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    .header-left{
+        display: flex;
+    }
+    .menu-icon{
+        color: #F6E526;
+    }
+    .logo-text {
+        font-size: 26px;
+        font-family: 'sonny';
+        color: #F6E526;
+    }
+    .mobile-nav{
+        display: none;
+        margin-right: 12px;
+        font-size: 24px;
+        vertical-align: middle;
+    }
+    .nav {
+        margin-left: 88px;
+        li {
+            display: inline-block;
+            font-size: 16px;
+            margin: 0 32px;
+        }
+    }
+    a {
+        color: #F6E526;
+    }
+    .btn-yellow {
+        padding: 6px 16px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 50px;
+        margin-left: 6px;
+        color: #1D2E4C;
+    }
+    .btn-trans{
+        padding: 6px 16px 6px 4px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 50px;
+        margin-left: 6px;
+        border: 2px solid #f6e526;
+        color: #f6e526;
+        img{
+            margin-right: 8px;
+            width: 20px;
+        }
+    }
+    @media screen and (max-width: 992px) {
+        .logo-text {
+            font-size: 20px;
+        }
+        .btn-yellow {
+            padding: 8px 16px;
+        }
+        .nav {
+            li {
+                margin: 0 12px;
+            }
+        }
+    }
+    @media screen and (max-width: 768px){
+        .nav{
+            display: none;
+        }
+        .mobile-nav{
+            display:inline-block;
+        }
+    }
+}

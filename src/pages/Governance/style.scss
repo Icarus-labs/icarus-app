@@ -1,0 +1,13 @@
+.page-governance {
+    text-align: center;
+    height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    .governance-box{
+        
+    }
+    @media screen and (max-width: 992px){
+        height: unset;
+        display: block;
+    }
+}

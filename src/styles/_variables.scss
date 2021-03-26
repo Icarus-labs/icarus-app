@@ -1,0 +1,24 @@
+/* css 变量配置*/
+
+$TitleFontSize: 36px; // title 字体
+$TitleFontSize-M: 36px; // title 字体
+$NavFontSize: 12px; // 导航 字体
+$NavFontSize-M: 12px; // 导航 字体
+$MobileWidth: 768px; // 移动端适配宽度
+$MobileWidth-M: 960px; // 移动端适配宽度
+$BoxButWidth: 250px; // 框内按钮 输入框宽度
+$BoxButWidth-M: 98%; // 移动端框内按钮 输入框宽度
+$BoxContentWidth: 92%; // 移动端框内按钮 输入框宽度
+$ButWidth: 310px; // 输入框 按钮宽度
+$UnlockWalletButWidth: 300px; // 解锁钱包按钮宽度
+$MaxWidth: 1400px; // 页面展示区域宽度
+$BgColor: #15163d; // 背景颜色
+$DarkColor: #15163d; // 深色主题色
+
+/* dd css 变量*/
+$ddThemeColor: #fcf7df; //主题色
+$ddHoverDarkColor: #f1eac9; // hover颜色
+$ddBlueBut: #839cdc; //蓝色BUT
+$ddBlueButHover: #6d7eb9; // 蓝色BUT hover
+$ddPinkBut: #af8686; //粉色BUT
+$ddPinkButHover: rgba(169, 77, 77, 0.9); // 粉色BUT hover

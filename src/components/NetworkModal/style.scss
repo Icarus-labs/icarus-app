@@ -1,0 +1,16 @@
+.network-modal {
+    font-family: "bebas";
+    .ant-modal-content {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .ant-modal-body {
+        color: #fff;
+        font-size: 18px;
+        line-height: 22px;
+        background: rgba(29, 46, 76, 0.85);
+    }
+    .ant-btn {
+        margin-top: 12px;
+    }
+}
