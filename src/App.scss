@@ -12,27 +12,27 @@
     src: url("./assets/fonts/SonnyCond-UltraBlack.ttf");
 }
 
-#root{
+#root {
     background: url("./assets/app-bg.png") no-repeat center center;
-    background-size: cover 100%; 
+    background-size: cover 100%;
 }
-
 
 .App {
     // word-break: break-all;
     font-family: "bebas";
-    color: #15163d;
     min-height: 100vh;
-    background: url("./assets/bg-zeth.svg") no-repeat center center;
-    background-size: 30%;
+    color: #4f4e4e;
+    background: #cbced3;
+}
 
-    @media screen and (max-width: 1200px) {
-        background-size: 50%;
-    }
-
-    @media screen and (max-width: 768px) {
-        background-size: 70%;
-        word-break: unset;
+.block {
+    background: rgba(249, 249, 249, 0.25);
+    padding: 24px 32px;
+    box-shadow: rgba(0, 0, 0, 0.25) 7px 7px 5px;
+    .btn {
+        width: 80%;
+        display: block;
+        margin: 0 auto;
     }
 }
 
@@ -109,14 +109,28 @@ li {
 .btn-trans {
     background: transparent;
     color: #fff;
-    border: 1px solid #ffd600;
+    border: 1px solid rgba(1, 4, 28, 0.75);
     box-sizing: border-box;
     border-radius: 5px;
     &:hover,
     &:focus {
         color: #fff;
-        border: 1px solid #ffd600;
+        border: 1px solid rgba(1, 4, 28, 0.75);
         background: transparent;
+    }
+}
+
+.btn {
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 60px;
+    background: rgba(1, 4, 28, 0.75);
+    &:hover,
+    &:focus {
+        color: #fff;
+        background: rgba(1, 4, 28, 0.8);
     }
 }
 
@@ -134,8 +148,8 @@ li {
     }
 }
 
-.grey{
-    color: #bbb;
+.grey {
+    color: #888;
 }
 
 .btn-connect {
@@ -143,11 +157,11 @@ li {
     color: #fff;
     border: none;
     border-radius: 5px;
-    background: #F6E526;
+    background: #f6e526;
     &:hover,
     &:focus {
         color: #fff;
-        background: #F6E526;
+        background: #f6e526;
     }
 }
 
@@ -160,7 +174,7 @@ li {
     }
 }
 
-.ant-input{
+.ant-input {
     border: none !important;
 }
 
@@ -286,9 +300,9 @@ img {
 }
 
 .pool-item {
-    padding: 24px 32px;
-    color: #fff;
-    background: rgba(29, 46, 76, 0.85);
+    // padding: 24px 32px;
+    // color: #fff;
+    // background: rgba(29, 46, 76, 0.85);
     border-radius: 24px;
     .apy {
         font-size: 16px;
@@ -300,8 +314,8 @@ img {
     .deposit-by {
         font-size: 30px;
         line-height: 36px;
-        a{
-            color: #fff;
+        a {
+            color: #4f4e4e;
         }
     }
     .info-line {

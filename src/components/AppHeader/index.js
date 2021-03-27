@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Tooltip, Dropdown, Menu } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { connect, useSelector } from "react-redux";
+import LogoLight from "assets/logo.svg";
 import axios from "utils/axios";
 import NetworkModal from "components/NetworkModal";
 import ICALogo from "assets/tokens/ica.svg";
@@ -28,7 +29,10 @@ export default function AppHeader() {
         <Link to="/mine">MINE</Link>
       </Menu.Item>
       <Menu.Item>
-        <a href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992" target="_blank">
+        <a
+          href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
+          target="_blank"
+        >
           BUY
         </a>
       </Menu.Item>
@@ -149,29 +153,31 @@ export default function AppHeader() {
   }, []);
 
   return (
-    <header className="app-header">
-      <div className="header-left">
-        <Dropdown className="mobile-nav" overlay={mobileMenu}>
-          <MenuOutlined className="menu-icon" />
-        </Dropdown>
-        <Link to="/" className="logo-text">
-          ICARUS
-        </Link>
-      </div>
+    <div class="container">
+      <header className="app-header">
+        <div className="header-left">
+          <Dropdown className="mobile-nav" overlay={mobileMenu}>
+            <MenuOutlined className="menu-icon" />
+          </Dropdown>
+          <Link to="/" className="logo-text">
+            <img src={LogoLight} />
+            ICARUS.FINANCE
+          </Link>
+        </div>
 
-      <ul className="nav">
-        <li>
-          <a href="https://icarus.finance" target="_blank">
-            HOME
-          </a>
-        </li>
-        <li>
-          <Link to="/buy">BUY</Link>
-        </li>
-        <li>
-          <Link to="/mine">MINE</Link>
-        </li>
-        {/* <li>
+        <ul className="nav">
+          <li>
+            <a href="https://icarus.finance" target="_blank">
+              HOME
+            </a>
+          </li>
+          <li>
+            <Link to="/buy">BUY</Link>
+          </li>
+          <li>
+            <Link to="/mine">MINE</Link>
+          </li>
+          {/* <li>
           <a
             href="https://icarus-finance.medium.com/connecting-your-wallet-and-staking-zeth-f35787e50ab2"
             target="_blank"
@@ -179,31 +185,33 @@ export default function AppHeader() {
             GUIDES
           </a>
         </li> */}
-        {/* <li>
+          {/* <li>
           <Link to="/boardroom">BOARDROOM</Link>
         </li> */}
-      </ul>
-      <div>
-        <a className="btn-trans">
-          <img src={ICALogo} /> ${Number(icaBalance)}
-        </a>
-        {wallet.status === "connected" ? (
-          <Tooltip title={account}>
-            {account && <a className="btn-yellow">Wallet Connected</a>}
-          </Tooltip>
-        ) : (
-          <a
-            className="btn-yellow"
-            onClick={() => {
-              connectWallet();
-            }}
-          >
-            {/* <span className="red-dot"></span> */}
-            Connect Wallet
+        </ul>
+        <div>
+          <a className="btn-trans">
+            <img src={ICALogo} /> ${Number(icaBalance)}
           </a>
-        )}
-      </div>
-
+          {wallet.status === "connected" ? (
+            <Tooltip title={account}>
+              <a className="btn">
+                {account.slice(0, 4)}...{account.slice(-4)}
+              </a>
+            </Tooltip>
+          ) : (
+            <a
+              className="btn"
+              onClick={() => {
+                connectWallet();
+              }}
+            >
+              {/* <span className="red-dot"></span> */}
+              Connect Wallet
+            </a>
+          )}
+        </div>
+      </header>
       {networkError && (
         <NetworkModal
           networkError={networkError}
@@ -212,6 +220,6 @@ export default function AppHeader() {
           }}
         />
       )}
-    </header>
+    </div>
   );
 }

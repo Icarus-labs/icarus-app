@@ -13,11 +13,9 @@
         margin-top: 32px;
         .tab {
             display: flex;
-            color: #fff;
             margin: 16px;
             text-align: left;
             padding: 10px;
-            background: rgba(29, 46, 76, 0.85);
             border-radius: 20px;
             font-size: 30px;
             line-height: 36px;
@@ -40,7 +38,7 @@
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    background: rgba(48, 48, 48, .85);
+                    background: rgba(48, 48, 48, .35);
                     border-radius: 20px;
                 }
             }

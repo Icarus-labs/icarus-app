@@ -13,7 +13,7 @@ export default function Mine() {
   const network = useSelector((state) => state.setting.network);
 
   const [poolList, setPoolList] = useState([]);
-  const [currentTab, setCurrentTab] = useState("zeth");
+  // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false)
 
   const buyContractAddress = config[network].buyContractAddress;
@@ -21,13 +21,16 @@ export default function Mine() {
 
   // todo, add cancel when change tab
   const getPools = async () => {
-    const result = await axios.get(`/${currentTab}/pools/available`);
+    const zethResult = await axios.get(`/zeth/pools/available`);
+    const zbtcResult = await axios.get(`/zbtc/pools/available`);
     // setPoolList(result.data.data);
     //todo, need to wait pool list finish
-    getPoolInfo(result.data.data);
+    await getPoolInfo(zethResult.data.data, 'zeth');
+    await getPoolInfo(zbtcResult.data.data, 'zbtc');
+    setLoadingPools(false)
   };
 
-  const getPoolInfo = async (list) => {
+  const getPoolInfo = async (list, currentTab) => {
     for (let i = 0; i < list.length; i++) {
       const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
         params: {
@@ -38,43 +41,26 @@ export default function Mine() {
       list[i].income_apy = poolInfo.data.data.income_apy;
       list[i].reward_apy = poolInfo.data.data.reward_apy;
       list[i].tvl = poolInfo.data.data.tvl;
+      list[i].currentTab = currentTab
     }
-    setPoolList(list);
-    setLoadingPools(false)
-    // list.forEach(async (pool, index) => {
-    //   const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
-    //     params: {
-    //       pool: pool.address,
-    //     },
-    //   });
-    //   if (poolInfo.data.data) {
-    //     console.log('ITIS', poolInfo.data.data, index)
-    //     setPoolList((prev) => {
-    //       prev[index].apy = poolInfo.data.data.apy;
-    //       prev[index].income_apy = poolInfo.data.data.income_apy;
-    //       prev[index].reward_apy = poolInfo.data.data.reward_apy;
-    //       prev[index].tvl = poolInfo.data.data.tvl;
-
-    //       return [...prev];
-    //     });
-    //   }
-    // });
+    setPoolList(prev => prev.concat(list));
   };
 
   useEffect(() => {
+    console.log('YOOOOOOOOOOOOOO')
     setPoolList([])
     setLoadingPools(true)
     getPools();
-  }, [currentTab]);
+  }, []);
 
   return (
     <div className="page-mine">
       <div className="container">
-        <Row className="pool-tab">
+        {/* <Row className="pool-tab">
           <Col xs={24} lg={12}>
             <div
               onClick={() => setCurrentTab("zeth")}
-              className={`tab ${currentTab !== "zeth" ? "inactive" : ""}`}
+              className={`tab block ${currentTab !== "zeth" ? "inactive" : ""}`}
             >
               <img src={tokenImg["ZETH"]} className="token-item" /> ZETH POOL
             </div>
@@ -82,19 +68,18 @@ export default function Mine() {
           <Col xs={24} lg={12}>
             <div
               onClick={() => setCurrentTab("zbtc")}
-              className={`tab ${currentTab !== "zbtc" ? "inactive" : ""}`}
+              className={`tab block ${currentTab !== "zbtc" ? "inactive" : ""}`}
             >
               <img src={tokenImg["ZBTC"]} className="token-item" /> ZBTC POOL
             </div>
           </Col>
-        </Row>
+        </Row> */}
 
         {loadingPools && <LoadingOutlined className="loading-icon" />}
-        
         <Row className="pool-list">
-          {poolList.map((item) => (
+          {poolList && poolList.map((item) => (
             <Col key={item.address} xs={24} lg={12}>
-              <div className="pool-item">
+              <div className="pool-item block">
                 <div className="info-line top-line">
                   <span className="tokens">
                     {item.stake_token.split("-").map((token) => (
@@ -154,8 +139,8 @@ export default function Mine() {
                   <span>${item.tvl || 0}</span>
                 </div>
 
-                <Link to={`/mine/${item.address}?token=${currentTab}`}>
-                  <Button className="btn-yellow">SELECT</Button>
+                <Link to={`/mine/${item.address}?token=${item.currentTab}`}>
+                  <Button className="btn">SELECT</Button>
                 </Link>
               </div>
             </Col>

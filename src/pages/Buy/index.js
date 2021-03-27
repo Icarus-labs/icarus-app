@@ -113,7 +113,7 @@ export default function Buy() {
             <a
               href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
               target="_blank"
-              className="buy-tab"
+              className="buy-tab block"
             >
               <img src={tokenImg["ZETH"]} className="token-item" /> BUY ZETH ON
               DODO
@@ -123,7 +123,7 @@ export default function Buy() {
 
         <Row className="pool-list" type="flex" justify="center">
           <Col xs={24} md={12} lg={8}>
-            <div className="pool-item">
+            <div className="pool-item block">
               <div className="info-line top-line">
                 <span className="title">
                   <span className="main-title">FIXED-WRAP</span> <br />
@@ -166,7 +166,7 @@ export default function Buy() {
                   </span>
                 </span>
               </div>
-              <Button onClick={doBuy} className="btn-yellow">
+              <Button onClick={doBuy} className="btn">
                 SWAP &amp; LOCK IN 3 MONTHS {buying && "..."}
               </Button>
               <div className="progress">

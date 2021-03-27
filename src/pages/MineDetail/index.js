@@ -122,7 +122,7 @@ export default function MineDetail() {
           justify="center"
         >
           <Col xs={24} lg={12} xl={8}>
-            <div className="pool-item">
+            <div className="pool-item block">
               <div className="info-line top-line">
                 <span className="tokens">
                   {poolInfo.stake_token &&
@@ -165,7 +165,7 @@ export default function MineDetail() {
                 <span>${poolInfo.tvl}</span>
               </div>
               <Button
-                className="btn-yellow"
+                className="btn"
                 onClick={() => {
                   setDepositModalVisible(true);
                 }}
@@ -175,7 +175,7 @@ export default function MineDetail() {
             </div>
           </Col>
           <Col xs={24} lg={12} xl={8}>
-            <div className="pool-item">
+            <div className="pool-item block">
               <div className="info-line top-line">
                 <span className="tokens">
                   {poolInfo &&
@@ -211,7 +211,7 @@ export default function MineDetail() {
                   onClick={() => {
                     doClaim();
                   }}
-                  className="btn-yellow"
+                  className="btn"
                 >
                   CLAIM
                 </Button>
@@ -241,7 +241,7 @@ export default function MineDetail() {
         </Row>
         <div className="withdraw-area">
           <Button
-            className="btn-yellow"
+            className="btn"
             onClick={() => {
               doExit();
             }}

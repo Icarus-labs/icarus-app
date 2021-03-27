@@ -16,11 +16,10 @@
         .main-title {
             font-size: 30px;
             line-height: 36px;
-            color: #f6e526;
         }
     }
 
-    .btn-yellow {
+    .btn {
         font-size: 24px;
         line-height: 29px;
         padding: 0;
@@ -52,11 +51,9 @@
 
 .buy-tab {
     display: inline-block;
-    color: #fff;
     margin: 16px auto;
     text-align: left;
     padding: 10px;
-    background: rgba(29, 46, 76, 0.85) !important;
     width: 100%;
     border-radius: 20px;
     font-size: 30px;
@@ -64,6 +61,7 @@
     align-items: center;
     position: relative;
     cursor: pointer;
+    color: #4f4e4e;
     img {
         width: 42px;
         height: 42px;
@@ -83,7 +81,7 @@
     font-size: 24px;
     line-height: 29px;
     color: #ffffff;
-    background: rgba(246, 229, 38, 0.75);
+    background:rgba(150, 150, 150, 0.6);
     border-radius: 60px;
     padding: 4px 10px;
     white-space: nowrap;
