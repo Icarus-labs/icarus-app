@@ -13,7 +13,7 @@ import DepositModal from "components/DepositModal";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const { address, currentToken, item } = props;
+  const { address, currentToken, item, earnedChanged } = props;
   const [poolInfo, setPoolInfo] = useState({});
   const network = useSelector((state) => state.setting.network);
   const mode = useSelector((state) => state.setting.mode);
@@ -34,7 +34,7 @@ export default function MineDetail(props) {
     if (!account) {
       return;
     }
-    getOtherInfo();
+    getOtherInfo(true);
     const interval = setInterval(() => {
       getOtherInfo();
     }, 4000);
@@ -43,13 +43,19 @@ export default function MineDetail(props) {
     };
   }, [account]);
 
-  const getOtherInfo = async () => {
+  const getOtherInfo = async (isFirst) => {
     const userStats = await axios.get(`/${currentToken}/pools/userstats`, {
       params: {
         account: account,
         pool: address,
       },
     });
+    // trigger
+
+    if (isFirst) {
+      earnedChanged(userStats.data.data.income_amount_pretty);
+    }
+
     setPoolInfo((prev) => {
       return {
         ...prev,

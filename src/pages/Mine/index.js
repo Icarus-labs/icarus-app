@@ -24,6 +24,8 @@ export default function Mine() {
 
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
+  const [totalMined, setTotalMined] = useState(0);
+
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
 
@@ -40,6 +42,7 @@ export default function Mine() {
 
   const getPoolInfo = async (list, currentTab) => {
     let totalTvlRaw = 0;
+
     for (let i = 0; i < list.length; i++) {
       const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
         params: {
@@ -101,7 +104,7 @@ export default function Mine() {
               <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">MINED</div>
-                  <div className="num">$22720</div>
+                  <div className="num">{totalMined} ETH</div>
                 </div>
               </Col>
             </Row>
@@ -171,6 +174,7 @@ export default function Mine() {
                 item={item}
                 address={item.address}
                 currentToken={item.currentTab}
+                earnedChanged={value => setTotalMined(prev => prev + Number(value))}
               />
             ))}
         </Row>
