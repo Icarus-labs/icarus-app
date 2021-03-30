@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import React from "react";
+import {useSelector} from 'react-redux'
 
 import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
@@ -41,6 +42,7 @@ i18n
 
 function App() {
   const { i18n } = useTranslation();
+  const theme = useSelector(state => state.setting.theme)
   // const [bgNum, setBgNum] = useState(1);
 
   // useEffect(() => {
@@ -54,7 +56,7 @@ function App() {
 
   return (
     <ConfigProvider locale={enUS}>
-      <div className={`App ${i18n.language}`}>
+      <div className={`App ${i18n.language} ${theme}`}>
         <div className="container">
           <Router>
             <AppHeader />

@@ -3,7 +3,67 @@
     // height: calc(100vh - 60px);
     // display: flex;
     // align-items: center;
-    .loading-icon{
+    .second-line{
+        height: 180px;
+    }
+    .buy-icon{
+        width: 100px;
+        margin: 0 auto;
+        display: block;
+    }
+    .handle-area {
+        margin-bottom: 32px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .block {
+            border-radius: 100px;
+            padding: 16px;
+            width: 120px;
+            display: flex;
+            align-items: center;
+            img {
+                height: 24px;
+            }
+            .home-icon {
+                margin: 0 auto;
+                display: block;
+            }
+            .moon-icon {
+                display: block;
+                margin-right: 6px;
+            }
+            .mode-icon {
+                display: block;
+                margin-right: 6px;
+            }
+        }
+    }
+    .block {
+        border-radius: 16px;
+        margin-bottom: 32px;
+        text-align: left;
+        .title {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .num {
+            font-size: 32px;
+        }
+        &.tvl {
+            margin-bottom: 32px;
+            height: 180px;
+            .title {
+                font-size: 22px;
+            }
+            .num {
+                text-align: center;
+                font-size: 56px;
+            }
+        }
+    }
+    .loading-icon {
         color: #fff;
         font-size: 44px;
         display: block;
@@ -22,27 +82,27 @@
             align-items: center;
             position: relative;
             cursor: pointer;
-            &:hover{
-                &.inactive{
-                    &::after{
-                        content:"";
+            &:hover {
+                &.inactive {
+                    &::after {
+                        content: "";
                         display: none;
                     }
                 }
             }
-            &.inactive{
-                &::after{
-                    content:"";
+            &.inactive {
+                &::after {
+                    content: "";
                     position: absolute;
                     top: 0;
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    background: rgba(48, 48, 48, .35);
+                    background: rgba(48, 48, 48, 0.35);
                     border-radius: 20px;
                 }
             }
-            img{
+            img {
                 width: 42px;
                 height: 42px;
                 margin-right: 16px;

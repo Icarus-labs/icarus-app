@@ -165,7 +165,7 @@ export default function AppHeader() {
           </Link>
         </div>
 
-        <ul className="nav">
+        {/* <ul className="nav">
           <li>
             <a href="https://icarus.finance" target="_blank">
               HOME
@@ -177,18 +177,18 @@ export default function AppHeader() {
           <li>
             <Link to="/mine">MINE</Link>
           </li>
-          {/* <li>
+          <li>
           <a
             href="https://icarus-finance.medium.com/connecting-your-wallet-and-staking-zeth-f35787e50ab2"
             target="_blank"
           >
             GUIDES
           </a>
-        </li> */}
-          {/* <li>
+        </li>
+          <li>
           <Link to="/boardroom">BOARDROOM</Link>
-        </li> */}
-        </ul>
+        </li>
+        </ul> */}
         <div>
           <a className="btn-trans">
             <img src={ICALogo} /> ${Number(icaBalance)}

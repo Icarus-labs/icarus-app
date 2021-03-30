@@ -411,3 +411,26 @@ img {
     margin-right: 12px;
     box-sizing: content-box;
 }
+
+a {
+    color: #4f4e4e !important;
+}
+
+.App.purple {
+    color: #fff;
+    background: linear-gradient(to bottom, #720a84, #5c0f81, #51127f);
+    a {
+        color: #fff !important;
+    }
+    .block {
+        background: linear-gradient(
+            to bottom,
+            rgba(81, 18, 127, 0.25),
+            rgba(92, 15, 129, 0.25),
+            rgba(81, 18, 127, 0.25)
+        );
+        .btn {
+            background: linear-gradient(to bottom, #720a84, #5c0f81, #51127f);
+        }
+    }
+}

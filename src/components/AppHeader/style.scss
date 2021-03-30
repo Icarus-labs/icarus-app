@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    padding: 32px 0;
     .header-left{
         display: flex;
     }
@@ -33,9 +33,9 @@
             margin: 0 32px;
         }
     }
-    a {
-        color: #4f4e4e;
-    }
+    // a {
+    //     color: #4f4e4e;
+    // }
     .btn {
         color: #fff;
         padding: 6px 16px;
