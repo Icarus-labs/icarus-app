@@ -4,3 +4,18 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.line-block {
+    display: block;
+    margin-bottom: 32px;
+    width: 100%;
+    .btns {
+        display: flex;
+        margin-top: 16px;
+        justify-content: space-between;
+        align-items: center;
+        .btn {
+            width: 25%
+        }
+    }
+}
