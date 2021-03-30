@@ -15,7 +15,7 @@ export default function NetworkModal(props) {
     >
       <div>Please switch network to {networkError}</div>
       <Button
-        className="btn-yellow"
+        className="btn"
         onClick={() => onCancel()}
       >
         OK

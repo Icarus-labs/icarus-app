@@ -6,6 +6,10 @@
     .second-line{
         height: 180px;
     }
+    .home-icon-link{
+        display: block;
+        margin: 0 auto;
+    }
     .buy-icon{
         width: 100px;
         margin: 0 auto;
@@ -109,11 +113,11 @@
             }
         }
     }
-    .pool-list {
-        .pool-item {
-            margin: 16px;
-        }
-    }
+    // .pool-list {
+    //     .pool-item {
+    //         margin: 16px;
+    //     }
+    // }
     .coming-content {
         text-align: center;
         font-size: 24px;
@@ -129,5 +133,13 @@
     @media screen and (max-width: 992px) {
         height: unset;
         display: block;
+    }
+    @media screen and (max-width: 768px) {
+       .second-line{
+           height: unset;
+       }
+       .handle-area{
+           height: 150px;
+       }
     }
 }

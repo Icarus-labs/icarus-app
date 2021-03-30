@@ -160,7 +160,7 @@ export default function AppHeader() {
             <MenuOutlined className="menu-icon" />
           </Dropdown>
           <Link to="/" className="logo-text">
-            <img src={LogoLight} />
+            <img src={LogoLight} className="icon" />
             ICARUS.FINANCE
           </Link>
         </div>
@@ -190,9 +190,9 @@ export default function AppHeader() {
         </li>
         </ul> */}
         <div>
-          <a className="btn-trans">
+          {/* <a className="btn-trans">
             <img src={ICALogo} /> ${Number(icaBalance)}
-          </a>
+          </a> */}
           {wallet.status === "connected" ? (
             <Tooltip title={account}>
               <a className="btn">

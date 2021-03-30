@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import config from "config";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "utils/axios";
+import MineDetail from "../MineDetail";
 
 import "./style.scss";
 
@@ -25,11 +26,9 @@ export default function Mine() {
   const dispatch = useDispatch();
 
   const [poolList, setPoolList] = useState([]);
+  const [totalTvl, setTotalTvl] = useState(0)
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
-
-
-  console.log(network, 'NETWORKKKKKKK')
 
   const buyContractAddress = config[network].buyContractAddress;
   const scanUrl = config[network].scanUrl;
@@ -46,6 +45,7 @@ export default function Mine() {
   };
 
   const getPoolInfo = async (list, currentTab) => {
+    let totalTvlRaw = 0
     for (let i = 0; i < list.length; i++) {
       const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
         params: {
@@ -57,7 +57,10 @@ export default function Mine() {
       list[i].reward_apy = poolInfo.data.data.reward_apy;
       list[i].tvl = poolInfo.data.data.tvl;
       list[i].currentTab = currentTab;
+
+      totalTvlRaw += Number(list[i].tvl)
     }
+    setTotalTvl(prev => prev + totalTvlRaw)
     setPoolList((prev) => prev.concat(list));
   };
 
@@ -106,20 +109,20 @@ export default function Mine() {
             </div>
           </Col>
         </Row> */}
-        <Row gutter={64}>
-          <Col lg={12}>
+        <Row gutter={44}>
+          <Col xs={24} lg={12}>
             <div className="tvl block">
               <div className="title">TVL</div>
-              <div className="num">$2735809</div>
+              <div className="num">${totalTvl}</div>
             </div>
-            <Row gutter={64}>
-              <Col lg={12}>
+            <Row gutter={44}>
+              <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">TOTAL</div>
                   <div className="num">$22720</div>
                 </div>
               </Col>
-              <Col lg={12}>
+              <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">MINED</div>
                   <div className="num">$22720</div>
@@ -127,41 +130,44 @@ export default function Mine() {
               </Col>
             </Row>
           </Col>
-          <Col lg={12}>
+          <Col xs={24} lg={12}>
             <div className="handle-area">
               <div className="block">
-                <a href="https://icarus.finance" target="_blank">
-                  <img className="home-icon" src={HomeIcon} />
+                <a href="https://icarus.finance" target="_blank" className="home-icon-link">
+                  <img className="home-icon icon" src={HomeIcon} />
                 </a>
               </div>
               <div className="block">
-                <img className="moon-icon" src={MoonIcon} />
-                <Switch checked={theme === "purple"} onChange={changeTheme} />
+                <img className="moon-icon icon" src={MoonIcon} />
+                <Switch className="option-switch" checked={theme === "purple"} onChange={changeTheme} />
               </div>
               <div className="block">
-                <img className="mode-icon" src={ModeIcon} />
-                <Switch checked={mode === "line"} onChange={changeMode} />
+                <img className="mode-icon icon" src={ModeIcon} />
+                <Switch className="option-switch" checked={mode === "line"} onChange={changeMode} />
               </div>
             </div>
             <div className="block second-line">
               <Row>
-                <Col md={8}>
+                <Col xs={24} md={8}>
                   <img src={BuyIcaIcon} className="buy-icon" />
                   <Link to="/">
                     <Button className="btn">BUY ICA</Button>
                   </Link>
                 </Col>
-                <Col md={8}>
+                <Col xs={24} md={8}>
                   <img src={BuyZbtcIcon} className="buy-icon" />
-                  <Link to="/">
+                  <Link to="/buy">
                     <Button className="btn">BUY ZBTC</Button>
                   </Link>
                 </Col>
-                <Col md={8}>
+                <Col xs={24} md={8}>
                   <img src={BuyZethIcon} className="buy-icon" />
-                  <Link to="/">
+                  <a
+                    href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
+                    target="_blank"
+                  >
                     <Button className="btn">BUY ZETH</Button>
-                  </Link>
+                  </a>
                 </Col>
               </Row>
             </div>
@@ -172,11 +178,26 @@ export default function Mine() {
         <Row className="pool-list">
           {poolList &&
             poolList.map((item) => (
-              <Col key={item.address} xs={24} lg={12}>
-                <div className="pool-item block">
-                  <div className="info-line top-line">
-                    <span className="tokens">
-                      {item.stake_token.split("-").map((token) => (
+              <Row key={item.address} type="flex" justify="center" gutter={44}>
+                <Col xs={24} lg={6}>
+                  <div className="pool-item block">
+                    <div className="info-line top-line">
+                      <span className="tokens">
+                        {item.stake_token.split("-").map((token) => (
+                          <a
+                            target="_blank"
+                            className="token-item-link"
+                            href={
+                              item.stake_token === "ZETH"
+                                ? `${scanUrl}/${buyContractAddress}`
+                                : ""
+                            }
+                          >
+                            <img src={tokenImg[token]} className="token-item" />
+                          </a>
+                        ))}
+                      </span>
+                      <span className="deposit-by">
                         <a
                           target="_blank"
                           href={
@@ -185,63 +206,56 @@ export default function Mine() {
                               : ""
                           }
                         >
-                          <img src={tokenImg[token]} className="token-item" />
+                          {item.stake_token}
                         </a>
-                      ))}
-                    </span>
-                    <span className="deposit-by">
-                      <a
-                        target="_blank"
-                        href={
-                          item.stake_token === "ZETH"
-                            ? `${scanUrl}/${buyContractAddress}`
+                      </span>
+                    </div>
+                    <div className="info-line">
+                      <span>EARN:</span>
+                      <span>
+                        {item.reward_tokens.map((token, index) => (
+                          <>
+                            <span className={token === "ICA" ? "grey" : ""}>
+                              {token}
+                            </span>{" "}
+                            {index !== item.reward_tokens.length - 1 ? "+" : ""}
+                          </>
+                        ))}
+                      </span>
+                    </div>
+                    <div className="info-line">
+                      <span>APR:</span>
+                      {/* <span>45.72%</span> */}
+                      <Tooltip
+                        title={`${
+                          item.income_apy
+                            ? "ETH APR: " + item.income_apy + "%"
                             : ""
-                        }
+                        } | ${
+                          item.reward_apy
+                            ? "ICA APR: " + item.reward_apy + "%"
+                            : ""
+                        }`}
                       >
-                        {item.stake_token}
-                      </a>
-                    </span>
-                  </div>
-                  <div className="info-line">
-                    <span>EARN:</span>
-                    <span>
-                      {item.reward_tokens.map((token, index) => (
-                        <>
-                          <span className={token === "ICA" ? "grey" : ""}>
-                            {token}
-                          </span>{" "}
-                          {index !== item.reward_tokens.length - 1 ? "+" : ""}
-                        </>
-                      ))}
-                    </span>
-                  </div>
-                  <div className="info-line">
-                    <span>APR:</span>
-                    {/* <span>45.72%</span> */}
-                    <Tooltip
-                      title={`${
-                        item.income_apy
-                          ? "ETH APR: " + item.income_apy + "%"
-                          : ""
-                      } | ${
-                        item.reward_apy
-                          ? "ICA APR: " + item.reward_apy + "%"
-                          : ""
-                      }`}
-                    >
-                      <span>{item.apy || 0}%</span>
-                    </Tooltip>
-                  </div>
-                  <div className="info-line">
-                    <span>TVL:</span>
-                    <span>${item.tvl || 0}</span>
-                  </div>
+                        <span>{item.apy || 0}%</span>
+                      </Tooltip>
+                    </div>
+                    <div className="info-line">
+                      <span>TVL:</span>
+                      <span>${item.tvl || 0}</span>
+                    </div>
 
-                  <Link to={`/mine/${item.address}?token=${item.currentTab}`}>
-                    <Button className="btn">SELECT</Button>
-                  </Link>
-                </div>
-              </Col>
+                    {/* <Link to={`/mine/${item.address}`}>
+                      <Button className="btn">SELECT</Button>
+                    </Link> */}
+                  </div>
+                </Col>
+
+                <MineDetail
+                  address={item.address}
+                  currentToken={item.currentTab}
+                />
+              </Row>
             ))}
         </Row>
       </div>

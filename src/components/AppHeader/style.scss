@@ -4,22 +4,21 @@
     align-items: center;
     justify-content: space-between;
     padding: 32px 0;
-    .header-left{
+
+    .header-left {
         display: flex;
-    }
-    .menu-icon{
-        // color: #F6E526;
     }
     .logo-text {
         font-size: 26px;
-        font-family: 'sonny';
-        img{
+        font-family: "sonny";
+        img {
             width: 40px;
             margin-right: 8px;
         }
+        color: #4f4e4e !important;
         // color: #F6E526;
     }
-    .mobile-nav{
+    .mobile-nav {
         display: none;
         margin-right: 12px;
         font-size: 24px;
@@ -38,21 +37,21 @@
     // }
     .btn {
         color: #fff;
-        padding: 6px 16px;
+        padding: 8px 18px;
         text-align: center;
-        font-size: 14px;
-        line-height: 16px;
+        font-size: 16px;
+        line-height: 18px;
         border-radius: 50px;
         margin-left: 6px;
     }
-    .btn-trans{
+    .btn-trans {
         padding: 6px 16px 6px 4px;
         text-align: center;
         font-size: 14px;
         line-height: 16px;
         border-radius: 50px;
         margin-left: 6px;
-        img{
+        img {
             margin-right: 8px;
             width: 20px;
         }
@@ -61,7 +60,7 @@
         .logo-text {
             font-size: 20px;
         }
-        .btn{
+        .btn {
             padding: 8px 16px;
         }
         .nav {
@@ -70,12 +69,12 @@
             }
         }
     }
-    @media screen and (max-width: 768px){
-        .nav{
+    @media screen and (max-width: 768px) {
+        .nav {
             display: none;
         }
-        .mobile-nav{
-            display:inline-block;
+        .mobile-nav {
+            display: inline-block;
         }
     }
 }

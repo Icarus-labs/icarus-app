@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Button, message, Tooltip } from "antd";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import tokenImg from "config/tokenImg";
 import axios from "utils/axios";
 import { useWallet } from "use-wallet";
@@ -10,15 +10,15 @@ import BackButton from "assets/back.svg";
 
 import "./style.scss";
 
-export default function MineDetail() {
-  const { address } = useParams();
+export default function MineDetail(props) {
+  const { address, currentToken } = props;
   const [poolInfo, setPoolInfo] = useState({});
   const [depositModalVisible, setDepositModalVisible] = useState(false);
   const wallet = useWallet();
   const { account } = wallet;
-  const location = useLocation()
+  // const location = useLocation()
 
-  const currentToken = new URLSearchParams(location.search).get('token'); 
+  // const currentToken = new URLSearchParams(location.search).get('token');
 
   useEffect(() => {
     getPool();
@@ -110,150 +110,113 @@ export default function MineDetail() {
   // };
 
   return (
-    <div className="page-mine-detail">
-      <Link to="/mine">
-        <img src={BackButton} className="back-button" />
-      </Link>
-      <div className="container">
-        <Row
-          gutter={{ md: 32 }}
-          className="pool-list"
-          type="flex"
-          justify="center"
-        >
-          <Col xs={24} lg={12} xl={8}>
-            <div className="pool-item block">
-              <div className="info-line top-line">
-                <span className="tokens">
-                  {poolInfo.stake_token &&
-                    poolInfo.stake_token
-                      .split("-")
-                      .map((token) => (
-                        <img
-                          key={token}
-                          src={tokenImg[token]}
-                          className="token-item"
-                        />
-                      ))}
-                </span>
-                <span className="deposit-by">{poolInfo.stake_token}</span>
-              </div>
-
-              <div className="info-line">
-                <span>STAKED:</span>
-                <span>{poolInfo.staked ? Number(poolInfo.staked) : 0}</span>
-              </div>
-              <div className="info-line">
-                <span>APR</span>
-                {/* <span>45.72%</span> */}
-                <Tooltip
-                  title={`${
-                    poolInfo.income_apy
-                      ? "ETH APR: " + poolInfo.income_apy + "%"
-                      : ""
-                  }   ${
-                    poolInfo.reward_apy
-                      ? "ICA APR: " + poolInfo.reward_apy + "%"
-                      : ""
-                  }`}
-                >
-                  <span>{poolInfo.apy}%</span>
-                </Tooltip>
-              </div>
-              <div className="info-line">
-                <span>TVL:</span>
-                <span>${poolInfo.tvl}</span>
-              </div>
-              <Button
-                className="btn"
-                onClick={() => {
-                  setDepositModalVisible(true);
-                }}
-              >
-                STAKE
-              </Button>
-            </div>
-          </Col>
-          <Col xs={24} lg={12} xl={8}>
-            <div className="pool-item block">
-              <div className="info-line top-line">
-                <span className="tokens">
-                  {poolInfo &&
-                    poolInfo.reward_tokens &&
-                    poolInfo.reward_tokens.map((token) => (
-                      <img
-                        key={token}
-                        src={tokenImg[token]}
-                        className="token-item"
-                      />
-                    ))}
-                </span>
-                <span className="deposit-by">EARNED</span>
-              </div>
-              <div className="info-line">
-                <span>{currentToken === 'zeth' ? 'ETH' : 'BTC'}:</span>
-                <span>{poolInfo.earnedBETH || 0}</span>
-              </div>
-              {/* <div className="info-line">
-                <span>ICA:</span>
-                <span>{poolInfo.earnedICA || 0}</span>
-              </div> */}
-              {/* {poolInfo &&
-                poolInfo.reward_tokens &&
-                poolInfo.reward_tokens.map((item) => (
-                  <div className="info-line">
-                    <span>{item}:</span>
-                    <span>0</span>
-                  </div>
-                ))} */}
-              <div className="info-line">
-                <Button
-                  onClick={() => {
-                    doClaim();
-                  }}
-                  className="btn"
-                >
-                  CLAIM
-                </Button>
-              </div>
-              {/* <div
-                className={`info-line ${
-                  poolInfo.reward_tokens && poolInfo.reward_tokens.length > 1
-                    ? "multiple"
-                    : ""
-                }`}
-              >
-                {poolInfo &&
-                  poolInfo.reward_tokens &&
-                  poolInfo.reward_tokens.map((item) => (
-                    <Button
-                      onClick={() => {
-                        setDepositModalVisible(true);
-                      }}
-                      className="btn-yellow"
-                    >
-                      CLAIM {item}
-                    </Button>
+    <>
+      <Col xs={24} lg={6}>
+        <div className="pool-item block">
+          <div className="info-line top-line">
+            <span className="tokens">
+              {poolInfo.stake_token &&
+                poolInfo.stake_token
+                  .split("-")
+                  .map((token) => (
+                    <img
+                      key={token}
+                      src={tokenImg[token]}
+                      className="token-item"
+                    />
                   ))}
-              </div> */}
-            </div>
-          </Col>
-        </Row>
-        <div className="withdraw-area">
+            </span>
+            <span className="deposit-by">{poolInfo.stake_token}</span>
+          </div>
+
+          <div className="info-line">
+            <span>STAKED:</span>
+            <span>{poolInfo.staked ? Number(poolInfo.staked) : 0}</span>
+          </div>
+          <div className="info-line">
+            <span>APR</span>
+            {/* <span>45.72%</span> */}
+            <Tooltip
+              title={`${
+                poolInfo.income_apy
+                  ? "ETH APR: " + poolInfo.income_apy + "%"
+                  : ""
+              }   ${
+                poolInfo.reward_apy
+                  ? "ICA APR: " + poolInfo.reward_apy + "%"
+                  : ""
+              }`}
+            >
+              <span>{poolInfo.apy}%</span>
+            </Tooltip>
+          </div>
+          <div className="info-line">
+            <span>TVL:</span>
+            <span>${poolInfo.tvl}</span>
+          </div>
           <Button
             className="btn"
             onClick={() => {
-              doExit();
+              setDepositModalVisible(true);
             }}
           >
-            Settle &amp; Withdraw
+            STAKE
           </Button>
-          <div className="hint">
+        </div>
+      </Col>
+      <Col xs={24} lg={6}>
+        <div className="pool-item block">
+          <div className="info-line top-line">
+            <span className="tokens">
+              {poolInfo &&
+                poolInfo.reward_tokens &&
+                poolInfo.reward_tokens.map((token) => (
+                  <img
+                    key={token}
+                    src={tokenImg[token]}
+                    className="token-item"
+                  />
+                ))}
+            </span>
+            <span className="deposit-by">EARNED</span>
+          </div>
+          <div className="info-line">
+            <span>{currentToken === "zeth" ? "ETH" : "BTC"}:</span>
+            <span>{poolInfo.earnedBETH || 0}</span>
+          </div>
+          <div className="info-line">
+            <Button
+              onClick={() => {
+                doClaim();
+              }}
+              className="btn"
+            >
+              CLAIM
+            </Button>
+          </div>
+        </div>
+      </Col>
+      <Col xs={24} lg={6}>
+        <div className="pool-item block">
+          <div className="info-line top-line single">
+            <span className="deposit-by">Withdraw</span>
+          </div>
+          <div className="info-line hint">
             As you unstake tokens from the pool, the smart contract will
             automatically harvest the ETH and ICA.
           </div>
+          <div className="info-line">
+            <Button
+              onClick={() => {
+                doExit();
+              }}
+              className="btn"
+            >
+              Settle &amp; Withdraw
+            </Button>
+          </div>
         </div>
-      </div>
+      </Col>
       {depositModalVisible && (
         <DepositModal
           poolAddress={address}
@@ -264,6 +227,6 @@ export default function MineDetail() {
           }}
         />
       )}
-    </div>
+    </>
   );
 }

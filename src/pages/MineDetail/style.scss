@@ -1,37 +1,6 @@
-.page-mine-detail {
-    text-align: center;
-    height: calc(100vh - 60px);
+.pool-item {
+    min-height: 250px;
     display: flex;
-    align-items: center;
-    position: relative;
-  
-    .hint{
-        margin-top: 16px;
-        font-size: 20px;
-    }
-    .pool-list {
-        .pool-item {
-            margin: 16px;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-    }
-    .back-button{
-        width: 36px;
-        height: 36px;
-        position: absolute;
-        top: 12px;
-        left:0;
-        z-index: 30;
-    }
-    @media screen and (max-width: 992px) {
-        height: unset;
-        display: block;
-        .back-button{
-            width: 24px;
-            height: 24px;
-        }
-    }
+    flex-direction: column;
+    justify-content: space-between;
 }
