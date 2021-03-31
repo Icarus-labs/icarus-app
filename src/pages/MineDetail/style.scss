@@ -3,6 +3,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    &.is-line{
+        min-height: unset;
+    }
+}
+
+.toggle-btn{
+    margin-left: 12px;
 }
 
 .line-block {

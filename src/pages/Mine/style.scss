@@ -10,6 +10,10 @@
         display: block;
         margin: 0 auto;
     }
+    .line-wrapper{
+        width: 100%;
+        padding: 24px 22px;
+    }
     .buy-icon{
         width: 100px;
         margin: 0 auto;
@@ -133,6 +137,9 @@
     @media screen and (max-width: 992px) {
         height: unset;
         display: block;
+        // .line-wrapper{
+        //     width: 100%;
+        // }
     }
     @media screen and (max-width: 768px) {
        .second-line{

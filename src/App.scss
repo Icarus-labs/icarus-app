@@ -322,6 +322,12 @@ img {
     }
     .info-line.top-line {
         margin-bottom: 20px;
+        justify-content: space-between;
+    }
+
+    .top-line-wrapper{
+        display: flex;
+        align-items: center;
         justify-content: flex-start;
     }
     .deposit-by {

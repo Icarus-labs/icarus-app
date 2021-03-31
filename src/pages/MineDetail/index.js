@@ -6,6 +6,7 @@ import { useWallet } from "use-wallet";
 import config from "config";
 import axios from "utils/axios";
 import mm from "components/mm";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import DepositModal from "components/DepositModal";
 import ConnectWallet from "components/ConnectWallet";
@@ -17,6 +18,7 @@ import "./style.scss";
 export default function MineDetail(props) {
   const { address, currentToken, item, earnedChanged } = props;
   const [poolInfo, setPoolInfo] = useState({});
+  const [showMore, setShowMore] = useState(false);
   const [approveParams, setApproveParams] = useState({ txs: [] });
   const network = useSelector((state) => state.setting.network);
   const mode = useSelector((state) => state.setting.mode);
@@ -121,7 +123,7 @@ export default function MineDetail(props) {
       };
     });
 
-    const status = await mm.sendTransaction(txnParams, "Claim Reward");
+    await mm.sendTransaction(txnParams, "Claim Reward");
 
     // if (status) {
     //   message.success("Success");
@@ -148,7 +150,167 @@ export default function MineDetail(props) {
 
   return (
     <>
-      {mode === "card" ? (
+      <div
+        className={`pool-item line-block ${
+          mode === "card" ? "block is-card" : "is-line"
+        }`}
+      >
+        <div className="info-line top-line">
+          <div className="top-line-wrapper">
+            <span className="tokens">
+              {item.stake_token.split("-").map((token) => (
+                <a
+                  target="_blank"
+                  className="token-item-link"
+                  href={
+                    item.stake_token === "ZETH"
+                      ? `${scanUrl}/${buyContractAddress}`
+                      : ""
+                  }
+                >
+                  <img src={tokenImg[token]} className="token-item" />
+                </a>
+              ))}
+            </span>
+            <span>
+              <span className="deposit-by">
+                <a
+                  target="_blank"
+                  href={
+                    item.stake_token === "ZETH"
+                      ? `${scanUrl}/${buyContractAddress}`
+                      : ""
+                  }
+                >
+                  {item.stake_token}
+                </a>
+              </span>
+              <span className="tvl">TVL: ${item.tvl || 0}</span>
+            </span>
+          </div>
+          {mode === "line" && (
+            <div>
+              <span>APR:</span>
+              <Tooltip
+                title={`${
+                  item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
+                } | ${
+                  item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                }`}
+              >
+                <span>{item.apy || 0}%</span>
+              </Tooltip>
+
+              {showMore ? (
+                <UpOutlined className="toggle-btn" onClick={() => setShowMore(false)} />
+              ) : (
+                <DownOutlined className="toggle-btn" onClick={() => setShowMore(true)} />
+              )}
+            </div>
+          )}
+        </div>
+        <div className="info-line apr">
+          {mode === "card" && (
+            <>
+              <span>APR:</span>
+              <Tooltip
+                title={`${
+                  item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
+                } | ${
+                  item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                }`}
+              >
+                <span>{item.apy || 0}%</span>
+              </Tooltip>
+            </>
+          )}
+        </div>
+        {(mode === "card" || showMore) && (
+          <>
+            <div className="info-line">
+              <span>EARN:</span>
+              <span>
+                {item.reward_tokens.map((token, index) => (
+                  <>
+                    <span className={token === "ICA" ? "grey" : ""}>
+                      {token}
+                    </span>{" "}
+                    {index !== item.reward_tokens.length - 1 ? "+" : ""}
+                  </>
+                ))}
+              </span>
+            </div>
+
+            <div className="info-line">
+              <span>STAKED:</span>
+              <span>
+                {poolInfo.staked ? Number(poolInfo.staked) : 0}{" "}
+                {item.stake_token}
+              </span>
+            </div>
+
+            <div className="info-line">
+              <span>EARNED:</span>
+              <span>
+                {poolInfo.earnedBETH || 0}{" "}
+                {currentToken === "zeth" ? "ETH" : "BTC"}
+              </span>
+            </div>
+
+            <div className="btns">
+              {wallet.status === "connected" ? (
+                approveParams.txs && approveParams.txs.length > 0 ? (
+                  <Button onClick={doApprove} className="btn">
+                    Approve
+                  </Button>
+                ) : poolInfo.earnedBETH > 0 ? (
+                  <>
+                    <div className="quick-btns">
+                      <Button
+                        onClick={() => {
+                          setDepositModalVisible(true);
+                        }}
+                        className="btn"
+                      >
+                        +
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          doExit();
+                        }}
+                        className="btn"
+                      >
+                        -
+                      </Button>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        doClaim();
+                      }}
+                      className="btn"
+                    >
+                      CLAIM
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    className="btn"
+                    onClick={() => {
+                      setDepositModalVisible(true);
+                    }}
+                  >
+                    STAKE
+                  </Button>
+                )
+              ) : (
+                <ConnectWallet />
+              )}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* {mode === "card" ? (
         <div className="pool-item line-block block">
           <div className="info-line top-line">
             <span className="tokens">
@@ -421,7 +583,7 @@ export default function MineDetail(props) {
             </div>
           </Col>
         </Row>
-      )}
+      )} */}
 
       {depositModalVisible && (
         <DepositModal

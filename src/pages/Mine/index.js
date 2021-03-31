@@ -166,22 +166,26 @@ export default function Mine() {
         </Row>
 
         {loadingPools && <LoadingOutlined className="loading-icon" />}
-        <Row className="pool-list" type="flex" justify="center" gutter={44}>
-          {poolList &&
-            poolList.map((item) => (
-              <Col xs={24} lg={6}>
-                <MineDetail
-                  key={item.address}
-                  item={item}
-                  address={item.address}
-                  currentToken={item.currentTab}
-                  earnedChanged={(value) =>
-                    setTotalMined((prev) => prev + Number(value))
-                  }
-                />
-              </Col>
-            ))}
-        </Row>
+        {!loadingPools && (
+          <div className={mode === "line" ? "block line-wrapper" : ""}>
+            <Row className="pool-list" type="flex" justify="center" gutter={44}>
+              {poolList &&
+                poolList.map((item) => (
+                  <Col xs={24} lg={mode === "line" ? 24 : 6}>
+                    <MineDetail
+                      key={item.address}
+                      item={item}
+                      address={item.address}
+                      currentToken={item.currentTab}
+                      earnedChanged={(value) =>
+                        setTotalMined((prev) => prev + Number(value))
+                      }
+                    />
+                  </Col>
+                ))}
+            </Row>
+          </div>
+        )}
       </div>
     </div>
   );
