@@ -590,6 +590,7 @@ export default function MineDetail(props) {
           poolAddress={address}
           balance={poolInfo.lpAmount}
           stakeToken={poolInfo.stake_token}
+          currentToken={currentToken}
           onCancel={() => {
             setDepositModalVisible(false);
           }}

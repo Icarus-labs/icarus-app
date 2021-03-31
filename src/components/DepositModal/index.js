@@ -6,7 +6,7 @@ import { useWallet } from "use-wallet";
 import "./style.scss";
 
 export default function DepositModal(props) {
-  const { onCancel, poolAddress, balance, stakeToken } = props;
+  const { onCancel, poolAddress, balance, stakeToken, currentToken } = props;
   const [amount, setAmount] = useState();
   const wallet = useWallet();
 
@@ -22,7 +22,7 @@ export default function DepositModal(props) {
       message.error("Please input amount!");
       return false;
     }
-    const result = await axios.post("/pools/stake", {
+    const result = await axios.post(`${currentToken}/pools/stake`, {
       amount: amount,
       account: wallet.account,
       pool: poolAddress,

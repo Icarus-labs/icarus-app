@@ -108,7 +108,7 @@ export default function Buy() {
   return (
     <div className="page-buy">
       <div className="container">
-        <Row type="flex" justify="center">
+        {/* <Row type="flex" justify="center">
           <Col xs={24} md={12} lg={8}>
             <a
               href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
@@ -119,7 +119,7 @@ export default function Buy() {
               DODO
             </a>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row className="pool-list" type="flex" justify="center">
           <Col xs={24} md={12} lg={8}>

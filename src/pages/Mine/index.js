@@ -139,12 +139,12 @@ export default function Mine() {
             </div>
             <div className="block second-line">
               <Row>
-                {/* <Col xs={24} md={8}>
+                <Col xs={24} md={8}>
                   <img src={BuyIcaIcon} className="buy-icon" />
-                  <Link to="/">
+                  <a target="_blank" href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x95111f630ac215eb74599ed42c67e2c2790d69e2">
                     <Button className="btn">BUY ICA</Button>
-                  </Link>
-                </Col> */}
+                  </a>
+                </Col>
                 <Col xs={24} md={8}>
                   <img src={BuyZbtcIcon} className="buy-icon" />
                   <Link to="/buy">
