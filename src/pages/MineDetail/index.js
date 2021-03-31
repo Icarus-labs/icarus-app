@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Button, message, Tooltip } from "antd";
 // import { Link, useLocation } from "react-router-dom";
 import tokenImg from "config/tokenImg";
+import { useWallet } from "use-wallet";
 import config from "config";
 import axios from "utils/axios";
-import { useWallet } from "use-wallet";
 import mm from "components/mm";
 import { useSelector } from "react-redux";
 import DepositModal from "components/DepositModal";
+import ConnectWallet from "components/ConnectWallet";
+
 // import BackButton from "assets/back.svg";
 
 import "./style.scss";
@@ -15,6 +17,7 @@ import "./style.scss";
 export default function MineDetail(props) {
   const { address, currentToken, item, earnedChanged } = props;
   const [poolInfo, setPoolInfo] = useState({});
+  const [approveParams, setApproveParams] = useState({ txs: [] });
   const network = useSelector((state) => state.setting.network);
   const mode = useSelector((state) => state.setting.mode);
   const [depositModalVisible, setDepositModalVisible] = useState(false);
@@ -74,6 +77,14 @@ export default function MineDetail(props) {
       },
     });
     setPoolInfo(result.data.data);
+
+    // check allowance
+    const approveResult = await axios.post(`/${currentToken}/pools/approve`, {
+      pool: address,
+      account: account,
+    });
+
+    setApproveParams(approveResult.data.data);
   };
 
   const doClaim = async () => {
@@ -112,18 +123,155 @@ export default function MineDetail(props) {
 
     const status = await mm.sendTransaction(txnParams, "Claim Reward");
 
-    if (status) {
-      message.success("Success");
-    }
+    // if (status) {
+    //   message.success("Success");
+    // }
   };
 
-  // const LockedButton = () => {
-  //   return <Button className="btn-yellow">LOCKED</Button>;
-  // };
+  const doApprove = async () => {
+    let txnParams = approveParams.txs.map((item) => {
+      return {
+        from: account,
+        to: item.contract,
+        data: item.calldata,
+      };
+    });
+
+    const status = await mm.sendTransaction(txnParams, "Approve");
+
+    if (status) {
+      // message.success("Success");
+      setApproveParams({ txs: [] });
+      getPool();
+    }
+  };
 
   return (
     <>
       {mode === "card" ? (
+        <div className="pool-item line-block block">
+          <div className="info-line top-line">
+            <span className="tokens">
+              {item.stake_token.split("-").map((token) => (
+                <a
+                  target="_blank"
+                  className="token-item-link"
+                  href={
+                    item.stake_token === "ZETH"
+                      ? `${scanUrl}/${buyContractAddress}`
+                      : ""
+                  }
+                >
+                  <img src={tokenImg[token]} className="token-item" />
+                </a>
+              ))}
+            </span>
+            <span>
+              <span className="deposit-by">
+                <a
+                  target="_blank"
+                  href={
+                    item.stake_token === "ZETH"
+                      ? `${scanUrl}/${buyContractAddress}`
+                      : ""
+                  }
+                >
+                  {item.stake_token}
+                </a>
+              </span>
+              <span className="tvl">TVL: ${item.tvl || 0}</span>
+            </span>
+          </div>
+          <div className="info-line apr">
+            <span>APR:</span>
+            <Tooltip
+              title={`${
+                item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
+              } | ${
+                item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+              }`}
+            >
+              <span>{item.apy || 0}%</span>
+            </Tooltip>
+          </div>
+          <div className="info-line">
+            <span>EARN:</span>
+            <span>
+              {item.reward_tokens.map((token, index) => (
+                <>
+                  <span className={token === "ICA" ? "grey" : ""}>{token}</span>{" "}
+                  {index !== item.reward_tokens.length - 1 ? "+" : ""}
+                </>
+              ))}
+            </span>
+          </div>
+
+          <div className="info-line">
+            <span>STAKED:</span>
+            <span>
+              {poolInfo.staked ? Number(poolInfo.staked) : 0} {item.stake_token}
+            </span>
+          </div>
+
+          <div className="info-line">
+            <span>EARNED:</span>
+            <span>
+              {poolInfo.earnedBETH || 0}{" "}
+              {currentToken === "zeth" ? "ETH" : "BTC"}
+            </span>
+          </div>
+
+          <div className="btns">
+            {wallet.status === "connected" ? (
+              approveParams.txs && approveParams.txs.length > 0 ? (
+                <Button onClick={doApprove} className="btn">
+                  Approve
+                </Button>
+              ) : poolInfo.earnedBETH > 0 ? (
+                <>
+                  <div className="quick-btns">
+                    <Button
+                      onClick={() => {
+                        setDepositModalVisible(true);
+                      }}
+                      className="btn"
+                    >
+                      +
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        doExit();
+                      }}
+                      className="btn"
+                    >
+                      -
+                    </Button>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      doClaim();
+                    }}
+                    className="btn"
+                  >
+                    CLAIM
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  className="btn"
+                  onClick={() => {
+                    setDepositModalVisible(true);
+                  }}
+                >
+                  STAKE
+                </Button>
+              )
+            ) : (
+              <ConnectWallet />
+            )}
+          </div>
+        </div>
+      ) : (
         <Row type="flex" justify="center" gutter={44}>
           <Col xs={24} lg={6}>
             <div className="pool-item block">
@@ -171,7 +319,6 @@ export default function MineDetail(props) {
               </div>
               <div className="info-line">
                 <span>APR:</span>
-                {/* <span>45.72%</span> */}
                 <Tooltip
                   title={`${
                     item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
@@ -209,27 +356,6 @@ export default function MineDetail(props) {
               <div className="info-line">
                 <span>STAKED:</span>
                 <span>{poolInfo.staked ? Number(poolInfo.staked) : 0}</span>
-              </div>
-              <div className="info-line">
-                <span>APR</span>
-                {/* <span>45.72%</span> */}
-                <Tooltip
-                  title={`${
-                    poolInfo.income_apy
-                      ? "ETH APR: " + poolInfo.income_apy + "%"
-                      : ""
-                  }   ${
-                    poolInfo.reward_apy
-                      ? "ICA APR: " + poolInfo.reward_apy + "%"
-                      : ""
-                  }`}
-                >
-                  <span>{poolInfo.apy}%</span>
-                </Tooltip>
-              </div>
-              <div className="info-line">
-                <span>TVL:</span>
-                <span>${poolInfo.tvl}</span>
               </div>
               <Button
                 className="btn"
@@ -295,107 +421,6 @@ export default function MineDetail(props) {
             </div>
           </Col>
         </Row>
-      ) : (
-        <div className="pool-item line-block block">
-          <div className="info-line top-line">
-            <span className="tokens">
-              {item.stake_token.split("-").map((token) => (
-                <a
-                  target="_blank"
-                  className="token-item-link"
-                  href={
-                    item.stake_token === "ZETH"
-                      ? `${scanUrl}/${buyContractAddress}`
-                      : ""
-                  }
-                >
-                  <img src={tokenImg[token]} className="token-item" />
-                </a>
-              ))}
-            </span>
-            <span className="deposit-by">
-              <a
-                target="_blank"
-                href={
-                  item.stake_token === "ZETH"
-                    ? `${scanUrl}/${buyContractAddress}`
-                    : ""
-                }
-              >
-                {item.stake_token}
-              </a>
-            </span>
-          </div>
-          <div className="info-line">
-            <span>EARN:</span>
-            <span>
-              {item.reward_tokens.map((token, index) => (
-                <>
-                  <span className={token === "ICA" ? "grey" : ""}>{token}</span>{" "}
-                  {index !== item.reward_tokens.length - 1 ? "+" : ""}
-                </>
-              ))}
-            </span>
-          </div>
-          <div className="info-line">
-            <span>APR:</span>
-            {/* <span>45.72%</span> */}
-            <Tooltip
-              title={`${
-                item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
-              } | ${
-                item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-              }`}
-            >
-              <span>{item.apy || 0}%</span>
-            </Tooltip>
-          </div>
-          <div className="info-line">
-            <span>TVL:</span>
-            <span>${item.tvl || 0}</span>
-          </div>
-          <div className="info-line">
-            <span>STAKED:</span>
-            <span>
-              {poolInfo.staked ? Number(poolInfo.staked) : 0} {item.stake_token}
-            </span>
-          </div>
-
-          <div className="info-line">
-            <span>EARNED:</span>
-            <span>
-              {poolInfo.earnedBETH || 0}{" "}
-              {currentToken === "zeth" ? "ETH" : "BTC"}
-            </span>
-          </div>
-
-          <div className="btns">
-            <Button
-              className="btn"
-              onClick={() => {
-                setDepositModalVisible(true);
-              }}
-            >
-              STAKE
-            </Button>
-            <Button
-              onClick={() => {
-                doClaim();
-              }}
-              className="btn"
-            >
-              CLAIM
-            </Button>
-            <Button
-              onClick={() => {
-                doExit();
-              }}
-              className="btn"
-            >
-              Settle &amp; Withdraw
-            </Button>
-          </div>
-        </div>
       )}
 
       {depositModalVisible && (

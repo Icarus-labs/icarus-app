@@ -307,23 +307,33 @@ img {
 }
 
 .pool-item {
-    // padding: 24px 32px;
-    // color: #fff;
-    // background: rgba(29, 46, 76, 0.85);
     border-radius: 24px;
+    .tokens {
+        margin-right: 16px;
+    }
     .apy {
         font-size: 16px;
         margin-bottom: 8px;
     }
+    .apr {
+        border-bottom: 0.5px solid #5f6060;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+    }
     .info-line.top-line {
-        margin-bottom: 24px;
+        margin-bottom: 20px;
+        justify-content: flex-start;
     }
     .deposit-by {
-        font-size: 30px;
-        line-height: 36px;
+        font-size: 22px;
+        line-height: 26px;
         a {
             color: #4f4e4e;
         }
+    }
+    .tvl {
+        font-size: 16px;
+        display: block;
     }
     .info-line {
         font-size: 18px;
@@ -355,15 +365,15 @@ img {
         color: rgba(255, 255, 255, 0.8);
         margin: 16px auto 24px;
     }
-    .tvl {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 14px;
-        line-height: 16px;
-        color: #ffffff;
-        padding: 6px 0;
-    }
+    // .tvl {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: space-between;
+    //     font-size: 14px;
+    //     line-height: 16px;
+    //     color: #ffffff;
+    //     padding: 6px 0;
+    // }
     .btn-yellow {
         display: block;
         width: 100%;
@@ -436,20 +446,29 @@ img {
     a {
         color: #fff !important;
     }
-    .btn {
-        background: linear-gradient(to bottom, #720a84, #5c0f81, #51127f);
-    }
+    // .btn {
+    //     background: linear-gradient(to bottom, #720a84, #5c0f81, #51127f);
+    // }
     .block {
-        background: linear-gradient(
-            to bottom,
-            rgba(81, 18, 127, 0.25),
-            rgba(92, 15, 129, 0.25),
-            rgba(81, 18, 127, 0.25)
-        );
+        background: rgba(255, 255, 255, 0.25);
+        // background: linear-gradient(
+        //     to bottom,
+        //     rgba(81, 18, 127, 0.25),
+        //     rgba(92, 15, 129, 0.25),
+        //     rgba(81, 18, 127, 0.25)
+        // );
     }
     .icon {
         filter: brightness(0) invert(1);
         //   filter: sepia(51%) saturate(2878%) brightness(104%);
+    }
+    .pool-item{
+        .apr{
+            border-bottom: 0.5px solid #fff;
+        }
+    }
+    .grey{
+        color: #ccc;
     }
 }
 

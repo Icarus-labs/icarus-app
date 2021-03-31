@@ -81,7 +81,7 @@ export default function DepositModal(props) {
         onClick={() => {
           doStake();
         }}
-        className="btn-yellow"
+        className="btn"
       >
         STAKE
       </Button>
