@@ -8,6 +8,7 @@ import "./style.scss";
 export default function DepositModal(props) {
   const { onCancel, poolAddress, balance, stakeToken, currentToken } = props;
   const [amount, setAmount] = useState();
+  const [isMax, setIsMax] = useState(false)
   const wallet = useWallet();
 
   // const getAssetBalance = async () => {
@@ -18,12 +19,12 @@ export default function DepositModal(props) {
   // };
 
   const doStake = async () => {
-    if (!amount) {
+    if (!isMax && !amount) {
       message.error("Please input amount!");
       return false;
     }
     const result = await axios.post(`${currentToken}/pools/stake`, {
-      amount: amount,
+      amount: isMax ? '-1' : amount,
       account: wallet.account,
       pool: poolAddress,
     });
@@ -59,6 +60,7 @@ export default function DepositModal(props) {
           disabled={Number(balance) <= 0}
           onChange={(e) => {
             setAmount(e.target.value);
+            setIsMax(false)
           }}
         />
         {balance > 0 && (
@@ -66,6 +68,7 @@ export default function DepositModal(props) {
             className="max"
             onClick={() => {
               setAmount(balance);
+              setIsMax(true)
             }}
           >
             MAX
