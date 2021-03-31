@@ -253,7 +253,7 @@ export default function MineDetail(props) {
               <span>EARNED:</span>
               <span>
                 {poolInfo.earnedBETH || 0}{" "}
-                {currentToken === "zeth" ? "ETH" : "BTC"}
+                {currentToken === "zeth" ? "ETH" : "BTCB"}
               </span>
             </div>
 
