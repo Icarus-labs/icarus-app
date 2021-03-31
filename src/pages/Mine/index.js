@@ -98,7 +98,7 @@ export default function Mine() {
               <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">TOTAL</div>
-                  <div className="num">$22720</div>
+                  <div className="num">---</div>
                 </div>
               </Col>
               <Col xs={12} lg={12}>
@@ -139,12 +139,12 @@ export default function Mine() {
             </div>
             <div className="block second-line">
               <Row>
-                <Col xs={24} md={8}>
+                {/* <Col xs={24} md={8}>
                   <img src={BuyIcaIcon} className="buy-icon" />
                   <Link to="/">
                     <Button className="btn">BUY ICA</Button>
                   </Link>
-                </Col>
+                </Col> */}
                 <Col xs={24} md={8}>
                   <img src={BuyZbtcIcon} className="buy-icon" />
                   <Link to="/buy">
