@@ -43,7 +43,6 @@ export default function AppHeader() {
   //todo, here getting ZETH
   const getAssetBalance = async () => {
     const { account } = wallet;
-    console.log("ready to get", account);
     if (!account) {
       return;
     }
@@ -65,7 +64,7 @@ export default function AppHeader() {
   }, []);
 
   return (
-    <div class="container">
+    <div className="container">
       <header className="app-header">
         <div className="header-left">
           <Dropdown className="mobile-nav" overlay={mobileMenu}>

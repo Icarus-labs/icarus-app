@@ -25,6 +25,7 @@ export default function Mine() {
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
   const [totalMined, setTotalMined] = useState(0);
+  const [ethPrice, setEthPrice] = useState(0);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
@@ -61,10 +62,25 @@ export default function Mine() {
     setPoolList((prev) => prev.concat(list));
   };
 
+  const getTokenPrice = async() => {
+    axios.get('https://api.coingecko.com/api/v3/simple/price', {
+      params: {
+        ids: 'ethereum',
+        vs_currencies: 'usd',
+      }
+    }).then(res => {
+      console.log(res.data, 'bb')
+      if(res.data.ethereum){
+        setEthPrice(res.data.ethereum.usd)
+      }
+    })
+  }
+
   useEffect(() => {
     setPoolList([]);
     setLoadingPools(true);
     getPools();
+    getTokenPrice()
   }, []);
 
   const changeTheme = (param) => {
@@ -104,7 +120,7 @@ export default function Mine() {
               <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">MINED</div>
-                  <div className="num">{totalMined} ETH</div>
+                  <div className="num">${totalMined * ethPrice}</div>
                 </div>
               </Col>
             </Row>
@@ -171,9 +187,8 @@ export default function Mine() {
             <Row className="pool-list" type="flex" justify="center" gutter={44}>
               {poolList &&
                 poolList.map((item) => (
-                  <Col xs={24} lg={mode === "line" ? 24 : 6}>
+                  <Col xs={24} lg={mode === "line" ? 24 : 6} key={item.address}>
                     <MineDetail
-                      key={item.address}
                       item={item}
                       address={item.address}
                       currentToken={item.currentTab}
