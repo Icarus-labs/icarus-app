@@ -50,6 +50,9 @@ export default function Mine() {
           pool: list[i].address,
         },
       });
+      if(!poolInfo || !poolInfo.data.data){
+        continue
+      }
       list[i].apy = poolInfo.data.data.apy;
       list[i].income_apy = poolInfo.data.data.income_apy;
       list[i].reward_apy = poolInfo.data.data.reward_apy;

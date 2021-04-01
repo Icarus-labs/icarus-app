@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Button, message, Tooltip } from "antd";
+import { Button, message, Tooltip } from "antd";
 // import { Link, useLocation } from "react-router-dom";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import tokenImg from "config/tokenImg";
 import { useWallet } from "use-wallet";
 import config from "config";
@@ -42,7 +43,7 @@ export default function MineDetail(props) {
     getOtherInfo(true);
     const interval = setInterval(() => {
       getOtherInfo();
-    }, 4000);
+    }, 30000);
     return () => {
       clearInterval(interval);
     };
@@ -150,8 +151,8 @@ export default function MineDetail(props) {
 
   const LockedButton = () => {
     return <Button className="btn">Locked</Button>;
-  }
-  
+  };
+
   return (
     <>
       <div
@@ -202,8 +203,13 @@ export default function MineDetail(props) {
                   item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
                 }`}
               >
-                <span>{item.apy || 0}%</span>
+                <span>{item.apy || 0}% </span>
               </Tooltip>
+              {poolInfo.stake_token === "ZBTC" && (
+                <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in fluctuation of rewards.">
+                  <QuestionCircleOutlined className="question-icon" />
+                </Tooltip>
+              )}
 
               {showMore ? (
                 <UpOutlined
@@ -223,15 +229,22 @@ export default function MineDetail(props) {
           {mode === "card" && (
             <>
               <span>APR:</span>
-              <Tooltip
-                title={`${
-                  item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
-                } | ${
-                  item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-                }`}
-              >
-                <span>{item.apy || 0}%</span>
-              </Tooltip>
+              <div>
+                <Tooltip
+                  title={`${
+                    item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
+                  } | ${
+                    item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                  }`}
+                >
+                  <span>{item.apy || 0}% </span>
+                </Tooltip>
+                {poolInfo.stake_token === "ZBTC" && (
+                  <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in fluctuation of rewards.">
+                    <QuestionCircleOutlined className="question-icon" />
+                  </Tooltip>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -276,15 +289,18 @@ export default function MineDetail(props) {
                 ) : Number(poolInfo.staked) > 0 ? (
                   <>
                     <div className="quick-btns">
-                      {poolInfo.stake_token !== 'ICA-BUSD' && poolInfo.stake_token !== 'ICA-ETH' && <Button
-                        onClick={() => {
-                          setDepositModalVisible(true);
-                        }}
-                        className="btn"
-                      >
-                        +
-                      </Button>}
-                      
+                      {poolInfo.stake_token !== "ICA-BUSD" &&
+                        poolInfo.stake_token !== "ICA-ETH" && (
+                          <Button
+                            onClick={() => {
+                              setDepositModalVisible(true);
+                            }}
+                            className="btn"
+                          >
+                            +
+                          </Button>
+                        )}
+
                       <Button
                         onClick={() => {
                           doExit();
@@ -303,15 +319,18 @@ export default function MineDetail(props) {
                       CLAIM
                     </Button>
                   </>
+                ) : poolInfo.stake_token !== "ICA-BUSD" &&
+                  poolInfo.stake_token !== "ICA-ETH" ? (
+                  <Button
+                    className="btn"
+                    onClick={() => {
+                      setDepositModalVisible(true);
+                    }}
+                  >
+                    STAKE
+                  </Button>
                 ) : (
-                  (poolInfo.stake_token !== 'ICA-BUSD' && poolInfo.stake_token !== 'ICA-ETH') ? <Button
-                  className="btn"
-                  onClick={() => {
-                    setDepositModalVisible(true);
-                  }}
-                >
-                  STAKE
-                </Button> :<LockedButton />
+                  <LockedButton />
                 )
               ) : (
                 <ConnectWallet />
