@@ -4,8 +4,3 @@ ssh df-sg "
   exit
 "
 scp -r build df-sg:/var/www/dapp/icarus-app
-
-ssh df-sg "
-  chmod -R 777 /var/www/dapp/icarus-app/img
-  exit
-"

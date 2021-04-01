@@ -120,7 +120,7 @@ export default function Mine() {
               <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">MINED</div>
-                  <div className="num">${totalMined * ethPrice}</div>
+                  <div className="num">${(totalMined * ethPrice).toFixed(3)}</div>
                 </div>
               </Col>
             </Row>
