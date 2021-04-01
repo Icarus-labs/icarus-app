@@ -21,4 +21,10 @@
             border-right: 1px solid #fff;
         }
     }
+    @media screen and (max-width: 992px){
+        a{
+            font-size: 16px;
+            padding: 0 6px;
+        }
+    }
 }

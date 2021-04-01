@@ -62,15 +62,17 @@ export default function MineDetail(props) {
       earnedChanged(userStats.data.data.income_amount_pretty);
     }
 
-    setPoolInfo((prev) => {
-      return {
-        ...prev,
-        staked: userStats.data.data.staked_amount_pretty,
-        earnedBETH: userStats.data.data.income_amount_pretty,
-        earnedICA: userStats.data.data.reward_amount_pretty,
-        lpAmount: userStats.data.data.lp_amount_pretty,
-      };
-    });
+    if (userStats && userStats.data.data) {
+      setPoolInfo((prev) => {
+        return {
+          ...prev,
+          staked: userStats.data.data.staked_amount_pretty,
+          earnedBETH: userStats.data.data.income_amount_pretty,
+          earnedICA: userStats.data.data.reward_amount_pretty,
+          lpAmount: userStats.data.data.lp_amount_pretty,
+        };
+      });
+    }
   };
 
   const getPool = async () => {
@@ -162,8 +164,13 @@ export default function MineDetail(props) {
       >
         {(poolInfo.stake_token === "ICA-BUSD" ||
           poolInfo.stake_token === "ICA-ETH") && (
-            <div className="open-soon">Open Soon</div>
-          )}
+          <div className="open-soon">
+            Open Soon{" "}
+            <Tooltip title="The pool will be available on 2nd April">
+              <QuestionCircleOutlined className="question-icon" />
+            </Tooltip>
+          </div>
+        )}
         <div className="info-line top-line">
           <div className="top-line-wrapper">
             <span className="tokens">

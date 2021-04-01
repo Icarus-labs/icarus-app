@@ -190,7 +190,7 @@ export default function Mine() {
             <Row className="pool-list" type="flex" justify="center" gutter={44}>
               {poolList &&
                 poolList.map((item) => (
-                  <Col xs={24} lg={mode === "line" ? 24 : 6} key={item.address}>
+                  <Col xs={24} lg={mode === "line" ? 24 : 12} xl={mode === "line" ? 24 : 6} key={item.address}>
                     <MineDetail
                       item={item}
                       address={item.address}

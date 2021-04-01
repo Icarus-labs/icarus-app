@@ -20,8 +20,8 @@
 
 .open-soon{
     position: absolute;
-    top: 12px;
-    right: 16px;
+    top: 6px;
+    right: 12px;
     font-size: 16px;
 }
 
@@ -55,6 +55,13 @@
             align-items: center;
             border-radius: 10px;
             justify-content: center;
+        }
+    }
+    @media screen and (max-width: 992px){
+        .btns{
+            .btn{
+                width: 50%;
+            }
         }
     }
 }
