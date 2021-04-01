@@ -8,7 +8,7 @@ const initialState = {
   network:
     localStorage.getItem("network") || paramNetwork || config.defaultNetwork,
   theme: localStorage.getItem("theme") || "light",
-  mode: localStorage.getItem("mode") || "card",
+  mode: localStorage.getItem("mode") || "line",
 };
 
 export default function (state = initialState, action) {

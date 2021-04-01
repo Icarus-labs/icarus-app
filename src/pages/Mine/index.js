@@ -80,7 +80,7 @@ export default function Mine() {
     dispatch({
       type: "SWITCH_MODE",
       payload: {
-        mode: param ? "line" : "card",
+        mode: param ? "card" : "line",
       },
     });
   };
@@ -132,7 +132,7 @@ export default function Mine() {
                 <img className="mode-icon icon" src={ModeIcon} />
                 <Switch
                   className="option-switch"
-                  checked={mode === "line"}
+                  checked={mode === "card"}
                   onChange={changeMode}
                 />
               </div>
