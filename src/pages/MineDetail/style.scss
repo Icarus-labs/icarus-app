@@ -3,8 +3,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
     &.is-line{
         min-height: unset;
+        .open-soon{
+            top: unset;
+            bottom: 12px;
+            right: 0px;
+        }
     }
 }
 
@@ -12,16 +18,27 @@
     margin-left: 12px;
 }
 
+.open-soon{
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 16px;
+}
+
 .line-block {
     display: block;
     margin-bottom: 32px;
     width: 100%;
+    min-height: 330px;
     .btns {
         margin-top: 20px;
         .btn {
             width: 80%;
             padding: 8px 0;
             text-align: center;
+        }
+        &.single-btn{
+            margin-top: 64px;
         }
     }
     .quick-btns {

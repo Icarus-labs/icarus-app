@@ -160,6 +160,10 @@ export default function MineDetail(props) {
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
+        {(poolInfo.stake_token === "ICA-BUSD" ||
+          poolInfo.stake_token === "ICA-ETH") && (
+            <div className="open-soon">Open Soon</div>
+          )}
         <div className="info-line top-line">
           <div className="top-line-wrapper">
             <span className="tokens">
@@ -280,7 +284,11 @@ export default function MineDetail(props) {
               </span>
             </div>
 
-            <div className="btns">
+            <div
+              className={`btns ${
+                Number(poolInfo.staked) > 0 ? "" : "single-btn"
+              }`}
+            >
               {wallet.status === "connected" ? (
                 approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
