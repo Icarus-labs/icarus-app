@@ -1,0 +1,24 @@
+.app-footer {
+    padding: 28px;
+    margin-top: 120px;
+    text-align: center;
+    a {
+        font-size: 24px;
+        color: #4f4e4e;
+        border-right: 1px solid #4f4e4e;
+        padding: 0 12px;
+        &:last-child{
+            border-right: none;
+        }
+    }
+    .year {
+        margin-top: 4px;
+        font-size: 16px;
+    }
+    .purple & {
+        a {
+            color: #fff;
+            border-right: 1px solid #fff;
+        }
+    }
+}

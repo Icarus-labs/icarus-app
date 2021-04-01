@@ -21,7 +21,7 @@
     // word-break: break-all;
     font-family: "bebas";
     min-height: 100vh;
-    padding-bottom: 52px;
+    // padding-bottom: 52px;
     color: #4f4e4e;
     background: #cbced3;
 }
@@ -475,6 +475,9 @@ img {
     }
     .grey{
         color: #ccc;
+    }
+    .app-footer{
+        background: rgba(249, 249, 249, 0.24);
     }
 }
 
