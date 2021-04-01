@@ -148,6 +148,10 @@ export default function MineDetail(props) {
     }
   };
 
+  const LockedButton = () => {
+    return <Button className="btn">Locked</Button>;
+  }
+  
   return (
     <>
       <div
@@ -202,9 +206,15 @@ export default function MineDetail(props) {
               </Tooltip>
 
               {showMore ? (
-                <UpOutlined className="toggle-btn" onClick={() => setShowMore(false)} />
+                <UpOutlined
+                  className="toggle-btn"
+                  onClick={() => setShowMore(false)}
+                />
               ) : (
-                <DownOutlined className="toggle-btn" onClick={() => setShowMore(true)} />
+                <DownOutlined
+                  className="toggle-btn"
+                  onClick={() => setShowMore(true)}
+                />
               )}
             </div>
           )}
@@ -263,17 +273,18 @@ export default function MineDetail(props) {
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>
-                ) : poolInfo.earnedBETH > 0 ? (
+                ) : Number(poolInfo.staked) > 0 ? (
                   <>
                     <div className="quick-btns">
-                      <Button
+                      {poolInfo.stake_token !== 'ICA-BUSD' && poolInfo.stake_token !== 'ICA-ETH' && <Button
                         onClick={() => {
                           setDepositModalVisible(true);
                         }}
                         className="btn"
                       >
                         +
-                      </Button>
+                      </Button>}
+                      
                       <Button
                         onClick={() => {
                           doExit();
@@ -293,14 +304,14 @@ export default function MineDetail(props) {
                     </Button>
                   </>
                 ) : (
-                  <Button
-                    className="btn"
-                    onClick={() => {
-                      setDepositModalVisible(true);
-                    }}
-                  >
-                    STAKE
-                  </Button>
+                  (poolInfo.stake_token !== 'ICA-BUSD' && poolInfo.stake_token !== 'ICA-ETH') ? <Button
+                  className="btn"
+                  onClick={() => {
+                    setDepositModalVisible(true);
+                  }}
+                >
+                  STAKE
+                </Button> :<LockedButton />
                 )
               ) : (
                 <ConnectWallet />
