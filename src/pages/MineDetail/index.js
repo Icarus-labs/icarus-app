@@ -206,7 +206,7 @@ export default function MineDetail(props) {
                 <span>{item.apy || 0}% </span>
               </Tooltip>
               {poolInfo.stake_token === "ZBTC" && (
-                <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in fluctuation of rewards.">
+                <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
                   <QuestionCircleOutlined className="question-icon" />
                 </Tooltip>
               )}
@@ -240,7 +240,7 @@ export default function MineDetail(props) {
                   <span>{item.apy || 0}% </span>
                 </Tooltip>
                 {poolInfo.stake_token === "ZBTC" && (
-                  <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in fluctuation of rewards.">
+                  <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
                     <QuestionCircleOutlined className="question-icon" />
                   </Tooltip>
                 )}
