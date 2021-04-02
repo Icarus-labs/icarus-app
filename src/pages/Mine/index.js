@@ -69,6 +69,7 @@ export default function Mine() {
   };
 
   const getTokenPrice = async () => {
+    console.log("fetch priiceeeeeeeee");
     axios
       .get("https://api.coingecko.com/api/v3/simple/price", {
         params: {
@@ -97,6 +98,13 @@ export default function Mine() {
     setLoadingPools(true);
     getPools();
     getTokenPrice();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getTokenPrice();
+    }, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const changeTheme = (param) => {
