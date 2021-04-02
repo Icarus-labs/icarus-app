@@ -287,17 +287,17 @@ export default function MineDetail(props) {
 
             <div className="info-line">
               <span>EARNED:</span>
-              <span>
-                {/* {poolInfo.reward_tokens &&
+              <span style={{ textAlign: "right" }}>
+                {poolInfo.reward_tokens &&
                   poolInfo.reward_tokens.map((reward, index) => (
                     <div>
                       {reward === "ICA"
-                        ? `${poolInfo.earnedICA} ${reward}`
-                        : `${poolInfo.earned} ${reward}`}
+                        ? `${poolInfo.earnedICA || 0} ${reward}`
+                        : `${poolInfo.earned || 0} ${reward}`}
                     </div>
-                  ))} */}
-                {poolInfo.earned || 0}{" "}
-                {currentToken === "zeth" ? "ETH" : "BTCB"}
+                  ))}
+                {/* {poolInfo.earned || 0}{" "}
+                {currentToken === "zeth" ? "ETH" : "BTCB"} */}
               </span>
             </div>
 
