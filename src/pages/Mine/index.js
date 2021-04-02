@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
+import { toThousands } from "utils/Tools";
 
 import "./style.scss";
 
@@ -50,8 +51,8 @@ export default function Mine() {
           pool: list[i].address,
         },
       });
-      if(!poolInfo || !poolInfo.data.data){
-        continue
+      if (!poolInfo || !poolInfo.data.data) {
+        continue;
       }
       list[i].apy = poolInfo.data.data.apy;
       list[i].income_apy = poolInfo.data.data.income_apy;
@@ -65,25 +66,27 @@ export default function Mine() {
     setPoolList((prev) => prev.concat(list));
   };
 
-  const getTokenPrice = async() => {
-    axios.get('https://api.coingecko.com/api/v3/simple/price', {
-      params: {
-        ids: 'ethereum',
-        vs_currencies: 'usd',
-      }
-    }).then(res => {
-      console.log(res.data, 'bb')
-      if(res.data.ethereum){
-        setEthPrice(res.data.ethereum.usd)
-      }
-    })
-  }
+  const getTokenPrice = async () => {
+    axios
+      .get("https://api.coingecko.com/api/v3/simple/price", {
+        params: {
+          ids: "ethereum",
+          vs_currencies: "usd",
+        },
+      })
+      .then((res) => {
+        console.log(res.data, "bb");
+        if (res.data.ethereum) {
+          setEthPrice(res.data.ethereum.usd);
+        }
+      });
+  };
 
   useEffect(() => {
     setPoolList([]);
     setLoadingPools(true);
     getPools();
-    getTokenPrice()
+    getTokenPrice();
   }, []);
 
   const changeTheme = (param) => {
@@ -111,7 +114,7 @@ export default function Mine() {
           <Col xs={24} lg={12}>
             <div className="tvl block">
               <div className="title">TVL</div>
-              <div className="num">${totalTvl}</div>
+              <div className="num">${toThousands(totalTvl)}</div>
             </div>
             <Row gutter={44}>
               <Col xs={12} lg={12}>
@@ -123,7 +126,9 @@ export default function Mine() {
               <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">MINED</div>
-                  <div className="num">${(totalMined * ethPrice).toFixed(3)}</div>
+                  <div className="num">
+                    ${toThousands((totalMined * ethPrice).toFixed(3))}
+                  </div>
                 </div>
               </Col>
             </Row>
@@ -160,7 +165,10 @@ export default function Mine() {
               <Row>
                 <Col xs={24} md={8}>
                   <img src={BuyIcaIcon} className="buy-icon" />
-                  <a target="_blank" href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x95111f630ac215eb74599ed42c67e2c2790d69e2">
+                  <a
+                    target="_blank"
+                    href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x95111f630ac215eb74599ed42c67e2c2790d69e2"
+                  >
                     <Button className="btn">BUY ICA</Button>
                   </a>
                 </Col>
@@ -190,7 +198,12 @@ export default function Mine() {
             <Row className="pool-list" type="flex" justify="center" gutter={44}>
               {poolList &&
                 poolList.map((item) => (
-                  <Col xs={24} lg={mode === "line" ? 24 : 12} xl={mode === "line" ? 24 : 6} key={item.address}>
+                  <Col
+                    xs={24}
+                    lg={mode === "line" ? 24 : 12}
+                    xl={mode === "line" ? 24 : 6}
+                    key={item.address}
+                  >
                     <MineDetail
                       item={item}
                       address={item.address}

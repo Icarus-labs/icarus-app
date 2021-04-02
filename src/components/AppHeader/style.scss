@@ -77,4 +77,18 @@
             display: inline-block;
         }
     }
+    @media screen and (max-width: 576px){
+        .mobile-nav{
+            font-size: 20px;
+        }
+        .btn, .btn-trans{
+            padding: 4px;
+        }
+        .logo-text{
+            font-size: 14px;
+            img{
+                width: 24px;
+            }
+        }
+    }
 }

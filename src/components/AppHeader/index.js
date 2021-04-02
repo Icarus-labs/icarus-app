@@ -72,15 +72,17 @@ export default function AppHeader() {
           </Link>
         </div>
         <div>
-          <a className="btn-trans">
-            <img src={ICALogo} />  ${Number(icaBalance)}
-          </a>
           {wallet.status === "connected" ? (
-            <Tooltip title={account}>
-              <a className="btn">
-                {account.slice(0, 4)}...{account.slice(-4)}
+            <>
+              <a className="btn-trans">
+                <img src={ICALogo} /> {Number(icaBalance).toFixed(3)}
               </a>
-            </Tooltip>
+              <Tooltip title={account}>
+                <a className="btn">
+                  {account.slice(0, 4)}...{account.slice(-4)}
+                </a>
+              </Tooltip>
+            </>
           ) : (
             <ConnectWallet triggerConnect={true} />
           )}

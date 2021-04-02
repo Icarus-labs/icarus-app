@@ -11,6 +11,7 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import DepositModal from "components/DepositModal";
 import ConnectWallet from "components/ConnectWallet";
+import { toThousands } from "utils/Tools";
 
 // import BackButton from "assets/back.svg";
 
@@ -202,7 +203,7 @@ export default function MineDetail(props) {
                   {item.stake_token}
                 </a>
               </span>
-              <span className="tvl">TVL: ${item.tvl || 0}</span>
+              <span className="tvl">TVL: ${toThousands(item.tvl) || 0}</span>
             </span>
           </div>
           {mode === "line" && (
