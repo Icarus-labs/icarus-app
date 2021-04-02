@@ -166,9 +166,9 @@ export default function MineDetail(props) {
     }
   };
 
-  const LockedButton = () => {
-    return <Button className="btn">Locked</Button>;
-  };
+  // const LockedButton = () => {
+  //   return <Button className="btn">Locked</Button>;
+  // };
 
   return (
     <>
@@ -177,7 +177,7 @@ export default function MineDetail(props) {
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
-        {(poolInfo.stake_token === "ICA-BUSD" ||
+        {/* {(poolInfo.stake_token === "ICA-BUSD" ||
           poolInfo.stake_token === "ICA-ETH") && (
           <div className="open-soon">
             Open Soon{" "}
@@ -185,7 +185,7 @@ export default function MineDetail(props) {
               <QuestionCircleOutlined className="question-icon" />
             </Tooltip>
           </div>
-        )}
+        )} */}
         <div className="info-line top-line">
           <div className="top-line-wrapper">
             <span className="tokens">
@@ -358,8 +358,7 @@ export default function MineDetail(props) {
                       CLAIM
                     </Button>
                   </>
-                ) : poolInfo.stake_token !== "ICA-BUSD" &&
-                  poolInfo.stake_token !== "ICA-ETH" ? (
+                ) : (
                   <Button
                     className="btn"
                     onClick={() => {
@@ -368,8 +367,6 @@ export default function MineDetail(props) {
                   >
                     STAKE
                   </Button>
-                ) : (
-                  <LockedButton />
                 )
               ) : (
                 <ConnectWallet />
