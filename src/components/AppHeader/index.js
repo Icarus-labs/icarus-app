@@ -3,14 +3,10 @@ import { useWallet } from "use-wallet";
 import { Link } from "react-router-dom";
 import { Tooltip, Dropdown, Menu } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
-import { connect, useSelector } from "react-redux";
 import LogoLight from "assets/logo.svg";
 import axios from "utils/axios";
-import NetworkModal from "components/NetworkModal";
 import ConnectWallet from "components/ConnectWallet";
-
-// import ICALogo from "assets/tokens/ica.svg";
-import config, { chainIdMapping } from "config";
+import ICALogo from "assets/tokens/ica.svg";
 import "./style.scss";
 
 export default function AppHeader() {
@@ -76,6 +72,9 @@ export default function AppHeader() {
           </Link>
         </div>
         <div>
+          <a className="btn-trans">
+            <img src={ICALogo} />  ${Number(icaBalance)}
+          </a>
           {wallet.status === "connected" ? (
             <Tooltip title={account}>
               <a className="btn">

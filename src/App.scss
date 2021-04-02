@@ -113,14 +113,14 @@ li {
 }
 
 .btn-trans {
+    color: #4f4e4e;
     background: transparent;
-    color: #fff;
     border: 1px solid rgba(1, 4, 28, 0.75);
     box-sizing: border-box;
     border-radius: 5px;
     &:hover,
     &:focus {
-        color: #fff;
+        color: #4f4e4e;
         border: 1px solid rgba(1, 4, 28, 0.75);
         background: transparent;
     }
@@ -483,6 +483,14 @@ img {
     }
     .app-footer{
         background: rgba(249, 249, 249, 0.24);
+    }
+
+    .btn-trans {
+        color: #fff;
+        &:hover,
+        &:focus {
+            color: #fff;
+        }
     }
 }
 
