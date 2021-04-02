@@ -259,9 +259,9 @@ export default function MineDetail(props) {
               <div>
                 <Tooltip
                   title={`${
-                    item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
-                  } | ${
                     item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                  } | ${
+                    item.income_apy ? `${item.reward_tokens.indexOf('BTCB') > -1 ? 'BTCB' : 'ETH'} APR: ` + item.income_apy + "%" : ""
                   }`}
                 >
                   <span>{item.apy || 0}% </span>
@@ -281,12 +281,12 @@ export default function MineDetail(props) {
               <span>EARN:</span>
               <span>
                 {item.reward_tokens.map((token, index) => (
-                  <div key={index}>
-                    <span className={token === "ICA" ? "grey" : ""}>
+                  <span key={index}>
+                    <span>
                       {token}
                     </span>{" "}
                     {index !== item.reward_tokens.length - 1 ? "+" : ""}
-                  </div>
+                  </span>
                 ))}
               </span>
             </div>
@@ -328,18 +328,14 @@ export default function MineDetail(props) {
                 ) : Number(poolInfo.staked) > 0 ? (
                   <>
                     <div className="quick-btns">
-                      {poolInfo.stake_token !== "ICA-BUSD" &&
-                        poolInfo.stake_token !== "ICA-ETH" && (
-                          <Button
-                            onClick={() => {
-                              setDepositModalVisible(true);
-                            }}
-                            className="btn"
-                          >
-                            +
-                          </Button>
-                        )}
-
+                      <Button
+                        onClick={() => {
+                          setDepositModalVisible(true);
+                        }}
+                        className="btn"
+                      >
+                        +
+                      </Button>
                       <Button
                         onClick={() => {
                           doExit();
