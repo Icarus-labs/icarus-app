@@ -67,7 +67,7 @@ export default function MineDetail(props) {
         return {
           ...prev,
           staked: userStats.data.data.staked_amount_pretty,
-          earnedBETH: userStats.data.data.income_amount_pretty,
+          earned: userStats.data.data.income_amount_pretty,
           earnedICA: userStats.data.data.reward_amount_pretty,
           lpAmount: userStats.data.data.lp_amount_pretty,
         };
@@ -81,6 +81,7 @@ export default function MineDetail(props) {
         pool: address,
       },
     });
+
     setPoolInfo(result.data.data);
 
     // check allowance
@@ -286,7 +287,15 @@ export default function MineDetail(props) {
             <div className="info-line">
               <span>EARNED:</span>
               <span>
-                {poolInfo.earnedBETH || 0}{" "}
+                {/* {poolInfo.reward_tokens &&
+                  poolInfo.reward_tokens.map((reward, index) => (
+                    <div>
+                      {reward === "ICA"
+                        ? `${poolInfo.earnedICA} ${reward}`
+                        : `${poolInfo.earned} ${reward}`}
+                    </div>
+                  ))} */}
+                {poolInfo.earned || 0}{" "}
                 {currentToken === "zeth" ? "ETH" : "BTCB"}
               </span>
             </div>
