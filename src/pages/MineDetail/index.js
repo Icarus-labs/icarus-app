@@ -18,8 +18,9 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const { address, currentToken, item, earnedChanged } = props;
+  const { address, currentToken, item, earnedChange, prices } = props;
   const [poolInfo, setPoolInfo] = useState({});
+  const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
   const [showMore, setShowMore] = useState(false);
   const [approveParams, setApproveParams] = useState({ txs: [] });
   const network = useSelector((state) => state.setting.network);
@@ -38,7 +39,7 @@ export default function MineDetail(props) {
   }, []);
 
   useEffect(() => {
-    if (!account) {
+    if (!account || poolInfoTrigger === 1) {
       return;
     }
     getOtherInfo(true);
@@ -48,7 +49,7 @@ export default function MineDetail(props) {
     return () => {
       clearInterval(interval);
     };
-  }, [account]);
+  }, [account, poolInfoTrigger]);
 
   const getOtherInfo = async (isFirst) => {
     const userStats = await axios.get(`/${currentToken}/pools/userstats`, {
@@ -59,8 +60,18 @@ export default function MineDetail(props) {
     });
     // trigger
 
-    if (isFirst) {
-      earnedChanged(userStats.data.data.income_amount_pretty);
+    if (isFirst && Object.keys(poolInfo).length > 0) {
+      let totalUsd = 0;
+      if (poolInfo.reward_tokens.indexOf("BETH") > -1) {
+        totalUsd += userStats.data.data.income_amount_pretty * prices.eth;
+      }
+      if (poolInfo.reward_tokens.indexOf("BTCB") > -1) {
+        totalUsd += userStats.data.data.income_amount_pretty * prices.btc;
+      }
+      if (poolInfo.reward_tokens.indexOf("ICA") > -1) {
+        totalUsd += userStats.data.data.reward_amount_pretty * prices.ica;
+      }
+      earnedChange(totalUsd);
     }
 
     if (userStats && userStats.data.data) {
@@ -84,6 +95,8 @@ export default function MineDetail(props) {
     });
 
     setPoolInfo(result.data.data);
+
+    setPoolInfoTrigger((prev) => prev + 1);
 
     // check allowance
     const approveResult = await axios.post(`/${currentToken}/pools/approve`, {
@@ -180,6 +193,7 @@ export default function MineDetail(props) {
                 <a
                   target="_blank"
                   className="token-item-link"
+                  key={token}
                   href={
                     item.stake_token === "ZETH"
                       ? `${scanUrl}/${buyContractAddress}`
@@ -267,12 +281,12 @@ export default function MineDetail(props) {
               <span>EARN:</span>
               <span>
                 {item.reward_tokens.map((token, index) => (
-                  <>
+                  <div key={index}>
                     <span className={token === "ICA" ? "grey" : ""}>
                       {token}
                     </span>{" "}
                     {index !== item.reward_tokens.length - 1 ? "+" : ""}
-                  </>
+                  </div>
                 ))}
               </span>
             </div>
@@ -290,7 +304,7 @@ export default function MineDetail(props) {
               <span style={{ textAlign: "right" }}>
                 {poolInfo.reward_tokens &&
                   poolInfo.reward_tokens.map((reward, index) => (
-                    <div>
+                    <div key={index}>
                       {reward === "ICA"
                         ? `${poolInfo.earnedICA || 0} ${reward}`
                         : `${poolInfo.earned || 0} ${reward}`}

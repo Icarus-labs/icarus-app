@@ -27,6 +27,8 @@ export default function Mine() {
   const [totalTvl, setTotalTvl] = useState(0);
   const [totalMined, setTotalMined] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
+  const [btcPrice, setBtcPrice] = useState(0);
+  const [icaPrice, setIcaPrice] = useState(0);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
@@ -70,16 +72,24 @@ export default function Mine() {
     axios
       .get("https://api.coingecko.com/api/v3/simple/price", {
         params: {
-          ids: "ethereum",
+          ids: "ethereum,bitcoin",
           vs_currencies: "usd",
         },
       })
       .then((res) => {
-        console.log(res.data, "bb");
         if (res.data.ethereum) {
           setEthPrice(res.data.ethereum.usd);
         }
+        if (res.data.bitcoin) {
+          setBtcPrice(res.data.bitcoin.usd);
+        }
       });
+
+    axios.get("/ica/price").then((res) => {
+      if (res.data.data) {
+        setIcaPrice(Number(res.data.data.amount_pretty));
+      }
+    });
   };
 
   useEffect(() => {
@@ -115,6 +125,11 @@ export default function Mine() {
             <div className="tvl block">
               <div className="title">TVL</div>
               <div className="num">${toThousands(totalTvl)}</div>
+              <div className="prices">
+                <div>ZETH: ${ethPrice}</div>
+                <div>ZBTC: ${btcPrice}</div>
+                <div>ICA: ${icaPrice}</div>
+              </div>
             </div>
             <Row gutter={44}>
               <Col xs={12} lg={12}>
@@ -127,7 +142,7 @@ export default function Mine() {
                 <div className="block second-line">
                   <div className="title">MINED</div>
                   <div className="num">
-                    ${toThousands((totalMined * ethPrice).toFixed(3))}
+                    ${toThousands(totalMined.toFixed(3))}
                   </div>
                 </div>
               </Col>
@@ -208,9 +223,14 @@ export default function Mine() {
                       item={item}
                       address={item.address}
                       currentToken={item.currentTab}
-                      earnedChanged={(value) =>
+                      earnedChange={(value) =>
                         setTotalMined((prev) => prev + Number(value))
                       }
+                      prices={{
+                        ica: icaPrice,
+                        btc: btcPrice,
+                        eth: ethPrice,
+                      }}
                     />
                   </Col>
                 ))}

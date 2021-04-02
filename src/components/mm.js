@@ -12,7 +12,6 @@ async function sendTransaction(transactionParameters, desc) {
 
     const network = setting.network
     return new Promise(async (resolve, reject) => {
-        console.log(transactionParameters[0], 'aaaavbbb')
         await window.ethereum
             .request({
                 method: "eth_sendTransaction",
