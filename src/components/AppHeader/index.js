@@ -72,7 +72,7 @@ export default function AppHeader() {
           </Link>
         </div>
         <div>
-          {wallet.status === "connected" ? (
+          {wallet.status === "connected" && account ? (
             <>
               <a className="btn-trans">
                 <img src={ICALogo} /> {Number(icaBalance).toFixed(3)}

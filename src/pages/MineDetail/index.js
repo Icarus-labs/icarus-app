@@ -88,6 +88,13 @@ export default function MineDetail(props) {
         userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
 
       stakedChange(totalStakedUsd);
+
+      setPoolInfo((prev) => {
+        return {
+          ...prev,
+          stakedInUsd: totalStakedUsd,
+        };
+      });
     }
 
     if (userStats && userStats.data.data) {
@@ -98,7 +105,6 @@ export default function MineDetail(props) {
           earned: userStats.data.data.income_amount_pretty,
           earnedICA: userStats.data.data.reward_amount_pretty,
           lpAmount: userStats.data.data.lp_amount_pretty,
-          stakedInUsd: totalStakedUsd,
         };
       });
     }
@@ -235,7 +241,7 @@ export default function MineDetail(props) {
                 <Tooltip
                   title={`${
                     item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
-                  } ${item.income_apy && item.reward_apy && '|'} ${
+                  } ${item.income_apy && item.reward_apy && "|"} ${
                     item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
                   }`}
                 >
