@@ -18,7 +18,14 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const { address, currentToken, item, earnedChange, stakedChange, prices } = props;
+  const {
+    address,
+    currentToken,
+    item,
+    earnedChange,
+    stakedChange,
+    prices,
+  } = props;
   const [poolInfo, setPoolInfo] = useState({});
   const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
   const [showMore, setShowMore] = useState(false);
@@ -60,7 +67,7 @@ export default function MineDetail(props) {
     });
     // trigger
 
-    let totalStakedUsd = 0
+    let totalStakedUsd = 0;
 
     if (isFirst && Object.keys(poolInfo).length > 0) {
       // calculate total earned usd value
@@ -77,10 +84,10 @@ export default function MineDetail(props) {
       earnedChange(totalUsd);
       // calculate total staked usd value
 
-      totalStakedUsd = userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake
+      totalStakedUsd =
+        userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
 
-      stakedChange(totalStakedUsd)
-      
+      stakedChange(totalStakedUsd);
     }
 
     if (userStats && userStats.data.data) {
@@ -91,7 +98,7 @@ export default function MineDetail(props) {
           earned: userStats.data.data.income_amount_pretty,
           earnedICA: userStats.data.data.reward_amount_pretty,
           lpAmount: userStats.data.data.lp_amount_pretty,
-          stakedInUsd: totalStakedUsd
+          stakedInUsd: totalStakedUsd,
         };
       });
     }
@@ -183,95 +190,53 @@ export default function MineDetail(props) {
   return (
     <>
       <div
-        className={`pool-item line-block ${
+        className={`pool-item handle-card line-block ${
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
-        {/* {(poolInfo.stake_token === "ICA-BUSD" ||
-          poolInfo.stake_token === "ICA-ETH") && (
-          <div className="open-soon">
-            Open Soon{" "}
-            <Tooltip title="The pool will be available on 2nd April">
-              <QuestionCircleOutlined className="question-icon" />
-            </Tooltip>
-          </div>
-        )} */}
-        <div className="info-line top-line">
-          <div className="top-line-wrapper">
-            <span className="tokens">
-              {item.stake_token.split("-").map((token) => (
-                <a
-                  target="_blank"
-                  className="token-item-link"
-                  key={token}
-                  href={
-                    item.stake_token === "ZETH"
-                      ? `${scanUrl}/${buyContractAddress}`
-                      : ""
-                  }
-                >
-                  <img src={tokenImg[token]} className="token-item" />
-                </a>
-              ))}
-            </span>
-            <span>
-              <span className="deposit-by">
-                <a
-                  target="_blank"
-                  href={
-                    item.stake_token === "ZETH"
-                      ? `${scanUrl}/${buyContractAddress}`
-                      : ""
-                  }
-                >
-                  {item.stake_token}
-                </a>
+        <div className="card-top">
+          <div className="info-line top-line">
+            <div className="top-line-wrapper">
+              <span className="tokens">
+                {item.stake_token.split("-").map((token) => (
+                  <a
+                    target="_blank"
+                    className="token-item-link"
+                    key={token}
+                    href={
+                      item.stake_token === "ZETH"
+                        ? `${scanUrl}/${buyContractAddress}`
+                        : ""
+                    }
+                  >
+                    <img src={tokenImg[token]} className="token-item" />
+                  </a>
+                ))}
               </span>
-              <span className="tvl">TVL: ${toThousands(item.tvl) || 0}</span>
-            </span>
-          </div>
-          {mode === "line" && (
-            <div>
-              <span>APR:</span>
-              <Tooltip
-                title={`${
-                  item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
-                } | ${
-                  item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-                }`}
-              >
-                <span>{item.apy || 0}% </span>
-              </Tooltip>
-              {poolInfo.stake_token === "ZBTC" && (
-                <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
-                  <QuestionCircleOutlined className="question-icon" />
-                </Tooltip>
-              )}
-
-              {showMore ? (
-                <UpOutlined
-                  className="toggle-btn"
-                  onClick={() => setShowMore(false)}
-                />
-              ) : (
-                <DownOutlined
-                  className="toggle-btn"
-                  onClick={() => setShowMore(true)}
-                />
-              )}
+              <span>
+                <span className="deposit-by">
+                  <a
+                    target="_blank"
+                    href={
+                      item.stake_token === "ZETH"
+                        ? `${scanUrl}/${buyContractAddress}`
+                        : ""
+                    }
+                  >
+                    {item.stake_token}
+                  </a>
+                </span>
+                <span className="tvl">TVL: ${toThousands(item.tvl) || 0}</span>
+              </span>
             </div>
-          )}
-        </div>
-        <div className="info-line apr">
-          {mode === "card" && (
-            <>
-              <span>APR:</span>
+            {mode === "line" && (
               <div>
+                <span>APR:</span>
                 <Tooltip
                   title={`${
+                    item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
+                  } ${item.income_apy && item.reward_apy && '|'} ${
                     item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-                  } | ${
-                    item.income_apy ? `${item.reward_tokens.indexOf('BTCB') > -1 ? 'BTCB' : 'ETH'} APR: ` + item.income_apy + "%" : ""
                   }`}
                 >
                   <span>{item.apy || 0}% </span>
@@ -281,50 +246,95 @@ export default function MineDetail(props) {
                     <QuestionCircleOutlined className="question-icon" />
                   </Tooltip>
                 )}
+
+                {showMore ? (
+                  <UpOutlined
+                    className="toggle-btn"
+                    onClick={() => setShowMore(false)}
+                  />
+                ) : (
+                  <DownOutlined
+                    className="toggle-btn"
+                    onClick={() => setShowMore(true)}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+          <div className="info-line apr">
+            {mode === "card" && (
+              <>
+                <span>APR:</span>
+                <div>
+                  <Tooltip
+                    title={`${
+                      item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                    } ${
+                      item.income_apy
+                        ? ` | ${
+                            item.reward_tokens.indexOf("BTCB") > -1
+                              ? "BTCB"
+                              : "ETH"
+                          } APR: ` +
+                          item.income_apy +
+                          "%"
+                        : ""
+                    }`}
+                  >
+                    <span>{item.apy || 0}% </span>
+                  </Tooltip>
+                  {poolInfo.stake_token === "ZBTC" && (
+                    <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
+                      <QuestionCircleOutlined className="question-icon" />
+                    </Tooltip>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+          {(mode === "card" || showMore) && (
+            <>
+              <div className="info-line">
+                <span>EARN:</span>
+                <span>
+                  {item.reward_tokens.map((token, index) => (
+                    <span key={index}>
+                      <span>{token}</span>{" "}
+                      {index !== item.reward_tokens.length - 1 ? "+" : ""}
+                    </span>
+                  ))}
+                </span>
+              </div>
+
+              <div className="info-line">
+                <span>STAKED:</span>
+                <span>
+                  {poolInfo.staked ? Number(poolInfo.staked) : 0}{" "}
+                  {item.stake_token}
+                </span>
+              </div>
+
+              <div className="info-line">
+                <span>EARNED:</span>
+                <span style={{ textAlign: "right" }}>
+                  {poolInfo.reward_tokens &&
+                    poolInfo.reward_tokens.map((reward, index) => (
+                      <div key={index}>
+                        {reward === "ICA"
+                          ? `${poolInfo.earnedICA || 0} ${reward}`
+                          : `${poolInfo.earned || 0} ${reward}`}
+                      </div>
+                    ))}
+                  {/* {poolInfo.earned || 0}{" "}
+                {currentToken === "zeth" ? "ETH" : "BTCB"} */}
+                </span>
               </div>
             </>
           )}
         </div>
+
         {(mode === "card" || showMore) && (
-          <>
-            <div className="info-line">
-              <span>EARN:</span>
-              <span>
-                {item.reward_tokens.map((token, index) => (
-                  <span key={index}>
-                    <span>
-                      {token}
-                    </span>{" "}
-                    {index !== item.reward_tokens.length - 1 ? "+" : ""}
-                  </span>
-                ))}
-              </span>
-            </div>
-
-            <div className="info-line">
-              <span>STAKED:</span>
-              <span>
-                {poolInfo.staked ? Number(poolInfo.staked) : 0}{" "}
-                {item.stake_token}
-              </span>
-            </div>
-
-            <div className="info-line">
-              <span>EARNED:</span>
-              <span style={{ textAlign: "right" }}>
-                {poolInfo.reward_tokens &&
-                  poolInfo.reward_tokens.map((reward, index) => (
-                    <div key={index}>
-                      {reward === "ICA"
-                        ? `${poolInfo.earnedICA || 0} ${reward}`
-                        : `${poolInfo.earned || 0} ${reward}`}
-                    </div>
-                  ))}
-                {/* {poolInfo.earned || 0}{" "}
-                {currentToken === "zeth" ? "ETH" : "BTCB"} */}
-              </span>
-            </div>
-
+          <div className="card-bottom">
             <div
               className={`btns ${
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
@@ -378,7 +388,13 @@ export default function MineDetail(props) {
                 <ConnectWallet />
               )}
             </div>
-          </>
+            <div className="info-line user-tvl">
+              <span>TVL:</span>
+              <span>
+                ${item.totalStakedUsd ? toThousands(item.totalStakedUsd) : 0}
+              </span>
+            </div>
+          </div>
         )}
       </div>
 

@@ -4,9 +4,9 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    &.is-line{
+    &.is-line {
         min-height: unset;
-        .open-soon{
+        .open-soon {
             top: unset;
             bottom: 12px;
             right: 0px;
@@ -14,32 +14,45 @@
     }
 }
 
-.toggle-btn{
+.pool-item.handle-card {
+    display: flex;
+    flex-direction: column;
+    // .card-top {
+    // }
+    // .card-bottom {
+    // }
+}
+
+.toggle-btn {
     margin-left: 12px;
 }
 
-.open-soon{
+.open-soon {
     position: absolute;
     top: 6px;
     right: 12px;
     font-size: 16px;
 }
-
+.info-line.user-tvl{
+    margin: 16px auto 0;
+}
 .line-block {
     display: block;
     margin-bottom: 32px;
+    border-bottom: 0.5px solid #5f6060;
+    border-radius: 0;
     width: 100%;
     min-height: 380px;
     .btns {
-        margin-top: 20px;
+        margin-top: 12px;
         .btn {
             width: 80%;
             padding: 8px 0;
             text-align: center;
         }
-        &.single-btn{
-            margin-top: 64px;
-        }
+        // &.single-btn{
+        //     margin-top: 64px;
+        // }
     }
     .quick-btns {
         display: flex;
@@ -57,9 +70,9 @@
             justify-content: center;
         }
     }
-    @media screen and (max-width: 992px){
-        .btns{
-            .btn{
+    @media screen and (max-width: 992px) {
+        .btns {
+            .btn {
                 width: 50%;
             }
         }

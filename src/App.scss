@@ -325,6 +325,11 @@ img {
         padding-bottom: 8px;
         margin-bottom: 8px;
     }
+    &.line-block{
+        .apr{
+            border: none;
+        }
+    }
     .info-line.top-line {
         margin-bottom: 20px;
         justify-content: space-between;
@@ -477,6 +482,10 @@ img {
         .apr{
             border-bottom: 0.5px solid #fff;
         }
+        &.line-block{
+            border-bottom: 0.5px solid #fff;
+        }
+
     }
     .grey{
         color: #ccc;

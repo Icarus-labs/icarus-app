@@ -183,6 +183,9 @@ export default function Buy() {
                   <Timer.Days /> days <Timer.Hours />h <Timer.Minutes />m
                 </Timer>
               </div>
+              <div className="progress">
+                Tip : Only once purchase locked ZBTC per address.
+              </div>
             </div>
           </Col>
         </Row>
