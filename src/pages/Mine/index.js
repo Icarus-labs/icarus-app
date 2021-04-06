@@ -26,6 +26,7 @@ export default function Mine() {
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
   const [totalMined, setTotalMined] = useState(0);
+  const [totalStaked, setTotalStaked] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
   const [btcPrice, setBtcPrice] = useState(0);
   const [icaPrice, setIcaPrice] = useState(0);
@@ -45,6 +46,10 @@ export default function Mine() {
   };
 
   const getPoolInfo = async (list, currentTab) => {
+    if (!list || list.length === 0) {
+      return false;
+    }
+
     let totalTvlRaw = 0;
 
     for (let i = 0; i < list.length; i++) {
@@ -69,7 +74,6 @@ export default function Mine() {
   };
 
   const getTokenPrice = async () => {
-    console.log("fetch priiceeeeeeeee");
     axios
       .get("https://api.coingecko.com/api/v3/simple/price", {
         params: {
@@ -143,7 +147,9 @@ export default function Mine() {
               <Col xs={12} lg={12}>
                 <div className="block second-line">
                   <div className="title">TOTAL</div>
-                  <div className="num">---</div>
+                  <div className="num">
+                    ${toThousands(totalStaked.toFixed(3))}
+                  </div>
                 </div>
               </Col>
               <Col xs={12} lg={12}>
@@ -233,6 +239,9 @@ export default function Mine() {
                       currentToken={item.currentTab}
                       earnedChange={(value) =>
                         setTotalMined((prev) => prev + Number(value))
+                      }
+                      stakedChange={(value) =>
+                        setTotalStaked((prev) => prev + Number(value))
                       }
                       prices={{
                         ica: icaPrice,

@@ -18,7 +18,7 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const { address, currentToken, item, earnedChange, prices } = props;
+  const { address, currentToken, item, earnedChange, stakedChange, prices } = props;
   const [poolInfo, setPoolInfo] = useState({});
   const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
   const [showMore, setShowMore] = useState(false);
@@ -60,9 +60,12 @@ export default function MineDetail(props) {
     });
     // trigger
 
+    let totalStakedUsd = 0
+
     if (isFirst && Object.keys(poolInfo).length > 0) {
+      // calculate total earned usd value
       let totalUsd = 0;
-      if (poolInfo.reward_tokens.indexOf("BETH") > -1) {
+      if (poolInfo.reward_tokens.indexOf("ETH") > -1) {
         totalUsd += userStats.data.data.income_amount_pretty * prices.eth;
       }
       if (poolInfo.reward_tokens.indexOf("BTCB") > -1) {
@@ -72,6 +75,12 @@ export default function MineDetail(props) {
         totalUsd += userStats.data.data.reward_amount_pretty * prices.ica;
       }
       earnedChange(totalUsd);
+      // calculate total staked usd value
+
+      totalStakedUsd = userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake
+
+      stakedChange(totalStakedUsd)
+      
     }
 
     if (userStats && userStats.data.data) {
@@ -82,6 +91,7 @@ export default function MineDetail(props) {
           earned: userStats.data.data.income_amount_pretty,
           earnedICA: userStats.data.data.reward_amount_pretty,
           lpAmount: userStats.data.data.lp_amount_pretty,
+          stakedInUsd: totalStakedUsd
         };
       });
     }
