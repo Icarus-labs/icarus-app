@@ -1,0 +1,25 @@
+.action-modal {
+    font-family: "bebas";
+    .ant-modal-close {
+        display: none;
+    }
+    .ant-modal-content {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .ant-modal-body {
+        color: #4f4e4e;
+        font-size: 18px;
+        line-height: 22px;
+        background: #cbced3;
+    }
+    .ant-input {
+        background: #c4c4c4;
+        border: none;
+        margin-bottom: 8px;
+    }
+    .ant-btn {
+        margin-top: 4px;
+        width: 100%;
+    }
+}
