@@ -174,7 +174,8 @@ export default function Buy() {
                 {(Number(totalSupply) - Number(available)).toFixed(4)} ZBTC /{" "}
                 {Number(totalSupply)} ZBTC
               </div>
-              <div className="progress">
+              <div className="progress">Auction ends in 14 days</div>
+              {/* <div className="progress">
                 AUCTION ENDS:{" "}
                 <Timer
                   initialTime={1616155200000 - new Date().getTime()}
@@ -182,10 +183,8 @@ export default function Buy() {
                 >
                   <Timer.Days /> days <Timer.Hours />h <Timer.Minutes />m
                 </Timer>
-              </div>
-              <div className="progress">
-                Tip : Only once purchase locked ZBTC per address.
-              </div>
+              </div> */}
+              <div className="progress">TIP: one purchase per wallet</div>
             </div>
           </Col>
         </Row>

@@ -191,11 +191,7 @@ export default function MineDetail(props) {
                     target="_blank"
                     className="token-item-link"
                     key={token}
-                    href={
-                      item.stake_token === "ZETH"
-                        ? `${scanUrl}/${buyContractAddress}`
-                        : ""
-                    }
+                    href={`${scanUrl}/${poolInfo.stake_address}`}
                   >
                     <img src={tokenImg[token]} className="token-item" />
                   </a>
@@ -205,11 +201,7 @@ export default function MineDetail(props) {
                 <span className="deposit-by">
                   <a
                     target="_blank"
-                    href={
-                      item.stake_token === "ZETH"
-                        ? `${scanUrl}/${buyContractAddress}`
-                        : ""
-                    }
+                    href={`${scanUrl}/${poolInfo.stake_address}`}
                   >
                     {item.stake_token}
                   </a>
