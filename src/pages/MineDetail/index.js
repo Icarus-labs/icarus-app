@@ -37,7 +37,7 @@ export default function MineDetail(props) {
   const [unstakeModalVisible, setUnstakeModalVisible] = useState(false);
   const wallet = useWallet();
   const { account } = wallet;
-  const buyContractAddress = config[network].buyContractAddress;
+  // const buyContractAddress = config[network].buyContractAddress;
   const scanUrl = config[network].scanUrl;
   // const location = useLocation()
 
@@ -152,7 +152,6 @@ export default function MineDetail(props) {
     }
   };
 
-
   const doApprove = async () => {
     let txnParams = approveParams.txs.map((item) => {
       return {
@@ -171,9 +170,9 @@ export default function MineDetail(props) {
     }
   };
 
-  // const LockedButton = () => {
-  //   return <Button className="btn">Locked</Button>;
-  // };
+  const LockedButton = () => {
+    return <Button className="btn">Locked</Button>;
+  };
 
   return (
     <>
@@ -321,7 +320,9 @@ export default function MineDetail(props) {
               }`}
             >
               {wallet.status === "connected" ? (
-                approveParams.txs && approveParams.txs.length > 0 ? (
+                poolInfo.stake_token === "ICA-BTCB" ? (
+                  <LockedButton />
+                ) : approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>

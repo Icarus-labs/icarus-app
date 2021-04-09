@@ -11,4 +11,5 @@ export default {
   ETH: ethLogo,
   BETH: ethLogo,
   ZBTC: btcLogo,
+  BTCB: btcLogo,
 };

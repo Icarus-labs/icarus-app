@@ -224,7 +224,7 @@ export default function Mine() {
         {loadingPools && <LoadingOutlined className="loading-icon" />}
         {!loadingPools && (
           <div className={mode === "line" ? "block line-wrapper" : ""}>
-            <Row className="pool-list" type="flex" justify="center" gutter={44}>
+            <Row className="pool-list" gutter={44}>
               {poolList &&
                 poolList.map((item) => (
                   <Col
