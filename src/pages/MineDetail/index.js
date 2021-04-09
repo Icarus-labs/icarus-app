@@ -86,6 +86,10 @@ export default function MineDetail(props) {
       earnedChange(totalUsd);
       // calculate total staked usd value
 
+      if (isNaN(poolInfo.value_per_stake)) {
+        return;
+      }
+
       totalStakedUsd =
         userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
 
