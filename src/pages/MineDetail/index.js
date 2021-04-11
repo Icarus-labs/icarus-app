@@ -174,9 +174,9 @@ export default function MineDetail(props) {
     }
   };
 
-  const LockedButton = () => {
-    return <Button className="btn">Locked</Button>;
-  };
+  // const LockedButton = () => {
+  //   return <Button className="btn">Locked</Button>;
+  // };
 
   return (
     <>
@@ -324,13 +324,13 @@ export default function MineDetail(props) {
               }`}
             >
               {wallet.status === "connected" ? (
-                poolInfo.stake_token === "ICA-BTCB" ? (
-                  <LockedButton />
-                ) : approveParams.txs && approveParams.txs.length > 0 ? (
+                approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>
-                ) : Number(poolInfo.staked) > 0 ? (
+                ) : Number(poolInfo.staked) > 0 ||
+                  Number(poolInfo.earnedICA) > 0 ||
+                  Number(poolInfo.earned) > 0 ? (
                   <>
                     <div className="quick-btns">
                       <Button
