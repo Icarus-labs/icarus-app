@@ -217,9 +217,17 @@ export default function MineDetail(props) {
                 <span>APR:</span>
                 <Tooltip
                   title={`${
-                    item.income_apy ? "ETH APR: " + item.income_apy + "%" : ""
-                  } ${item.income_apy && item.reward_apy && "|"} ${
                     item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                  } ${
+                    item.income_apy
+                      ? ` | ${
+                          item.reward_tokens.indexOf("BTCB") > -1
+                            ? "BTCB"
+                            : "ETH"
+                        } APR: ` +
+                        item.income_apy +
+                        "%"
+                      : ""
                   }`}
                 >
                   <span>{item.apy || 0}% </span>
