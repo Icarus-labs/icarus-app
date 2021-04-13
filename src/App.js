@@ -13,6 +13,8 @@ import { initReactI18next, useTranslation } from "react-i18next";
 import message from "./i18n";
 
 import Buy from "./pages/Buy";
+import BuyZETH from "./pages/BuyZETH";
+
 import Mine from "./pages/Mine";
 import MineDetail from "./pages/MineDetail";
 
@@ -66,6 +68,7 @@ function App() {
               <Redirect to="/mine" />
             </Route>
             <Route exact path="/buy" component={Buy} />
+            <Route path="/zeth/private" component={BuyZETH} />
             <Route exact path="/mine" component={Mine} />
             <Route exact path="/mine/:address" component={MineDetail} />
           </Switch>

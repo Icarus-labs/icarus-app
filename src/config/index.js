@@ -537,7 +537,7 @@ export const chainIdMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "binance",
+  defaultNetwork: "test",
   //test(binance)
   test: {
     network: "test",
@@ -545,6 +545,7 @@ export default {
     mode: "test",
     provider: "https://data-seed-prebsc-1-s1.binance.org:8545",
     buyContractAddress: "0x848DF83e236eF9B88E635f65cC71a125C89D6B3f",
+    buyETHContractAddress: '0x...',
     scanUrl: "https://testnet.bscscan.com/address",
     chainId: 97,
     // 后端 api
@@ -559,6 +560,7 @@ export default {
     mode: "prod",
     provider: "https://bsc-dataseed.binance.org",
     buyContractAddress: "0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd",
+    buyETHContractAddress: '0x...',
     scanUrl: "https://bscscan.com/address",
     chainId: 56,
     baseURL: "https://api.icarus.finance",

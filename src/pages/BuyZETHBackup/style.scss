@@ -3,23 +3,24 @@
     height: calc(100vh - 60px);
     display: flex;
     align-items: center;
-    .progress {
+    .progress{
         margin-top: 10px;
         font-size: 16px;
         line-height: 1;
     }
     .title {
         text-align: left;
-        a {
+        a{
             color: #fff;
         }
         .main-title {
             font-size: 30px;
             line-height: 36px;
+            color: #f6e526;
         }
     }
-
-    .btn {
+  
+    .btn-yellow {
         font-size: 24px;
         line-height: 29px;
         padding: 0;
@@ -30,6 +31,7 @@
     //     display: block;
     // }
 }
+
 
 .amount-input-wrapper {
     display: flex;
@@ -44,28 +46,8 @@
     display: inline-block;
     text-align: right;
     padding: 0 4px;
-    &::placeholder {
+    &::placeholder{
         color: #eee;
-    }
-}
-
-.buy-tab {
-    display: inline-block;
-    margin: 16px auto;
-    text-align: left;
-    padding: 10px;
-    width: 100%;
-    border-radius: 20px;
-    font-size: 30px;
-    line-height: 36px;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    color: #4f4e4e;
-    img {
-        width: 42px;
-        height: 42px;
-        margin-right: 16px;
     }
 }
 
@@ -81,7 +63,7 @@
     font-size: 24px;
     line-height: 29px;
     color: #ffffff;
-    background:rgba(150, 150, 150, 0.6);
+    background: rgba(246, 229, 38, 0.75);
     border-radius: 60px;
     padding: 4px 10px;
     white-space: nowrap;

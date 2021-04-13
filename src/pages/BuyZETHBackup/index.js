@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Input, message } from "antd";
 import { useWallet } from "use-wallet";
 import { useSelector } from "react-redux";
-import tokenImg from "config/tokenImg";
 import axios from "utils/axios";
 import Timer from "react-compound-timer";
 import config from "config";
@@ -11,7 +10,7 @@ import mm from "components/mm";
 
 import "./style.scss";
 
-export default function BuyZETH() {
+export default function Buy() {
   const network = useSelector((state) => state.setting.network);
   const [amount, setAmount] = useState();
   const [buying, setBuying] = useState(false);
@@ -21,12 +20,12 @@ export default function BuyZETH() {
   const [price, setPrice] = useState(0);
   const [isMax, setIsMax] = useState(false);
 
-  const buyContractAddress = config[network].buyETHContractAddress;
+  const buyContractAddress = config[network].buyContractAddress;
   const scanUrl = config[network].scanUrl;
 
   const wallet = useWallet();
 
-  const { account } = wallet;
+  const { account } = wallet
 
   useEffect(() => {
     getPresaleAvailable();
@@ -51,7 +50,7 @@ export default function BuyZETH() {
     }
     try {
       setBuying(true);
-      const result = await axios.post("/zeth/privatesale/buy", {
+      const result = await axios.post("/presale/buy", {
         amount: isMax ? "-1" : amount,
         address: wallet.account,
       });
@@ -61,7 +60,7 @@ export default function BuyZETH() {
           from: wallet.account,
           to: item.contract,
           data: item.calldata,
-          isApprove: item.action_type === "Approve",
+          isApprove: item.action_type === 'Approve'
         };
       });
 
@@ -83,15 +82,17 @@ export default function BuyZETH() {
   };
 
   const getAssetBalance = async () => {
-    if (!account) {
-      return;
+    if(!account){
+      return
     }
-    const result = await axios.get(`/zeth/privatesale/balances?address=${account}`);
+    const result = await axios.get(
+      `/presale/balances?address=${account}`
+    );
     setBalance(result.data.data.busd_pretty);
   };
 
   const getPresaleAvailable = async () => {
-    const result = await axios.get("/zeth/privatesale/available");
+    const result = await axios.get("/presale/available");
     setAvailable(result.data.data.amount_pretty);
   };
 
@@ -101,29 +102,16 @@ export default function BuyZETH() {
   };
 
   const getPresalePrice = async () => {
-    const result = await axios.get("/zeth/privatesale/price");
+    const result = await axios.get("/presale/price");
     setPrice(result.data.data.price_pretty);
   };
 
   return (
     <div className="page-buy">
       <div className="container">
-        {/* <Row type="flex" justify="center">
-          <Col xs={24} md={12} lg={8}>
-            <a
-              href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
-              target="_blank"
-              className="buy-tab block"
-            >
-              <img src={tokenImg["ZETH"]} className="token-item" /> BUY ZETH ON
-              DODO
-            </a>
-          </Col>
-        </Row> */}
-
         <Row className="pool-list" type="flex" justify="center">
           <Col xs={24} md={12} lg={8}>
-            <div className="pool-item block">
+            <div className="pool-item">
               <div className="info-line top-line">
                 <span className="title">
                   <span className="main-title">FIXED-WRAP</span> <br />
@@ -166,7 +154,7 @@ export default function BuyZETH() {
                   </span>
                 </span>
               </div>
-              <Button onClick={doBuy} className="btn">
+              <Button onClick={doBuy} className="btn-yellow">
                 SWAP &amp; LOCK IN 3 MONTHS {buying && "..."}
               </Button>
               <div className="progress">
@@ -174,17 +162,12 @@ export default function BuyZETH() {
                 {(Number(totalSupply) - Number(available)).toFixed(4)} ZETH /{" "}
                 {Number(totalSupply)} ZETH
               </div>
-              {/* <div className="progress">Auction ends in 14 days</div> */}
-              {/* <div className="progress">
+              <div className="progress">
                 AUCTION ENDS:{" "}
-                <Timer
-                  initialTime={1616155200000 - new Date().getTime()}
-                  direction="backward"
-                >
+                <Timer initialTime={1616155200000 - new Date().getTime()} direction="backward">
                   <Timer.Days /> days <Timer.Hours />h <Timer.Minutes />m
                 </Timer>
-              </div> */}
-              <div className="progress">TIP: one purchase per wallet</div>
+              </div>
             </div>
           </Col>
         </Row>
