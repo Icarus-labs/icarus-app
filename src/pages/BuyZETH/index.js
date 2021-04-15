@@ -17,9 +17,11 @@ export default function BuyZETH() {
   const [buying, setBuying] = useState(false);
   const [balance, setBalance] = useState(0);
   const [available, setAvailable] = useState(0);
-  const [totalSupply, setTotalSupply] = useState(0);
+  // const [totalSupply, setTotalSupply] = useState(50000);
   const [price, setPrice] = useState(0);
   const [isMax, setIsMax] = useState(false);
+
+  const totalSupply = 50000
 
   const buyContractAddress = config[network].buyETHContractAddress;
   const scanUrl = config[network].scanUrl;
@@ -31,7 +33,7 @@ export default function BuyZETH() {
   useEffect(() => {
     getPresaleAvailable();
     getPresalePrice();
-    getTotalSupply();
+    // getTotalSupply();
   }, []);
 
   useEffect(() => {
@@ -95,10 +97,10 @@ export default function BuyZETH() {
     setAvailable(result.data.data.amount_pretty);
   };
 
-  const getTotalSupply = async () => {
-    const result = await axios.get("/zeth/totalsupply");
-    setTotalSupply(result.data.data.amount_pretty);
-  };
+  // const getTotalSupply = async () => {
+  //   const result = await axios.get("/zeth/totalsupply");
+  //   setTotalSupply(result.data.data.amount_pretty);
+  // };
 
   const getPresalePrice = async () => {
     const result = await axios.get("/zeth/privatesale/price");
