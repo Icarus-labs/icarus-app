@@ -174,9 +174,9 @@ export default function MineDetail(props) {
     }
   };
 
-  // const LockedButton = () => {
-  //   return <Button className="btn">Locked</Button>;
-  // };
+  const LockedButton = () => {
+    return <Button className="btn">Locked</Button>;
+  };
 
   return (
     <>
@@ -332,7 +332,9 @@ export default function MineDetail(props) {
               }`}
             >
               {wallet.status === "connected" ? (
-                approveParams.txs && approveParams.txs.length > 0 ? (
+                poolInfo.stake_token === "ZETH-BUSD" ? (
+                  <LockedButton />
+                ) : approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>
