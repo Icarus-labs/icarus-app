@@ -28,6 +28,7 @@ export default function Mine() {
   const [totalMined, setTotalMined] = useState(0);
   const [totalStaked, setTotalStaked] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
+  const [zethPrice, setZethPrice] = useState(0);
   const [btcPrice, setBtcPrice] = useState(0);
   const [icaPrice, setIcaPrice] = useState(0);
 
@@ -95,6 +96,12 @@ export default function Mine() {
         setIcaPrice(Number(res.data.data.amount_pretty));
       }
     });
+
+    axios.get("/zeth/price").then((res) => {
+      if (res.data.data) {
+        setZethPrice(Number(res.data.data.price_pretty));
+      }
+    });
   };
 
   useEffect(() => {
@@ -141,6 +148,7 @@ export default function Mine() {
                 <div>ETH: ${ethPrice}</div>
                 <div>BTC: ${btcPrice}</div>
                 <div>ICA: ${icaPrice}</div>
+                <div>ZETH: ${zethPrice}</div>
               </div>
             </div>
             <Row gutter={44}>
@@ -203,9 +211,15 @@ export default function Mine() {
                 </Col>
                 <Col xs={24} md={8}>
                   <img src={BuyZbtcIcon} className="buy-icon" />
-                  <Link to="/buy">
-                    <Button className="btn">BUY ZBTC</Button>
-                  </Link>
+                  {/* <Link to="/buy"> */}
+                  <a>
+                    <Button
+                      className="btn"
+                      style={{ background: "#999", cursor: "no-drop" }}
+                    >
+                      BUY ZBTC
+                    </Button>
+                  </a>
                 </Col>
                 <Col xs={24} md={8}>
                   <img src={BuyZethIcon} className="buy-icon" />
@@ -247,6 +261,7 @@ export default function Mine() {
                         ica: icaPrice,
                         btc: btcPrice,
                         eth: ethPrice,
+                        zeth: zethPrice,
                       }}
                     />
                   </Col>

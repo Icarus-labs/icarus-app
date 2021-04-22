@@ -43,7 +43,9 @@ export default function AppHeader() {
       return;
     }
     const result = await axios.get(`/zeth/presale/balances?address=${account}`);
-    setIcaBalance(result.data.data.ica_pretty);
+    if(result && result.data && result.data.data){
+      setIcaBalance(result.data.data.ica_pretty);
+    }
   };
 
   useEffect(() => {

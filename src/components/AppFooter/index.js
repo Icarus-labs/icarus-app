@@ -11,6 +11,7 @@ export default function AppFooter() {
           <a href="https://t.me/icarus_finance">TELEGRAM</a>
           <a href="https://discord.gg/FW5QtuzPdS">DISCORD</a>
           <a href="https://icarus-finance.medium.com">MEDIUM</a>
+          <a href="https://solidity.finance/audits/Icarus">AUDIT</a>
         </div>
         <div className="year">2021</div>
       </div>

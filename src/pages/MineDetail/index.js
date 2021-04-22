@@ -83,6 +83,9 @@ export default function MineDetail(props) {
       if (poolInfo.reward_tokens.indexOf("ICA") > -1) {
         totalUsd += userStats.data.data.reward_amount_pretty * prices.ica;
       }
+      // if (poolInfo.reward_tokens.indexOf("ZETH") > -1) {
+      //   totalUsd += userStats.data.data.reward_amount_pretty * prices.zeth;
+      // }
       earnedChange(totalUsd);
       // calculate total staked usd value
 
@@ -174,9 +177,9 @@ export default function MineDetail(props) {
     }
   };
 
-  const LockedButton = () => {
-    return <Button className="btn">Locked</Button>;
-  };
+  // const LockedButton = () => {
+  //   return <Button className="btn">Locked</Button>;
+  // };
 
   return (
     <>
@@ -204,7 +207,11 @@ export default function MineDetail(props) {
                 <span className="deposit-by">
                   <a
                     target="_blank"
-                    href={`${scanUrl}/${poolInfo.stake_address}`}
+                    href={
+                      poolInfo.lp_url
+                        ? poolInfo.lp_url
+                        : `${scanUrl}/${poolInfo.stake_address}`
+                    }
                   >
                     {item.stake_token}
                   </a>
@@ -332,9 +339,7 @@ export default function MineDetail(props) {
               }`}
             >
               {wallet.status === "connected" ? (
-                poolInfo.stake_token === "ZETH-BUSD" ? (
-                  <LockedButton />
-                ) : approveParams.txs && approveParams.txs.length > 0 ? (
+                approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>
