@@ -147,8 +147,8 @@ export default function Mine() {
               <div className="prices">
                 <div>ETH: ${ethPrice}</div>
                 <div>BTC: ${btcPrice}</div>
-                <div>ICA: ${icaPrice}</div>
-                <div>ZETH: ${zethPrice}</div>
+                <div>ICA: ${icaPrice.toFixed(3)}</div>
+                <div>ZETH: ${zethPrice.toFixed(3)}</div>
               </div>
             </div>
             <Row gutter={44}>
@@ -211,14 +211,11 @@ export default function Mine() {
                 </Col>
                 <Col xs={24} md={8}>
                   <img src={BuyZbtcIcon} className="buy-icon" />
-                  {/* <Link to="/buy"> */}
-                  <a>
-                    <Button
-                      className="btn"
-                      style={{ background: "#999", cursor: "no-drop" }}
-                    >
-                      BUY ZBTC
-                    </Button>
+                  <a
+                    target="_blank"
+                    href="https://app.dodoex.io/cp/join/0xa274895414cfb4c2799fb4c490ac01ac4a97b96a?network=bsc-mainnet"
+                  >
+                    <Button className="btn">BUY ZBTC</Button>
                   </a>
                 </Col>
                 <Col xs={24} md={8}>

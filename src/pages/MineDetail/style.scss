@@ -14,6 +14,14 @@
     }
 }
 
+.add-liquidity{
+    color: #9887cd;
+    font-size: 16px;
+    &:hover{
+        color: #8b7abb;
+    }
+}
+
 .pool-item.handle-card {
     display: flex;
     flex-direction: column;

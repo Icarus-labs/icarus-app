@@ -333,6 +333,16 @@ export default function MineDetail(props) {
 
         {(mode === "card" || showMore) && (
           <div className="card-bottom">
+            {poolInfo.lp_url && (
+              <a
+                className="add-liquidity"
+                href={poolInfo.lp_url}
+                target="_blank"
+              >
+                Add Liquidity
+              </a>
+            )}
+
             <div
               className={`btns ${
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
