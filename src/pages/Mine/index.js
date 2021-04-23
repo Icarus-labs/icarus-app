@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button, Tooltip, Switch } from "antd";
+import { useSelector } from "react-redux";
+import { Row, Col, Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import HomeIcon from "assets/home-icon.svg";
-import MoonIcon from "assets/moon.svg";
-import ModeIcon from "assets/mode.svg";
+import CoingeckoImg from "assets/coingecko.png";
 
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
 import BuyZethIcon from "assets/buy-zeth.svg";
 
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+// import { Link } from "react-router-dom";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
 import { toThousands } from "utils/Tools";
@@ -18,11 +16,6 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function Mine() {
-  const theme = useSelector((state) => state.setting.theme);
-  const mode = useSelector((state) => state.setting.mode);
-
-  const dispatch = useDispatch();
-
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
   const [totalMined, setTotalMined] = useState(0);
@@ -31,6 +24,7 @@ export default function Mine() {
   const [zethPrice, setZethPrice] = useState(0);
   const [btcPrice, setBtcPrice] = useState(0);
   const [icaPrice, setIcaPrice] = useState(0);
+  const mode = useSelector((state) => state.setting.mode);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
@@ -118,30 +112,13 @@ export default function Mine() {
     return () => clearInterval(interval);
   }, []);
 
-  const changeTheme = (param) => {
-    dispatch({
-      type: "SWITCH_THEME",
-      payload: {
-        theme: param ? "purple" : "light",
-      },
-    });
-  };
-
-  const changeMode = (param) => {
-    dispatch({
-      type: "SWITCH_MODE",
-      payload: {
-        mode: param ? "card" : "line",
-      },
-    });
-  };
-
   return (
     <div className="page-mine">
       <div className="container">
-        <Row gutter={44}>
+        <Row gutter={{ lg: 44 }}>
           <Col xs={24} lg={12}>
             <div className="tvl block">
+              <div className="logo">icarus.finance</div>
               <div className="title">TVL</div>
               <div className="num">${toThousands(totalTvl)}</div>
               <div className="prices">
@@ -171,33 +148,14 @@ export default function Mine() {
             </Row>
           </Col>
           <Col xs={24} lg={12}>
-            <div className="handle-area">
-              <div className="block">
-                <a
-                  href="https://icarus.finance"
-                  target="_blank"
-                  className="home-icon-link"
-                >
-                  <img className="home-icon icon" src={HomeIcon} />
-                </a>
-              </div>
-              <div className="block">
-                <img className="moon-icon icon" src={MoonIcon} />
-                <Switch
-                  className="option-switch"
-                  checked={theme === "purple"}
-                  onChange={changeTheme}
-                />
-              </div>
-              <div className="block">
-                <img className="mode-icon icon" src={ModeIcon} />
-                <Switch
-                  className="option-switch"
-                  checked={mode === "card"}
-                  onChange={changeMode}
-                />
-              </div>
-            </div>
+            <a
+              href="https://www.coingecko.com/coins/icarus-finance"
+              target="_blank"
+              className="coingecko"
+            >
+              <img src={CoingeckoImg} />
+            </a>
+
             <div className="block second-line">
               <Row>
                 <Col xs={24} md={8}>
