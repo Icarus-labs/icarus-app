@@ -204,7 +204,7 @@ export default function Mine() {
                   <img src={BuyIcaIcon} className="buy-icon" />
                   <a
                     target="_blank"
-                    href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x95111f630ac215eb74599ed42c67e2c2790d69e2"
+                    href="https://v1exchange.pancakeswap.finance/#/swap?outputCurrency=0x95111f630ac215eb74599ed42c67e2c2790d69e2"
                   >
                     <Button className="btn">BUY ICA</Button>
                   </a>
