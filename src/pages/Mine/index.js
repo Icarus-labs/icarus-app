@@ -41,6 +41,9 @@ export default function Mine() {
   };
 
   const getPoolInfo = async (list, currentTab) => {
+    if(!currentTab){
+      return
+    }
     if (!list || list.length === 0) {
       return false;
     }

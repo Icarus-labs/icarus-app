@@ -120,6 +120,11 @@ export default function MineDetail(props) {
   };
 
   const getPool = async () => {
+    if (!currentToken) {
+      setPoolInfo({});
+      return;
+    }
+
     const result = await axios.get(`/${currentToken}/pools/info`, {
       params: {
         pool: address,
@@ -239,12 +244,6 @@ export default function MineDetail(props) {
                 >
                   <span>{item.apy || 0}% </span>
                 </Tooltip>
-                {poolInfo.stake_token === "ZBTC" && (
-                  <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
-                    <QuestionCircleOutlined className="question-icon" />
-                  </Tooltip>
-                )}
-
                 {showMore ? (
                   <UpOutlined
                     className="toggle-btn"
@@ -281,11 +280,11 @@ export default function MineDetail(props) {
                   >
                     <span>{item.apy || 0}% </span>
                   </Tooltip>
-                  {poolInfo.stake_token === "ZBTC" && (
+                  {/* {poolInfo.stake_token === "ZBTC" && (
                     <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
                       <QuestionCircleOutlined className="question-icon" />
                     </Tooltip>
-                  )}
+                  )} */}
                 </div>
               </>
             )}
