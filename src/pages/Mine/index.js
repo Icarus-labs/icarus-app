@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Row, Col, Button } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Row, Col, Button, Tooltip } from "antd";
+import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import CoingeckoImg from "assets/coingecko.png";
 
 import BuyIcaIcon from "assets/buy-ica.svg";
@@ -41,8 +41,8 @@ export default function Mine() {
   };
 
   const getPoolInfo = async (list, currentTab) => {
-    if(!currentTab){
-      return
+    if (!currentTab) {
+      return;
     }
     if (!list || list.length === 0) {
       return false;
@@ -134,7 +134,12 @@ export default function Mine() {
             <Row gutter={44}>
               <Col xs={12} lg={12}>
                 <div className="block second-line">
-                  <div className="title">TOTAL</div>
+                  <div className="title">
+                    DEPOSITED{" "}
+                    <Tooltip title="Total deposited amount across all pools in USD.">
+                      <QuestionCircleOutlined className="title-icon" />
+                    </Tooltip>
+                  </div>
                   <div className="num">
                     ${toThousands(totalStaked.toFixed(3))}
                   </div>
@@ -142,9 +147,14 @@ export default function Mine() {
               </Col>
               <Col xs={12} lg={12}>
                 <div className="block second-line">
-                  <div className="title">MINED</div>
+                  <div className="title">
+                    MINED{" "}
+                    <Tooltip title="Total amount mined across all pools in USD.">
+                      <QuestionCircleOutlined className="title-icon" />
+                    </Tooltip>
+                  </div>
                   <div className="num">
-                    ${toThousands(totalMined.toFixed(3))}
+                    ${toThousands(totalMined.toFixed(2))}
                   </div>
                 </div>
               </Col>
@@ -161,7 +171,7 @@ export default function Mine() {
 
             <div className="block second-line">
               <Row>
-                <Col xs={24} md={8}>
+                <Col xs={8}>
                   <img src={BuyIcaIcon} className="buy-icon" />
                   <a
                     target="_blank"
@@ -170,7 +180,7 @@ export default function Mine() {
                     <Button className="btn">BUY ICA</Button>
                   </a>
                 </Col>
-                <Col xs={24} md={8}>
+                <Col xs={8}>
                   <img src={BuyZbtcIcon} className="buy-icon" />
                   <a
                     target="_blank"
@@ -179,7 +189,7 @@ export default function Mine() {
                     <Button className="btn">BUY ZBTC</Button>
                   </a>
                 </Col>
-                <Col xs={24} md={8}>
+                <Col xs={8}>
                   <img src={BuyZethIcon} className="buy-icon" />
                   <a
                     href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"

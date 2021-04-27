@@ -41,26 +41,26 @@ export default function AppHeader() {
     });
   };
 
-  const mobileMenu = (
-    <Menu>
-      <Menu.Item>
-        <a href="https://icarus.finance" target="_blank">
-          HOME
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/mine">MINE</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
-          target="_blank"
-        >
-          BUY
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
+  // const mobileMenu = (
+  //   <Menu>
+  //     <Menu.Item>
+  //       <a href="https://icarus.finance" target="_blank">
+  //         HOME
+  //       </a>
+  //     </Menu.Item>
+  //     <Menu.Item>
+  //       <Link to="/mine">MINE</Link>
+  //     </Menu.Item>
+  //     <Menu.Item>
+  //       <a
+  //         href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
+  //         target="_blank"
+  //       >
+  //         BUY
+  //       </a>
+  //     </Menu.Item>
+  //   </Menu>
+  // );
 
   //todo, here getting ZETH
   const getAssetBalance = async () => {
@@ -91,9 +91,9 @@ export default function AppHeader() {
     <div className="container">
       <header className="app-header">
         <div className="header-left">
-          <Dropdown className="mobile-nav" overlay={mobileMenu}>
+          {/* <Dropdown className="mobile-nav" overlay={mobileMenu}>
             <MenuOutlined className="menu-icon" />
-          </Dropdown>
+          </Dropdown> */}
           {/* <Link to="/" className="logo-text">
             <img src={LogoLight} className="icon" />
             ICARUS.FINANCE

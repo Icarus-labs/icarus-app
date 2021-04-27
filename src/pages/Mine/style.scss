@@ -6,6 +6,10 @@
     .second-line {
         height: 180px;
     }
+    .title-icon{
+        font-size: 14px;
+        vertical-align: top;
+    }
     .home-icon-link {
         display: block;
         margin: 0 auto;
@@ -32,7 +36,7 @@
     }
 
     .block {
-        border-radius: 16px;
+        border-radius: 40px;
         margin-bottom: 32px;
         text-align: left;
         .title {
