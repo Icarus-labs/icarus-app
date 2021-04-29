@@ -50,32 +50,40 @@
             margin-bottom: 32px;
             height: 200px;
             position: relative;
+            .logo-img{
+                width: 32px;
+                display: block;
+                margin: 0 auto 8px;
+            }
             .logo {
-                font-size: 26px;
+                font-size: 22px;
                 text-transform: uppercase;
-                // color: #4f4e4e !important;
                 font-family: "sonny";
-                position: absolute;
-                left:0;
-                right: 0;
-                top: 12px;
+                // position: absolute;
+                // left:0;
+                // right: 0;
+                // top: 12px;
                 text-align: center;
                 margin: auto;
             }
             .title {
-                font-size: 22px;
+                font-size: 16px;
+                position: absolute;
+                left: 0;
+                bottom: 0;
             }
             .num {
                 text-align: center;
-                font-size: 56px;
+                font-size: 36px;
+                position: relative;
             }
             .prices {
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
                 font-size: 16px;
-                div {
-                    margin: 0 12px;
-                }
+                // div {
+                //     margin: 0 12px;
+                // }
             }
         }
     }

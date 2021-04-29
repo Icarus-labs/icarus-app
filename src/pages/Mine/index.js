@@ -7,6 +7,7 @@ import CoingeckoImg from "assets/coingecko.png";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
 import BuyZethIcon from "assets/buy-zeth.svg";
+import ICALogo from "assets/tokens/ica.svg";
 
 // import { Link } from "react-router-dom";
 import axios from "utils/axios";
@@ -121,9 +122,11 @@ export default function Mine() {
         <Row gutter={{ lg: 44 }}>
           <Col xs={24} lg={12}>
             <div className="tvl block">
+              <img src={ICALogo} className="logo-img" />
               <div className="logo">icarus.finance</div>
-              <div className="title">TVL</div>
-              <div className="num">${toThousands(totalTvl)}</div>
+              <div className="num">
+                <div className="title">TVL</div>${toThousands(totalTvl)}
+              </div>
               <div className="prices">
                 <div>ETH: ${ethPrice}</div>
                 <div>BTC: ${btcPrice}</div>
@@ -141,7 +144,7 @@ export default function Mine() {
                     </Tooltip>
                   </div>
                   <div className="num">
-                    ${toThousands(totalStaked.toFixed(3))}
+                    ${toThousands(totalStaked.toFixed(2))}
                   </div>
                 </div>
               </Col>

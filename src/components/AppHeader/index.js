@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useWallet } from "use-wallet";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Tooltip, Switch, Dropdown, Menu } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 
-import { MenuOutlined } from "@ant-design/icons";
+// import { MenuOutlined } from "@ant-design/icons";
 import HomeIcon from "assets/home-icon.svg";
 import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
