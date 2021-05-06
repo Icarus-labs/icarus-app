@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Row, Col, Button, Tooltip } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import CoingeckoImg from "assets/coingecko.png";
+import BannerImg from "assets/banners/beefy.png";
 
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
@@ -165,11 +165,11 @@ export default function Mine() {
           </Col>
           <Col xs={24} lg={12}>
             <a
-              href="https://www.coingecko.com/coins/icarus-finance"
+              href="https://app.beefy.finance"
               target="_blank"
               className="coingecko"
             >
-              <img src={CoingeckoImg} />
+              <img src={BannerImg} />
             </a>
 
             <div className="block second-line">
@@ -187,7 +187,7 @@ export default function Mine() {
                   <img src={BuyZbtcIcon} className="buy-icon" />
                   <a
                     target="_blank"
-                    href="https://app.dodoex.io/cp/join/0xa274895414cfb4c2799fb4c490ac01ac4a97b96a?network=bsc-mainnet"
+                    href="https://app.dodoex.io/exchange/BUSD-0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd?network=bsc-mainnet"
                   >
                     <Button className="btn">BUY ZBTC</Button>
                   </a>

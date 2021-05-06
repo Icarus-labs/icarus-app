@@ -4,6 +4,7 @@ import icaLogo from "assets/tokens/ica.svg";
 import ethLogo from "assets/tokens/eth.svg";
 import zbtcLogo from "assets/tokens/zbtc.svg";
 import btcLogo from "assets/tokens/btc.svg";
+import xdittoLogo from "assets/tokens/xditto.svg";
 
 export default {
   ZETH: zethLogo,
@@ -13,4 +14,5 @@ export default {
   BETH: ethLogo,
   ZBTC: zbtcLogo,
   BTCB: btcLogo,
+  XDITTO: xdittoLogo
 };

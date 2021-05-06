@@ -182,9 +182,9 @@ export default function MineDetail(props) {
     }
   };
 
-  // const LockedButton = () => {
-  //   return <Button className="btn">Locked</Button>;
-  // };
+  const LockedButton = () => {
+    return <Button className="btn">Locked</Button>;
+  };
 
   return (
     <>
@@ -347,7 +347,11 @@ export default function MineDetail(props) {
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
               }`}
             >
-              {wallet.status === "connected" ? (
+              {poolInfo.stake_token === "ZBTC-BUSD" ||
+              poolInfo.address ===
+                "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ? (
+                <LockedButton />
+              ) : wallet.status === "connected" ? (
                 approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 // import { MenuOutlined } from "@ant-design/icons";
 import HomeIcon from "assets/home-icon.svg";
+import VoteIcon from "assets/vote-icon.svg";
 import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
 // import LogoLight from "assets/logo.svg";
@@ -123,6 +124,15 @@ export default function AppHeader() {
                 checked={mode === "card"}
                 onChange={changeMode}
               />
+            </div>
+            <div className="block">
+              <a
+                href="https://vote.icarus.finance"
+                target="_blank"
+                className="home-icon-link"
+              >
+                <img className="home-icon icon" src={VoteIcon} />
+              </a>
             </div>
           </div>
         </div>
