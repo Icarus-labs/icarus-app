@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, message, Tooltip } from "antd";
 // import { Link, useLocation } from "react-router-dom";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+// import { QuestionCircleOutlined } from "@ant-design/icons";
 import tokenImg from "config/tokenImg";
 import { useWallet } from "use-wallet";
 import config from "config";
@@ -195,35 +195,67 @@ export default function MineDetail(props) {
       >
         <div className="card-top">
           <div className="info-line top-line">
-            <div className="top-line-wrapper">
-              <span className="tokens">
-                {item.stake_token.split("-").map((token) => (
+            {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" && (
+              <div className="top-line-wrapper">
+                <span className="tokens">
                   <a
                     target="_blank"
                     className="token-item-link"
-                    key={token}
                     href={`${scanUrl}/${poolInfo.stake_address}`}
                   >
-                    <img src={tokenImg[token]} className="token-item" />
-                  </a>
-                ))}
-              </span>
-              <span>
-                <span className="deposit-by">
-                  <a
-                    target="_blank"
-                    href={
-                      poolInfo.lp_url
-                        ? poolInfo.lp_url
-                        : `${scanUrl}/${poolInfo.stake_address}`
-                    }
-                  >
-                    {item.stake_token}
+                    <img src={tokenImg["XDITTO"]} className="token-item" />
                   </a>
                 </span>
-                <span className="tvl">TVL: ${toThousands(item.tvl) || 0}</span>
-              </span>
-            </div>
+                <span>
+                  <span className="deposit-by">
+                    <a
+                      target="_blank"
+                      href={`${scanUrl}/${poolInfo.stake_address}`}
+                    >
+                      XDITTO
+                    </a>
+                  </span>
+                  <span className="tvl">
+                    TVL: ${toThousands(item.tvl) || 0}
+                  </span>
+                </span>
+              </div>
+            )}
+
+            {address !== "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" && (
+              <div className="top-line-wrapper">
+                <span className="tokens">
+                  {item.stake_token.split("-").map((token) => (
+                    <a
+                      target="_blank"
+                      className="token-item-link"
+                      key={token}
+                      href={`${scanUrl}/${poolInfo.stake_address}`}
+                    >
+                      <img src={tokenImg[token]} className="token-item" />
+                    </a>
+                  ))}
+                </span>
+                <span>
+                  <span className="deposit-by">
+                    <a
+                      target="_blank"
+                      href={
+                        poolInfo.lp_url
+                          ? poolInfo.lp_url
+                          : `${scanUrl}/${poolInfo.stake_address}`
+                      }
+                    >
+                      {item.stake_token}
+                    </a>
+                  </span>
+                  <span className="tvl">
+                    TVL: ${toThousands(item.tvl) || 0}
+                  </span>
+                </span>
+              </div>
+            )}
+
             {mode === "line" && (
               <div>
                 <span>APR:</span>
@@ -332,26 +364,12 @@ export default function MineDetail(props) {
 
         {(mode === "card" || showMore) && (
           <div className="card-bottom">
-            {poolInfo.lp_url && (
-              <a
-                className="add-liquidity"
-                href={poolInfo.lp_url}
-                target="_blank"
-              >
-                Add Liquidity
-              </a>
-            )}
-
             <div
               className={`btns ${
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
               }`}
             >
-              {poolInfo.stake_token === "ZBTC-BUSD" ||
-              poolInfo.address ===
-                "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ? (
-                <LockedButton />
-              ) : wallet.status === "connected" ? (
+              {wallet.status === "connected" ? (
                 approveParams.txs && approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
@@ -402,9 +420,20 @@ export default function MineDetail(props) {
               )}
             </div>
             <div className="info-line user-tvl">
-              <span>TVL:</span>
               <span>
-                ${poolInfo.stakedInUsd ? toThousands(poolInfo.stakedInUsd) : 0}
+                {poolInfo.lp_url && (
+                  <a
+                    className="add-liquidity"
+                    href={poolInfo.lp_url}
+                    target="_blank"
+                  >
+                    Add Liquidity
+                  </a>
+                )}
+              </span>
+              <span>
+                TVL: $
+                {poolInfo.stakedInUsd ? toThousands(poolInfo.stakedInUsd) : 0}
               </span>
             </div>
           </div>
