@@ -23,8 +23,12 @@ export default function Mine() {
   const [totalStaked, setTotalStaked] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
   const [zethPrice, setZethPrice] = useState(0);
+  const [zbtcPrice, setZbtcPrice] = useState(0);
   const [btcPrice, setBtcPrice] = useState(0);
   const [icaPrice, setIcaPrice] = useState(0);
+  const [icaMarketCap, setIcaMarketCap] = useState(0);
+  const [icaTotalMinted, setIcaTotalMinted] = useState(0);
+  const [icaTotalBurned, setIcaTotalBurned] = useState(0);
   const mode = useSelector((state) => state.setting.mode);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
@@ -100,6 +104,31 @@ export default function Mine() {
         setZethPrice(Number(res.data.data.price_pretty));
       }
     });
+
+    axios.get("/zbtc/price").then((res) => {
+      if (res.data.data) {
+        setZbtcPrice(Number(res.data.data.price_pretty));
+      }
+    });
+  };
+
+  const getGeneralInfo = async () => {
+    axios.get("/ica/supply_value").then((res) => {
+      if (res.data.data) {
+        console.log(res.data.data, "nnnnnn");
+        setIcaMarketCap(res.data.data.amount_pretty);
+      }
+    });
+    axios.get("/ica/supply").then((res) => {
+      if (res.data.data) {
+        setIcaTotalMinted(res.data.data.amount_pretty);
+      }
+    });
+    axios.get("/ica/burnt").then((res) => {
+      if (res.data.data) {
+        setIcaTotalBurned(res.data.data.amount_pretty);
+      }
+    });
   };
 
   useEffect(() => {
@@ -107,6 +136,7 @@ export default function Mine() {
     setLoadingPools(true);
     getPools();
     getTokenPrice();
+    getGeneralInfo();
   }, []);
 
   useEffect(() => {
@@ -132,8 +162,10 @@ export default function Mine() {
                 <div>BTC: ${btcPrice}</div>
                 <div>ICA: ${icaPrice.toFixed(3)}</div>
                 <div>ZETH: ${zethPrice.toFixed(3)}</div>
+                <div>ZBTC: ${zbtcPrice.toFixed(3)}</div>
               </div>
             </div>
+
             <Row gutter={44}>
               <Col xs={12} lg={12}>
                 <div className="block second-line">
@@ -206,6 +238,14 @@ export default function Mine() {
           </Col>
         </Row>
 
+        <div className="bar">
+          <div>
+            <span className="highlight">ICA</span> Market Cap: ${icaMarketCap}
+          </div>
+          <div>Total Minted: {icaTotalMinted}</div>
+          <div>Total Burned: {icaTotalBurned}</div>
+        </div>
+
         {loadingPools && <LoadingOutlined className="loading-icon" />}
         {!loadingPools && (
           <div className={mode === "line" ? "block line-wrapper" : ""}>
@@ -233,6 +273,7 @@ export default function Mine() {
                         btc: btcPrice,
                         eth: ethPrice,
                         zeth: zethPrice,
+                        zbtc: zbtcPrice,
                       }}
                     />
                   </Col>

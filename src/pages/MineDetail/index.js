@@ -71,7 +71,7 @@ export default function MineDetail(props) {
 
     let totalStakedUsd = 0;
 
-    if (isFirst && Object.keys(poolInfo).length > 0) {
+    if (isFirst && Object.keys(poolInfo).length > 0 && userStats.data.data) {
       // calculate total earned usd value
       let totalUsd = 0;
       if (poolInfo.reward_tokens.indexOf("ETH") > -1) {
@@ -131,7 +131,7 @@ export default function MineDetail(props) {
       },
     });
 
-    setPoolInfo(result.data.data);
+    setPoolInfo(result.data.data || {});
 
     setPoolInfoTrigger((prev) => prev + 1);
 
@@ -182,9 +182,9 @@ export default function MineDetail(props) {
     }
   };
 
-  const LockedButton = () => {
-    return <Button className="btn">Locked</Button>;
-  };
+  // const LockedButton = () => {
+  //   return <Button className="btn">Locked</Button>;
+  // };
 
   return (
     <>
@@ -259,23 +259,30 @@ export default function MineDetail(props) {
             {mode === "line" && (
               <div>
                 <span>APR:</span>
-                <Tooltip
-                  title={`${
-                    item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-                  } ${
-                    item.income_apy
-                      ? ` | ${
-                          item.reward_tokens.indexOf("BTCB") > -1
-                            ? "BTCB"
-                            : "ETH"
-                        } APR: ` +
-                        item.income_apy +
-                        "%"
-                      : ""
-                  }`}
-                >
-                  <span>{item.apy || 0}% </span>
-                </Tooltip>
+                {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ? (
+                  <Tooltip title={`xDitto APR: ${item.apy || 0}%`}>
+                    <span>{item.apy || 0}% </span>
+                  </Tooltip>
+                ) : (
+                  <Tooltip
+                    title={`${
+                      item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
+                    } ${
+                      item.income_apy
+                        ? ` | ${
+                            item.reward_tokens.indexOf("BTCB") > -1
+                              ? "BTCB"
+                              : "ETH"
+                          } APR: ` +
+                          item.income_apy +
+                          "%"
+                        : ""
+                    }`}
+                  >
+                    <span>{item.apy || 0}% </span>
+                  </Tooltip>
+                )}
+
                 {showMore ? (
                   <UpOutlined
                     className="toggle-btn"
@@ -295,23 +302,31 @@ export default function MineDetail(props) {
               <>
                 <span>APR:</span>
                 <div>
-                  <Tooltip
-                    title={`${
-                      item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-                    } ${
-                      item.income_apy
-                        ? ` | ${
-                            item.reward_tokens.indexOf("BTCB") > -1
-                              ? "BTCB"
-                              : "ETH"
-                          } APR: ` +
-                          item.income_apy +
-                          "%"
-                        : ""
-                    }`}
-                  >
-                    <span>{item.apy || 0}% </span>
-                  </Tooltip>
+                  {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ? (
+                    <Tooltip title={`xDitto APR: ${item.apy || 0}%`}>
+                      <span>{item.apy || 0}% </span>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip
+                      title={`${
+                        item.reward_apy
+                          ? "ICA APR: " + item.reward_apy + "%"
+                          : ""
+                      } ${
+                        item.income_apy
+                          ? ` | ${
+                              item.reward_tokens.indexOf("BTCB") > -1
+                                ? "BTCB"
+                                : "ETH"
+                            } APR: ` +
+                            item.income_apy +
+                            "%"
+                          : ""
+                      }`}
+                    >
+                      <span>{item.apy || 0}% </span>
+                    </Tooltip>
+                  )}
                   {/* {poolInfo.stake_token === "ZBTC" && (
                     <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
                       <QuestionCircleOutlined className="question-icon" />
@@ -349,7 +364,7 @@ export default function MineDetail(props) {
                   {poolInfo.reward_tokens &&
                     poolInfo.reward_tokens.map((reward, index) => (
                       <div key={index}>
-                        {reward === "ICA"
+                        {reward === "ICA" || reward === "xDitto"
                           ? `${poolInfo.earnedICA || 0} ${reward}`
                           : `${poolInfo.earned || 0} ${reward}`}
                       </div>
@@ -370,7 +385,9 @@ export default function MineDetail(props) {
               }`}
             >
               {wallet.status === "connected" ? (
-                approveParams.txs && approveParams.txs.length > 0 ? (
+                approveParams &&
+                approveParams.txs &&
+                approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>
