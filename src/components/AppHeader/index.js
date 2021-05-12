@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useWallet } from "use-wallet";
 // import { Link } from "react-router-dom";
-import { Tooltip, Switch, Dropdown, Menu } from "antd";
-import { useSelector, useDispatch } from "react-redux";
+import { Tooltip } from "antd";
 
 // import { MenuOutlined } from "@ant-design/icons";
 import HomeIcon from "assets/home-icon.svg";
 import VoteIcon from "assets/vote-icon.svg";
-import MoonIcon from "assets/moon.svg";
-import ModeIcon from "assets/mode.svg";
+
 // import LogoLight from "assets/logo.svg";
 import axios from "utils/axios";
 import ConnectWallet from "components/ConnectWallet";
@@ -17,30 +15,10 @@ import "./style.scss";
 
 export default function AppHeader() {
   // const network = useSelector((state) => state.setting.network);
-  const mode = useSelector((state) => state.setting.mode);
-  const theme = useSelector((state) => state.setting.theme);
+
   const [icaBalance, setIcaBalance] = useState("");
   const wallet = useWallet();
-  const dispatch = useDispatch();
   const { account } = wallet;
-
-  const changeTheme = (param) => {
-    dispatch({
-      type: "SWITCH_THEME",
-      payload: {
-        theme: param ? "purple" : "light",
-      },
-    });
-  };
-
-  const changeMode = (param) => {
-    dispatch({
-      type: "SWITCH_MODE",
-      payload: {
-        mode: param ? "card" : "line",
-      },
-    });
-  };
 
   // const mobileMenu = (
   //   <Menu>
@@ -92,13 +70,6 @@ export default function AppHeader() {
     <div className="container">
       <header className="app-header">
         <div className="header-left">
-          {/* <Dropdown className="mobile-nav" overlay={mobileMenu}>
-            <MenuOutlined className="menu-icon" />
-          </Dropdown> */}
-          {/* <Link to="/" className="logo-text">
-            <img src={LogoLight} className="icon" />
-            ICARUS.FINANCE
-          </Link> */}
           <div className="handle-area">
             <div className="block">
               <a
@@ -109,22 +80,7 @@ export default function AppHeader() {
                 <img className="home-icon icon" src={HomeIcon} />
               </a>
             </div>
-            <div className="block">
-              <img className="moon-icon icon" src={MoonIcon} />
-              <Switch
-                className="option-switch"
-                checked={theme === "purple"}
-                onChange={changeTheme}
-              />
-            </div>
-            <div className="block">
-              <img className="mode-icon icon" src={ModeIcon} />
-              <Switch
-                className="option-switch"
-                checked={mode === "card"}
-                onChange={changeMode}
-              />
-            </div>
+
             <div className="block">
               <a
                 href="https://vote.icarus.finance"

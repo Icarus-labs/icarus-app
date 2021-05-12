@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Row, Col, Button, Tooltip } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+
+import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import BannerImg from "assets/banners/beefy.png";
 
@@ -8,7 +9,8 @@ import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
 import BuyZethIcon from "assets/buy-zeth.svg";
 import ICALogo from "assets/tokens/ica.svg";
-
+import MoonIcon from "assets/moon.svg";
+import ModeIcon from "assets/mode.svg";
 // import { Link } from "react-router-dom";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
@@ -17,6 +19,8 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function Mine() {
+  const dispatch = useDispatch();
+
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
   const [totalMined, setTotalMined] = useState(0);
@@ -30,6 +34,7 @@ export default function Mine() {
   const [icaTotalMinted, setIcaTotalMinted] = useState(0);
   const [icaTotalBurned, setIcaTotalBurned] = useState(0);
   const mode = useSelector((state) => state.setting.mode);
+  const theme = useSelector((state) => state.setting.theme);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
@@ -74,6 +79,24 @@ export default function Mine() {
     }
     setTotalTvl((prev) => prev + totalTvlRaw);
     setPoolList((prev) => prev.concat(list));
+  };
+
+  const changeTheme = (param) => {
+    dispatch({
+      type: "SWITCH_THEME",
+      payload: {
+        theme: param ? "purple" : "light",
+      },
+    });
+  };
+
+  const changeMode = (param) => {
+    dispatch({
+      type: "SWITCH_MODE",
+      payload: {
+        mode: param ? "card" : "line",
+      },
+    });
   };
 
   const getTokenPrice = async () => {
@@ -244,6 +267,29 @@ export default function Mine() {
           </div>
           <div>Total Minted: {icaTotalMinted}</div>
           <div>Total Burned: {icaTotalBurned}</div>
+        </div>
+
+        <div className="bar">
+          {/* <div className="block-switch">
+            <div className="active">Active</div>
+            <div>Inactive</div>
+          </div> */}
+          <div className="block handle-block">
+            <img className="moon-icon icon" src={MoonIcon} />
+            <Switch
+              className="option-switch"
+              checked={theme === "purple"}
+              onChange={changeTheme}
+            />
+          </div>
+          <div className="block handle-block">
+            <img className="mode-icon icon" src={ModeIcon} />
+            <Switch
+              className="option-switch"
+              checked={mode === "card"}
+              onChange={changeMode}
+            />
+          </div>
         </div>
 
         {loadingPools && <LoadingOutlined className="loading-icon" />}
