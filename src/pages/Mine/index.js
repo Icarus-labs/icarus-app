@@ -263,10 +263,10 @@ export default function Mine() {
 
         <div className="bar">
           <div>
-            <span className="highlight">ICA</span> Market Cap: ${icaMarketCap}
+            <span className="highlight">ICA</span> Market Cap: ${Number(icaMarketCap).toFixed(2)}
           </div>
-          <div>Total Minted: {icaTotalMinted}</div>
-          <div>Total Burned: {icaTotalBurned}</div>
+          <div>Total Minted: {Number(icaTotalMinted).toFixed(2)}</div>
+          <div>Total Burned: {Number(icaTotalBurned).toFixed(2)}</div>
         </div>
 
         <div className="bar">
