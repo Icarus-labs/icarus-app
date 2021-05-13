@@ -182,9 +182,9 @@ export default function MineDetail(props) {
     }
   };
 
-  // const LockedButton = () => {
-  //   return <Button className="btn">Locked</Button>;
-  // };
+  const LockedButton = () => {
+    return <Button className="btn">Locked</Button>;
+  };
 
   return (
     <>
@@ -222,31 +222,24 @@ export default function MineDetail(props) {
               </div>
             )}
 
-            {address !== "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" && (
+            {address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" && (
               <div className="top-line-wrapper">
                 <span className="tokens">
-                  {item.stake_token.split("-").map((token) => (
-                    <a
-                      target="_blank"
-                      className="token-item-link"
-                      key={token}
-                      href={`${scanUrl}/${poolInfo.stake_address}`}
-                    >
-                      <img src={tokenImg[token]} className="token-item" />
-                    </a>
-                  ))}
+                  <a
+                    target="_blank"
+                    className="token-item-link"
+                    href={`${scanUrl}/${poolInfo.stake_address}`}
+                  >
+                    <img src={tokenImg["CAKE"]} className="token-item" />
+                  </a>
                 </span>
                 <span>
                   <span className="deposit-by">
                     <a
                       target="_blank"
-                      href={
-                        poolInfo.lp_url
-                          ? poolInfo.lp_url
-                          : `${scanUrl}/${poolInfo.stake_address}`
-                      }
+                      href={`${scanUrl}/${poolInfo.stake_address}`}
                     >
-                      {item.stake_token}
+                      CAKE
                     </a>
                   </span>
                   <span className="tvl">
@@ -256,11 +249,49 @@ export default function MineDetail(props) {
               </div>
             )}
 
+            {address !== "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" &&
+              address !== "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" && (
+                <div className="top-line-wrapper">
+                  <span className="tokens">
+                    {item.stake_token.split("-").map((token) => (
+                      <a
+                        target="_blank"
+                        className="token-item-link"
+                        key={token}
+                        href={`${scanUrl}/${poolInfo.stake_address}`}
+                      >
+                        <img src={tokenImg[token]} className="token-item" />
+                      </a>
+                    ))}
+                  </span>
+                  <span>
+                    <span className="deposit-by">
+                      <a
+                        target="_blank"
+                        href={
+                          poolInfo.lp_url
+                            ? poolInfo.lp_url
+                            : `${scanUrl}/${poolInfo.stake_address}`
+                        }
+                      >
+                        {item.stake_token}
+                      </a>
+                    </span>
+                    <span className="tvl">
+                      TVL: ${toThousands(item.tvl) || 0}
+                    </span>
+                  </span>
+                </div>
+              )}
+
             {mode === "line" && (
               <div>
                 <span>APR:</span>
-                {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ? (
-                  <Tooltip title={`xDitto APR: ${item.apy || 0}%`}>
+                {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
+                address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ? (
+                  <Tooltip
+                    title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
+                  >
                     <span>{item.apy || 0}% </span>
                   </Tooltip>
                 ) : (
@@ -302,8 +333,11 @@ export default function MineDetail(props) {
               <>
                 <span>APR:</span>
                 <div>
-                  {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ? (
-                    <Tooltip title={`xDitto APR: ${item.apy || 0}%`}>
+                  {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
+                  address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ? (
+                    <Tooltip
+                      title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
+                    >
                       <span>{item.apy || 0}% </span>
                     </Tooltip>
                   ) : (
@@ -384,7 +418,9 @@ export default function MineDetail(props) {
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
               }`}
             >
-              {wallet.status === "connected" ? (
+              {address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ? (
+                <LockedButton />
+              ) : wallet.status === "connected" ? (
                 approveParams &&
                 approveParams.txs &&
                 approveParams.txs.length > 0 ? (
