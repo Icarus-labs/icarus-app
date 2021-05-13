@@ -138,7 +138,6 @@ export default function Mine() {
   const getGeneralInfo = async () => {
     axios.get("/ica/supply_value").then((res) => {
       if (res.data.data) {
-        console.log(res.data.data, "nnnnnn");
         setIcaMarketCap(res.data.data.amount_pretty);
       }
     });

@@ -19,14 +19,8 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const {
-    address,
-    currentToken,
-    item,
-    earnedChange,
-    stakedChange,
-    prices,
-  } = props;
+  const { address, currentToken, item, earnedChange, stakedChange, prices } =
+    props;
   const [poolInfo, setPoolInfo] = useState({});
   const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
   const [showMore, setShowMore] = useState(false);
@@ -119,6 +113,38 @@ export default function MineDetail(props) {
     }
   };
 
+  const addToMetamask = async() => {
+    const tokenAddress = poolInfo.stake_address;
+    const tokenDecimals = 18;
+    const tokenSymbol = poolInfo.stake_token;
+    // const tokenImage = `https://app.icarus.finance/tokens/${tokenSymbol}.svg`;
+    const tokenImage = `http://localhost:3000/tokens/${tokenSymbol}.svg`;
+
+    try {
+      const wasAdded = await window.ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            address: tokenAddress,
+            symbol: tokenSymbol,
+            decimals: tokenDecimals,
+            image: tokenImage,
+          },
+        },
+      });
+
+      if (wasAdded) {
+        message.success("Token Added");
+      } else {
+        message.error("Failed to add token");
+      }
+    } catch (error) {
+      console.log(error, 'err')
+      message.error("Failed to add token");
+    }
+  };
+
   const getPool = async () => {
     if (!currentToken) {
       setPoolInfo({});
@@ -182,9 +208,9 @@ export default function MineDetail(props) {
     }
   };
 
-  const LockedButton = () => {
-    return <Button className="btn">Locked</Button>;
-  };
+  // const LockedButton = () => {
+  //   return <Button className="btn">Locked</Button>;
+  // };
 
   return (
     <>
@@ -418,9 +444,7 @@ export default function MineDetail(props) {
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
               }`}
             >
-              {address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ? (
-                <LockedButton />
-              ) : wallet.status === "connected" ? (
+              {wallet.status === "connected" ? (
                 approveParams &&
                 approveParams.txs &&
                 approveParams.txs.length > 0 ? (
@@ -481,6 +505,16 @@ export default function MineDetail(props) {
                     target="_blank"
                   >
                     Add Liquidity
+                  </a>
+                )}
+                {(poolInfo.stake_token === "ZETH" ||
+                  poolInfo.stake_token === "ZBTC") && (
+                  <a
+                    className="add-metamask"
+                    onClick={addToMetamask}
+                    target="_blank"
+                  >
+                    Add to Metamask
                   </a>
                 )}
               </span>
