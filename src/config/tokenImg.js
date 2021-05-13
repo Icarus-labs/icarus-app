@@ -5,6 +5,7 @@ import ethLogo from "assets/tokens/eth.svg";
 import zbtcLogo from "assets/tokens/zbtc.svg";
 import btcLogo from "assets/tokens/btc.svg";
 import xdittoLogo from "assets/tokens/xditto.svg";
+import cakeLogo from "assets/tokens/cake.svg";
 
 export default {
   ZETH: zethLogo,
@@ -14,5 +15,6 @@ export default {
   BETH: ethLogo,
   ZBTC: zbtcLogo,
   BTCB: btcLogo,
-  XDITTO: xdittoLogo
+  XDITTO: xdittoLogo,
+  CAKE: cakeLogo
 };
