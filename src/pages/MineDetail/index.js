@@ -113,12 +113,12 @@ export default function MineDetail(props) {
     }
   };
 
-  const addToMetamask = async() => {
+  const addToMetamask = async () => {
     const tokenAddress = poolInfo.stake_address;
     const tokenDecimals = 18;
     const tokenSymbol = poolInfo.stake_token;
-    // const tokenImage = `https://app.icarus.finance/tokens/${tokenSymbol}.svg`;
-    const tokenImage = `http://localhost:3000/tokens/${tokenSymbol}.svg`;
+    const tokenImage =
+      "https://app.icarus.finance/tokens/" + tokenSymbol + ".svg";
 
     try {
       const wasAdded = await window.ethereum.request({
@@ -140,7 +140,7 @@ export default function MineDetail(props) {
         message.error("Failed to add token");
       }
     } catch (error) {
-      console.log(error, 'err')
+      console.log(error, "err");
       message.error("Failed to add token");
     }
   };
@@ -387,11 +387,6 @@ export default function MineDetail(props) {
                       <span>{item.apy || 0}% </span>
                     </Tooltip>
                   )}
-                  {/* {poolInfo.stake_token === "ZBTC" && (
-                    <Tooltip title="Due to current migration schedule, mining hashrate is recorded at 12.00 AM UTC+8 while ZBTC is exchanged at 5.00 PM daily. Hashrate differences might result in temporary fluctuation of rewards.">
-                      <QuestionCircleOutlined className="question-icon" />
-                    </Tooltip>
-                  )} */}
                 </div>
               </>
             )}
@@ -424,7 +419,9 @@ export default function MineDetail(props) {
                   {poolInfo.reward_tokens &&
                     poolInfo.reward_tokens.map((reward, index) => (
                       <div key={index}>
-                        {reward === "ICA" || reward === "xDitto"
+                        {reward === "ICA" ||
+                        reward === "xDitto" ||
+                        reward === "CAKE"
                           ? `${poolInfo.earnedICA || 0} ${reward}`
                           : `${poolInfo.earned || 0} ${reward}`}
                       </div>
