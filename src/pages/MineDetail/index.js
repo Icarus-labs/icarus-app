@@ -434,7 +434,7 @@ export default function MineDetail(props) {
           )}
         </div>
 
-        {(mode === "card" || showMore) && !item.inactive && (
+        {(mode === "card" || showMore) && (
           <div className="card-bottom">
             <div
               className={`btns ${
@@ -453,14 +453,16 @@ export default function MineDetail(props) {
                   Number(poolInfo.earned) > 0 ? (
                   <>
                     <div className="quick-btns">
-                      <Button
-                        onClick={() => {
-                          setDepositModalVisible(true);
-                        }}
-                        className="btn"
-                      >
-                        +
-                      </Button>
+                      {!item.inactive && (
+                        <Button
+                          onClick={() => {
+                            setDepositModalVisible(true);
+                          }}
+                          className="btn"
+                        >
+                          +
+                        </Button>
+                      )}
                       <Button
                         onClick={() => {
                           setUnstakeModalVisible(true);
@@ -480,14 +482,16 @@ export default function MineDetail(props) {
                     </Button>
                   </>
                 ) : (
-                  <Button
-                    className="btn"
-                    onClick={() => {
-                      setDepositModalVisible(true);
-                    }}
-                  >
-                    STAKE
-                  </Button>
+                  !item.inactive && (
+                    <Button
+                      className="btn"
+                      onClick={() => {
+                        setDepositModalVisible(true);
+                      }}
+                    >
+                      STAKE
+                    </Button>
+                  )
                 )
               ) : (
                 <ConnectWallet />
