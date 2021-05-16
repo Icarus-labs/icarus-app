@@ -434,7 +434,7 @@ export default function MineDetail(props) {
           )}
         </div>
 
-        {(mode === "card" || showMore) && (
+        {(mode === "card" || showMore) && !item.inactive && (
           <div className="card-bottom">
             <div
               className={`btns ${

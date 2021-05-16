@@ -33,6 +33,7 @@ export default function Mine() {
   const [icaMarketCap, setIcaMarketCap] = useState(0);
   const [icaTotalMinted, setIcaTotalMinted] = useState(0);
   const [icaTotalBurned, setIcaTotalBurned] = useState(0);
+  const [showActive, setShowActive] = useState(true);
   const mode = useSelector((state) => state.setting.mode);
   const theme = useSelector((state) => state.setting.theme);
 
@@ -68,6 +69,9 @@ export default function Mine() {
       });
       if (!poolInfo || !poolInfo.data.data) {
         continue;
+      }
+      if (list[i].address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e") {
+        list[i].inactive = true;
       }
       list[i].apy = poolInfo.data.data.apy;
       list[i].income_apy = poolInfo.data.data.income_apy;
@@ -262,17 +266,28 @@ export default function Mine() {
 
         <div className="bar">
           <div>
-            <span className="highlight">ICA</span> Market Cap: ${Number(icaMarketCap).toFixed(2)}
+            <span className="highlight">ICA</span> Market Cap: $
+            {Number(icaMarketCap).toFixed(2)}
           </div>
           <div>Total Minted: {Number(icaTotalMinted).toFixed(2)}</div>
           <div>Total Burned: {Number(icaTotalBurned).toFixed(2)}</div>
         </div>
 
         <div className="bar">
-          {/* <div className="block-switch">
-            <div className="active">Active</div>
-            <div>Inactive</div>
-          </div> */}
+          <div className="block-switch">
+            <div
+              onClick={() => setShowActive(true)}
+              className={`${showActive ? "active" : ""}`}
+            >
+              Active
+            </div>
+            <div
+              onClick={() => setShowActive(false)}
+              className={`${!showActive ? "active" : ""}`}
+            >
+              Inactive
+            </div>
+          </div>
           <div className="block handle-block">
             <img className="moon-icon icon" src={MoonIcon} />
             <Switch
@@ -296,33 +311,36 @@ export default function Mine() {
           <div className={mode === "line" ? "block line-wrapper" : ""}>
             <Row className="pool-list" gutter={44}>
               {poolList &&
-                poolList.map((item) => (
-                  <Col
-                    xs={24}
-                    lg={mode === "line" ? 24 : 12}
-                    xl={mode === "line" ? 24 : 6}
-                    key={item.address}
-                  >
-                    <MineDetail
-                      item={item}
-                      address={item.address}
-                      currentToken={item.currentTab}
-                      earnedChange={(value) =>
-                        setTotalMined((prev) => prev + Number(value))
-                      }
-                      stakedChange={(value) =>
-                        setTotalStaked((prev) => prev + Number(value))
-                      }
-                      prices={{
-                        ica: icaPrice,
-                        btc: btcPrice,
-                        eth: ethPrice,
-                        zeth: zethPrice,
-                        zbtc: zbtcPrice,
-                      }}
-                    />
-                  </Col>
-                ))}
+                poolList.map(
+                  (item) =>
+                    (showActive ? !item.inactive : item.inactive) && (
+                      <Col
+                        xs={24}
+                        lg={mode === "line" ? 24 : 12}
+                        xl={mode === "line" ? 24 : 6}
+                        key={item.address}
+                      >
+                        <MineDetail
+                          item={item}
+                          address={item.address}
+                          currentToken={item.currentTab}
+                          earnedChange={(value) =>
+                            setTotalMined((prev) => prev + Number(value))
+                          }
+                          stakedChange={(value) =>
+                            setTotalStaked((prev) => prev + Number(value))
+                          }
+                          prices={{
+                            ica: icaPrice,
+                            btc: btcPrice,
+                            eth: ethPrice,
+                            zeth: zethPrice,
+                            zbtc: zbtcPrice,
+                          }}
+                        />
+                      </Col>
+                    )
+                )}
             </Row>
           </div>
         )}
