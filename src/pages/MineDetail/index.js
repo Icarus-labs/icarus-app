@@ -19,7 +19,7 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const { address, currentToken, item, earnedChange, stakedChange, prices } =
+  const { address, currentToken, item, earnedChange, stakedChange, prices, hasStaked } =
     props;
   const [poolInfo, setPoolInfo] = useState({});
   const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
@@ -91,6 +91,10 @@ export default function MineDetail(props) {
         userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
 
       stakedChange(totalStakedUsd);
+
+      if(poolInfo.reward_tokens.indexOf("BTCB") > -1 || Number(userStats.data.data.staked_amount_pretty) > 0){
+        hasStaked()
+      }
 
       setPoolInfo((prev) => {
         return {

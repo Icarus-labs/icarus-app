@@ -34,6 +34,7 @@ export default function Mine() {
   const [icaTotalMinted, setIcaTotalMinted] = useState(0);
   const [icaTotalBurned, setIcaTotalBurned] = useState(0);
   const [showActive, setShowActive] = useState(true);
+  const [showDeposited, setShowDeposited] = useState(false);
   const mode = useSelector((state) => state.setting.mode);
   const theme = useSelector((state) => state.setting.theme);
 
@@ -154,6 +155,13 @@ export default function Mine() {
       if (res.data.data) {
         setIcaTotalBurned(res.data.data.amount_pretty);
       }
+    });
+  };
+
+  const userHasStaked = (index) => {
+    setPoolList((prev) => {
+      prev[index].hasStaked = true;
+      return [...prev];
     });
   };
 
@@ -289,6 +297,14 @@ export default function Mine() {
             </div>
           </div>
           <div className="block handle-block">
+            <span style={{ marginRight: "6px" }}>ONLY DEPOSITED</span>
+            <Switch
+              className="option-switch"
+              checked={showDeposited === true}
+              onChange={(checked) => setShowDeposited(checked)}
+            />
+          </div>
+          <div className="block handle-block">
             <img className="moon-icon icon" src={MoonIcon} />
             <Switch
               className="option-switch"
@@ -312,12 +328,13 @@ export default function Mine() {
             <Row className="pool-list" gutter={44}>
               {poolList &&
                 poolList.map(
-                  (item) =>
+                  (item, index) =>
                     (showActive ? !item.inactive : item.inactive) && (
                       <Col
                         xs={24}
                         lg={mode === "line" ? 24 : 12}
                         xl={mode === "line" ? 24 : 6}
+                        className={`${showDeposited && !item.hasStaked ? 'hidden' : ''}`}
                         key={item.address}
                       >
                         <MineDetail
@@ -330,6 +347,7 @@ export default function Mine() {
                           stakedChange={(value) =>
                             setTotalStaked((prev) => prev + Number(value))
                           }
+                          hasStaked={() => userHasStaked(index)}
                           prices={{
                             ica: icaPrice,
                             btc: btcPrice,
