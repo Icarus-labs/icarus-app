@@ -327,38 +327,41 @@ export default function Mine() {
           <div className={mode === "line" ? "block line-wrapper" : ""}>
             <Row className="pool-list" gutter={44}>
               {poolList &&
-                poolList.map(
-                  (item, index) =>
-                    (showActive ? !item.inactive : item.inactive) && (
-                      <Col
-                        xs={24}
-                        lg={mode === "line" ? 24 : 12}
-                        xl={mode === "line" ? 24 : 6}
-                        className={`${showDeposited && !item.hasStaked ? 'hidden' : ''}`}
-                        key={item.address}
-                      >
-                        <MineDetail
-                          item={item}
-                          address={item.address}
-                          currentToken={item.currentTab}
-                          earnedChange={(value) =>
-                            setTotalMined((prev) => prev + Number(value))
-                          }
-                          stakedChange={(value) =>
-                            setTotalStaked((prev) => prev + Number(value))
-                          }
-                          hasStaked={() => userHasStaked(index)}
-                          prices={{
-                            ica: icaPrice,
-                            btc: btcPrice,
-                            eth: ethPrice,
-                            zeth: zethPrice,
-                            zbtc: zbtcPrice,
-                          }}
-                        />
-                      </Col>
-                    )
-                )}
+                poolList.map((item, index) => (
+                  <Col
+                    xs={24}
+                    lg={mode === "line" ? 24 : 12}
+                    xl={mode === "line" ? 24 : 6}
+                    className={`${
+                      (showDeposited && !item.hasStaked) ||
+                      (showActive && item.inactive) ||
+                      (!showActive && !item.inactive)
+                        ? "hidden"
+                        : ""
+                    }`}
+                    key={item.address}
+                  >
+                    <MineDetail
+                      item={item}
+                      address={item.address}
+                      currentToken={item.currentTab}
+                      earnedChange={(value) =>
+                        setTotalMined((prev) => prev + Number(value))
+                      }
+                      stakedChange={(value) =>
+                        setTotalStaked((prev) => prev + Number(value))
+                      }
+                      hasStaked={() => userHasStaked(index)}
+                      prices={{
+                        ica: icaPrice,
+                        btc: btcPrice,
+                        eth: ethPrice,
+                        zeth: zethPrice,
+                        zbtc: zbtcPrice,
+                      }}
+                    />
+                  </Col>
+                ))}
             </Row>
           </div>
         )}

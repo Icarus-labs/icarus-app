@@ -47,7 +47,7 @@ export default function MineDetail(props) {
 
   useEffect(() => {
     getPool();
-    checkLock();
+    // checkLock();
   }, []);
 
   useEffect(() => {
@@ -228,17 +228,17 @@ export default function MineDetail(props) {
     return <Button className="btn">Locked</Button>;
   };
 
-  const checkLock = () => {
-    if (
-      address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
-      address == "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
-      address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38"
-    ) {
-      setIsLocked(true);
-    }else{
-      setIsLocked(false)
-    }
-  };
+  // const checkLock = () => {
+  //   if (
+  //     address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
+  //     address == "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
+  //     address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38"
+  //   ) {
+  //     setIsLocked(true);
+  //   }else{
+  //     setIsLocked(false)
+  //   }
+  // };
 
   return (
     <>
