@@ -19,8 +19,15 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function MineDetail(props) {
-  const { address, currentToken, item, earnedChange, stakedChange, prices, hasStaked } =
-    props;
+  const {
+    address,
+    currentToken,
+    item,
+    earnedChange,
+    stakedChange,
+    prices,
+    hasStaked,
+  } = props;
   const [poolInfo, setPoolInfo] = useState({});
   const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
   const [showMore, setShowMore] = useState(false);
@@ -29,6 +36,7 @@ export default function MineDetail(props) {
   const mode = useSelector((state) => state.setting.mode);
   const [depositModalVisible, setDepositModalVisible] = useState(false);
   const [unstakeModalVisible, setUnstakeModalVisible] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const wallet = useWallet();
   const { account } = wallet;
   // const buyContractAddress = config[network].buyContractAddress;
@@ -39,6 +47,7 @@ export default function MineDetail(props) {
 
   useEffect(() => {
     getPool();
+    checkLock();
   }, []);
 
   useEffect(() => {
@@ -92,8 +101,11 @@ export default function MineDetail(props) {
 
       stakedChange(totalStakedUsd);
 
-      if(poolInfo.reward_tokens.indexOf("BTCB") > -1 || Number(userStats.data.data.staked_amount_pretty) > 0){
-        hasStaked()
+      if (
+        poolInfo.reward_tokens.indexOf("BTCB") > -1 ||
+        Number(userStats.data.data.staked_amount_pretty) > 0
+      ) {
+        hasStaked();
       }
 
       setPoolInfo((prev) => {
@@ -212,9 +224,21 @@ export default function MineDetail(props) {
     }
   };
 
-  // const LockedButton = () => {
-  //   return <Button className="btn">Locked</Button>;
-  // };
+  const LockedButton = () => {
+    return <Button className="btn">Locked</Button>;
+  };
+
+  const checkLock = () => {
+    if (
+      address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
+      address == "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
+      address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38"
+    ) {
+      setIsLocked(true);
+    }else{
+      setIsLocked(false)
+    }
+  };
 
   return (
     <>
@@ -225,7 +249,7 @@ export default function MineDetail(props) {
       >
         <div className="card-top">
           <div className="info-line top-line">
-            {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" && (
+            {poolInfo.type === "reward3rd" && (
               <div className="top-line-wrapper">
                 <span className="tokens">
                   <a
@@ -233,7 +257,14 @@ export default function MineDetail(props) {
                     className="token-item-link"
                     href={`${scanUrl}/${poolInfo.stake_address}`}
                   >
-                    <img src={tokenImg["XDITTO"]} className="token-item" />
+                    <img
+                      src={
+                        tokenImg[
+                          String(poolInfo.reward_tokens[0]).toUpperCase()
+                        ]
+                      }
+                      className="token-item"
+                    />
                   </a>
                 </span>
                 <span>
@@ -242,7 +273,7 @@ export default function MineDetail(props) {
                       target="_blank"
                       href={`${scanUrl}/${poolInfo.stake_address}`}
                     >
-                      XDITTO
+                      {poolInfo.reward_tokens[0]}
                     </a>
                   </span>
                   <span className="tvl">
@@ -252,7 +283,7 @@ export default function MineDetail(props) {
               </div>
             )}
 
-            {address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" && (
+            {/* {address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" && (
               <div className="top-line-wrapper">
                 <span className="tokens">
                   <a
@@ -277,48 +308,46 @@ export default function MineDetail(props) {
                   </span>
                 </span>
               </div>
-            )}
+            )} */}
 
-            {address !== "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" &&
-              address !== "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" && (
-                <div className="top-line-wrapper">
-                  <span className="tokens">
-                    {item.stake_token.split("-").map((token) => (
-                      <a
-                        target="_blank"
-                        className="token-item-link"
-                        key={token}
-                        href={`${scanUrl}/${poolInfo.stake_address}`}
-                      >
-                        <img src={tokenImg[token]} className="token-item" />
-                      </a>
-                    ))}
+            {poolInfo.type !== "reward3rd" && (
+              <div className="top-line-wrapper">
+                <span className="tokens">
+                  {item.stake_token.split("-").map((token) => (
+                    <a
+                      target="_blank"
+                      className="token-item-link"
+                      key={token}
+                      href={`${scanUrl}/${poolInfo.stake_address}`}
+                    >
+                      <img src={tokenImg[token]} className="token-item" />
+                    </a>
+                  ))}
+                </span>
+                <span>
+                  <span className="deposit-by">
+                    <a
+                      target="_blank"
+                      href={
+                        poolInfo.lp_url
+                          ? poolInfo.lp_url
+                          : `${scanUrl}/${poolInfo.stake_address}`
+                      }
+                    >
+                      {item.stake_token}
+                    </a>
                   </span>
-                  <span>
-                    <span className="deposit-by">
-                      <a
-                        target="_blank"
-                        href={
-                          poolInfo.lp_url
-                            ? poolInfo.lp_url
-                            : `${scanUrl}/${poolInfo.stake_address}`
-                        }
-                      >
-                        {item.stake_token}
-                      </a>
-                    </span>
-                    <span className="tvl">
-                      TVL: ${toThousands(item.tvl) || 0}
-                    </span>
+                  <span className="tvl">
+                    TVL: ${toThousands(item.tvl) || 0}
                   </span>
-                </div>
-              )}
+                </span>
+              </div>
+            )}
 
             {mode === "line" && (
               <div>
                 <span>APR:</span>
-                {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
-                address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ? (
+                {poolInfo.type === 'reward3rd' ? (
                   <Tooltip
                     title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
                   >
@@ -363,8 +392,7 @@ export default function MineDetail(props) {
               <>
                 <span>APR:</span>
                 <div>
-                  {address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
-                  address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ? (
+                  {poolInfo.type === 'reward3rd' ? (
                     <Tooltip
                       title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
                     >
@@ -445,7 +473,9 @@ export default function MineDetail(props) {
                 Number(poolInfo.staked) > 0 ? "" : "single-btn"
               }`}
             >
-              {wallet.status === "connected" ? (
+              {isLocked ? (
+                <LockedButton />
+              ) : wallet.status === "connected" ? (
                 approveParams &&
                 approveParams.txs &&
                 approveParams.txs.length > 0 ? (
