@@ -11,13 +11,6 @@ export default function DepositModal(props) {
   const [isMax, setIsMax] = useState(false)
   const wallet = useWallet();
 
-  // const getAssetBalance = async () => {
-  //   const result = await axios.get(
-  //     `/presale/balances?address=${wallet.account}`
-  //   );
-  //   setBalance(result.data.data.zeth_pretty);
-  // };
-
   const doStake = async () => {
     if (!isMax && !amount) {
       message.error("Please input amount!");

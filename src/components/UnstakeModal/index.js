@@ -11,13 +11,6 @@ export default function UnstakeModal(props) {
   const [isMax, setIsMax] = useState(false);
   const wallet = useWallet();
 
-  // const getAssetBalance = async () => {
-  //   const result = await axios.get(
-  //     `/presale/balances?address=${wallet.account}`
-  //   );
-  //   setBalance(result.data.data.zeth_pretty);
-  // };
-
   const doExit = async () => {
     const result = await axios.post(`/${currentToken}/pools/exit`, {
       account: wallet.account,

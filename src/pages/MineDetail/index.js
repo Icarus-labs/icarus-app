@@ -218,7 +218,6 @@ export default function MineDetail(props) {
     const status = await mm.sendTransaction(txnParams, "Approve");
 
     if (status) {
-      // message.success("Success");
       setApproveParams({ txs: [] });
       getPool();
     }
@@ -227,18 +226,6 @@ export default function MineDetail(props) {
   const LockedButton = () => {
     return <Button className="btn">Locked</Button>;
   };
-
-  // const checkLock = () => {
-  //   if (
-  //     address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
-  //     address == "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
-  //     address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38"
-  //   ) {
-  //     setIsLocked(true);
-  //   }else{
-  //     setIsLocked(false)
-  //   }
-  // };
 
   return (
     <>
@@ -347,7 +334,7 @@ export default function MineDetail(props) {
             {mode === "line" && (
               <div>
                 <span>APR:</span>
-                {poolInfo.type === 'reward3rd' ? (
+                {poolInfo.type === "reward3rd" ? (
                   <Tooltip
                     title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
                   >
@@ -392,7 +379,7 @@ export default function MineDetail(props) {
               <>
                 <span>APR:</span>
                 <div>
-                  {poolInfo.type === 'reward3rd' ? (
+                  {poolInfo.type === "reward3rd" ? (
                     <Tooltip
                       title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
                     >
@@ -451,15 +438,11 @@ export default function MineDetail(props) {
                   {poolInfo.reward_tokens &&
                     poolInfo.reward_tokens.map((reward, index) => (
                       <div key={index}>
-                        {reward === "ICA" ||
-                        reward === "xDitto" ||
-                        reward === "CAKE"
+                        {poolInfo.type === "reward3rd" || reward === "ICA"
                           ? `${poolInfo.earnedICA || 0} ${reward}`
                           : `${poolInfo.earned || 0} ${reward}`}
                       </div>
                     ))}
-                  {/* {poolInfo.earned || 0}{" "}
-                {currentToken === "zeth" ? "ETH" : "BTCB"} */}
                 </span>
               </div>
             </>
