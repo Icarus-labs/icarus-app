@@ -192,7 +192,9 @@ export default function Mine() {
           <Col xs={24} lg={12}>
             <div className="tvl block">
               <img src={ICALogo} className="logo-img" />
-              <div className="logo">icarus.finance</div>
+              <a href="https://icarus.finance" target="_blank" className="logo">
+                icarus.finance
+              </a>
               <div className="num">
                 <div className="title">TVL</div>${toThousands(totalTvl)}
               </div>
@@ -287,33 +289,27 @@ export default function Mine() {
         </div>
 
         <div className="star-cluster-dashboard">
-  
-                <div className="block">
-                  <div className="title">
-                    DEPOSITED{" "}
-                    <Tooltip title="Total deposited amount across all pools in USD.">
-                      <QuestionCircleOutlined className="title-icon" />
-                    </Tooltip>
-                  </div>
-                  <div className="num">
-                    ${toThousands(totalStaked.toFixed(2))}
-                  </div>
-                </div>
-             
-                <img src={StarClusterImg} className="star-cluster-img" />
-           
-                <div className="block">
-                  <div className="title">
-                    MINED{" "}
-                    <Tooltip title="Total amount mined across all pools in USD.">
-                      <QuestionCircleOutlined className="title-icon" />
-                    </Tooltip>
-                  </div>
-                  <div className="num">
-                    ${toThousands(totalMined.toFixed(2))}
-                  </div>
-                </div>
-           
+          <div className="block">
+            <div className="title">
+              DEPOSITED{" "}
+              <Tooltip title="Total deposited amount across all pools in USD.">
+                <QuestionCircleOutlined className="title-icon" />
+              </Tooltip>
+            </div>
+            <div className="num">${toThousands(totalStaked.toFixed(2))}</div>
+          </div>
+
+          <img src={StarClusterImg} className="star-cluster-img" />
+
+          <div className="block">
+            <div className="title">
+              MINED{" "}
+              <Tooltip title="Total amount mined across all pools in USD.">
+                <QuestionCircleOutlined className="title-icon" />
+              </Tooltip>
+            </div>
+            <div className="num">${toThousands(totalMined.toFixed(2))}</div>
+          </div>
         </div>
 
         <div className="bar">
