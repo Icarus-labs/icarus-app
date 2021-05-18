@@ -105,6 +105,13 @@ export default function Mine() {
     });
   };
 
+  useEffect(()=>{
+    if(location.pathname === '/star-cluster'){
+      changeTheme('')
+    }
+
+  }, [location])
+
   const getTokenPrice = async () => {
     axios
       .get("https://api.coingecko.com/api/v3/simple/price", {
