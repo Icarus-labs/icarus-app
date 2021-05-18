@@ -72,7 +72,10 @@ export default function Mine() {
       if (!poolInfo || !poolInfo.data.data) {
         continue;
       }
-      if (list[i].address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e") {
+      if (
+        list[i].address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
+        list[i].address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF"
+      ) {
         list[i].inactive = true;
       }
       list[i].apy = poolInfo.data.data.apy;
