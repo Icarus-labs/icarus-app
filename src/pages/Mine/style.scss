@@ -2,8 +2,17 @@
     .star-cluster-dashboard {
         display: none;
     }
+    .pool-type-reward3rd{
+        display: none;
+    }
+    
     &.star-cluster {
-     
+        .pool-type-single, .pool-type-pair{
+            display: none;
+        }
+        .pool-type-reward3rd{
+            display: block;
+        }
         .star-cluster-dashboard {
             display: flex;
             .block {

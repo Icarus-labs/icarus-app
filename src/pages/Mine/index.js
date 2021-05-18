@@ -369,7 +369,7 @@ export default function Mine() {
                       (!showActive && !item.inactive)
                         ? "hidden"
                         : ""
-                    }`}
+                    } pool-type-${item.type}`}
                     key={item.address}
                   >
                     <MineDetail
