@@ -105,12 +105,12 @@ export default function Mine() {
     });
   };
 
-  useEffect(()=>{
-    if(location.pathname === '/star-cluster'){
-      changeTheme('')
-    }
+  // useEffect(()=>{
+  //   if(location.pathname === '/star-cluster'){
+  //     changeTheme('')
+  //   }
 
-  }, [location])
+  // }, [location])
 
   const getTokenPrice = async () => {
     axios

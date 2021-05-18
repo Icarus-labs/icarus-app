@@ -58,9 +58,9 @@ function App() {
   return (
     <ConfigProvider locale={enUS}>
       <div
-        className={`App ${i18n.language} ${theme} ${
-          location.pathname === "/star-cluster" ? "app-star-cluster" : ""
-        }`}
+        className={`App ${i18n.language} ${
+          location.pathname === "/star-cluster" ? "light" : theme
+        } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""}`}
       >
         <AppHeader />
         <Switch>
