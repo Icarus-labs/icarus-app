@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import BannerImg from "assets/banners/beefy.png";
-
+import { useLocation } from "react-router-dom";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
 import BuyZethIcon from "assets/buy-zeth.svg";
 import ICALogo from "assets/tokens/ica.svg";
 import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
-// import { Link } from "react-router-dom";
+import StarClusterImg from "assets/star-cluster.png";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
 import { toThousands } from "utils/Tools";
@@ -20,6 +20,7 @@ import "./style.scss";
 
 export default function Mine() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
@@ -181,9 +182,13 @@ export default function Mine() {
   }, []);
 
   return (
-    <div className="page-mine">
+    <div
+      className={`page-mine ${
+        location.pathname === "/star-cluster" ? "star-cluster" : ""
+      }`}
+    >
       <div className="container">
-        <Row gutter={{ lg: 44 }}>
+        <Row gutter={{ lg: 44 }} className="top-infos">
           <Col xs={24} lg={12}>
             <div className="tvl block">
               <img src={ICALogo} className="logo-img" />
@@ -281,6 +286,36 @@ export default function Mine() {
           <div>Total Burned: {Number(icaTotalBurned).toFixed(2)}</div>
         </div>
 
+        <div className="star-cluster-dashboard">
+  
+                <div className="block">
+                  <div className="title">
+                    DEPOSITED{" "}
+                    <Tooltip title="Total deposited amount across all pools in USD.">
+                      <QuestionCircleOutlined className="title-icon" />
+                    </Tooltip>
+                  </div>
+                  <div className="num">
+                    ${toThousands(totalStaked.toFixed(2))}
+                  </div>
+                </div>
+             
+                <img src={StarClusterImg} className="star-cluster-img" />
+           
+                <div className="block">
+                  <div className="title">
+                    MINED{" "}
+                    <Tooltip title="Total amount mined across all pools in USD.">
+                      <QuestionCircleOutlined className="title-icon" />
+                    </Tooltip>
+                  </div>
+                  <div className="num">
+                    ${toThousands(totalMined.toFixed(2))}
+                  </div>
+                </div>
+           
+        </div>
+
         <div className="bar">
           <div className="block-switch">
             <div
@@ -304,7 +339,7 @@ export default function Mine() {
               onChange={(checked) => setShowDeposited(checked)}
             />
           </div>
-          <div className="block handle-block">
+          <div className="block handle-block theme-switch">
             <img className="moon-icon icon" src={MoonIcon} />
             <Switch
               className="option-switch"

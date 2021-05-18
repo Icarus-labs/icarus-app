@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import "./App.scss";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -16,7 +11,7 @@ import Buy from "./pages/Buy";
 import BuyZETH from "./pages/BuyZETH";
 
 import Mine from "./pages/Mine";
-import MineDetail from "./pages/MineDetail";
+// import MineDetail from "./pages/MineDetail";
 
 import AppHeader from "components/AppHeader";
 import AppFooter from "components/AppFooter";
@@ -47,6 +42,8 @@ i18n
 function App() {
   const { i18n } = useTranslation();
   const theme = useSelector((state) => state.setting.theme);
+  const location = useLocation();
+  console.log("PATH", location);
   // const [bgNum, setBgNum] = useState(1);
 
   // useEffect(() => {
@@ -60,20 +57,23 @@ function App() {
 
   return (
     <ConfigProvider locale={enUS}>
-      <div className={`App ${i18n.language} ${theme}`}>
-        <Router>
-          <AppHeader />
-          <Switch>
-            <Route exact path="/">
-              <Redirect to="/mine" />
-            </Route>
-            <Route exact path="/buy" component={Buy} />
-            <Route path="/zeth/private" component={BuyZETH} />
-            <Route exact path="/mine" component={Mine} />
-            <Route exact path="/mine/:address" component={MineDetail} />
-          </Switch>
-          <AppFooter />
-        </Router>
+      <div
+        className={`App ${i18n.language} ${theme} ${
+          location.pathname === "/star-cluster" ? "app-star-cluster" : ""
+        }`}
+      >
+        <AppHeader />
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/mine" />
+          </Route>
+          <Route exact path="/buy" component={Buy} />
+          <Route path="/zeth/private" component={BuyZETH} />
+          <Route exact path="/mine" component={Mine} />
+          <Route exact path="/star-cluster" component={Mine} />
+          {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
+        </Switch>
+        <AppFooter />
       </div>
     </ConfigProvider>
   );

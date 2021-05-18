@@ -4,8 +4,11 @@ import { useWallet } from "use-wallet";
 import { Tooltip } from "antd";
 
 // import { MenuOutlined } from "@ant-design/icons";
-import HomeIcon from "assets/home-icon.svg";
+// import HomeIcon from "assets/home-icon.svg";
 import VoteIcon from "assets/vote-icon.svg";
+import MineIcon from "assets/mine-icon.svg";
+import StarIcon from "assets/star-icon.svg";
+import { Link } from "react-router-dom";
 
 // import LogoLight from "assets/logo.svg";
 import axios from "utils/axios";
@@ -71,7 +74,7 @@ export default function AppHeader() {
       <header className="app-header">
         <div className="header-left">
           <div className="handle-area">
-            <div className="block">
+            {/* <div className="block">
               <a
                 href="https://icarus.finance"
                 target="_blank"
@@ -79,8 +82,20 @@ export default function AppHeader() {
               >
                 <img className="home-icon icon" src={HomeIcon} />
               </a>
+            </div> */}
+            <div className="block">
+              <Link to="/mine" className="home-icon-link">
+                <img className="home-icon icon" src={MineIcon} />
+              </Link>
             </div>
-
+            <div className="block">
+              <Link
+                to="/star-cluster"
+                className="home-icon-link"
+              >
+                <img className="home-icon icon" src={StarIcon} />
+              </Link>
+            </div>
             <div className="block">
               <a
                 href="https://vote.icarus.finance"

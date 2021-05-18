@@ -1,4 +1,86 @@
 .page-mine {
+    .star-cluster-dashboard {
+        display: none;
+    }
+    &.star-cluster {
+     
+        .star-cluster-dashboard {
+            display: flex;
+            .block {
+                height: 180px;
+                width: 100%;
+            }
+            .star-cluster-img {
+                height: 180px;
+                object-fit: contain;
+                margin: 0 44px;
+            }
+        }
+        .top-infos {
+            display: none;
+        }
+        .bar {
+            background: #44484f;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            .highlight {
+                color: unset;
+            }
+        }
+        .theme-switch {
+            display: none;
+        }
+        .block-switch {
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            background: #44484f;
+            & > .active {
+                background: #864495;
+            }
+        }
+        .block {
+            background: #44484f;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+        .pool-item {
+            .deposit-by {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+        @media screen and (max-width: 992px) {
+            .star-cluster-dashboard {
+                .block {
+                    height: 120px;
+                }
+                .star-cluster-img {
+                    height: 120px;
+                    margin: 0 16px;
+                }
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .block {
+                .title {
+                    font-size: 18px;
+                    margin-bottom: 4px;
+                }
+                .num {
+                    font-size: 14px;
+                }
+            }
+            .star-cluster-dashboard {
+                display: block;
+                .block {
+                    height: unset;
+                }
+                .star-cluster-img {
+                    height: unset;
+                    margin: unset;
+                    margin-bottom: 25px;
+                }
+            }
+        }
+    }
     text-align: center;
     // height: calc(100vh - 60px);
     // display: flex;

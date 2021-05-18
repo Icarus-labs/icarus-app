@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import { UseWalletProvider } from 'use-wallet'
 import { Provider } from 'react-redux';
+import {  BrowserRouter as Router } from 'react-router-dom'
 import store from './redux/store';
 import './index.css';
 import App from './App';
@@ -15,7 +16,10 @@ const {setting} = store.getState()
 ReactDOM.render(
     <Provider store={store}>
         <UseWalletProvider chainId={config[setting.network].chainId}>
+      <Router>
+
             <App foo={setting.network}/>
+            </Router>
         </UseWalletProvider>
     </Provider>,
     document.getElementById('root')
