@@ -101,10 +101,7 @@ export default function MineDetail(props) {
 
       stakedChange(totalStakedUsd);
 
-      if (
-        poolInfo.reward_tokens.indexOf("BTCB") > -1 ||
-        Number(userStats.data.data.staked_amount_pretty) > 0
-      ) {
+      if (Number(userStats.data.data.staked_amount_pretty) > 0) {
         hasStaked();
       }
 
@@ -132,10 +129,13 @@ export default function MineDetail(props) {
   const addToMetamask = async () => {
     const tokenAddress =
       poolInfo.type === "reward3rd"
-        ? poolInfo.reward_address
+        ? poolInfo.reward_addresses[0]
         : poolInfo.stake_address;
     const tokenDecimals = poolInfo.reward_tokens[0] === "DOGE" ? 8 : 18;
-    const tokenSymbol = poolInfo.stake_token;
+    const tokenSymbol =
+      poolInfo.type === "reward3rd"
+        ? poolInfo.reward_tokens[0]
+        : poolInfo.stake_token;
     const tokenImage =
       "https://app.icarus.finance/tokens/" + tokenSymbol + ".svg";
 
@@ -528,7 +528,8 @@ export default function MineDetail(props) {
                     Add Liquidity
                   </a>
                 )}
-                {poolInfo.type === "single" && (
+                {(poolInfo.type === "single" ||
+                  poolInfo.type === "reward3rd") && (
                   <a
                     className="add-metamask"
                     onClick={addToMetamask}
