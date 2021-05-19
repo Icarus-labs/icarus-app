@@ -25,7 +25,10 @@ export default function MineDetail(props) {
     item,
     earnedChange,
     stakedChange,
+    starEarnedChange,
+    starStakedChange,
     prices,
+    thirdPrices,
     hasStaked,
   } = props;
   const [poolInfo, setPoolInfo] = useState({});
@@ -73,36 +76,52 @@ export default function MineDetail(props) {
     // trigger
 
     let totalStakedUsd = 0;
+    let starTotalStakedUsd = 0;
 
     if (isFirst && Object.keys(poolInfo).length > 0 && userStats.data.data) {
       // calculate total earned usd value
       let totalUsd = 0;
-      if (poolInfo.reward_tokens.indexOf("ETH") > -1) {
-        totalUsd += userStats.data.data.income_amount_pretty * prices.eth;
+      let starTotalUsd = 0;
+
+      if (poolInfo.type !== "reward3rd") {
+        if (poolInfo.reward_tokens.indexOf("ETH") > -1) {
+          totalUsd += userStats.data.data.income_amount_pretty * prices.eth;
+        }
+        if (poolInfo.reward_tokens.indexOf("BTCB") > -1) {
+          totalUsd += userStats.data.data.income_amount_pretty * prices.btc;
+        }
+        if (poolInfo.reward_tokens.indexOf("ICA") > -1) {
+          totalUsd += userStats.data.data.reward_amount_pretty * prices.ica;
+        }
       }
-      if (poolInfo.reward_tokens.indexOf("BTCB") > -1) {
-        totalUsd += userStats.data.data.income_amount_pretty * prices.btc;
+
+      if (
+        poolInfo.type === "reward3rd" &&
+        thirdPrices[poolInfo.reward_tokens[0]]
+      ) {
+        totalUsd +=
+          userStats.data.data.reward_amount_pretty *
+          thirdPrices[poolInfo.reward_tokens[0]];
       }
-      if (poolInfo.reward_tokens.indexOf("ICA") > -1) {
-        totalUsd += userStats.data.data.reward_amount_pretty * prices.ica;
-      }
-      // if (poolInfo.reward_tokens.indexOf("ZETH") > -1) {
-      //   totalUsd += userStats.data.data.reward_amount_pretty * prices.zeth;
-      // }
+
       earnedChange(totalUsd);
+      starEarnedChange(starTotalUsd);
       // calculate total staked usd value
 
       if (isNaN(poolInfo.value_per_stake)) {
         return;
       }
 
-      totalStakedUsd =
-        userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
+      if (poolInfo.type !== "reward3rd") {
+        totalStakedUsd =
+          userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
+        stakedChange(totalStakedUsd);
+      }
 
-      stakedChange(totalStakedUsd);
-
-      if (Number(userStats.data.data.staked_amount_pretty) > 0) {
-        hasStaked();
+      if (poolInfo.type === "reward3rd") {
+        starTotalStakedUsd =
+          userStats.data.data.staked_amount_pretty * poolInfo.value_per_stake;
+        starStakedChange(starTotalStakedUsd);
       }
 
       setPoolInfo((prev) => {
@@ -114,6 +133,9 @@ export default function MineDetail(props) {
     }
 
     if (userStats && userStats.data.data) {
+      if (Number(userStats.data.data.staked_amount_pretty) > 0) {
+        hasStaked();
+      }
       setPoolInfo((prev) => {
         return {
           ...prev,

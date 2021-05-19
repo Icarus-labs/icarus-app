@@ -26,6 +26,8 @@ export default function Mine() {
   const [totalTvl, setTotalTvl] = useState(0);
   const [totalMined, setTotalMined] = useState(0);
   const [totalStaked, setTotalStaked] = useState(0);
+  const [starTotalMined, setStarTotalMined] = useState(0);
+  const [starTotalStaked, setStarTotalStaked] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
   const [zethPrice, setZethPrice] = useState(0);
   const [zbtcPrice, setZbtcPrice] = useState(0);
@@ -36,6 +38,7 @@ export default function Mine() {
   const [icaTotalBurned, setIcaTotalBurned] = useState(0);
   const [showActive, setShowActive] = useState(true);
   const [showDeposited, setShowDeposited] = useState(false);
+  const [thirdPrices, setThirdPrice] = useState({});
   const mode = useSelector((state) => state.setting.mode);
   const theme = useSelector((state) => state.setting.theme);
 
@@ -119,7 +122,7 @@ export default function Mine() {
     axios
       .get("https://api.coingecko.com/api/v3/simple/price", {
         params: {
-          ids: "ethereum,bitcoin",
+          ids: "ethereum,bitcoin,pancakeswap-token,xditto,wbnb,dogecoin",
           vs_currencies: "usd",
         },
       })
@@ -129,6 +132,16 @@ export default function Mine() {
         }
         if (res.data.bitcoin) {
           setBtcPrice(res.data.bitcoin.usd);
+        }
+
+        if (res.data) {
+          setThirdPrice((prev) => ({
+            ...prev,
+            DOGE: res.data.dogecoin.usd,
+            xDitto: res.data.xditto.usd,
+            WBNB: res.data.wbnb.usd,
+            CAKE: res.data["pancakeswap-token"].usd,
+          }));
         }
       });
 
@@ -147,6 +160,10 @@ export default function Mine() {
     axios.get("/zbtc/price").then((res) => {
       if (res.data.data) {
         setZbtcPrice(Number(res.data.data.price_pretty));
+        setThirdPrice((prev) => ({
+          ...prev,
+          ZBTC: Number(res.data.data.price_pretty),
+        }));
       }
     });
   };
@@ -306,7 +323,9 @@ export default function Mine() {
                 <QuestionCircleOutlined className="title-icon" />
               </Tooltip>
             </div>
-            <div className="num">${toThousands(totalStaked.toFixed(2))}</div>
+            <div className="num">
+              ${toThousands(starTotalStaked.toFixed(2))}
+            </div>
           </div>
 
           <img src={StarClusterImg} className="star-cluster-img" />
@@ -318,7 +337,7 @@ export default function Mine() {
                 <QuestionCircleOutlined className="title-icon" />
               </Tooltip>
             </div>
-            <div className="num">${toThousands(totalMined.toFixed(2))}</div>
+            <div className="num">${toThousands(starTotalMined.toFixed(2))}</div>
           </div>
         </div>
 
@@ -392,7 +411,14 @@ export default function Mine() {
                       stakedChange={(value) =>
                         setTotalStaked((prev) => prev + Number(value))
                       }
+                      starEarnedChange={(value) =>
+                        setStarTotalMined((prev) => prev + Number(value))
+                      }
+                      starStakedChange={(value) =>
+                        setStarTotalStaked((prev) => prev + Number(value))
+                      }
                       hasStaked={() => userHasStaked(index)}
+                      thirdPrices={thirdPrices}
                       prices={{
                         ica: icaPrice,
                         btc: btcPrice,
