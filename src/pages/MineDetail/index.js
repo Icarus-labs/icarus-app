@@ -130,8 +130,11 @@ export default function MineDetail(props) {
   };
 
   const addToMetamask = async () => {
-    const tokenAddress = poolInfo.stake_address;
-    const tokenDecimals = 18;
+    const tokenAddress =
+      poolInfo.type === "reward3rd"
+        ? poolInfo.reward_address
+        : poolInfo.stake_address;
+    const tokenDecimals = poolInfo.reward_tokens[0] === "DOGE" ? 8 : 18;
     const tokenSymbol = poolInfo.stake_token;
     const tokenImage =
       "https://app.icarus.finance/tokens/" + tokenSymbol + ".svg";
@@ -525,8 +528,7 @@ export default function MineDetail(props) {
                     Add Liquidity
                   </a>
                 )}
-                {(poolInfo.stake_token === "ZETH" ||
-                  poolInfo.stake_token === "ZBTC") && (
+                {poolInfo.type === "single" && (
                   <a
                     className="add-metamask"
                     onClick={addToMetamask}
