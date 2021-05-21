@@ -99,7 +99,7 @@ export default function MineDetail(props) {
         poolInfo.type === "reward3rd" &&
         thirdPrices[poolInfo.reward_tokens[0]]
       ) {
-        totalUsd +=
+        starTotalUsd +=
           userStats.data.data.reward_amount_pretty *
           thirdPrices[poolInfo.reward_tokens[0]];
       }
@@ -128,6 +128,7 @@ export default function MineDetail(props) {
         return {
           ...prev,
           stakedInUsd: totalStakedUsd,
+          starStakedInUsd: starTotalStakedUsd,
         };
       });
     }
@@ -563,7 +564,13 @@ export default function MineDetail(props) {
               </span>
               <span>
                 TVL: $
-                {poolInfo.stakedInUsd ? toThousands(poolInfo.stakedInUsd) : 0}
+                {poolInfo.type === "reward3rd"
+                  ? poolInfo.starStakedInUsd
+                    ? toThousands(poolInfo.starStakedInUsd)
+                    : 0
+                  : poolInfo.stakedInUsd
+                  ? toThousands(poolInfo.stakedInUsd)
+                  : 0}
               </span>
             </div>
           </div>
