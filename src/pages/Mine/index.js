@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useWallet } from "use-wallet";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import BannerImg from "assets/banners/beefy.png";
@@ -21,6 +21,7 @@ import "./style.scss";
 export default function Mine() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const wallet = useWallet();
 
   const [poolList, setPoolList] = useState([]);
   const [totalTvl, setTotalTvl] = useState(0);
@@ -111,13 +112,6 @@ export default function Mine() {
     });
   };
 
-  // useEffect(()=>{
-  //   if(location.pathname === '/star-cluster'){
-  //     changeTheme('')
-  //   }
-
-  // }, [location])
-
   const getTokenPrice = async () => {
     axios
       .get("https://api.coingecko.com/api/v3/simple/price", {
@@ -148,6 +142,10 @@ export default function Mine() {
     axios.get("/ica/price").then((res) => {
       if (res.data.data) {
         setIcaPrice(Number(res.data.data.amount_pretty));
+        setThirdPrice((prev) => ({
+          ...prev,
+          ICA: Number(res.data.data.amount_pretty),
+        }));
       }
     });
 
@@ -194,12 +192,17 @@ export default function Mine() {
   };
 
   useEffect(() => {
+    setTotalMined(0);
+    setTotalStaked(0);
+    setStarTotalMined(0);
+    setStarTotalStaked(0);
+    
     setPoolList([]);
     setLoadingPools(true);
     getPools();
     getTokenPrice();
     getGeneralInfo();
-  }, []);
+  }, [wallet.account]);
 
   useEffect(() => {
     const interval = setInterval(() => {

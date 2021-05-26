@@ -42,11 +42,7 @@ export default function MineDetail(props) {
   const [isLocked, setIsLocked] = useState(false);
   const wallet = useWallet();
   const { account } = wallet;
-  // const buyContractAddress = config[network].buyContractAddress;
   const scanUrl = config[network].scanUrl;
-  // const location = useLocation()
-
-  // const currentToken = new URLSearchParams(location.search).get('token');
 
   useEffect(() => {
     getPool();
@@ -295,33 +291,6 @@ export default function MineDetail(props) {
                 </span>
               </div>
             )}
-
-            {/* {address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" && (
-              <div className="top-line-wrapper">
-                <span className="tokens">
-                  <a
-                    target="_blank"
-                    className="token-item-link"
-                    href={`${scanUrl}/${poolInfo.stake_address}`}
-                  >
-                    <img src={tokenImg["CAKE"]} className="token-item" />
-                  </a>
-                </span>
-                <span>
-                  <span className="deposit-by">
-                    <a
-                      target="_blank"
-                      href={`${scanUrl}/${poolInfo.stake_address}`}
-                    >
-                      CAKE
-                    </a>
-                  </span>
-                  <span className="tvl">
-                    TVL: ${toThousands(item.tvl) || 0}
-                  </span>
-                </span>
-              </div>
-            )} */}
 
             {poolInfo.type !== "reward3rd" && (
               <div className="top-line-wrapper">
