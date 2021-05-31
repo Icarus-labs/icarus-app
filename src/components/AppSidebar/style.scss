@@ -94,6 +94,27 @@
         }
     }
 
+    @keyframes shakeColor {
+        0% {
+            filter: saturate(0);
+        }
+        33% {
+            filter: saturate(33%);
+        }
+        66% {
+            filter: saturate(66%);
+        }
+        100% {
+            filter: saturate(100%);
+        }
+    }
+
+    .mobile-shake {
+        animation-name: shakeColor;
+        animation-iteration-count: infinite;
+        animation-duration: 1.5s;
+    }
+
     .handle-area {
         .block {
             border-radius: 100px;
