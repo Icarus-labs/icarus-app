@@ -223,11 +223,12 @@
             }
             .prices {
                 display: flex;
-                justify-content: space-between;
-                font-size: 16px;
-                // div {
-                //     margin: 0 12px;
-                // }
+                justify-content: center;
+                font-size: 25px;
+                line-height: 30px;
+                div {
+                    margin: 0 12px;
+                }
             }
         }
     }

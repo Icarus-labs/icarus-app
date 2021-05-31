@@ -231,8 +231,8 @@ export default function Mine() {
                 <div className="title">TVL</div>${toThousands(totalTvl)}
               </div>
               <div className="prices">
-                <div>ETH: ${ethPrice}</div>
-                <div>BTC: ${btcPrice}</div>
+                {/* <div>ETH: ${ethPrice}</div>
+                <div>BTC: ${btcPrice}</div> */}
                 <div>ICA: ${icaPrice.toFixed(3)}</div>
                 <div>ZETH: ${zethPrice.toFixed(3)}</div>
                 <div>ZBTC: ${zbtcPrice.toFixed(3)}</div>

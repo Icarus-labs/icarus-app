@@ -1,4 +1,3 @@
-// import { web3 } from '~/components/web3'
 import { subscribe } from '@nextcloud/event-bus'
 import { watchTransaction } from 'components/utils'
 import config from 'config'
