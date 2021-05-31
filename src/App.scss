@@ -559,7 +559,10 @@ img {
         color: #fff !important;
     }
     .app-sidebar {
-        background: rgba(116, 22, 178, 0.9);
+        background: rgba(116, 22, 178, 0.75);
+        &:not(.closed) {
+            background: rgba(116, 22, 178, 0.9);
+        }
         .nav-link {
             &:hover {
                 .block {
@@ -568,6 +571,11 @@ img {
             }
             .nav-text {
                 color: #fff;
+                &.coming-soon {
+                    &::after {
+                        color: #d2d2d2;
+                    }
+                }
             }
         }
     }

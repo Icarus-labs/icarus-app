@@ -128,19 +128,19 @@ export default function AppSidebar() {
           <div className="block">
             <img className="home-icon icon" src={ProfileIcon} />
           </div>
-          <span className="nav-text">PROFILE</span>
+          <span className="nav-text coming-soon">PROFILE</span>
         </a>
         <a href="#" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={GamefiIcon} />
           </div>
-          <span className="nav-text">GAMEFI</span>
+          <span className="nav-text coming-soon">GAMEFI</span>
         </a>
         <a href="#" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={AnalyticsIcon} />
           </div>
-          <span className="nav-text">ANALYTICS</span>
+          <span className="nav-text coming-soon">ANALYTICS</span>
         </a>
         <a
           href="https://solidity.finance/audits/Icarus"
