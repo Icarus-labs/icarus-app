@@ -34,7 +34,6 @@ export default function AppSidebar() {
   const [icaBalance, setIcaBalance] = useState("");
   const [migrateModalVisible, setMigrateModalVisible] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
-  const [menuVisible, setMenuVisible] = useState(false);
   const wallet = useWallet();
   const theme = useSelector((state) => state.setting.theme);
   const { account } = wallet;
@@ -76,9 +75,7 @@ export default function AppSidebar() {
   const checkScreen = () => {
     if (window.innerWidth < 992) {
       setMenuOpened(false);
-      setMenuVisible(false);
     } else {
-      setMenuVisible(true);
       setMenuOpened(true);
     }
   };
@@ -94,14 +91,11 @@ export default function AppSidebar() {
   return (
     <div className={`app-sidebar ${menuOpened ? "" : "closed"}`}>
       <div className="handle-area">
-        {menuVisible && (
-          <img
-            src={menuOpened ? MenuFullIcon : MenuPulledIcon}
-            className="menu icon"
-            onClick={() => setMenuOpened((prev) => !prev)}
-          />
-        )}
-
+        <img
+          src={menuOpened ? MenuFullIcon : MenuPulledIcon}
+          className="menu icon"
+          onClick={() => setMenuOpened((prev) => !prev)}
+        />
         <Link to="/mine" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={MineIcon} />

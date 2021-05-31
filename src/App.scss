@@ -49,8 +49,8 @@
             border: 1px solid #ffffff;
         }
         .app-header {
-            background: #3c4048;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            // background: #3c4048;
+            // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             .btn {
                 color: #9248a2;
                 background: #fff;
@@ -81,9 +81,15 @@
 
 @keyframes focusTrans {
     0% {
-        box-shadow: 0px 0px 5px 1px rgba(0, 102, 255, 0.75);
+        box-shadow: 0px 0px 5px 1px rgba(255, 0, 0, 0.75);
+    }
+    25% {
+        box-shadow: 0px 0px 5px 1px rgba(0, 255, 224, 0.75);
     }
     50% {
+        box-shadow: 0px 0px 5px 1px rgba(0, 102, 255, 0.75);
+    }
+    75% {
         box-shadow: 0px 0px 5px 1px rgba(143, 0, 255, 0.75);
     }
     100% {
@@ -99,7 +105,7 @@
         box-shadow: unset;
         animation-name: focusTrans;
         animation-iteration-count: infinite;
-        animation-duration: 3s;
+        animation-duration: 5s;
     }
     .btn {
         width: 80%;
@@ -553,7 +559,7 @@ img {
         color: #fff !important;
     }
     .app-sidebar {
-        background: rgba(116, 22, 178, 0.75);
+        background: rgba(116, 22, 178, 0.9);
         .nav-link {
             .nav-text {
                 color: #fff;
@@ -565,8 +571,8 @@ img {
     // }
     .block {
         background: rgba(255, 255, 255, 0.25);
-        &.focus{
-            box-shadow: 0px 0px 5px 1px #FFD3EE;
+        &.focus {
+            box-shadow: 0px 0px 5px 1px #ffd3ee;
             animation: none;
         }
         // background: linear-gradient(
