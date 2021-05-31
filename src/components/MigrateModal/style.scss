@@ -1,0 +1,36 @@
+.migrate-modal {
+    font-family: "bebas";
+    .ant-modal-close {
+        display: none;
+    }
+    .ant-modal-content {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .ant-modal-body {
+        color: #4f4e4e;
+        font-size: 18px;
+        line-height: 22px;
+        background: #cbced3;
+    }
+    .ant-input {
+        background: #c4c4c4;
+        border: none;
+        margin-bottom: 8px;
+    }
+    .ant-btn {
+        margin-top: 16px;
+        width: 100%;
+    }
+    .buy-icon {
+        width: 140px;
+        display: block;
+        margin: 0 auto;
+    }
+    .modal-title {
+        text-align: center;
+        font-size: 20px;
+        line-height: 24px;
+        color: #01041c;
+    }
+}

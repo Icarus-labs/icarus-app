@@ -8,11 +8,13 @@ import { Tooltip } from "antd";
 import VoteIcon from "assets/vote-icon.svg";
 import MineIcon from "assets/mine-icon.svg";
 import StarIcon from "assets/star-icon.svg";
+import MigrateIcon from "assets/migrate-icon.svg";
 import { Link } from "react-router-dom";
 
 // import LogoLight from "assets/logo.svg";
 import axios from "utils/axios";
 import ConnectWallet from "components/ConnectWallet";
+import MigrateModal from "components/MigrateModal";
 import ICALogo from "assets/tokens/ica.svg";
 import "./style.scss";
 
@@ -20,6 +22,7 @@ export default function AppHeader() {
   // const network = useSelector((state) => state.setting.network);
 
   const [icaBalance, setIcaBalance] = useState("");
+  const [migrateModalVisible, setMigrateModalVisible] = useState(false);
   const wallet = useWallet();
   const { account } = wallet;
 
@@ -89,10 +92,7 @@ export default function AppHeader() {
               </Link>
             </div>
             <div className="block">
-              <Link
-                to="/star-cluster"
-                className="home-icon-link"
-              >
+              <Link to="/star-cluster" className="home-icon-link">
                 <img className="home-icon icon" src={StarIcon} />
               </Link>
             </div>
@@ -103,6 +103,14 @@ export default function AppHeader() {
                 className="home-icon-link"
               >
                 <img className="home-icon icon" src={VoteIcon} />
+              </a>
+            </div>
+            <div className="block">
+              <a
+                onClick={() => setMigrateModalVisible(true)}
+                className="home-icon-link"
+              >
+                <img className="home-icon icon" src={MigrateIcon} />
               </a>
             </div>
           </div>
@@ -124,6 +132,14 @@ export default function AppHeader() {
           )}
         </div>
       </header>
+      {migrateModalVisible && (
+        <MigrateModal
+          balance={icaBalance}
+          onCancel={() => {
+            setMigrateModalVisible(false);
+          }}
+        />
+      )}
     </div>
   );
 }
