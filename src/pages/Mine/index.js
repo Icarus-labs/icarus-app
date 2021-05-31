@@ -192,11 +192,13 @@ export default function Mine() {
   };
 
   useEffect(() => {
+    if (!wallet.account) {
+      return;
+    }
     setTotalMined(0);
     setTotalStaked(0);
     setStarTotalMined(0);
     setStarTotalStaked(0);
-    
     setPoolList([]);
     setLoadingPools(true);
     getPools();
@@ -384,6 +386,12 @@ export default function Mine() {
             />
           </div>
         </div>
+
+        {!wallet.account && (
+          <span className="connect-hint">
+            Please connect your wallet to see the pools.
+          </span>
+        )}
 
         {loadingPools && <LoadingOutlined className="loading-icon" />}
         {!loadingPools && (
