@@ -11,23 +11,21 @@ export default function MigrateModal(props) {
   const wallet = useWallet();
 
   const doMigrate = async () => {
-    // const result = await axios.post(`${currentToken}/pools/stake`, {
-    //   amount: isMax ? "-1" : amount,
-    //   account: wallet.account,
-    //   pool: poolAddress,
-    // });
-    // let txnParams = result.data.data.txs.map((item, index) => {
-    //   return {
-    //     from: wallet.account,
-    //     to: item.contract,
-    //     data: item.calldata,
-    //     isApprove: item.action_type === "Approve",
-    //   };
-    // });
-    // const status = await mm.sendTransaction(txnParams, `Stake ${stakeToken}`);
-    // if (status) {
-    //   message.success("Success");
-    // }
+    const result = await axios.post("/ica/transform", {
+      address: wallet.account,
+    });
+    let txnParams = result.data.data.txs.map((item, index) => {
+      return {
+        from: wallet.account,
+        to: item.contract,
+        data: item.calldata,
+        isApprove: item.action_type === "Approve",
+      };
+    });
+    const status = await mm.sendTransaction(txnParams, "Migrate");
+    if (status) {
+      message.success("Success");
+    }
   };
   return (
     <Modal
