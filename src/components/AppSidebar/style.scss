@@ -70,7 +70,17 @@
         display: flex;
         align-items: center;
         margin-bottom: 24px;
+        &:hover {
+            .block {
+                background: #7416b2;
+                img {
+                    filter: brightness(0) invert(1);
+                }
+            }
+        }
         .block {
+            transition: all 0.3s;
+
             margin-right: 12px;
         }
         .nav-text {
@@ -191,7 +201,6 @@
     @media screen and (max-width: 1200px) {
         width: 25%;
     }
-
 
     // @media screen and (max-width: 992px) {
     //     flex-wrap: wrap;
