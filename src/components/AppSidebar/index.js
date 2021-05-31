@@ -11,6 +11,7 @@ import VoteIcon from "assets/vote-icon.svg";
 import MineIcon from "assets/mine-icon.svg";
 import StarIcon from "assets/star-icon.svg";
 import MigrateIcon from "assets/migrate-icon.svg";
+import MigrateIconMobile from "assets/migrate-icon-mobile.svg";
 import MediumIcon from "assets/socials/medium.svg";
 import TwitterIcon from "assets/socials/twitter.svg";
 import InstagramIcon from "assets/socials/instagram.svg";
@@ -124,8 +125,11 @@ export default function AppSidebar() {
           <span className="nav-text">GOV</span>
         </a>
         <a onClick={() => setMigrateModalVisible(true)} className="nav-link">
-          <div className="block">
-            <img className="home-icon icon" src={MigrateIcon} />
+          <div className="block focus">
+            <img
+              className="home-icon icon"
+              src={menuOpened ? MigrateIcon : MigrateIconMobile}
+            />
           </div>
           <span className="nav-text">MIGRATE</span>
         </a>
@@ -140,6 +144,7 @@ export default function AppSidebar() {
           <Switch
             className="option-switch"
             checked={theme === "purple"}
+            size="small"
             onChange={changeTheme}
           />
         </div>

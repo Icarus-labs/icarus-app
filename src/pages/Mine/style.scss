@@ -309,6 +309,12 @@
                 object-fit: contain;
             }
         }
+        .block.tvl {
+            height: unset;
+            .prices {
+                font-size: 20px !important;
+            }
+        }
     }
     @media screen and (max-width: 768px) {
         .bar {

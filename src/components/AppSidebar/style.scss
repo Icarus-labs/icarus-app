@@ -61,8 +61,9 @@
         }
     }
     .menu {
-        width: 24px;
-        margin-bottom: 20px;
+        width: 20px;
+        margin-left: 4px;
+        margin-bottom: 24px;
     }
     // flex: 0 0 300px;
     .nav-link {
@@ -107,7 +108,7 @@
     .handle-block {
         border-radius: 100px;
         padding: 10px 12px;
-        width: 100px;
+        width: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
