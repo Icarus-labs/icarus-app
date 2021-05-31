@@ -73,19 +73,10 @@ export default function AppHeader() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container2">
       <header className="app-header">
-        <div className="header-left">
+        <div className="header-left" style={{ display: "none" }}>
           <div className="handle-area">
-            {/* <div className="block">
-              <a
-                href="https://icarus.finance"
-                target="_blank"
-                className="home-icon-link"
-              >
-                <img className="home-icon icon" src={HomeIcon} />
-              </a>
-            </div> */}
             <div className="block">
               <Link to="/mine" className="home-icon-link">
                 <img className="home-icon icon" src={MineIcon} />

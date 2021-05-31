@@ -109,7 +109,7 @@ export default function BuyZETH() {
 
   return (
     <div className="page-buy">
-      <div className="container">
+      <div className="container2">
         {/* <Row type="flex" justify="center">
           <Col xs={24} md={12} lg={8}>
             <a

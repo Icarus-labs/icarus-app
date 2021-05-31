@@ -5,7 +5,7 @@ import "./style.scss";
 export default function AppFooter() {
   return (
     <footer className="app-footer">
-      <div className="container">
+      <div className="container2">
         <div className="links">
           <a href="https://twitter.com/zetta_icarus">TWITTER</a>
           <a href="https://t.me/icarus_finance">TELEGRAM</a>

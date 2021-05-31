@@ -14,6 +14,7 @@ import Mine from "./pages/Mine";
 // import MineDetail from "./pages/MineDetail";
 
 import AppHeader from "components/AppHeader";
+import AppSidebar from "components/AppSidebar";
 import AppFooter from "components/AppFooter";
 
 import enUS from "antd/lib/locale/en_US";
@@ -62,18 +63,21 @@ function App() {
           location.pathname === "/star-cluster" ? "light" : theme
         } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""}`}
       >
-        <AppHeader />
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/mine" />
-          </Route>
-          <Route exact path="/buy" component={Buy} />
-          <Route path="/zeth/private" component={BuyZETH} />
-          <Route exact path="/mine" component={Mine} />
-          <Route exact path="/star-cluster" component={Mine} />
-          {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
-        </Switch>
-        <AppFooter />
+        <AppSidebar />
+        <div className="main-content">
+          <AppHeader />
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/mine" />
+            </Route>
+            <Route exact path="/buy" component={Buy} />
+            <Route path="/zeth/private" component={BuyZETH} />
+            <Route exact path="/mine" component={Mine} />
+            <Route exact path="/star-cluster" component={Mine} />
+            {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
+          </Switch>
+          {/* <AppFooter /> */}
+        </div>
       </div>
     </ConfigProvider>
   );

@@ -9,7 +9,7 @@ import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
 import BuyZethIcon from "assets/buy-zeth.svg";
 import ICALogo from "assets/tokens/ica.svg";
-import MoonIcon from "assets/moon.svg";
+// import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
 import StarClusterImg from "assets/star-cluster.png";
 import axios from "utils/axios";
@@ -41,7 +41,7 @@ export default function Mine() {
   const [showDeposited, setShowDeposited] = useState(false);
   const [thirdPrices, setThirdPrice] = useState({});
   const mode = useSelector((state) => state.setting.mode);
-  const theme = useSelector((state) => state.setting.theme);
+  // const theme = useSelector((state) => state.setting.theme);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
@@ -94,14 +94,14 @@ export default function Mine() {
     setPoolList((prev) => prev.concat(list));
   };
 
-  const changeTheme = (param) => {
-    dispatch({
-      type: "SWITCH_THEME",
-      payload: {
-        theme: param ? "purple" : "light",
-      },
-    });
-  };
+  // const changeTheme = (param) => {
+  //   dispatch({
+  //     type: "SWITCH_THEME",
+  //     payload: {
+  //       theme: param ? "purple" : "light",
+  //     },
+  //   });
+  // };
 
   const changeMode = (param) => {
     dispatch({
@@ -219,7 +219,7 @@ export default function Mine() {
         location.pathname === "/star-cluster" ? "star-cluster" : ""
       }`}
     >
-      <div className="container">
+      <div className="container2">
         <Row gutter={{ lg: 44 }} className="top-infos">
           <Col xs={24} lg={12}>
             <div className="tvl block">
@@ -369,14 +369,14 @@ export default function Mine() {
               onChange={(checked) => setShowDeposited(checked)}
             />
           </div>
-          <div className="block handle-block theme-switch">
+          {/* <div className="block handle-block theme-switch">
             <img className="moon-icon icon" src={MoonIcon} />
             <Switch
               className="option-switch"
               checked={theme === "purple"}
               onChange={changeTheme}
             />
-          </div>
+          </div> */}
           <div className="block handle-block">
             <img className="mode-icon icon" src={ModeIcon} />
             <Switch

@@ -9,7 +9,7 @@ import "./style.scss";
 export default function Governance() {
   return (
     <div className="page-governance">
-      <div className="container">
+      <div className="container2">
         <div className="governance-box">
 
         </div>
