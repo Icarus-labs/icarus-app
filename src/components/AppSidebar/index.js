@@ -11,6 +11,10 @@ import VoteIcon from "assets/vote-icon.svg";
 import MineIcon from "assets/mine-icon.svg";
 import StarIcon from "assets/star-icon.svg";
 import MigrateIcon from "assets/migrate-icon.svg";
+import ProfileIcon from "assets/nav/profile.svg";
+import GamefiIcon from "assets/nav/gamefi.svg";
+import AnalyticsIcon from "assets/nav/analytics.svg";
+import AuditIcon from "assets/nav/audit.svg";
 import MigrateIconMobile from "assets/migrate-icon-mobile.svg";
 import MigrateIconMobilePurple from "assets/migrate-icon-mobile-purple.svg";
 import MediumIcon from "assets/socials/medium.svg";
@@ -119,6 +123,34 @@ export default function AppSidebar() {
             <img className="home-icon icon" src={VoteIcon} />
           </div>
           <span className="nav-text">GOV</span>
+        </a>
+        <a href="#" className="nav-link">
+          <div className="block">
+            <img className="home-icon icon" src={ProfileIcon} />
+          </div>
+          <span className="nav-text">PROFILE</span>
+        </a>
+        <a href="#" className="nav-link">
+          <div className="block">
+            <img className="home-icon icon" src={GamefiIcon} />
+          </div>
+          <span className="nav-text">GAMEFI</span>
+        </a>
+        <a href="#" className="nav-link">
+          <div className="block">
+            <img className="home-icon icon" src={AnalyticsIcon} />
+          </div>
+          <span className="nav-text">ANALYTICS</span>
+        </a>
+        <a
+          href="https://solidity.finance/audits/Icarus"
+          target="_blank"
+          className="nav-link"
+        >
+          <div className="block">
+            <img className="home-icon icon" src={AuditIcon} />
+          </div>
+          <span className="nav-text">AUDIT</span>
         </a>
         <a onClick={() => setMigrateModalVisible(true)} className="nav-link">
           <div className="block focus">
