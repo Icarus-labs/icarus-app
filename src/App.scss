@@ -561,6 +561,11 @@ img {
     .app-sidebar {
         background: rgba(116, 22, 178, 0.9);
         .nav-link {
+            &:hover {
+                .block {
+                    background: #34374a !important;
+                }
+            }
             .nav-text {
                 color: #fff;
             }
