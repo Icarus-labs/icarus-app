@@ -21,6 +21,7 @@ import CmcIcon from "assets/socials/cmc.svg";
 import TelegramIcon from "assets/socials/telegram.svg";
 import MenuFullIcon from "assets/menu-full.svg";
 import MenuPulledIcon from "assets/menu-pulled.svg";
+import SettingIcon from "assets/setting-icon.svg";
 import { Link } from "react-router-dom";
 
 // import LogoLight from "assets/logo.svg";
@@ -136,6 +137,13 @@ export default function AppSidebar() {
         </a>
       </div>
       <div className="bottom-area">
+        <div className="">
+          <img
+            className="setting-icon icon"
+            src={SettingIcon}
+            onClick={() => setMenuOpened((prev) => !prev)}
+          />
+        </div>
         <div className="block handle-block theme-switch">
           <img
             className="moon-icon icon"

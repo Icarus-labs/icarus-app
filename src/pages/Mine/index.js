@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useWallet } from "use-wallet";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import BannerImg from "assets/banners/video-contest.png";
+import BannerImg from "assets/banners/v2.png";
 import { useLocation } from "react-router-dom";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
@@ -270,7 +270,7 @@ export default function Mine() {
           </Col>
           <Col xs={24} lg={12}>
             <a
-              href="https://icarus-finance.medium.com/video-contest-9a7d91bb0bf0"
+              href="https://icarus-finance.medium.com/v2-is-coming-44fd9ffddbcf"
               target="_blank"
               className="coingecko"
             >
