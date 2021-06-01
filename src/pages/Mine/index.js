@@ -78,7 +78,13 @@ export default function Mine() {
       }
       if (
         list[i].address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
-        list[i].address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF"
+        list[i].address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ||
+        list[i].address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38" ||
+        list[i].address === "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
+        list[i].address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
+        list[i].address === "0xe7bE10DDCDFb3301d94d95991A214e58b71924C5" ||
+        list[i].address === "0x574B029F3159a1EF732f25d5f3b7C51Fad3bcfFE" ||
+        list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670"
       ) {
         list[i].inactive = true;
       }
