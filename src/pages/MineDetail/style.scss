@@ -14,17 +14,17 @@
     }
 }
 
-.add-liquidity{
+.add-liquidity {
     color: #9887cd;
     font-size: 16px;
-    &:hover{
+    &:hover {
         color: #8b7abb;
     }
 }
-.add-metamask{
+.add-metamask {
     color: #dd7616;
     font-size: 16px;
-    &:hover{
+    &:hover {
         color: #dd7616;
     }
 }
@@ -48,7 +48,7 @@
     right: 12px;
     font-size: 16px;
 }
-.info-line.user-tvl{
+.info-line.user-tvl {
     margin: 16px auto 0;
 }
 .line-block {
@@ -57,11 +57,11 @@
     border-bottom: 0.5px solid #5f6060;
     border-radius: 0;
     width: 100%;
-    min-height: 380px;
+    min-height: 410px;
     .btns {
         margin-top: 12px;
         .btn {
-            width: 80%;
+            // width: 80%;
             padding: 8px 0;
             text-align: center;
         }
@@ -72,23 +72,25 @@
     .quick-btns {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         margin-bottom: 12px;
         .btn {
-            width: 30px;
+            width: 50px;
             height: 30px;
-            margin: 0 4px;
             font-size: 16px;
             display: flex;
             align-items: center;
-            border-radius: 10px;
+            border-radius: 20px;
             justify-content: center;
+        }
+        .action-hint {
+            font-size: 12px;
         }
     }
     @media screen and (max-width: 992px) {
         .btns {
             .btn {
-                width: 50%;
+                // width: 50%;
             }
         }
     }

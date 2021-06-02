@@ -97,6 +97,10 @@
     }
 }
 
+.v-hidden{
+    visibility: hidden;
+}
+
 .block {
     background: rgba(249, 249, 249, 0.25);
     padding: 24px 32px;
@@ -108,7 +112,7 @@
         animation-duration: 5s;
     }
     .btn {
-        width: 80%;
+        width: 100%;
         display: block;
         margin: 0 auto;
     }

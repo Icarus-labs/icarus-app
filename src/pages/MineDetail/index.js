@@ -46,7 +46,7 @@ export default function MineDetail(props) {
 
   useEffect(() => {
     getPool();
-    checkLock();
+    // checkLock();
   }, []);
 
   const checkLock = () => {
@@ -467,35 +467,55 @@ export default function MineDetail(props) {
               {isLocked ? (
                 <LockedButton />
               ) : wallet.status === "connected" ? (
+                false &&
                 approveParams &&
                 approveParams.txs &&
                 approveParams.txs.length > 0 ? (
                   <Button onClick={doApprove} className="btn">
                     Approve
                   </Button>
-                ) : Number(poolInfo.staked) > 0 ||
+                ) : true ||
+                  Number(poolInfo.staked) > 0 ||
                   Number(poolInfo.earnedICA) > 0 ||
                   Number(poolInfo.earned) > 0 ? (
                   <>
                     <div className="quick-btns">
                       {!item.inactive && (
+                        <div>
+                          <Button
+                            onClick={() => {
+                              setDepositModalVisible(true);
+                            }}
+                            className="btn"
+                          >
+                            +
+                          </Button>
+                          <span
+                            className={`action-hint ${
+                              item.version == 2 && item.fee ? "v-hidden" : ""
+                            }`}
+                          >
+                            DEPOSIT FEE: {item.fee.split(" ")[0]}
+                          </span>
+                        </div>
+                      )}
+                      <div>
                         <Button
                           onClick={() => {
-                            setDepositModalVisible(true);
+                            setUnstakeModalVisible(true);
                           }}
                           className="btn"
                         >
-                          +
+                          -
                         </Button>
-                      )}
-                      <Button
-                        onClick={() => {
-                          setUnstakeModalVisible(true);
-                        }}
-                        className="btn"
-                      >
-                        -
-                      </Button>
+                        <span
+                          className={`action-hint ${
+                            item.version == 2 && item.fee ? "v-hidden" : ""
+                          }`}
+                        >
+                          WITHDRAW FEE: {item.fee.split(" ")[1]}
+                        </span>
+                      </div>
                     </div>
                     <Button
                       onClick={() => {
