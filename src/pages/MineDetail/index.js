@@ -467,7 +467,6 @@ export default function MineDetail(props) {
               {isLocked ? (
                 <LockedButton />
               ) : wallet.status === "connected" ? (
-                false &&
                 approveParams &&
                 approveParams.txs &&
                 approveParams.txs.length > 0 ? (
