@@ -23,6 +23,7 @@ import InstagramIcon from "assets/socials/instagram.svg";
 import DiscordIcon from "assets/socials/discord.svg";
 import CmcIcon from "assets/socials/cmc.svg";
 import TelegramIcon from "assets/socials/telegram.svg";
+import GithubIcon from "assets/socials/github.svg";
 import MenuFullIcon from "assets/menu-full.svg";
 import MenuPulledIcon from "assets/menu-pulled.svg";
 import SettingIcon from "assets/setting-icon.svg";
@@ -200,6 +201,9 @@ export default function AppSidebar() {
             <a target="_blank" href="https://www.instagram.com/zetta_icarus/">
               <img src={InstagramIcon} className="social-icon" />
             </a>
+            <a target="_blank" href="https://github.com/Icarus-labs">
+              <img src={GithubIcon} className="social-icon" />
+            </a>
           </div>
           <div className="social-row">
             <a target="_blank" href="https://discord.gg/FW5QtuzPdS">
@@ -213,6 +217,13 @@ export default function AppSidebar() {
             </a>
             <a target="_blank" href="https://t.me/icarus_finance">
               <img src={TelegramIcon} className="social-icon" />
+            </a>
+            <a
+              target="_blank"
+              href="https://github.com/Icarus-labs"
+              style={{ visibility: "hidden" }}
+            >
+              <img src={GithubIcon} className="social-icon" />
             </a>
           </div>
         </div>

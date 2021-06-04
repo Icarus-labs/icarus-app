@@ -491,7 +491,7 @@ export default function MineDetail(props) {
                           </Button>
                           <span
                             className={`action-hint ${
-                              item.version == 2 && item.fee ? "v-hidden" : ""
+                              item.version == 2 && item.fee ? "" : "v-hidden"
                             }`}
                           >
                             DEPOSIT FEE: {item.fee.split(" ")[0]}
@@ -509,7 +509,7 @@ export default function MineDetail(props) {
                         </Button>
                         <span
                           className={`action-hint ${
-                            item.version == 2 && item.fee ? "v-hidden" : ""
+                            item.version == 2 && item.fee ? "" : "v-hidden"
                           }`}
                         >
                           WITHDRAW FEE: {item.fee.split(" ")[1]}
