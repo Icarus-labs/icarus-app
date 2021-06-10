@@ -23,6 +23,7 @@ import InstagramIcon from "assets/socials/instagram.svg";
 import DiscordIcon from "assets/socials/discord.svg";
 import CmcIcon from "assets/socials/cmc.svg";
 import TelegramIcon from "assets/socials/telegram.svg";
+import CoingeckoIcon from "assets/socials/coingecko.svg";
 import GithubIcon from "assets/socials/github.svg";
 import MenuFullIcon from "assets/menu-full.svg";
 import MenuPulledIcon from "assets/menu-pulled.svg";
@@ -220,10 +221,9 @@ export default function AppSidebar() {
             </a>
             <a
               target="_blank"
-              href="https://github.com/Icarus-labs"
-              style={{ visibility: "hidden" }}
+              href="https://github.com/https://www.coingecko.com/en/coins/icarus-finance"
             >
-              <img src={GithubIcon} className="social-icon" />
+              <img src={CoingeckoIcon} className="social-icon" />
             </a>
           </div>
         </div>
