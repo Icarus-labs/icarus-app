@@ -221,7 +221,7 @@ export default function AppSidebar() {
             </a>
             <a
               target="_blank"
-              href="https://github.com/https://www.coingecko.com/en/coins/icarus-finance"
+              href="https://www.coingecko.com/en/coins/icarus-finance"
             >
               <img src={CoingeckoIcon} className="social-icon" />
             </a>
