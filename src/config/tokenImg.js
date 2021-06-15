@@ -11,6 +11,8 @@ import dogeLogo from "assets/tokens/doge.svg";
 
 export default {
   ZETH: zethLogo,
+  VZETH: zethLogo,
+  vZETH: zethLogo,
   BUSD: busdLogo,
   ICA: icaLogo,
   ETH: ethLogo,
