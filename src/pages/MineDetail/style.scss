@@ -6,6 +6,11 @@
     position: relative;
     &.is-line {
         min-height: unset;
+        .star-boost{
+            position: relative;
+            top: -10px;
+            right: unset;
+        }
         .open-soon {
             top: unset;
             bottom: 12px;
@@ -32,10 +37,26 @@
 .pool-item.handle-card {
     display: flex;
     flex-direction: column;
+
     // .card-top {
     // }
     // .card-bottom {
     // }
+}
+
+.star-boost {
+    background: url("../../assets//star-boost-bg.svg") no-repeat center;
+    background-size: contain;
+    width: 80px;
+    height: 44px;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 18px;
+    line-height: 24px;
+    padding-top: 22px;
+    text-align: center;
+    color: #f9cb2a;
 }
 
 .toggle-btn {

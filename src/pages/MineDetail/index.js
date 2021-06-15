@@ -269,6 +269,9 @@ export default function MineDetail(props) {
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
+        {/* <div className="star-boost">
+          122223%
+        </div> */}
         <div className="card-top">
           <div className="info-line top-line">
             {poolInfo.type === "reward3rd" && (
