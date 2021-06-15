@@ -25,6 +25,7 @@ export default function MineDetail(props) {
     item,
     earnedChange,
     stakedChange,
+    starBoostChange,
     starEarnedChange,
     starStakedChange,
     prices,
@@ -212,6 +213,11 @@ export default function MineDetail(props) {
 
     setPoolInfoTrigger((prev) => prev + 1);
 
+    if(address === '0x568E19cD1d0fA3C6b06A9850287829B94449B28D'){
+      // 1. pool address to change, 2. the apr
+      starBoostChange('0x765DD0504aDA79eF6D5cB2694AbfBC0ba36633cD', item.apy)
+    }
+
     // check allowance
     const approveResult = await axios.post(`/${currentToken}/pools/approve`, {
       pool: address,
@@ -269,9 +275,9 @@ export default function MineDetail(props) {
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
-        {/* <div className="star-boost">
-          122223%
-        </div> */}
+        {item.boostAPR && <div className="star-boost">
+          {item.boostAPR}%
+        </div>}
         <div className="card-top">
           <div className="info-line top-line">
             {poolInfo.type === "reward3rd" && (

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useWallet } from "use-wallet";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import BannerImg from "assets/banners/v2.png";
+import BannerImg from "assets/banners/star-boost.png";
 import { useLocation } from "react-router-dom";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
@@ -98,6 +98,10 @@ export default function Mine() {
     }
     setTotalTvl((prev) => prev + totalTvlRaw);
     setPoolList((prev) => prev.concat(list));
+
+
+
+    // }
   };
 
   // const changeTheme = (param) => {
@@ -108,6 +112,19 @@ export default function Mine() {
   //     },
   //   });
   // };
+
+  const starBoostChange = (target, apr) => {
+    setPoolList(prev => {
+      prev.forEach(poolItem => {
+        if(poolItem.address === target){
+          poolItem.boostAPR = apr
+        }
+      })
+      return [
+        ...prev
+      ]
+    })
+  }
 
   const changeMode = (param) => {
     dispatch({
@@ -276,7 +293,7 @@ export default function Mine() {
           </Col>
           <Col xs={24} lg={12}>
             <a
-              href="https://icarus-finance.medium.com/v2-is-coming-44fd9ffddbcf"
+              href="https://bit.ly/2TxRIVm"
               target="_blank"
               className="coingecko"
             >
@@ -434,6 +451,7 @@ export default function Mine() {
                       starStakedChange={(value) =>
                         setStarTotalStaked((prev) => prev + Number(value))
                       }
+                      starBoostChange={starBoostChange}
                       hasStaked={() => userHasStaked(index)}
                       thirdPrices={thirdPrices}
                       prices={{
