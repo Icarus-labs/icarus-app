@@ -11,7 +11,7 @@ import BuyZethIcon from "assets/buy-zeth.svg";
 import ICALogo from "assets/tokens/ica.svg";
 // import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
-import StarClusterImg from "assets/star-cluster.png";
+import StarClusterImg from "assets/star-cluster-2.png";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
 import { toThousands } from "utils/Tools";
