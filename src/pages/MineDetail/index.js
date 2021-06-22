@@ -47,7 +47,7 @@ export default function MineDetail(props) {
 
   useEffect(() => {
     getPool();
-    checkLock();
+    // checkLock();
   }, []);
 
   const checkLock = () => {

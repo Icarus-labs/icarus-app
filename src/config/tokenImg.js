@@ -8,6 +8,7 @@ import xdittoLogo from "assets/tokens/xditto.svg";
 import cakeLogo from "assets/tokens/cake.svg";
 import wbnbLogo from "assets/tokens/wbnb.svg";
 import dogeLogo from "assets/tokens/doge.svg";
+import maticLogo from "assets/tokens/matic.svg";
 
 export default {
   ZETH: zethLogo,
@@ -24,4 +25,5 @@ export default {
   DOGE: dogeLogo,
   WBNB: wbnbLogo,
   BNB: wbnbLogo,
+  MATIC: maticLogo,
 };
