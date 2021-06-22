@@ -53,7 +53,7 @@ export default function MineDetail(props) {
   const checkLock = () => {
     if (
       address === "0xEbdD674EE1b9d4f97a2F09bAD39A37a30CD09907" ||
-      address === "0xEbdD674EE1b9d4f97a2F09bAD39A37a30CD09907" ||
+      address === "0xdd9937F73115AD155dF124eF0F64DA65Cf8Cc3d4" ||
       address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A"
     ) {
       setIsLocked(true);
