@@ -47,12 +47,14 @@ export default function MineDetail(props) {
 
   useEffect(() => {
     getPool();
-    // checkLock();
+    checkLock();
   }, []);
 
   const checkLock = () => {
     if (
-      address === "0x568E19cD1d0fA3C6b06A9850287829B94449B28D"
+      address === "0xEbdD674EE1b9d4f97a2F09bAD39A37a30CD09907" ||
+      address === "0xEbdD674EE1b9d4f97a2F09bAD39A37a30CD09907" ||
+      address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A"
     ) {
       setIsLocked(true);
     }
@@ -208,9 +210,9 @@ export default function MineDetail(props) {
 
     setPoolInfoTrigger((prev) => prev + 1);
 
-    if(address === '0x568E19cD1d0fA3C6b06A9850287829B94449B28D'){
+    if (address === "0x568E19cD1d0fA3C6b06A9850287829B94449B28D") {
       // 1. pool address to change, 2. the apr
-      starBoostChange('0x765DD0504aDA79eF6D5cB2694AbfBC0ba36633cD', item.apy)
+      starBoostChange("0x765DD0504aDA79eF6D5cB2694AbfBC0ba36633cD", item.apy);
     }
 
     // check allowance
@@ -270,9 +272,7 @@ export default function MineDetail(props) {
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
-        {item.boostAPR && <div className="star-boost">
-          {item.boostAPR}%
-        </div>}
+        {item.boostAPR && <div className="star-boost">{item.boostAPR}%</div>}
         <div className="card-top">
           <div className="info-line top-line">
             {poolInfo.type === "reward3rd" && (
