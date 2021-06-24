@@ -84,7 +84,8 @@ export default function Mine() {
         list[i].address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
         list[i].address === "0xe7bE10DDCDFb3301d94d95991A214e58b71924C5" ||
         list[i].address === "0x574B029F3159a1EF732f25d5f3b7C51Fad3bcfFE" ||
-        list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670"
+        list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670" ||
+        list[i].address === "0xbcBDeCCd5cbD126E62A874e04178AccbcB7eE2A1"
       ) {
         list[i].inactive = true;
       }
