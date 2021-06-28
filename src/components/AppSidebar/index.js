@@ -138,11 +138,15 @@ export default function AppSidebar() {
           </div>
           <span className="nav-text coming-soon">GAMEFI</span>
         </a>
-        <a href="#" className="nav-link">
+        <a
+          href="https://icarus.finance/analytics"
+          target="_blank"
+          className="nav-link"
+        >
           <div className="block">
             <img className="home-icon icon" src={AnalyticsIcon} />
           </div>
-          <span className="nav-text coming-soon">ANALYTICS</span>
+          <span className="nav-text">ANALYTICS</span>
         </a>
         <a
           href="https://solidity.finance/audits/Icarus"
