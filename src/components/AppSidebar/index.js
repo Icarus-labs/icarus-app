@@ -15,8 +15,8 @@ import ProfileIcon from "assets/nav/profile.svg";
 import GamefiIcon from "assets/nav/gamefi.svg";
 import AnalyticsIcon from "assets/nav/analytics.svg";
 import AuditIcon from "assets/nav/audit.svg";
-import MigrateIconMobile from "assets/migrate-icon-mobile.svg";
-import MigrateIconMobilePurple from "assets/migrate-icon-mobile-purple.svg";
+// import MigrateIconMobile from "assets/migrate-icon-mobile.svg";
+// import MigrateIconMobilePurple from "assets/migrate-icon-mobile-purple.svg";
 import MediumIcon from "assets/socials/medium.svg";
 import TwitterIcon from "assets/socials/twitter.svg";
 import InstagramIcon from "assets/socials/instagram.svg";
@@ -126,12 +126,12 @@ export default function AppSidebar() {
           </div>
           <span className="nav-text">GOV</span>
         </a>
-        <a href="#" className="nav-link">
+        <Link to="/profile" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={ProfileIcon} />
           </div>
-          <span className="nav-text coming-soon">PROFILE</span>
-        </a>
+          <span className="nav-text">PROFILE</span>
+        </Link>
         <a href="#" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={GamefiIcon} />
@@ -143,8 +143,11 @@ export default function AppSidebar() {
           target="_blank"
           className="nav-link"
         >
-          <div className="block">
-            <img className="home-icon icon" src={AnalyticsIcon} />
+          <div className="block focus">
+            <img
+              className={`home-icon icon ${!menuOpened ? "mobile-shake" : ""} `}
+              src={AnalyticsIcon}
+            />
           </div>
           <span className="nav-text">ANALYTICS</span>
         </a>
@@ -159,8 +162,8 @@ export default function AppSidebar() {
           <span className="nav-text">AUDIT</span>
         </a>
         <a onClick={() => setMigrateModalVisible(true)} className="nav-link">
-          <div className="block focus">
-            <img
+          <div className="block">
+            {/* <img
               className={`home-icon icon ${!menuOpened ? "mobile-shake" : ""} `}
               src={
                 menuOpened
@@ -169,6 +172,10 @@ export default function AppSidebar() {
                   ? MigrateIconMobilePurple
                   : MigrateIconMobile
               }
+            /> */}
+            <img
+              className={`home-icon icon ${!menuOpened ? "mobile-shake" : ""} `}
+              src={MigrateIcon}
             />
           </div>
           <span className="nav-text">MIGRATE</span>

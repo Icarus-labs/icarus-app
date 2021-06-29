@@ -72,6 +72,18 @@
     height: 100vh;
     padding: 30px 60px;
     overflow-y: auto;
+    &.profile-bg{
+        padding: 0;
+        &::after{
+            content:"";
+
+        }
+        .app-header{
+            position: absolute;
+            right: 44px;
+            top: 16px;
+        }
+    }
 }
 
 .question-icon {
