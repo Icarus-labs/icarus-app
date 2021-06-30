@@ -4,7 +4,7 @@ import { Button, message, Tooltip } from "antd";
 // import { QuestionCircleOutlined } from "@ant-design/icons";
 import tokenImg from "config/tokenImg";
 import { useWallet } from "use-wallet";
-import config from "config";
+import config, { blocksLeftMapping } from "config";
 import axios from "utils/axios";
 import mm from "components/mm";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
@@ -13,8 +13,7 @@ import DepositModal from "components/DepositModal";
 import UnstakeModal from "components/UnstakeModal";
 import ConnectWallet from "components/ConnectWallet";
 import { toThousands } from "utils/Tools";
-
-// import BackButton from "assets/back.svg";
+import MetamaskIcon from "assets/metamask.svg";
 
 import "./style.scss";
 
@@ -35,6 +34,7 @@ export default function MineDetail(props) {
   const [poolInfo, setPoolInfo] = useState({});
   const [poolInfoTrigger, setPoolInfoTrigger] = useState(1);
   const [showMore, setShowMore] = useState(false);
+  const [blocksLeft, setBlocksLeft] = useState(0);
   const [approveParams, setApproveParams] = useState({ txs: [] });
   const network = useSelector((state) => state.setting.network);
   const mode = useSelector((state) => state.setting.mode);
@@ -49,6 +49,33 @@ export default function MineDetail(props) {
     getPool();
     // checkLock();
   }, []);
+
+  useEffect(() => {
+    if (
+      !(
+        poolInfo &&
+        poolInfo.reward_tokens &&
+        poolInfo.reward_tokens[0] &&
+        blocksLeftMapping[poolInfo.reward_tokens[0]]
+      )
+    ) {
+      return;
+    }
+    const interval = setInterval(() => {
+      const timeLeft =
+        blocksLeftMapping[poolInfo.reward_tokens[0]] -
+        new Date().valueOf() / 1000;
+      
+      const blocks = parseInt(timeLeft / 3)
+      setBlocksLeft(blocks);
+      // if(blocks <= 0){
+      //   item.inactive = true
+      // }
+    }, 3000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [poolInfo]);
 
   const checkLock = () => {
     if (
@@ -564,6 +591,7 @@ export default function MineDetail(props) {
                     target="_blank"
                   >
                     Add to Metamask
+                    <img src={MetamaskIcon} className="metamask-icon" />
                   </a>
                 )}
               </span>
@@ -578,6 +606,12 @@ export default function MineDetail(props) {
                   : 0}
               </span>
             </div>
+            {poolInfo.type === "reward3rd" && !item.inactive && (
+              <div className="info-line end-block">
+                <span>End</span>
+                <span>{blocksLeft} BLOCKS</span>
+              </div>
+            )}
           </div>
         )}
       </div>

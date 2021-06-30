@@ -19,6 +19,7 @@
     }
 }
 
+
 .add-liquidity {
     color: #9887cd;
     font-size: 16px;
@@ -62,7 +63,10 @@
 .toggle-btn {
     margin-left: 12px;
 }
-
+.metamask-icon{
+    width: 16px;
+    margin-left: 4px;
+}
 .open-soon {
     position: absolute;
     top: 6px;
@@ -72,6 +76,11 @@
 .info-line.user-tvl {
     margin: 16px auto 0;
 }
+.info-line.end-block{
+    font-size: 12px;
+    margin-top: 8px;
+}
+
 .line-block {
     display: block;
     margin-bottom: 32px;

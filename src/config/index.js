@@ -530,6 +530,13 @@ export const chainIdMapping = {
   128: "HECO Mainnet",
   97: "BSC Testnet",
 };
+
+export const blocksLeftMapping = {
+  xDitto: 1626339826,
+  WBNB: 1626168009,
+  BUSD: 1626167400,
+  MATIC: 1626165053,
+};
 //template_id 1: moneyDao 定时筹款，投票释放
 // template_id 2: moneyDaoFullRelease 定时筹款，全款释放
 // template_id 3: moneyDaoFixRaise 定期筹款，投票释放
@@ -545,13 +552,14 @@ export default {
     mode: "test",
     provider: "https://data-seed-prebsc-1-s1.binance.org:8545",
     buyContractAddress: "0x848DF83e236eF9B88E635f65cC71a125C89D6B3f",
-    buyETHContractAddress: '0x...',
+    buyETHContractAddress: "0x...",
     scanUrl: "https://testnet.bscscan.com/address",
     chainId: 97,
     // 后端 api
     baseURL: "https://api-test.icarus.finance",
     // 通用ABI
     commonABI,
+    blocksLeftMapping,
   },
 
   // binance
@@ -560,12 +568,11 @@ export default {
     mode: "prod",
     provider: "https://bsc-dataseed.binance.org",
     buyContractAddress: "0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd",
-    buyETHContractAddress: '0x1c56AcE0C0391205e775EeCA3fF1AC05FE382105',
+    buyETHContractAddress: "0x1c56AcE0C0391205e775EeCA3fF1AC05FE382105",
     scanUrl: "https://bscscan.com/address",
     chainId: 56,
     baseURL: "https://api.icarus.finance",
     commonABI,
+    blocksLeftMapping,
   },
-
-
 };
