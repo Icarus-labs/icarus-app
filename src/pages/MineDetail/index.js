@@ -607,7 +607,7 @@ export default function MineDetail(props) {
               </span>
             </div>
             {poolInfo.type === "reward3rd" && !item.inactive && (
-              <div className="info-line end-block">
+              <div className={`info-line end-block ${blocksLeft <= 0 ? 'hide' : ''}`}>
                 <span>End</span>
                 <span>{blocksLeft} BLOCKS</span>
               </div>
