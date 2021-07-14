@@ -84,7 +84,11 @@ export default function Mine() {
         list[i].address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
         list[i].address === "0xe7bE10DDCDFb3301d94d95991A214e58b71924C5" ||
         list[i].address === "0x574B029F3159a1EF732f25d5f3b7C51Fad3bcfFE" ||
-        list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670"
+        list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670" ||
+        list[i].address === "0xfB3Bf392552973B5Db8CEAaf9AB896a32F5c4e4A" ||
+        list[i].address === "0xdd9937F73115AD155dF124eF0F64DA65Cf8Cc3d4" ||
+        list[i].address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A"
+
         // list[i].address === "0xbcBDeCCd5cbD126E62A874e04178AccbcB7eE2A1"
       ) {
         list[i].inactive = true;
