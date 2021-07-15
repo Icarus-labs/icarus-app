@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useWallet } from "use-wallet";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import BannerImg from "assets/banners/star-boost.png";
+import BannerImg from "assets/banners/video-contest.png";
 import { useLocation } from "react-router-dom";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
@@ -87,8 +87,8 @@ export default function Mine() {
         list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670" ||
         list[i].address === "0xfB3Bf392552973B5Db8CEAaf9AB896a32F5c4e4A" ||
         list[i].address === "0xdd9937F73115AD155dF124eF0F64DA65Cf8Cc3d4" ||
-        list[i].address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A"
-
+        list[i].address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A" ||
+        list[i].address === "0x568E19cD1d0fA3C6b06A9850287829B94449B28D"
         // list[i].address === "0xbcBDeCCd5cbD126E62A874e04178AccbcB7eE2A1"
       ) {
         list[i].inactive = true;

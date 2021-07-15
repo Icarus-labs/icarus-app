@@ -1,4 +1,4 @@
-yarn build
+# yarn build
 ssh df-sg "
   rm -rf /var/www/dapp/icarus-app
   exit
