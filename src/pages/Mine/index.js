@@ -298,7 +298,7 @@ export default function Mine() {
           </Col>
           <Col xs={24} lg={12}>
             <a
-              href="https://bit.ly/2TxRIVm"
+              href="https://icarus-finance.medium.com/video-contest-9a7d91bb0bf0"
               target="_blank"
               className="coingecko"
             >

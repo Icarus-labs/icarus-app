@@ -299,7 +299,7 @@ export default function MineDetail(props) {
           mode === "card" ? "block is-card" : "is-line"
         }`}
       >
-        {item.boostAPR && <div className="star-boost">{item.boostAPR}%</div>}
+        {/* {item.boostAPR && <div className="star-boost">{item.boostAPR}%</div>} */}
         <div className="card-top">
           <div className="info-line top-line">
             {poolInfo.type === "reward3rd" && (
