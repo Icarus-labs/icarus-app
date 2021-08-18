@@ -9,6 +9,7 @@ import message from "./i18n";
 
 import Buy from "./pages/Buy";
 import Profile from "./pages/Profile";
+import Launchpad from "./pages/Launchpad";
 import BuyZETH from "./pages/BuyZETH";
 
 import Mine from "./pages/Mine";
@@ -16,7 +17,7 @@ import Mine from "./pages/Mine";
 
 import AppHeader from "components/AppHeader";
 import AppSidebar from "components/AppSidebar";
-import AppFooter from "components/AppFooter";
+// import AppFooter from "components/AppFooter";
 
 import enUS from "antd/lib/locale/en_US";
 // import zhCN from "antd/lib/locale/zh_CN";
@@ -62,7 +63,9 @@ function App() {
       <div
         className={`App ${i18n.language} ${
           location.pathname === "/star-cluster" ? "light" : theme
-        } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""}`}
+        } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""} ${
+          location.pathname === "/launchpad" ? "launchpad" : ""
+        }`}
       >
         <AppSidebar />
         <div className="main-content">
@@ -73,6 +76,7 @@ function App() {
             </Route>
             <Route path="/buy" component={Buy} />
             <Route path="/profile" component={Profile} />
+            <Route path="/launchpad" component={Launchpad} />
             <Route path="/zeth/private" component={BuyZETH} />
             <Route path="/mine" component={Mine} />
             <Route path="/star-cluster" component={Mine} />

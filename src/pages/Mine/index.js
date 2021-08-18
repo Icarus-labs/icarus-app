@@ -104,8 +104,6 @@ export default function Mine() {
     setTotalTvl((prev) => prev + totalTvlRaw);
     setPoolList((prev) => prev.concat(list));
 
-
-
     // }
   };
 
@@ -119,17 +117,15 @@ export default function Mine() {
   // };
 
   const starBoostChange = (target, apr) => {
-    setPoolList(prev => {
-      prev.forEach(poolItem => {
-        if(poolItem.address === target){
-          poolItem.boostAPR = apr
+    setPoolList((prev) => {
+      prev.forEach((poolItem) => {
+        if (poolItem.address === target) {
+          poolItem.boostAPR = apr;
         }
-      })
-      return [
-        ...prev
-      ]
-    })
-  }
+      });
+      return [...prev];
+    });
+  };
 
   const changeMode = (param) => {
     dispatch({
@@ -247,157 +243,152 @@ export default function Mine() {
         location.pathname === "/star-cluster" ? "star-cluster" : ""
       }`}
     >
-      <div className="container2">
-        <Row gutter={{ lg: 44 }} className="top-infos">
-          <Col xs={24} lg={12}>
-            <div className="tvl block">
-              <img src={ICALogo} className="logo-img" />
-              <a href="https://icarus.finance" target="_blank" className="logo">
-                icarus.finance
-              </a>
-              <div className="num">
-                <div className="title">TVL</div>${toThousands(totalTvl)}
-              </div>
-              <div className="prices">
-                {/* <div>ETH: ${ethPrice}</div>
-                <div>BTC: ${btcPrice}</div> */}
-                <div>ICA: ${icaPrice.toFixed(3)}</div>
-                <div>ZETH: ${zethPrice.toFixed(3)}</div>
-                <div>ZBTC: ${zbtcPrice.toFixed(3)}</div>
-              </div>
+      <Row gutter={{ lg: 44 }} className="top-infos">
+        <Col xs={24} lg={12}>
+          <div className="tvl block">
+            <img src={ICALogo} className="logo-img" />
+            <a href="https://icarus.finance" target="_blank" className="logo">
+              icarus.finance
+            </a>
+            <div className="num">
+              <div className="title">TVL</div>${toThousands(totalTvl)}
             </div>
+            <div className="prices">
+              {/* <div>ETH: ${ethPrice}</div>
+                <div>BTC: ${btcPrice}</div> */}
+              <div>ICA: ${icaPrice.toFixed(3)}</div>
+              <div>ZETH: ${zethPrice.toFixed(3)}</div>
+              <div>ZBTC: ${zbtcPrice.toFixed(3)}</div>
+            </div>
+          </div>
 
-            <Row gutter={44}>
-              <Col xs={12} lg={12}>
-                <div className="block second-line">
-                  <div className="title">
-                    DEPOSITED{" "}
-                    <Tooltip title="Total deposited amount across all pools in USD.">
-                      <QuestionCircleOutlined className="title-icon" />
-                    </Tooltip>
-                  </div>
-                  <div className="num">
-                    ${toThousands(totalStaked.toFixed(2))}
-                  </div>
+          <Row gutter={44}>
+            <Col xs={12} lg={12}>
+              <div className="block second-line">
+                <div className="title">
+                  DEPOSITED{" "}
+                  <Tooltip title="Total deposited amount across all pools in USD.">
+                    <QuestionCircleOutlined className="title-icon" />
+                  </Tooltip>
                 </div>
+                <div className="num">
+                  ${toThousands(totalStaked.toFixed(2))}
+                </div>
+              </div>
+            </Col>
+            <Col xs={12} lg={12}>
+              <div className="block second-line">
+                <div className="title">
+                  MINED{" "}
+                  <Tooltip title="Total amount mined across all pools in USD.">
+                    <QuestionCircleOutlined className="title-icon" />
+                  </Tooltip>
+                </div>
+                <div className="num">${toThousands(totalMined.toFixed(2))}</div>
+              </div>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} lg={12}>
+          <a
+            href="https://icarus-finance.medium.com/video-contest-9a7d91bb0bf0"
+            target="_blank"
+            className="coingecko"
+          >
+            <img src={BannerImg} />
+          </a>
+
+          <div className="block second-line">
+            <Row>
+              <Col xs={8}>
+                <img src={BuyIcaIcon} className="buy-icon" />
+                <a
+                  target="_blank"
+                  href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x0ca2f09eca544b61b91d149dea2580c455c564b2"
+                >
+                  <Button className="btn">BUY ICA</Button>
+                </a>
               </Col>
-              <Col xs={12} lg={12}>
-                <div className="block second-line">
-                  <div className="title">
-                    MINED{" "}
-                    <Tooltip title="Total amount mined across all pools in USD.">
-                      <QuestionCircleOutlined className="title-icon" />
-                    </Tooltip>
-                  </div>
-                  <div className="num">
-                    ${toThousands(totalMined.toFixed(2))}
-                  </div>
-                </div>
+              <Col xs={8}>
+                <img src={BuyZbtcIcon} className="buy-icon" />
+                <a
+                  target="_blank"
+                  href="https://app.dodoex.io/exchange/BUSD-0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd?network=bsc-mainnet"
+                >
+                  <Button className="btn">BUY ZBTC</Button>
+                </a>
+              </Col>
+              <Col xs={8}>
+                <img src={BuyZethIcon} className="buy-icon" />
+                <a
+                  href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
+                  target="_blank"
+                >
+                  <Button className="btn">BUY ZETH</Button>
+                </a>
               </Col>
             </Row>
-          </Col>
-          <Col xs={24} lg={12}>
-            <a
-              href="https://icarus-finance.medium.com/video-contest-9a7d91bb0bf0"
-              target="_blank"
-              className="coingecko"
-            >
-              <img src={BannerImg} />
-            </a>
-
-            <div className="block second-line">
-              <Row>
-                <Col xs={8}>
-                  <img src={BuyIcaIcon} className="buy-icon" />
-                  <a
-                    target="_blank"
-                    href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x0ca2f09eca544b61b91d149dea2580c455c564b2"
-                  >
-                    <Button className="btn">BUY ICA</Button>
-                  </a>
-                </Col>
-                <Col xs={8}>
-                  <img src={BuyZbtcIcon} className="buy-icon" />
-                  <a
-                    target="_blank"
-                    href="https://app.dodoex.io/exchange/BUSD-0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd?network=bsc-mainnet"
-                  >
-                    <Button className="btn">BUY ZBTC</Button>
-                  </a>
-                </Col>
-                <Col xs={8}>
-                  <img src={BuyZethIcon} className="buy-icon" />
-                  <a
-                    href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
-                    target="_blank"
-                  >
-                    <Button className="btn">BUY ZETH</Button>
-                  </a>
-                </Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
-
-        <div className="bar">
-          <div>
-            <span className="highlight">ICA</span> Market Cap: $
-            {Number(icaMarketCap).toFixed(2)}
           </div>
-          <div>Total Minted: {Number(icaTotalMinted).toFixed(2)}</div>
-          <div>Total Burned: {Number(icaTotalBurned).toFixed(2)}</div>
+        </Col>
+      </Row>
+
+      <div className="bar">
+        <div>
+          <span className="highlight">ICA</span> Market Cap: $
+          {Number(icaMarketCap).toFixed(2)}
+        </div>
+        <div>Total Minted: {Number(icaTotalMinted).toFixed(2)}</div>
+        <div>Total Burned: {Number(icaTotalBurned).toFixed(2)}</div>
+      </div>
+
+      <div className="star-cluster-dashboard">
+        <div className="block">
+          <div className="title">
+            DEPOSITED{" "}
+            <Tooltip title="Total deposited amount across all pools in USD.">
+              <QuestionCircleOutlined className="title-icon" />
+            </Tooltip>
+          </div>
+          <div className="num">${toThousands(starTotalStaked.toFixed(2))}</div>
         </div>
 
-        <div className="star-cluster-dashboard">
-          <div className="block">
-            <div className="title">
-              DEPOSITED{" "}
-              <Tooltip title="Total deposited amount across all pools in USD.">
-                <QuestionCircleOutlined className="title-icon" />
-              </Tooltip>
-            </div>
-            <div className="num">
-              ${toThousands(starTotalStaked.toFixed(2))}
-            </div>
+        <img src={StarClusterImg} className="star-cluster-img" />
+
+        <div className="block">
+          <div className="title">
+            MINED{" "}
+            <Tooltip title="Total amount mined across all pools in USD.">
+              <QuestionCircleOutlined className="title-icon" />
+            </Tooltip>
           </div>
+          <div className="num">${toThousands(starTotalMined.toFixed(2))}</div>
+        </div>
+      </div>
 
-          <img src={StarClusterImg} className="star-cluster-img" />
-
-          <div className="block">
-            <div className="title">
-              MINED{" "}
-              <Tooltip title="Total amount mined across all pools in USD.">
-                <QuestionCircleOutlined className="title-icon" />
-              </Tooltip>
-            </div>
-            <div className="num">${toThousands(starTotalMined.toFixed(2))}</div>
+      <div className="bar">
+        <div className="block-switch">
+          <div
+            onClick={() => setShowActive(true)}
+            className={`${showActive ? "active" : ""}`}
+          >
+            Active
+          </div>
+          <div
+            onClick={() => setShowActive(false)}
+            className={`${!showActive ? "active" : ""}`}
+          >
+            Inactive
           </div>
         </div>
-
-        <div className="bar">
-          <div className="block-switch">
-            <div
-              onClick={() => setShowActive(true)}
-              className={`${showActive ? "active" : ""}`}
-            >
-              Active
-            </div>
-            <div
-              onClick={() => setShowActive(false)}
-              className={`${!showActive ? "active" : ""}`}
-            >
-              Inactive
-            </div>
-          </div>
-          <div className="block handle-block">
-            <span style={{ marginRight: "6px" }}>ONLY DEPOSITED</span>
-            <Switch
-              className="option-switch"
-              checked={showDeposited === true}
-              onChange={(checked) => setShowDeposited(checked)}
-            />
-          </div>
-          {/* <div className="block handle-block theme-switch">
+        <div className="block handle-block">
+          <span style={{ marginRight: "6px" }}>ONLY DEPOSITED</span>
+          <Switch
+            className="option-switch"
+            checked={showDeposited === true}
+            onChange={(checked) => setShowDeposited(checked)}
+          />
+        </div>
+        {/* <div className="block handle-block theme-switch">
             <img className="moon-icon icon" src={MoonIcon} />
             <Switch
               className="option-switch"
@@ -405,74 +396,73 @@ export default function Mine() {
               onChange={changeTheme}
             />
           </div> */}
-          <div className="block handle-block">
-            <img className="mode-icon icon" src={ModeIcon} />
-            <Switch
-              className="option-switch"
-              checked={mode === "card"}
-              onChange={changeMode}
-            />
-          </div>
+        <div className="block handle-block">
+          <img className="mode-icon icon" src={ModeIcon} />
+          <Switch
+            className="option-switch"
+            checked={mode === "card"}
+            onChange={changeMode}
+          />
         </div>
-
-        {!wallet.account && (
-          <span className="connect-hint">
-            Please connect your wallet to see the pools.
-          </span>
-        )}
-
-        {loadingPools && <LoadingOutlined className="loading-icon" />}
-        {!loadingPools && (
-          <div className={mode === "line" ? "block line-wrapper" : ""}>
-            <Row className="pool-list" gutter={44}>
-              {poolList &&
-                poolList.map((item, index) => (
-                  <Col
-                    xs={24}
-                    lg={mode === "line" ? 24 : 12}
-                    xl={mode === "line" ? 24 : 6}
-                    className={`${
-                      (showDeposited && !item.hasStaked) ||
-                      (showActive && item.inactive) ||
-                      (!showActive && !item.inactive)
-                        ? "hidden"
-                        : ""
-                    } pool-type-${item.type}`}
-                    key={item.address}
-                  >
-                    <MineDetail
-                      item={item}
-                      address={item.address}
-                      currentToken={item.currentTab}
-                      earnedChange={(value) =>
-                        setTotalMined((prev) => prev + Number(value))
-                      }
-                      stakedChange={(value) =>
-                        setTotalStaked((prev) => prev + Number(value))
-                      }
-                      starEarnedChange={(value) =>
-                        setStarTotalMined((prev) => prev + Number(value))
-                      }
-                      starStakedChange={(value) =>
-                        setStarTotalStaked((prev) => prev + Number(value))
-                      }
-                      starBoostChange={starBoostChange}
-                      hasStaked={() => userHasStaked(index)}
-                      thirdPrices={thirdPrices}
-                      prices={{
-                        ica: icaPrice,
-                        btc: btcPrice,
-                        eth: ethPrice,
-                        zeth: zethPrice,
-                        zbtc: zbtcPrice,
-                      }}
-                    />
-                  </Col>
-                ))}
-            </Row>
-          </div>
-        )}
       </div>
+
+      {!wallet.account && (
+        <span className="connect-hint">
+          Please connect your wallet to see the pools.
+        </span>
+      )}
+
+      {loadingPools && <LoadingOutlined className="loading-icon" />}
+      {!loadingPools && (
+        <div className={mode === "line" ? "block line-wrapper" : ""}>
+          <Row className="pool-list" gutter={44}>
+            {poolList &&
+              poolList.map((item, index) => (
+                <Col
+                  xs={24}
+                  lg={mode === "line" ? 24 : 12}
+                  xl={mode === "line" ? 24 : 6}
+                  className={`${
+                    (showDeposited && !item.hasStaked) ||
+                    (showActive && item.inactive) ||
+                    (!showActive && !item.inactive)
+                      ? "hidden"
+                      : ""
+                  } pool-type-${item.type}`}
+                  key={item.address}
+                >
+                  <MineDetail
+                    item={item}
+                    address={item.address}
+                    currentToken={item.currentTab}
+                    earnedChange={(value) =>
+                      setTotalMined((prev) => prev + Number(value))
+                    }
+                    stakedChange={(value) =>
+                      setTotalStaked((prev) => prev + Number(value))
+                    }
+                    starEarnedChange={(value) =>
+                      setStarTotalMined((prev) => prev + Number(value))
+                    }
+                    starStakedChange={(value) =>
+                      setStarTotalStaked((prev) => prev + Number(value))
+                    }
+                    starBoostChange={starBoostChange}
+                    hasStaked={() => userHasStaked(index)}
+                    thirdPrices={thirdPrices}
+                    prices={{
+                      ica: icaPrice,
+                      btc: btcPrice,
+                      eth: ethPrice,
+                      zeth: zethPrice,
+                      zbtc: zbtcPrice,
+                    }}
+                  />
+                </Col>
+              ))}
+          </Row>
+        </div>
+      )}
     </div>
   );
 }

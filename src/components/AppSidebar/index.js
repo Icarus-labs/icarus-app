@@ -13,6 +13,7 @@ import StarIcon from "assets/star-icon.svg";
 import MigrateIcon from "assets/migrate-icon.svg";
 import ProfileIcon from "assets/nav/profile.svg";
 import GamefiIcon from "assets/nav/gamefi.svg";
+import LaunchpadIcon from "assets/nav/launchpad.svg";
 import AnalyticsIcon from "assets/nav/analytics.svg";
 import AuditIcon from "assets/nav/audit.svg";
 // import MigrateIconMobile from "assets/migrate-icon-mobile.svg";
@@ -138,6 +139,12 @@ export default function AppSidebar() {
           </div>
           <span className="nav-text coming-soon">GAMEFI</span>
         </a>
+        <Link to="/launchpad" className="nav-link">
+          <div className="block">
+            <img className="home-icon icon" src={LaunchpadIcon} />
+          </div>
+          <span className="nav-text">LAUNCHPAD</span>
+        </Link>
         <a
           href="https://icarus.finance/analytics"
           target="_blank"

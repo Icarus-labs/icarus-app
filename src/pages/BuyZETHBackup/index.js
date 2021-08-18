@@ -25,7 +25,7 @@ export default function Buy() {
 
   const wallet = useWallet();
 
-  const { account } = wallet
+  const { account } = wallet;
 
   useEffect(() => {
     getPresaleAvailable();
@@ -60,7 +60,7 @@ export default function Buy() {
           from: wallet.account,
           to: item.contract,
           data: item.calldata,
-          isApprove: item.action_type === 'Approve'
+          isApprove: item.action_type === "Approve",
         };
       });
 
@@ -82,12 +82,10 @@ export default function Buy() {
   };
 
   const getAssetBalance = async () => {
-    if(!account){
-      return
+    if (!account) {
+      return;
     }
-    const result = await axios.get(
-      `/presale/balances?address=${account}`
-    );
+    const result = await axios.get(`/presale/balances?address=${account}`);
     setBalance(result.data.data.busd_pretty);
   };
 
@@ -108,70 +106,71 @@ export default function Buy() {
 
   return (
     <div className="page-buy">
-      <div className="container2">
-        <Row className="pool-list" type="flex" justify="center">
-          <Col xs={24} md={12} lg={8}>
-            <div className="pool-item">
-              <div className="info-line top-line">
-                <span className="title">
-                  <span className="main-title">FIXED-WRAP</span> <br />
-                  $BUSD <br />
-                  <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
-                    {buyContractAddress.slice(0, 5)}...
-                    {buyContractAddress.slice(-5)}
-                  </a>
-                </span>
-                <span className="deposit-by">
-                  <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
-                    <img src={zethLogo} className="token-item" /> ZETH
-                  </a>
-                </span>
-              </div>
-              <div className="info-line">
-                <span>FIXED WRAP RATIO:</span>
-                <span>1 ZETH= {Number(price)} BUSD</span>
-              </div>
-              <div className="info-line amount-input-box">
-                <span>AMOUNT:</span>
-                <span className="amount-input-wrapper">
-                  <Input
-                    className="amount-input"
-                    placeholder="0"
-                    value={amount}
-                    onChange={(e) => {
-                      setAmount(e.target.value);
-                      setIsMax(false);
-                    }}
-                  />{" "}
-                  ZETH
-                  <span
-                    className="max"
-                    onClick={() => {
-                      doSetMax();
-                    }}
-                  >
-                    MAX
-                  </span>
-                </span>
-              </div>
-              <Button onClick={doBuy} className="btn-yellow">
-                SWAP &amp; LOCK IN 3 MONTHS {buying && "..."}
-              </Button>
-              <div className="progress">
-                AUCTION PROGRESS:{" "}
-                {(Number(totalSupply) - Number(available)).toFixed(4)} ZETH /{" "}
-                {Number(totalSupply)} ZETH
-              </div>
-              <div className="progress">
-                AUCTION ENDS:{" "}
-                <Timer initialTime={1616155200000 - new Date().getTime()} direction="backward">
-                  <Timer.Days /> days <Timer.Hours />h <Timer.Minutes />m
-                </Timer>
-              </div>
+      <Row className="pool-list" type="flex" justify="center">
+        <Col xs={24} md={12} lg={8}>
+          <div className="pool-item">
+            <div className="info-line top-line">
+              <span className="title">
+                <span className="main-title">FIXED-WRAP</span> <br />
+                $BUSD <br />
+                <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
+                  {buyContractAddress.slice(0, 5)}...
+                  {buyContractAddress.slice(-5)}
+                </a>
+              </span>
+              <span className="deposit-by">
+                <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
+                  <img src={zethLogo} className="token-item" /> ZETH
+                </a>
+              </span>
             </div>
-          </Col>
-        </Row>
-      </div>
+            <div className="info-line">
+              <span>FIXED WRAP RATIO:</span>
+              <span>1 ZETH= {Number(price)} BUSD</span>
+            </div>
+            <div className="info-line amount-input-box">
+              <span>AMOUNT:</span>
+              <span className="amount-input-wrapper">
+                <Input
+                  className="amount-input"
+                  placeholder="0"
+                  value={amount}
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                    setIsMax(false);
+                  }}
+                />{" "}
+                ZETH
+                <span
+                  className="max"
+                  onClick={() => {
+                    doSetMax();
+                  }}
+                >
+                  MAX
+                </span>
+              </span>
+            </div>
+            <Button onClick={doBuy} className="btn-yellow">
+              SWAP &amp; LOCK IN 3 MONTHS {buying && "..."}
+            </Button>
+            <div className="progress">
+              AUCTION PROGRESS:{" "}
+              {(Number(totalSupply) - Number(available)).toFixed(4)} ZETH /{" "}
+              {Number(totalSupply)} ZETH
+            </div>
+            <div className="progress">
+              AUCTION ENDS:{" "}
+              <Timer
+                initialTime={1616155200000 - new Date().getTime()}
+                direction="backward"
+              >
+                <Timer.Days /> days <Timer.Hours />h <Timer.Minutes />m
+              </Timer>
+            </div>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 }

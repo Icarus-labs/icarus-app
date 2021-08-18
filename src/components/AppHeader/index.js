@@ -73,7 +73,7 @@ export default function AppHeader() {
   }, []);
 
   return (
-    <div className="container2">
+    <div>
       <header className="app-header">
         <div className="header-left" style={{ display: "none" }}>
           <div className="handle-area">

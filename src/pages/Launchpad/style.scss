@@ -1,0 +1,183 @@
+.page-launchpad {
+    color: #fff;
+    padding: 64px 0;
+    .amount-input-wrapper {
+        background: transparent;
+        border: 1px solid #fff;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        .max {
+            color: #01041c;
+            margin-right: 6px;
+            margin-top: 2px;
+        }
+        .ant-input {
+            background: transparent;
+        }
+        .ant-btn {
+            width: 100%;
+        }
+    }
+    .launchpad-logo {
+        // margin: 64px 0 0;
+        width: 80%;
+        margin-bottom: 260px;
+    }
+    .timer-icon {
+        width: 24px;
+        vertical-align: middle;
+    }
+    .info-box {
+        background: #7416b2;
+        position: relative;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 40px;
+        height: 372px;
+        display: flex;
+        align-items: flex-end;
+        padding: 32px;
+        font-size: 14px;
+        .launchpad-rocket {
+            width: 60%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            bottom: 250px;
+            // margin: 0 auto -110px;
+        }
+        img {
+            width: 32px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 12px;
+        }
+    }
+    .capsule-timer {
+        font-size: 32px;
+        line-height: 32px;
+        color: #ffffff;
+        background: #7416b2;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 40px;
+        padding: 8px 32px;
+    }
+    .stake-ica {
+        text-align: center;
+        background: #d6d8dc;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 40px;
+        padding: 24px 44px;
+        flex-direction: row;
+        height: 268px;
+        justify-content: space-between;
+        .ant-btn {
+            width: 100%;
+        }
+        .ica-icon {
+            width: 64px;
+            margin-bottom: 16px;
+        }
+        .title {
+            font-size: 36px;
+            line-height: 43px;
+            margin-bottom: 26px;
+            color: #01041c;
+        }
+    }
+    .block-switch {
+        color: #44484f;
+        background: #fff;
+        & > .active {
+            color: #fff;
+            background: #7416b2;
+        }
+    }
+    .table-box {
+        color: #44484f;
+        background: #d6d8dc;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 40px;
+        height: 372px;
+        padding: 32px;
+        position: relative;
+
+        .action-area {
+            position: absolute;
+            bottom: 400px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            left: 0;
+        }
+
+        .selection {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 24px;
+            padding-bottom: 32px;
+            margin-bottom: 24px;
+            // box-shadow: 0 1px 0 rgba(0,0,0,.8);
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            .ant-switch-checked {
+                background: #7416b2;
+            }
+            .block-switch {
+                margin-left: 14px;
+            }
+        }
+        .entry-item{
+            border: 1px solid #fff;
+            border-radius: 24px;
+            padding: 18px 20px 18px 12px;;
+            display: flex;
+            margin-bottom: 8px;
+            align-items: center;
+            justify-content: space-between;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            .time-wrapper{
+                display: flex;
+            }
+            .time-block{
+                font-size: 18px;
+                color: #44484F;
+                margin-right: 12px;
+                &.time-block-end{
+                    color: #7416B2;
+                }
+                &:last-child{
+                    margin-right: 0;
+                }
+                .icon{
+                    width: 16px;
+                    margin-right: 4px;
+                }
+                span{
+                    margin-left: 2px;
+                    color: #8E8E8E;
+                }
+            }
+            .btn-green{
+                padding: 0 44px;
+            }
+            .rocket{
+                width: 26px;
+            }
+        }
+    }
+}
+
+.launchpad {
+    .app-header {
+        .btn-trans {
+            color: #fff;
+            border: 1px solid #fff;
+        }
+    }
+}

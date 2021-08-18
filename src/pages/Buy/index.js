@@ -107,8 +107,7 @@ export default function Buy() {
 
   return (
     <div className="page-buy">
-      <div className="container2">
-        {/* <Row type="flex" justify="center">
+      {/* <Row type="flex" justify="center">
           <Col xs={24} md={12} lg={8}>
             <a
               href="https://app.dodoex.io/exchange/BUSD-0xdbeb98858f5d4dca13ea0272b2b786e9415d3992"
@@ -121,61 +120,61 @@ export default function Buy() {
           </Col>
         </Row> */}
 
-        <Row className="pool-list" type="flex" justify="center">
-          <Col xs={24} md={12} lg={8}>
-            <div className="pool-item block">
-              <div className="info-line top-line">
-                <span className="title">
-                  <span className="main-title">FIXED-WRAP</span> <br />
-                  $BUSD <br />
-                  <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
-                    {buyContractAddress.slice(0, 5)}...
-                    {buyContractAddress.slice(-5)}
-                  </a>
+      <Row className="pool-list" type="flex" justify="center">
+        <Col xs={24} md={12} lg={8}>
+          <div className="pool-item block">
+            <div className="info-line top-line">
+              <span className="title">
+                <span className="main-title">FIXED-WRAP</span> <br />
+                $BUSD <br />
+                <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
+                  {buyContractAddress.slice(0, 5)}...
+                  {buyContractAddress.slice(-5)}
+                </a>
+              </span>
+              <span className="deposit-by">
+                <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
+                  <img src={zbtcLogo} className="token-item" /> ZBTC
+                </a>
+              </span>
+            </div>
+            <div className="info-line">
+              <span>FIXED WRAP RATIO:</span>
+              <span>1 ZBTC= {Number(price)} BUSD</span>
+            </div>
+            <div className="info-line amount-input-box">
+              <span>AMOUNT:</span>
+              <span className="amount-input-wrapper">
+                <Input
+                  className="amount-input"
+                  placeholder="0"
+                  value={amount}
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                    setIsMax(false);
+                  }}
+                />{" "}
+                ZBTC
+                <span
+                  className="max"
+                  onClick={() => {
+                    doSetMax();
+                  }}
+                >
+                  MAX
                 </span>
-                <span className="deposit-by">
-                  <a target="_blank" href={`${scanUrl}/${buyContractAddress}`}>
-                    <img src={zbtcLogo} className="token-item" /> ZBTC
-                  </a>
-                </span>
-              </div>
-              <div className="info-line">
-                <span>FIXED WRAP RATIO:</span>
-                <span>1 ZBTC= {Number(price)} BUSD</span>
-              </div>
-              <div className="info-line amount-input-box">
-                <span>AMOUNT:</span>
-                <span className="amount-input-wrapper">
-                  <Input
-                    className="amount-input"
-                    placeholder="0"
-                    value={amount}
-                    onChange={(e) => {
-                      setAmount(e.target.value);
-                      setIsMax(false);
-                    }}
-                  />{" "}
-                  ZBTC
-                  <span
-                    className="max"
-                    onClick={() => {
-                      doSetMax();
-                    }}
-                  >
-                    MAX
-                  </span>
-                </span>
-              </div>
-              <Button onClick={doBuy} className="btn">
-                SWAP &amp; LOCK IN 3 MONTHS {buying && "..."}
-              </Button>
-              <div className="progress">
-                AUCTION PROGRESS:{" "}
-                {(Number(totalSupply) - Number(available)).toFixed(4)} ZBTC /{" "}
-                {Number(totalSupply)} ZBTC
-              </div>
-              <div className="progress">Auction ends in 14 days</div>
-              {/* <div className="progress">
+              </span>
+            </div>
+            <Button onClick={doBuy} className="btn">
+              SWAP &amp; LOCK IN 3 MONTHS {buying && "..."}
+            </Button>
+            <div className="progress">
+              AUCTION PROGRESS:{" "}
+              {(Number(totalSupply) - Number(available)).toFixed(4)} ZBTC /{" "}
+              {Number(totalSupply)} ZBTC
+            </div>
+            <div className="progress">Auction ends in 14 days</div>
+            {/* <div className="progress">
                 AUCTION ENDS:{" "}
                 <Timer
                   initialTime={1616155200000 - new Date().getTime()}
@@ -184,11 +183,10 @@ export default function Buy() {
                   <Timer.Days /> days <Timer.Hours />h <Timer.Minutes />m
                 </Timer>
               </div> */}
-              <div className="progress">TIP: one purchase per wallet</div>
-            </div>
-          </Col>
-        </Row>
-      </div>
+            <div className="progress">TIP: one purchase per wallet</div>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 }
