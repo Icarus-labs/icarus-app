@@ -1,0 +1,23 @@
+
+.card-item {
+    text-align: center;
+    margin-bottom: 44px;
+    .name {
+        font-size: 18px;
+        line-height: 1;
+        // margin-bottom: 4px;
+        color: #ffffff;
+    }
+    .card {
+        margin-bottom: 12px;
+    }
+    .drop-rate {
+        border: 1px solid #fff;
+        padding: 6px 16px;
+        color: #fff;
+        font-size: 18px;
+        display: inline-block;
+        margin: 0 auto;
+        border-radius: 40px;
+    }
+}

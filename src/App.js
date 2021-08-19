@@ -65,7 +65,7 @@ function App() {
           location.pathname === "/star-cluster" ? "light" : theme
         } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""} ${
           location.pathname === "/launchpad" ? "launchpad" : ""
-        }`}
+        } ${location.pathname === "/profile" ? "profile" : ""}`}
       >
         <AppSidebar />
         <div className="main-content">

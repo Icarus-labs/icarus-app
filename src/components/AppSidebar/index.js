@@ -8,7 +8,7 @@ import MoonIcon from "assets/moon.svg";
 // import { MenuOutlined } from "@ant-design/icons";
 // import HomeIcon from "assets/home-icon.svg";
 import VoteIcon from "assets/vote-icon.svg";
-import MineIcon from "assets/mine-icon.svg";
+import MineIcon from "assets/mine-icon.svg"
 import StarIcon from "assets/star-icon.svg";
 import MigrateIcon from "assets/migrate-icon.svg";
 import ProfileIcon from "assets/nav/profile.svg";

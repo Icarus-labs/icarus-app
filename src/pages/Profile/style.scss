@@ -1,5 +1,71 @@
 .page-profile {
-    .profile-img{
+    width: 75%;
+    margin: 0 auto;
+    .profile-img {
         width: 100%;
+    }
+    .page-nav {
+        position: fixed;
+        top: 130px;
+        left: 16px;
+        .icon {
+            width: 16px;
+            margin-right: 4px;
+        }
+        .page-navigation {
+            list-style: none;
+            li {
+                cursor: pointer;
+                color: #ffffff;
+                text-align: center;
+                margin-bottom: 10px;
+                border: 1px solid #ffffff;
+                border-radius: 50px;
+                font-size: 24px;
+                line-height: 29px;
+                padding: 8px 32px;
+            }
+        }
+        .outer-navigation {
+            margin-top: 72px;
+            list-style: none;
+            li {
+                cursor: pointer;
+                color: #ffffff;
+                text-align: center;
+                margin-bottom: 10px;
+                background: #52127f;
+                border-radius: 50px;
+                font-size: 24px;
+                line-height: 29px;
+                padding: 8px 32px;
+            }
+        }
+    }
+    .section-title {
+        display: block;
+        margin: 0 auto;
+    }
+    .nft-collection-section {
+        margin-bottom: 160px;
+        .section-title {
+            margin-bottom: 88px;
+            width: 440px;
+        }
+    }
+    .capsule-section {
+        margin-bottom: 200px;
+
+        .section-title {
+            margin-bottom: 100px;
+            width: 300px;
+        }
+      
+    }
+    .items-section {
+        .section-title {
+            margin-bottom: 64px;
+            width: 240px;
+        }
     }
 }

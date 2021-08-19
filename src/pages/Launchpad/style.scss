@@ -27,33 +27,7 @@
         width: 24px;
         vertical-align: middle;
     }
-    .info-box {
-        background: #7416b2;
-        position: relative;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 40px;
-        height: 372px;
-        display: flex;
-        align-items: flex-end;
-        padding: 32px;
-        font-size: 14px;
-        .launchpad-rocket {
-            width: 60%;
-            position: absolute;
-            left: 0;
-            right: 0;
-            margin: auto;
-            bottom: 250px;
-            // margin: 0 auto -110px;
-        }
-        img {
-            width: 32px;
-            margin-bottom: 12px;
-        }
-        p {
-            margin-bottom: 12px;
-        }
-    }
+
     .capsule-timer {
         font-size: 32px;
         line-height: 32px;
@@ -95,14 +69,10 @@
         }
     }
     .table-box {
-        color: #44484f;
-        background: #d6d8dc;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 40px;
         height: 372px;
-        padding: 32px;
-        position: relative;
-
+        .capsule-card{
+            height: 100%;
+        }
         .action-area {
             position: absolute;
             bottom: 400px;
@@ -112,72 +82,6 @@
             justify-content: space-between;
             align-items: flex-end;
             left: 0;
-        }
-
-        .selection {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            font-size: 24px;
-            padding-bottom: 32px;
-            margin-bottom: 24px;
-            // box-shadow: 0 1px 0 rgba(0,0,0,.8);
-            border-bottom: 1px solid rgba(0,0,0,.1);
-            .ant-switch-checked {
-                background: #7416b2;
-            }
-            .block-switch {
-                margin-left: 14px;
-            }
-        }
-        .entry-item{
-            border: 1px solid #fff;
-            border-radius: 24px;
-            padding: 18px 20px 18px 12px;;
-            display: flex;
-            margin-bottom: 8px;
-            align-items: center;
-            justify-content: space-between;
-            &:last-child{
-                margin-bottom: 0;
-            }
-            .time-wrapper{
-                display: flex;
-            }
-            .time-block{
-                font-size: 18px;
-                color: #44484F;
-                margin-right: 12px;
-                &.time-block-end{
-                    color: #7416B2;
-                }
-                &:last-child{
-                    margin-right: 0;
-                }
-                .icon{
-                    width: 16px;
-                    margin-right: 4px;
-                }
-                span{
-                    margin-left: 2px;
-                    color: #8E8E8E;
-                }
-            }
-            .btn-green{
-                padding: 0 44px;
-            }
-            .rocket{
-                width: 26px;
-            }
-        }
-    }
-}
-
-.launchpad {
-    .app-header {
-        .btn-trans {
-            color: #fff;
-            border: 1px solid #fff;
         }
     }
 }
