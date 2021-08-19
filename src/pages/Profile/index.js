@@ -177,6 +177,18 @@ export default function Profile() {
     },
   ];
 
+  const teamList = [
+    {
+      name: "SLOT 1",
+    },
+    {
+      name: "SLOT 2",
+    },
+    {
+      name: "SLOT 3",
+    },
+  ];
+
   return (
     <div className="page-profile">
       <nav className="page-nav">
@@ -258,6 +270,31 @@ export default function Profile() {
           </Col>
           <Col lg={9}>
             <UpgradeCard list={cardList} name="CARD" />
+          </Col>
+        </Row>
+      </div>
+      <div>
+        <Row type="flex" align="middle" gutter={44}>
+          <Col lg={12} id="team" className="team-section">
+            <img src={TeamTitle} className="section-title" />
+            <div className="section-subtitle">
+              Build your team and win prizes exploring the universe
+            </div>
+            <div className="team-list">
+              <Row gutter={24}>
+                {teamList.map((item) => (
+                  <Col lg={8}>
+                    <div className="team-item">
+                      <div className="avatar" />
+                      <div className="name">{item.name}</div>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </Col>
+          <Col lg={12} id="storage" className="storage-section">
+            <img src={StorageTitle} className="section-title" />
           </Col>
         </Row>
       </div>
