@@ -60,12 +60,24 @@
             margin-bottom: 100px;
             width: 300px;
         }
-      
     }
     .items-section {
         .section-title {
             margin-bottom: 64px;
             width: 240px;
+        }
+    }
+    .upgrades-section {
+        .section-title {
+            margin-bottom: 92px;
+            width: 350px;
+        }
+        .btn-open {
+            margin: 44px auto;
+            width: 195px;
+            font-size: 20px;
+            height: 40px;
+            display: block;
         }
     }
 }
