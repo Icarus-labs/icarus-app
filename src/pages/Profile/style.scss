@@ -24,6 +24,10 @@
                 font-size: 24px;
                 line-height: 29px;
                 padding: 8px 32px;
+                a {
+                    display: block;
+                    color: #fff;
+                }
             }
         }
         .outer-navigation {
@@ -39,6 +43,10 @@
                 font-size: 24px;
                 line-height: 29px;
                 padding: 8px 32px;
+                a {
+                    display: block;
+                    color: #fff;
+                }
             }
         }
     }
@@ -62,6 +70,7 @@
         }
     }
     .items-section {
+        margin-bottom: 180px;
         .section-title {
             margin-bottom: 64px;
             width: 240px;
@@ -114,5 +123,47 @@
             margin-bottom: 44px;
             width: 300px;
         }
+        .filter-zone {
+            padding-bottom: 32px;
+            margin-bottom: 32px;
+            color: #fff;
+            box-shadow: 0px 2px 4px -2px rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .filter-right {
+                display: flex;
+            }
+            .check-block {
+                margin-left: 20px;
+                &:first-child {
+                    margin-left: 0;
+                }
+                .check-block-title {
+                    font-size: 18px;
+                    margin-right: 4px;
+                }
+            }
+            .search-block {
+                display: flex;
+                align-items: center;
+                .search-title {
+                    font-size: 26px;
+                    line-height: 1;
+                    margin-right: 8px;
+                }
+                .search-input {
+                    background: #ffffff;
+                    border-radius: 45px;
+                    border: none;
+                    width: 250px;
+                    outline: none;
+                }
+            }
+        }
+      
+    }
+    .bottom-area{
+        padding-bottom: 200px;
     }
 }

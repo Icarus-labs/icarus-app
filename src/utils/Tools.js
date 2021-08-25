@@ -85,7 +85,7 @@ export function toNumber(val) {
 
 export function toFixedExtend(num, dec = 2) {
     const times = Math.pow(10, dec);
-    const des = num * times + 0.5;
+    let des = num * times + 0.5;
     des = parseInt(des, 10) / times;
     return des + '';
 }

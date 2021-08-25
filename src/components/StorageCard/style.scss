@@ -1,0 +1,53 @@
+.storage-card {
+    border: 1px solid #fff;
+    border-radius: 16px;
+    padding: 15px 22px;
+    text-align: center;
+    margin-bottom: 16px;
+    .name {
+        color: #ffffff;
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 12px;
+    }
+
+    .avatar {
+        position: relative;
+        width: 57px;
+        margin: 0 auto 16px;
+        img {
+            width: 100%;
+        }
+        .level {
+            position: absolute;
+            top: 24px;
+            margin: auto;
+            right: -44px;
+            color: #a3a3a3;
+            .num {
+                font-size: 18px;
+                color: #7416b2;
+            }
+        }
+    }
+    .action {
+        margin-bottom: 12px;
+        .ant-btn {
+            width: 100%;
+        }
+        .action-btns {
+            .ant-btn {
+                margin: 10px auto;
+            }
+            // width: 50%;
+        }
+    }
+    .quantity {
+        color: #a3a3a3;
+        font-size: 14px;
+        .num {
+            font-size: 20px;
+            color: #7416b2;
+        }
+    }
+}

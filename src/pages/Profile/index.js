@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Row, Col, Button } from "antd";
+import React from "react";
+import { Row, Col, Button, Input, Checkbox } from "antd";
+import { Link } from "react-router-dom";
 import Banner from "assets/profile/banner.png";
 import MineIcon from "assets/profile/mine-icon.svg";
 import NftCollectionTitle from "assets/profile/titles/nft-collection.svg";
@@ -8,11 +9,13 @@ import ItemsTitle from "assets/profile/titles/items.svg";
 import UpgradesTitle from "assets/profile/titles/upgrades.svg";
 import TeamTitle from "assets/profile/titles/team.svg";
 import StorageTitle from "assets/profile/titles/storage.svg";
+import SearchIcon from "assets/profile/search.svg";
 
 import NftCard from "components/NftCard";
 import CapsuleCard from "components/CapsuleCard";
 import RocketCard from "components/RocketCard";
 import UpgradeCard from "components/UpgradeCard";
+import StorageCard from "components/StorageCard";
 import "./style.scss";
 
 export default function Profile() {
@@ -189,16 +192,70 @@ export default function Profile() {
     },
   ];
 
+  const storageList = [
+    {
+      name: "ITEM X",
+      src: "normal",
+      level: 2,
+      quantity: 3,
+    },
+    {
+      name: "ITEM Y",
+      src: "normal",
+      level: 2,
+      quantity: 3,
+    },
+    {
+      name: "ITEM Z",
+      src: "normal",
+      level: 2,
+      quantity: 3,
+    },
+    {
+      name: "SAMOS",
+      src: "samos",
+      level: 2,
+      quantity: 3,
+    },
+    {
+      name: "SAMOS",
+      src: "samos",
+      level: 2,
+      quantity: 3,
+    },
+    {
+      name: "SAMOS",
+      src: "samos",
+      level: 2,
+      quantity: 3,
+    },
+  ];
+
   return (
     <div className="page-profile">
       <nav className="page-nav">
         <ul className="page-navigation">
-          <li> NET COLLECTION </li> <li> CAPSULE </li> <li> ITEMS </li>
-          <li> UPGRADES </li> <li> STORAGE </li>
+          <li>
+            <a href="#nft-collection">NET COLLECTION</a>
+          </li>
+          <li>
+            <a href="#capsule"> CAPSULE </a>
+          </li>
+          <li>
+            <a href="#items"> ITEMS</a>
+          </li>
+          <li>
+            <a href="#upgrades"> UPGRADES</a>
+          </li>
+          <li>
+            <a href="#storage"> STORAGE</a>
+          </li>
         </ul>
         <ul className="outer-navigation">
           <li>
-            <img src={MineIcon} className="icon" /> MINE
+            <Link to="mine">
+              <img src={MineIcon} className="icon" /> MINE
+            </Link>
           </li>
         </ul>
       </nav>
@@ -273,8 +330,8 @@ export default function Profile() {
           </Col>
         </Row>
       </div>
-      <div>
-        <Row type="flex" align="middle" gutter={44}>
+      <div className="bottom-area">
+        <Row type="flex" align="middle" gutter={64}>
           <Col lg={12} id="team" className="team-section">
             <img src={TeamTitle} className="section-title" />
             <div className="section-subtitle">
@@ -295,6 +352,34 @@ export default function Profile() {
           </Col>
           <Col lg={12} id="storage" className="storage-section">
             <img src={StorageTitle} className="section-title" />
+            <div className="filter-zone">
+              <div className="search-block">
+                <span className="search-title">SEARCH</span>
+                <Input
+                  className="search-input"
+                  prefix={<img src={SearchIcon} />}
+                />
+              </div>
+              <div className="filter-right">
+                <div className="check-block">
+                  <span className="check-block-title">ONLY NFT'S</span>
+                  <Checkbox />
+                </div>
+                <div className="check-block">
+                  <span className="check-block-title">ONLY ITEMS</span>
+                  <Checkbox />
+                </div>
+              </div>
+            </div>
+            <div className="storage-list">
+              <Row gutter={22}>
+                {storageList.map((item) => (
+                  <Col lg={8}>
+                    <StorageCard item={item} />
+                  </Col>
+                ))}
+              </Row>
+            </div>
           </Col>
         </Row>
       </div>

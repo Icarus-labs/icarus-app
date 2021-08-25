@@ -16,12 +16,15 @@
 //     background: url("./assets/app-bg.png") no-repeat center center;
 //     background-size: cover 100%;
 // }
+body {
+    scroll-behavior: smooth;
+}
 
 .App {
     display: flex;
     font-family: "bebas";
+    text-transform: uppercase;
     min-height: 100vh;
-    // color: #4f4e4e;
     color: #01041c;
     background: #cbced3;
     &.launchpad {
@@ -315,6 +318,11 @@ li {
         color: #fff;
         background: #f6e526;
     }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner{
+    background-color: #7416b2;
+    border-color: #7416b2;
 }
 
 .info-line {
