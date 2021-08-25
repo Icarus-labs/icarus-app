@@ -95,4 +95,14 @@
             }
         }
     }
+    @media (max-width: 992px){
+        .show-board{
+            height: unset;
+            width: 100%;
+            img{
+                width: 120px;
+                margin: 0 auto 32px;
+            }
+        }
+    }
 }

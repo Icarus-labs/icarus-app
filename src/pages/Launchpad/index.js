@@ -16,7 +16,7 @@ export default function Launchpad() {
     <div className="page-launchpad">
       <img src={LaunchpadLogo} className="launchpad-logo" />
       <Row gutter={28}>
-        <Col lg={10}>
+        <Col xs={24} lg={10}>
           <RocketCard>
             <p>
               Each capsule contains 1 random generated NFT that unlocks the
@@ -33,7 +33,7 @@ export default function Launchpad() {
             </p>
           </RocketCard>
         </Col>
-        <Col lg={14}>
+        <Col xs={24} lg={14}>
           <div className="table-box">
             <div className="action-area">
               <div className="capsule-timer">

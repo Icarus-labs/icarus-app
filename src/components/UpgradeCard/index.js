@@ -37,9 +37,9 @@ export default function UpgradeCard(props) {
       <div className="choose-board">
         <div className="name">{name}</div>
         <div className="choose-list">
-          <Row gutter={32}>
+          <Row gutter={{ xs: 12, lg: 32 }}>
             {list.map((item, index) => (
-              <Col lg={8} key={item.name}>
+              <Col xs={12} lg={8} key={item.name}>
                 <div className="choose-item">
                   <div className="name">{item.name}</div>
                   <div className="avatar">

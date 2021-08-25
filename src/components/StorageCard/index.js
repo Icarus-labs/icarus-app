@@ -19,10 +19,10 @@ export default function StorageCard(props) {
         <Button className="btn-green">EQUIP</Button>
         <div className="action-btns">
           <Row gutter={5}>
-            <Col lg={12}>
+            <Col xs={12}>
               <Button className="btn-green-line">UPGRADE</Button>
             </Col>
-            <Col lg={12}>
+            <Col xs={12}>
               <Button className="btn-green-line">TRADE</Button>
             </Col>
           </Row>

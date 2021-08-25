@@ -70,7 +70,7 @@
     }
     .table-box {
         height: 372px;
-        .capsule-card{
+        .capsule-card {
             height: 100%;
         }
         .action-area {
@@ -82,6 +82,28 @@
             justify-content: space-between;
             align-items: flex-end;
             left: 0;
+        }
+    }
+    @media (max-width: 992px) {
+        .launchpad-logo {
+            width: 80%;
+            display: block;
+            margin: 0 auto 120px;
+        }
+        .table-box {
+            height: unset;
+
+            .action-area {
+                margin: 24px auto;
+                align-items: center;
+                position: relative;
+                bottom: 0;
+                flex-direction: column;
+                flex-flow: column-reverse;
+                .capsule-timer {
+                    margin-top: 24px;
+                }
+            }
         }
     }
 }

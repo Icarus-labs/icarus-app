@@ -25,4 +25,19 @@
     p {
         margin-bottom: 12px;
     }
+    @media (max-width: 992px){
+        width: 80%;
+        margin: 0 auto;
+        .launchpad-rocket{
+            width: 200px;
+            bottom: 200px;
+        }
+    }
+    @media (max-width: 768px){
+        width: 100%;
+        .launchpad-rocket{
+            width: 90px;
+            top: 0;
+        }
+    }
 }

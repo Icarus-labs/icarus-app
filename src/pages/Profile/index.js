@@ -264,11 +264,12 @@ export default function Profile() {
         <img src={NftCollectionTitle} className="section-title" />
         <Row
           gutter={{
+            xs: 24,
             lg: 64,
           }}
         >
           {nftCollectionList.map((item) => (
-            <Col lg={6} key={item.id}>
+            <Col xs={12} lg={6} key={item.id}>
               <NftCard info={item} />
             </Col>
           ))}
@@ -283,10 +284,10 @@ export default function Profile() {
             lg: 32,
           }}
         >
-          <Col lg={14}>
+          <Col xs={24} lg={14}>
             <CapsuleCard showTitle={true} />
           </Col>
-          <Col lg={10}>
+          <Col xs={24} lg={10}>
             <RocketCard>
               Each capsule contains 1 random generated NFT that unlocks the
               gamefi applications and play to earn gameplay.
@@ -298,11 +299,12 @@ export default function Profile() {
         <img src={ItemsTitle} className="section-title" />
         <Row
           gutter={{
+            xs: 24,
             lg: 64,
           }}
         >
           {itemsList.map((item) => (
-            <Col lg={6} key={item.id}>
+            <Col xs={12} lg={6} key={item.id}>
               <NftCard info={item} />
             </Col>
           ))}
@@ -311,10 +313,10 @@ export default function Profile() {
       <div className="upgrades-section" id="upgrades">
         <img src={UpgradesTitle} className="section-title" />
         <Row gutter={32} type="flex" align="middle">
-          <Col lg={9}>
+          <Col xs={24} lg={9}>
             <UpgradeCard list={chestList} name="CHEST" />
           </Col>
-          <Col lg={6}>
+          <Col xs={24} lg={6}>
             <div className="drop-circle">
               DROP YOUR <br />
               CARD HERE
@@ -325,14 +327,14 @@ export default function Profile() {
               CARD HERE
             </div>
           </Col>
-          <Col lg={9}>
+          <Col xs={24} lg={9}>
             <UpgradeCard list={cardList} name="CARD" />
           </Col>
         </Row>
       </div>
       <div className="bottom-area">
-        <Row type="flex" align="middle" gutter={64}>
-          <Col lg={12} id="team" className="team-section">
+        <Row type="flex" align="middle" gutter={{ xl: 44 }}>
+          <Col xs={24} xl={12} id="team" className="team-section">
             <img src={TeamTitle} className="section-title" />
             <div className="section-subtitle">
               Build your team and win prizes exploring the universe
@@ -340,7 +342,7 @@ export default function Profile() {
             <div className="team-list">
               <Row gutter={24}>
                 {teamList.map((item) => (
-                  <Col lg={8}>
+                  <Col xs={24} md={12} lg={8}>
                     <div className="team-item">
                       <div className="avatar" />
                       <div className="name">{item.name}</div>
@@ -350,7 +352,7 @@ export default function Profile() {
               </Row>
             </div>
           </Col>
-          <Col lg={12} id="storage" className="storage-section">
+          <Col xs={24} xl={12} id="storage" className="storage-section">
             <img src={StorageTitle} className="section-title" />
             <div className="filter-zone">
               <div className="search-block">
@@ -372,9 +374,9 @@ export default function Profile() {
               </div>
             </div>
             <div className="storage-list">
-              <Row gutter={22}>
+              <Row gutter={12}>
                 {storageList.map((item) => (
-                  <Col lg={8}>
+                  <Col xs={24} lg={8}>
                     <StorageCard item={item} />
                   </Col>
                 ))}

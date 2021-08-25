@@ -1,7 +1,7 @@
 .storage-card {
     border: 1px solid #fff;
     border-radius: 16px;
-    padding: 15px 22px;
+    padding: 12px 16px;
     text-align: center;
     margin-bottom: 16px;
     .name {
@@ -38,6 +38,8 @@
         .action-btns {
             .ant-btn {
                 margin: 10px auto;
+                text-align: center;
+                padding: 4px 0;
             }
             // width: 50%;
         }
