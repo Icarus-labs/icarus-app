@@ -544,12 +544,22 @@ export const blocksLeftMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "binance",
+  defaultNetwork: "test",
   //test(binance)
   test: {
+    contracts: {
+      "busd": "0xaDee4afaead5602281d4Ac38933145D63d4a0568",
+      "core": "0xB2454aEe49E7CF6E67EEBAdc8C0e776C81bBfD75",
+      "market": "0xbb642dAFfC60fd4bE683040FB50aC168Ea81b307",
+      "media": "0xf801426977F4676432b3deFb38da893C2Be716CC",
+      "holder": "0xD820842D93cEb22844434b5a808634AFE82022A9",
+      "staker": "0xaC1A1D8c103698b9e92d37584E680B948E62BB2C",
+      "uniswap": "0xb439fAE732658Ff62c71023fDd50866Ac3d2725A"
+    },
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断
     mode: "test",
+    decimal: 18,
     provider: "https://data-seed-prebsc-1-s1.binance.org:8545",
     buyContractAddress: "0x848DF83e236eF9B88E635f65cC71a125C89D6B3f",
     buyETHContractAddress: "0x...",
@@ -564,6 +574,15 @@ export default {
 
   // binance
   binance: {
+    contracts: {
+      "busd": "0xaDee4afaead5602281d4Ac38933145D63d4a0568",
+      "core": "0xB2454aEe49E7CF6E67EEBAdc8C0e776C81bBfD75",
+      "market": "0xbb642dAFfC60fd4bE683040FB50aC168Ea81b307",
+      "media": "0xf801426977F4676432b3deFb38da893C2Be716CC",
+      "holder": "0xD820842D93cEb22844434b5a808634AFE82022A9",
+      "staker": "0xaC1A1D8c103698b9e92d37584E680B948E62BB2C",
+      "uniswap": "0xb439fAE732658Ff62c71023fDd50866Ac3d2725A"
+    },
     network: "binance",
     mode: "prod",
     provider: "https://bsc-dataseed.binance.org",

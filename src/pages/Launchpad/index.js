@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Row, Col, Input, Button } from "antd";
+import { useWallet } from "use-wallet";
+import { useSelector } from "react-redux";
+import ActionButton from "components/ActionButton";
+import StakerContractApi from "contract/StakerContractApi";
 import LaunchpadLogo from "assets/launchpad-logo.svg";
-
+import config from "config";
 import IcaIcon from "assets/tokens/ica.svg";
 import TimerIcon from "assets/timer.svg";
 import CapsuleCard from "components/CapsuleCard";
@@ -10,7 +14,16 @@ import RocketCard from "components/RocketCard";
 import "./style.scss";
 
 export default function Launchpad() {
-  const [amount, setAmount] = useState("");
+  const wallet = useWallet();
+  const [amount, setAmount] = useState("100");
+  const network = useSelector((state) => state.setting.network);
+
+  const tokenAddress = config[network].contracts.busd;
+  const stakerContractAddress = config[network].contracts.staker;
+
+  const doStake = async () => {
+    await StakerContractApi.lock(amount, wallet);
+  };
 
   return (
     <div className="page-launchpad">
@@ -62,7 +75,14 @@ export default function Launchpad() {
                       MAX
                     </span>
                   </span>
-                  <Button className="btn btn-green">Stake</Button>
+                  <ActionButton
+                    tokenAddress={tokenAddress}
+                    contractAddress={stakerContractAddress}
+                  >
+                    <Button className="btn btn-green" onClick={doStake}>
+                      Stake
+                    </Button>
+                  </ActionButton>
                 </div>
               </div>
             </div>

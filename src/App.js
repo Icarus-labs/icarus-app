@@ -46,7 +46,6 @@ function App() {
   const { i18n } = useTranslation();
   const theme = useSelector((state) => state.setting.theme);
   const location = useLocation();
-  console.log("PATH", location);
   // const [bgNum, setBgNum] = useState(1);
 
   // useEffect(() => {
