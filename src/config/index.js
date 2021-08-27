@@ -548,13 +548,13 @@ export default {
   //test(binance)
   test: {
     contracts: {
-      "busd": "0xaDee4afaead5602281d4Ac38933145D63d4a0568",
-      "core": "0xB2454aEe49E7CF6E67EEBAdc8C0e776C81bBfD75",
-      "market": "0xbb642dAFfC60fd4bE683040FB50aC168Ea81b307",
-      "media": "0xf801426977F4676432b3deFb38da893C2Be716CC",
-      "holder": "0xD820842D93cEb22844434b5a808634AFE82022A9",
-      "staker": "0xaC1A1D8c103698b9e92d37584E680B948E62BB2C",
-      "uniswap": "0xb439fAE732658Ff62c71023fDd50866Ac3d2725A"
+      vica: "0x8a98d77465e144427975664c348aBeD6F876C643",
+      core: "0x61d3E62F7FEa1454A3FaB767E43a5aA7403f7626",
+      market: "0x52f3bF3295987f4D5F86564a6F58aBCaf97c7e1c",
+      media: "0x6bC455e856358F34c19b4B2562Ba677b1e7D15E8",
+      holder: "0x146EBC2fD50B8A25b7F3F670Fc2e8a673Be20951",
+      staker: "0x8Be2EFb9030BD49F8Db32733eDE1783603f309F3",
+      uniswap: "0xf8764CCB7a7512701652c67Cd045DF13E4C16375",
     },
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断
@@ -566,7 +566,7 @@ export default {
     scanUrl: "https://testnet.bscscan.com/address",
     chainId: 97,
     // 后端 api
-    baseURL: "https://api-test.icarus.finance",
+    baseURL: "https://api.icarus.finance",
     // 通用ABI
     commonABI,
     blocksLeftMapping,
@@ -575,13 +575,13 @@ export default {
   // binance
   binance: {
     contracts: {
-      "busd": "0xaDee4afaead5602281d4Ac38933145D63d4a0568",
-      "core": "0xB2454aEe49E7CF6E67EEBAdc8C0e776C81bBfD75",
-      "market": "0xbb642dAFfC60fd4bE683040FB50aC168Ea81b307",
-      "media": "0xf801426977F4676432b3deFb38da893C2Be716CC",
-      "holder": "0xD820842D93cEb22844434b5a808634AFE82022A9",
-      "staker": "0xaC1A1D8c103698b9e92d37584E680B948E62BB2C",
-      "uniswap": "0xb439fAE732658Ff62c71023fDd50866Ac3d2725A"
+      vica: "0x8a98d77465e144427975664c348aBeD6F876C643",
+      core: "0x61d3E62F7FEa1454A3FaB767E43a5aA7403f7626",
+      market: "0x52f3bF3295987f4D5F86564a6F58aBCaf97c7e1c",
+      media: "0x6bC455e856358F34c19b4B2562Ba677b1e7D15E8",
+      holder: "0x146EBC2fD50B8A25b7F3F670Fc2e8a673Be20951",
+      staker: "0x8Be2EFb9030BD49F8Db32733eDE1783603f309F3",
+      uniswap: "0xf8764CCB7a7512701652c67Cd045DF13E4C16375",
     },
     network: "binance",
     mode: "prod",

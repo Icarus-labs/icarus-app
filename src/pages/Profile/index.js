@@ -285,7 +285,7 @@ export default function Profile() {
           }}
         >
           <Col xs={24} lg={14}>
-            <CapsuleCard showTitle={true} />
+            <CapsuleCard showTitle={true} mode="open" list={[]} />
           </Col>
           <Col xs={24} lg={10}>
             <RocketCard>

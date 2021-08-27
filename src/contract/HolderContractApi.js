@@ -1,57 +1,37 @@
 import Web3 from "web3";
 import Config from "../config";
-import StakerAbi from "./abi/Staker.json";
+import HolderAbi from "./abi/Holder.json";
 // import Wbe3Utils from "./Wbe3Utils";
 import * as Tools from "../utils/Tools";
 
 import store from "../redux/store";
-import { notification } from "antd";
 
 const { setting } = store.getState();
 const network = setting.network;
 
 export default {
-  async lock(
-    amount,
-    wallet
-    // pendingFun = () => {},
-    // receiptFun = () => {},
-    // errorFun = () => {}
-  ) {
+  async claim(index, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
       const contract = new web3.eth.Contract(
-        StakerAbi,
-        Config[network].contracts.staker
+        HolderAbi,
+        Config[network].contracts.holder
       );
 
-      notification.info({
-        message: "Staking",
-      });
-
       return contract.methods
-        .lock(Web3.utils.toWei(amount, "ether"))
+        .claim(String(index))
         .send({
           from: wallet.account,
         })
         .on("transactionHash", function (transactionHash) {
-          // console.log('pending...', transactionHash);
-          // pendingFun(transactionHash);
-
           return transactionHash;
         })
         .on("receipt", (receipt) => {
-          console.log("LptenTokenContract receipt", receipt);
-          // receiptFun(receipt);
-          notification.info({
-            message: `Staked vICA, Tx Hash: ${receipt.transactionHash} `,
-          });
           return receipt;
         })
         .on("error", function (error) {
           console.log("error", error);
-          // errorFun();
         });
     } catch (err) {
       console.log(err);
@@ -59,17 +39,17 @@ export default {
     }
   },
 
-  async redeem(wallet) {
+  async open(wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
       const contract = new web3.eth.Contract(
-        StakerAbi,
-        Config[network].contracts.staker
+        HolderAbi,
+        Config[network].contracts.holder
       );
 
       return contract.methods
-        .redeem()
+        .open()
         .send({
           from: wallet.account,
         })
@@ -83,6 +63,7 @@ export default {
           console.log("error", error);
         });
     } catch (err) {
+      console.log(err);
       return false;
     }
   },
@@ -95,8 +76,8 @@ export default {
     const web3 = new Web3(wallet.ethereum);
 
     const contract = new web3.eth.Contract(
-      StakerAbi,
-      Config[network].contracts.staker
+      HolderAbi,
+      Config[network].contracts.holder
     );
 
     try {

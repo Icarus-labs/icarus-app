@@ -29,12 +29,6 @@
         "internalType": "uint256",
         "name": "timestamp",
         "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
       }
     ],
     "name": "Claim",
@@ -61,6 +55,25 @@
         "internalType": "address",
         "name": "account",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Open",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
       }
     ],
     "name": "Paused",
@@ -72,7 +85,7 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "account",
+        "name": "to",
         "type": "address"
       },
       {
@@ -108,7 +121,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "account",
+        "name": "",
         "type": "address"
       }
     ],
@@ -176,6 +189,25 @@
   {
     "inputs": [],
     "name": "duration",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "holdOf",
     "outputs": [
       {
         "internalType": "uint256",
@@ -308,6 +340,13 @@
         "type": "bytes4"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "open",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },

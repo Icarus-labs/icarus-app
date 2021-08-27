@@ -14276,6 +14276,13 @@ react-compound-timer@^1.2.0:
   resolved "https://registry.npm.taobao.org/react-compound-timer/download/react-compound-timer-1.2.0.tgz#52df2980dce0b63ddaf5718235a51188cb223d1d"
   integrity sha1-Ut8pgNzgtj3a9XGCNaURiMsiPR0=
 
+react-countdown@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/react-countdown/-/react-countdown-2.3.2.tgz#4cc27f28f2dcd47237ee66e4b9f6d2a21fc0b0ad"
+  integrity sha512-Q4SADotHtgOxNWhDdvgupmKVL0pMB9DvoFcxv5AzjsxVhzOVxnttMbAywgqeOdruwEAmnPhOhNv/awAgkwru2w==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-css-modules@^4.7.7:
   version "4.7.11"
   resolved "https://registry.npm.taobao.org/react-css-modules/download/react-css-modules-4.7.11.tgz#e9bc7ac6e3dd7e71c8e46e9d22c1d0abb2110682"

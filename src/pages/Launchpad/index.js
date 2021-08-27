@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Input, Button } from "antd";
 import { useWallet } from "use-wallet";
 import { useSelector } from "react-redux";
+import graph from 'utils/graph'
 import ActionButton from "components/ActionButton";
 import StakerContractApi from "contract/StakerContractApi";
+import CommonContractApi from "contract/CommonContractApi";
 import LaunchpadLogo from "assets/launchpad-logo.svg";
 import config from "config";
 import IcaIcon from "assets/tokens/ica.svg";
@@ -16,14 +18,37 @@ import "./style.scss";
 export default function Launchpad() {
   const wallet = useWallet();
   const [amount, setAmount] = useState("100");
+  const [balance, setBalance] = useState("0");
+  const [blindboxList, setBlindboxList] = useState([])
   const network = useSelector((state) => state.setting.network);
 
-  const tokenAddress = config[network].contracts.busd;
+  const tokenAddress = config[network].contracts.vica;
   const stakerContractAddress = config[network].contracts.staker;
 
   const doStake = async () => {
     await StakerContractApi.lock(amount, wallet);
+    getBlindBox()
   };
+
+  const getBlindBox = async () => {
+    const result = await graph.getBlindBox()
+    setBlindboxList(result)
+  };
+
+  const getIcaBalance = async () => {
+    const result = await CommonContractApi.balanceOf(
+      config[network].contracts.vica,
+      wallet
+    );
+    setBalance(result);
+  };
+
+  useEffect(() => {
+    if (wallet.account) {
+      getIcaBalance();
+      getBlindBox();
+    }
+  }, [wallet]);
 
   return (
     <div className="page-launchpad">
@@ -69,7 +94,7 @@ export default function Launchpad() {
                     <span
                       className="max"
                       onClick={() => {
-                        alert("max");
+                        setAmount(balance);
                       }}
                     >
                       MAX
@@ -86,7 +111,7 @@ export default function Launchpad() {
                 </div>
               </div>
             </div>
-            <CapsuleCard />
+            <CapsuleCard mode="claim" list={blindboxList} />
           </div>
         </Col>
       </Row>

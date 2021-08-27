@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { message, Button } from "antd";
+import { Button } from "antd";
 import { useWallet } from "use-wallet";
 import CommonContractApi from "contract/CommonContractApi";
 
@@ -10,17 +10,16 @@ export default function ActionButton(props) {
   const wallet = useWallet();
   const currentAccount = wallet.account;
 
-  useEffect(() => {
-    const checkAllowance = async () => {
-      const result = await CommonContractApi.getAllowance(
-        tokenAddress,
-        contractAddress,
-        wallet
-      );
-      setAllowance(result);
-      console.log("allow", result);
-    };
+  const checkAllowance = async () => {
+    const result = await CommonContractApi.getAllowance(
+      tokenAddress,
+      contractAddress,
+      wallet
+    );
+    setAllowance(result);
+  };
 
+  useEffect(() => {
     if (currentAccount) {
       checkAllowance();
     }
@@ -28,18 +27,11 @@ export default function ActionButton(props) {
 
   const doApprove = async () => {
     setApproving(true);
-    message.info({
-      message: "Approving",
-    });
     try {
-      await CommonContractApi.doApprove(
-        tokenAddress,
-        contractAddress,
-        wallet
-      );
+      await CommonContractApi.doApprove(tokenAddress, contractAddress, wallet);
+      setApproving(false);
+      checkAllowance();
     } catch (err) {
-      console.log(err);
-    } finally {
       setApproving(false);
     }
   };
