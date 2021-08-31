@@ -63,7 +63,7 @@ function getTransactionReceiptPromise(hash) {
   // here we just promisify getTransactionReceipt function for convenience
   return new Promise((resolve, reject) => {
     web3.eth.getTransactionReceipt(hash, function (err, data) {
-      console.log(err, data, "get receipt");
+      // console.log(err, data, "get receipt");
       if (err !== null) reject(err);
       else resolve(data);
     });
@@ -100,7 +100,7 @@ const watchTransaction = async (txHash) => {
 
         notification.success({
           message: "Success",
-          description: currentAction.desc,
+          description: `${currentAction.desc}. Tx hash: ${txHash}`,
           icon: <CheckOutlined style={{ color: "green" }} />,
         });
         // trigger approved action

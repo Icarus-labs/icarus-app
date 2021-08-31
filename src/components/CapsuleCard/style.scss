@@ -6,6 +6,16 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 32px;
     border-radius: 40px;
+    .no-entries{
+        font-size: 20px;
+    }
+    .capsule-wrapper{
+        text-align: center;
+        .capsule-num{
+            margin-top: 4px;
+            color: #7416B2;
+        }
+    }
     .selection {
         display: flex;
         align-items: flex-end;

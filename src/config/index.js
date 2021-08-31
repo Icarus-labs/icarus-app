@@ -548,13 +548,13 @@ export default {
   //test(binance)
   test: {
     contracts: {
-      vica: "0x8a98d77465e144427975664c348aBeD6F876C643",
-      core: "0x61d3E62F7FEa1454A3FaB767E43a5aA7403f7626",
-      market: "0x52f3bF3295987f4D5F86564a6F58aBCaf97c7e1c",
-      media: "0x6bC455e856358F34c19b4B2562Ba677b1e7D15E8",
-      holder: "0x146EBC2fD50B8A25b7F3F670Fc2e8a673Be20951",
-      staker: "0x8Be2EFb9030BD49F8Db32733eDE1783603f309F3",
-      uniswap: "0xf8764CCB7a7512701652c67Cd045DF13E4C16375",
+      vica: "0x79d19bD96e52f74C629F3e73E5C902d8b8410578",
+      core: "0x18E9a886BCfb83AaaA1B7dEa2a40D302D9941631",
+      market: "0x1Eda0991957E74762De65A179297DF2012958594",
+      media: "0xc3bb795e13f505823F8Ef708635086b00f70002c",
+      holder: "0x8353df51131391Bc1c56E8625F0A2935133a647c",
+      staker: "0x8E615926dA7Ca860Ea1ff1f72FfaCF4B5E047234",
+      uniswap: "0x07d1dF4634a2B84c1b2F564ecdC25C04B3dEa4f5",
     },
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断

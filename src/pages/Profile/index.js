@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Input, Checkbox } from "antd";
+import { useWallet } from "use-wallet";
+import graph from "utils/graph";
 import { Link } from "react-router-dom";
 import Banner from "assets/profile/banner.png";
 import MineIcon from "assets/profile/mine-icon.svg";
@@ -26,18 +28,6 @@ export default function Profile() {
       dropRate: 23,
       card: "normal",
     },
-    // {
-    //   id: 2,
-    //   name: "?????",
-    //   dropRate: 23,
-    //   card: "normal",
-    // },
-    // {
-    //   id: 3,
-    //   name: "?????",
-    //   dropRate: 13.8,
-    //   card: "normal",
-    // },
     {
       id: 4,
       name: "?????",
@@ -231,6 +221,26 @@ export default function Profile() {
     },
   ];
 
+  const wallet = useWallet();
+  const [blindboxList, setBlindboxList] = useState([]);
+  const [collectionList, setCollectionList] = useState([]);
+  const getBlindBox = async () => {
+    const result = await graph.getBlindBox();
+    setBlindboxList(result);
+  };
+
+  const getCollection = async(owner) => {
+    const result = await graph.getCollection(owner);
+    setCollectionList(result);
+  }
+
+  useEffect(() => {
+    if (wallet.account) {
+      getBlindBox();
+      getCollection(wallet.account)
+    }
+  }, [wallet]);
+
   return (
     <div className="page-profile">
       <nav className="page-nav">
@@ -285,7 +295,7 @@ export default function Profile() {
           }}
         >
           <Col xs={24} lg={14}>
-            <CapsuleCard showTitle={true} mode="open" list={[]} />
+            <CapsuleCard showTitle={true} mode="open" list={blindboxList} />
           </Col>
           <Col xs={24} lg={10}>
             <RocketCard>

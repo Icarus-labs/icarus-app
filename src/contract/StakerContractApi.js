@@ -1,23 +1,16 @@
 import Web3 from "web3";
 import Config from "../config";
 import StakerAbi from "./abi/Staker.json";
-// import Wbe3Utils from "./Wbe3Utils";
+import mm from "components/mm";
 import * as Tools from "../utils/Tools";
 
 import store from "../redux/store";
-import { notification } from "antd";
 
 const { setting } = store.getState();
 const network = setting.network;
 
 export default {
-  async lock(
-    amount,
-    wallet
-    // pendingFun = () => {},
-    // receiptFun = () => {},
-    // errorFun = () => {}
-  ) {
+  async lock(amount, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
@@ -26,33 +19,25 @@ export default {
         Config[network].contracts.staker
       );
 
-      notification.info({
-        message: "Staking",
-      });
-
-      return contract.methods
-        .lock(Web3.utils.toWei(amount, "ether"))
-        .send({
-          from: wallet.account,
-        })
-        .on("transactionHash", function (transactionHash) {
-          // console.log('pending...', transactionHash);
-          // pendingFun(transactionHash);
-
-          return transactionHash;
-        })
-        .on("receipt", (receipt) => {
-          console.log("LptenTokenContract receipt", receipt);
-          // receiptFun(receipt);
-          notification.info({
-            message: `Staked vICA, Tx Hash: ${receipt.transactionHash} `,
+      return new Promise((resolve, reject) => {
+        contract.methods
+          .lock(Web3.utils.toWei(amount, "ether"))
+          .send({
+            from: wallet.account,
+          })
+          .on("transactionHash", function (transactionHash) {
+            mm.listen(transactionHash, "Staking");
+            return transactionHash;
+          })
+          .on("receipt", (receipt) => {
+            // console.log("LptenTokenContract receipt", receipt);
+            resolve(receipt);
+          })
+          .on("error", function (error) {
+            console.log("error", error);
+            // errorFun();
           });
-          return receipt;
-        })
-        .on("error", function (error) {
-          console.log("error", error);
-          // errorFun();
-        });
+      });
     } catch (err) {
       console.log(err);
       return false;
@@ -68,20 +53,23 @@ export default {
         Config[network].contracts.staker
       );
 
-      return contract.methods
-        .redeem()
-        .send({
-          from: wallet.account,
-        })
-        .on("transactionHash", function (transactionHash) {
-          return transactionHash;
-        })
-        .on("receipt", (receipt) => {
-          return receipt;
-        })
-        .on("error", function (error) {
-          console.log("error", error);
-        });
+      return new Promise((resolve, reject) => {
+        contract.methods
+          .redeem()
+          .send({
+            from: wallet.account,
+          })
+          .on("transactionHash", function (transactionHash) {
+            mm.listen(transactionHash, "Redeem");
+            return transactionHash;
+          })
+          .on("receipt", (receipt) => {
+            resolve(receipt);
+          })
+          .on("error", function (error) {
+            console.log("error", error);
+          });
+      });
     } catch (err) {
       return false;
     }

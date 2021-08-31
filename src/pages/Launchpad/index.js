@@ -27,6 +27,7 @@ export default function Launchpad() {
 
   const doStake = async () => {
     await StakerContractApi.lock(amount, wallet);
+    console.log('finished stake')
     getBlindBox()
   };
 
@@ -111,7 +112,7 @@ export default function Launchpad() {
                 </div>
               </div>
             </div>
-            <CapsuleCard mode="claim" list={blindboxList} />
+            <CapsuleCard mode="claim" list={blindboxList} onRefresh={getBlindBox} />
           </div>
         </Col>
       </Row>
