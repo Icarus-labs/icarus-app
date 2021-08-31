@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.5";
+const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.6";
 
 const getBlindBox = async () => {
   const result = await axios.post(baseURL, {
@@ -25,16 +25,15 @@ const getBlindBox = async () => {
 };
 
 const getCollection = async (owner) => {
-  console.log('owner', owner)
   const result = await axios.post(baseURL, {
     query: `{
-      medias(where:{owner: "${owner}"}) {
+      medias(where:{owner: "${owner.toLowerCase()}"}) {
         id
       }
     }`,
   });
 
-  console.log("result", result.data);
+  // console.log("result", result.data);
 
   return result.data.data.medias;
 };

@@ -566,7 +566,7 @@ export default {
     scanUrl: "https://testnet.bscscan.com/address",
     chainId: 97,
     // 后端 api
-    baseURL: "https://api.icarus.finance",
+    baseURL: "https://api-test.icarus.finance",
     // 通用ABI
     commonABI,
     blocksLeftMapping,

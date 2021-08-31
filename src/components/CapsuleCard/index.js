@@ -7,6 +7,7 @@ import Countdown from "react-countdown";
 import { numberSuffix } from "utils/Tools";
 import TimeIcon from "assets/launchpad/time.svg";
 import DateIcon from "assets/launchpad/date.svg";
+import NftGiftModal from "components/NftGiftModal";
 import LaunchpadRocket from "assets/launchpad-rocket.png";
 import "./style.scss";
 
@@ -14,6 +15,7 @@ export default function CapsuleCard(props) {
   const { showTitle, mode, list, onRefresh } = props;
   const [showActive, setShowActive] = useState(true);
   const [showReady, setShowReady] = useState(false);
+  const [nftGiftModalVisible, setNftGiftModalVisible] = useState(false);
   const [capsuleList, setCapsuleList] = useState([]);
   const wallet = useWallet();
 
@@ -24,6 +26,7 @@ export default function CapsuleCard(props) {
 
   const doOpen = async (boxId) => {
     await HolderContractApi.open(boxId, wallet);
+    setNftGiftModalVisible(true);
     onRefresh();
   };
 
@@ -172,48 +175,10 @@ export default function CapsuleCard(props) {
         ) : (
           <div className="no-entries">No entries yet.</div>
         )}
-        {/* <div className="entry-item">
-        <div>1ST ENTRY</div>
-        <div>
-          {mode === "claim" && (
-            <>
-              <Button className="btn-green" onClick={() => doClaim(1)}>
-                CLAIM
-              </Button>
-              <Button className="btn-green" onClick={doRedeem}>
-                UNSTAKE
-              </Button>
-            </>
-          )}
-          {mode === "open" && (
-            <Button className="btn-green" onClick={doOpen}>
-              OPEN
-            </Button>
-          )}
-        </div>
-        <div>
-          <img src={LaunchpadRocket} className="rocket" />
-        </div>
       </div>
-      <div className="entry-item">
-        <div>2RD ENTRY</div>
-        <div className="time-wrapper">
-          <div className="time-block">
-            <img src={TimeIcon} className="icon" />
-            TIMELOCK:
-            <span>719H:59M:59S</span>
-          </div>
-          <div className="time-block time-block-end">
-            <img src={DateIcon} className="icon" />
-            END:
-            <span>30/08/2021</span>
-          </div>
-        </div>
-        <div>
-          <img src={LaunchpadRocket} className="rocket" />
-        </div>
-      </div> */}
-      </div>
+      {nftGiftModalVisible && (
+        <NftGiftModal onCancel={() => setNftGiftModalVisible(false)} gifts={[]} />
+      )}
     </div>
   );
 }

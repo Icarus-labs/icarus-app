@@ -1,0 +1,26 @@
+.nft-gift-modal {
+
+    .ant-modal-content{
+        background: transparent;
+    }
+
+    img{
+        cursor: pointer;
+        // width: 90%;
+        margin:24px auto;
+        display: block;
+    }
+
+    .ant-modal-close {
+        color: #fff;
+        // display: none;
+    }
+
+    .ant-modal-content{
+        box-shadow: none;
+    }
+    // .ant-modal-content {
+    //     border-radius: 20px;
+    //     overflow: hidden;
+    // }
+}

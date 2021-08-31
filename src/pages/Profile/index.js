@@ -229,15 +229,26 @@ export default function Profile() {
     setBlindboxList(result);
   };
 
-  const getCollection = async(owner) => {
+  const getCollection = async (owner) => {
     const result = await graph.getCollection(owner);
+    result.forEach((item) => {
+      item.name = "SAMOS TEST";
+      item.card = "samos";
+      item.dropRate = 23;
+      // {
+      //   id: 1,
+      //   name: "SAMOS",
+      //   dropRate: 23,
+      //   card: "normal",
+      // },
+    });
     setCollectionList(result);
-  }
+  };
 
   useEffect(() => {
     if (wallet.account) {
       getBlindBox();
-      getCollection(wallet.account)
+      getCollection(wallet.account);
     }
   }, [wallet]);
 
@@ -278,8 +289,8 @@ export default function Profile() {
             lg: 64,
           }}
         >
-          {nftCollectionList.map((item) => (
-            <Col xs={12} lg={6} key={item.id}>
+          {collectionList.concat(nftCollectionList).map((item, index) => (
+            <Col xs={12} lg={6} key={index}>
               <NftCard info={item} />
             </Col>
           ))}
@@ -295,7 +306,7 @@ export default function Profile() {
           }}
         >
           <Col xs={24} lg={14}>
-            <CapsuleCard showTitle={true} mode="open" list={blindboxList} />
+            <CapsuleCard showTitle={true} mode="open" list={blindboxList} onRefresh={getBlindBox} />
           </Col>
           <Col xs={24} lg={10}>
             <RocketCard>
