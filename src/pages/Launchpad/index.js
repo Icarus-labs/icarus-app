@@ -31,8 +31,8 @@ export default function Launchpad() {
     getBlindBox()
   };
 
-  const getBlindBox = async () => {
-    const result = await graph.getBlindBox()
+  const getBlindBox = async (owner) => {
+    const result = await graph.getBlindBox(owner)
     setBlindboxList(result)
   };
 
@@ -47,7 +47,7 @@ export default function Launchpad() {
   useEffect(() => {
     if (wallet.account) {
       getIcaBalance();
-      getBlindBox();
+      getBlindBox(wallet.account);
     }
   }, [wallet]);
 

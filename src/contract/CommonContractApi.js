@@ -5,7 +5,7 @@ import Erc20Abi from "./abi/ERC20.json";
 // import Wbe3Utils from "./Wbe3Utils";
 import * as Tools from "../utils/Tools";
 
-import store from "../redux/store";
+// import store from "../redux/store";
 
 // const { setting } = store.getState();
 // const network = setting.network;

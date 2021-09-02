@@ -224,8 +224,8 @@ export default function Profile() {
   const wallet = useWallet();
   const [blindboxList, setBlindboxList] = useState([]);
   const [collectionList, setCollectionList] = useState([]);
-  const getBlindBox = async () => {
-    const result = await graph.getBlindBox();
+  const getBlindBox = async (owner) => {
+    const result = await graph.getBlindBox(owner);
     setBlindboxList(result);
   };
 
@@ -247,7 +247,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (wallet.account) {
-      getBlindBox();
+      getBlindBox(wallet.account);
       getCollection(wallet.account);
     }
   }, [wallet]);

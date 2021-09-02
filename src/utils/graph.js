@@ -2,10 +2,10 @@ import axios from "axios";
 
 const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.6";
 
-const getBlindBox = async () => {
+const getBlindBox = async (owner) => {
   const result = await axios.post(baseURL, {
     query: `{
-          blindBoxes(orderBy: createdAt, orderByDirection: asc){
+          blindBoxes(orderBy: createdAt, orderByDirection: asc, where:{owner: "${owner.toLowerCase()}"} ){
             id
             staked
             value
