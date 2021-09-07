@@ -55,6 +55,7 @@
         margin: 0 auto;
     }
     .nft-collection-section {
+        padding-top: 44px;
         margin-bottom: 160px;
         .section-title {
             margin-bottom: 88px;
@@ -63,6 +64,7 @@
     }
     .capsule-section {
         margin-bottom: 200px;
+        padding-top: 44px;
 
         .section-title {
             margin-bottom: 100px;
@@ -70,6 +72,7 @@
         }
     }
     .items-section {
+        padding-top: 44px;
         margin-bottom: 180px;
         .section-title {
             margin-bottom: 64px;
@@ -77,6 +80,7 @@
         }
     }
     .upgrades-section {
+        padding-top: 44px;
         margin-bottom: 160px;
         .section-title {
             margin-bottom: 92px;
@@ -120,20 +124,23 @@
         }
     }
     .storage-section {
+        padding-top: 44px;
+
         .section-title {
             margin-bottom: 44px;
             width: 300px;
         }
         .filter-zone {
             padding-bottom: 32px;
-            margin-bottom: 32px;
             color: #fff;
             box-shadow: 0px 2px 4px -2px rgba(255, 255, 255, 0.25);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
             .filter-right {
                 display: flex;
+                margin-bottom: 32px;
             }
             .check-block {
                 margin-left: 20px;
@@ -148,6 +155,8 @@
             .search-block {
                 display: flex;
                 align-items: center;
+                margin-bottom: 32px;
+
                 .search-title {
                     font-size: 26px;
                     line-height: 1;
@@ -157,7 +166,7 @@
                     background: #ffffff;
                     border-radius: 45px;
                     border: none;
-                    width: 250px;
+                    width: 200px;
                     outline: none;
                 }
             }
@@ -172,12 +181,21 @@
                 margin-bottom: 92px;
             }
         }
+        .storage-section {
+            .filter-zone {
+                .search-block {
+                    .search-input {
+                        width: 120px;
+                    }
+                }
+            }
+        }
     }
     @media (max-width: 992px) {
         width: 78%;
-        .section-title{
+        .section-title {
             width: 200px !important;
-            margin-bottom: 44px !important;    
+            margin-bottom: 44px !important;
         }
         .page-nav {
             left: 8px;

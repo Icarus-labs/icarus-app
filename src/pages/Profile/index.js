@@ -9,7 +9,7 @@ import NftCollectionTitle from "assets/profile/titles/nft-collection.svg";
 import CapsuleTitle from "assets/profile/titles/capsule.svg";
 import ItemsTitle from "assets/profile/titles/items.svg";
 import UpgradesTitle from "assets/profile/titles/upgrades.svg";
-import TeamTitle from "assets/profile/titles/team.svg";
+import CrewTitle from "assets/profile/titles/crew.svg";
 import StorageTitle from "assets/profile/titles/storage.svg";
 import SearchIcon from "assets/profile/search.svg";
 
@@ -306,12 +306,18 @@ export default function Profile() {
           }}
         >
           <Col xs={24} lg={14}>
-            <CapsuleCard showTitle={true} mode="open" list={blindboxList} onRefresh={getBlindBox} />
+            <CapsuleCard
+              showTitle={true}
+              mode="open"
+              list={blindboxList}
+              onRefresh={getBlindBox}
+            />
           </Col>
           <Col xs={24} lg={10}>
-            <RocketCard>
-              Each capsule contains 1 random generated NFT that unlocks the
-              gamefi applications and play to earn gameplay.
+            <RocketCard shortText={true}>
+              EACH CAPSULE CONTAINS 1 RANDOM GENERATED NFT THAT UNLOCKS THE
+              GAMEFI APPLICATIONS AND USERS CAN PARTICIPATE INTO ICA
+              PLAY-TO-EARN ECONOMY.
             </RocketCard>
           </Col>
         </Row>
@@ -340,7 +346,7 @@ export default function Profile() {
           <Col xs={24} lg={6}>
             <div className="drop-circle">
               DROP YOUR <br />
-              CARD HERE
+              CHEST HERE
             </div>
             <Button className="btn-purple btn-open">OPEN</Button>
             <div className="drop-circle">
@@ -356,14 +362,14 @@ export default function Profile() {
       <div className="bottom-area">
         <Row type="flex" align="middle" gutter={{ xl: 44 }}>
           <Col xs={24} xl={12} id="team" className="team-section">
-            <img src={TeamTitle} className="section-title" />
+            <img src={CrewTitle} className="section-title" />
             <div className="section-subtitle">
               Build your team and win prizes exploring the universe
             </div>
             <div className="team-list">
               <Row gutter={24}>
                 {teamList.map((item) => (
-                  <Col xs={24} md={12} lg={8}>
+                  <Col xs={24} md={12} xxl={8}>
                     <div className="team-item">
                       <div className="avatar" />
                       <div className="name">{item.name}</div>
@@ -397,7 +403,7 @@ export default function Profile() {
             <div className="storage-list">
               <Row gutter={12}>
                 {storageList.map((item) => (
-                  <Col xs={24} lg={8}>
+                  <Col xs={24} lg={12} xxl={8}>
                     <StorageCard item={item} />
                   </Col>
                 ))}

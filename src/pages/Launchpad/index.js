@@ -58,8 +58,7 @@ export default function Launchpad() {
         <Col xs={24} lg={10}>
           <RocketCard>
             <p>
-              Each capsule contains 1 random generated NFT that unlocks the
-              gamefi applications and play to earn gameplay.
+            EACH CAPSULE CONTAINS 1 RANDOM GENERATED NFT THAT UNLOCKS THE GAMEFI APPLICATIONS AND USERS CAN PARTICIPATE INTO ICA PLAY-TO-EARN ECONOMY.
             </p>
             <p>
               Each character holds a power level according to their rarity and
