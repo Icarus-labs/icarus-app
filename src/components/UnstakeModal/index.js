@@ -36,23 +36,23 @@ export default function UnstakeModal(props) {
     if (isMax) {
       doExit();
     } else {
+      const result = await axios.post(`${currentToken}/pools/withdraw`, {
+        amount: isMax ? "-1" : amount,
+        account: wallet.account,
+        pool: poolAddress,
+      });
+
+      let txnParams = result.data.data.txs.map((item, index) => {
+        return {
+          from: wallet.account,
+          to: item.contract,
+          data: item.calldata,
+          isApprove: item.action_type === "Approve",
+        };
+      });
+
+      await mm.sendTransaction(txnParams, `Unstake ${stakeToken}`);
     }
-    const result = await axios.post(`${currentToken}/pools/withdraw`, {
-      amount: isMax ? "-1" : amount,
-      account: wallet.account,
-      pool: poolAddress,
-    });
-
-    let txnParams = result.data.data.txs.map((item, index) => {
-      return {
-        from: wallet.account,
-        to: item.contract,
-        data: item.calldata,
-        isApprove: item.action_type === "Approve",
-      };
-    });
-
-    await mm.sendTransaction(txnParams, `Unstake ${stakeToken}`);
   };
   return (
     <Modal
