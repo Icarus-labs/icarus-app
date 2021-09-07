@@ -28,17 +28,17 @@ export default function CapsuleCard(props) {
 
   const doOpen = async (boxId, capsuleNum) => {
     const txId = await HolderContractApi.open(boxId, wallet);
+
+    setNftGiftList(new Array(capsuleNum).fill({}));
+
     subscribe(txId, (val) => {
-      console.log("val", val);
+      if (!val.tokenId) {
+        return;
+      }
+      console.log('I got', val)
       setNftGiftList((prev) => {
-        prev.every((item) => {
-          if (!item.tokenId) {
-            item = val;
-            return false;
-          } else {
-            return true;
-          }
-        });
+        prev.unshift(val)
+        prev.pop()
         return prev;
       });
     });

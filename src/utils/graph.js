@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.6";
+// const baseURL = "http://47.242.227.176:8000/subgraphs/name/ica/gamefi-subgraph/graphql";
 
 const getBlindBox = async (owner) => {
   if(!owner){
