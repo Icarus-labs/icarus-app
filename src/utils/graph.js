@@ -3,6 +3,9 @@ import axios from "axios";
 const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.6";
 
 const getBlindBox = async (owner) => {
+  if(!owner){
+    return
+  }
   const result = await axios.post(baseURL, {
     query: `{
           blindBoxes(orderBy: createdAt, orderByDirection: asc, where:{owner: "${owner.toLowerCase()}"} ){
@@ -25,6 +28,9 @@ const getBlindBox = async (owner) => {
 };
 
 const getCollection = async (owner) => {
+  if(!owner){
+    return
+  }
   const result = await axios.post(baseURL, {
     query: `{
       medias(where:{owner: "${owner.toLowerCase()}"}) {

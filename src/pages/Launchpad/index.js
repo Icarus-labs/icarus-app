@@ -28,7 +28,7 @@ export default function Launchpad() {
   const doStake = async () => {
     await StakerContractApi.lock(amount, wallet);
     console.log('finished stake')
-    getBlindBox()
+    getBlindBox(wallet.account)
   };
 
   const getBlindBox = async (owner) => {

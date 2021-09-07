@@ -2,13 +2,15 @@
 
     .ant-modal-content{
         background: transparent;
+        text-align: center;
     }
 
     img{
         cursor: pointer;
         // width: 90%;
-        margin:24px auto;
-        display: block;
+        margin:12px;
+        display: inline-block;
+        width: 200px;
     }
 
     .ant-modal-close {

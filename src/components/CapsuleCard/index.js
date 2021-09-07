@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { subscribe } from "@nextcloud/event-bus";
 import { Switch, Button } from "antd";
 import StakerContractApi from "contract/StakerContractApi";
 import HolderContractApi from "contract/HolderContractApi";
@@ -16,6 +17,7 @@ export default function CapsuleCard(props) {
   const [showActive, setShowActive] = useState(true);
   const [showReady, setShowReady] = useState(false);
   const [nftGiftModalVisible, setNftGiftModalVisible] = useState(false);
+  const [nftGiftList, setNftGiftList] = useState([]);
   const [capsuleList, setCapsuleList] = useState([]);
   const wallet = useWallet();
 
@@ -24,11 +26,31 @@ export default function CapsuleCard(props) {
     onRefresh();
   };
 
-  const doOpen = async (boxId) => {
-    await HolderContractApi.open(boxId, wallet);
+  const doOpen = async (boxId, capsuleNum) => {
+    const txId = await HolderContractApi.open(boxId, wallet);
+    subscribe(txId, (val) => {
+      console.log("val", val);
+      setNftGiftList((prev) => {
+        prev.every((item) => {
+          if (!item.tokenId) {
+            item = val;
+            return false;
+          } else {
+            return true;
+          }
+        });
+        return prev;
+      });
+    });
+
     setNftGiftModalVisible(true);
     onRefresh();
   };
+
+  // useEffect(() => {
+  //   setNftGiftList(new Array(4).fill({}));
+  //   setNftGiftModalVisible(true);
+  // }, []);
 
   const doRedeem = async () => {
     await StakerContractApi.redeem(wallet);
@@ -50,7 +72,10 @@ export default function CapsuleCard(props) {
           </>
         )}
         {mode === "open" && item.state === 1 && (
-          <Button className="btn-green" onClick={() => doOpen(item.id)}>
+          <Button
+            className="btn-green"
+            onClick={() => doOpen(item.id, item.capsule)}
+          >
             OPEN
           </Button>
         )}
@@ -95,6 +120,9 @@ export default function CapsuleCard(props) {
   };
 
   useEffect(() => {
+    if (!list || list.length === 0) {
+      return;
+    }
     if (mode === "claim") {
       setCapsuleList(
         showActive
@@ -177,7 +205,10 @@ export default function CapsuleCard(props) {
         )}
       </div>
       {nftGiftModalVisible && (
-        <NftGiftModal onCancel={() => setNftGiftModalVisible(false)} gifts={[]} />
+        <NftGiftModal
+          onCancel={() => setNftGiftModalVisible(false)}
+          gifts={nftGiftList}
+        />
       )}
     </div>
   );

@@ -2,6 +2,7 @@ import Web3 from "web3";
 import Config from "../config";
 import HolderAbi from "./abi/Holder.json";
 // import Wbe3Utils from "./Wbe3Utils";
+import { emit } from "@nextcloud/event-bus";
 import mm from "components/mm";
 import * as Tools from "../utils/Tools";
 
@@ -53,10 +54,6 @@ export default {
         Config[network].contracts.holder
       );
 
-      contract.events.allEvents((error, event) => {
-        console.log("event", event);
-      });
-
       return new Promise((resolve, reject) => {
         return contract.methods
           .open(boxId)
@@ -65,7 +62,12 @@ export default {
           })
           .on("transactionHash", function (transactionHash) {
             mm.listen(transactionHash, "Open");
-            return transactionHash;
+            contract.events.allEvents((error, event) => {
+              console.log("event", event);
+              emit(transactionHash, event.returnValues);
+            });
+            resolve(transactionHash);
+            // return transactionHash;
           })
           .on("receipt", (receipt) => {
             resolve(receipt);
