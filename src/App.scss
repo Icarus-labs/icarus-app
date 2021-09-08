@@ -392,9 +392,14 @@ li {
     border-radius: 100%;
     color: #fff;
     line-height: 40px;
-    padding-top: 46px;
     font-size: 36px;
     border: 2px solid #7416b2;
+    span {
+        padding-top: 46px;
+    }
+    img{
+        margin-top: 8px;
+    }
 }
 img {
     max-width: 100%;

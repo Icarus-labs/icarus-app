@@ -6,7 +6,7 @@ import RightIcon from "assets/profile/right.svg";
 import "./style.scss";
 
 export default function UpgradeCard(props) {
-  const { list, name } = props;
+  const { list, name, onUse } = props;
   const [currentSelected, setCurrentSelected] = useState(0);
   const currentItem = list[currentSelected];
 
@@ -25,6 +25,12 @@ export default function UpgradeCard(props) {
       setCurrentSelected((prev) => prev + 1);
     }
   };
+
+
+  const doUse = (index) => {
+    setCurrentSelected(index)
+    onUse(index)
+  }
 
   return (
     <div className="upgrade-card">
@@ -51,7 +57,7 @@ export default function UpgradeCard(props) {
                   <div className="actions">
                     <Button
                       className="btn-green"
-                      onClick={() => setCurrentSelected(index)}
+                      onClick={() => doUse(index)}
                     >
                       USE
                     </Button>

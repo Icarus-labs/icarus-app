@@ -221,9 +221,14 @@ export default function Profile() {
     },
   ];
 
+
   const wallet = useWallet();
   const [blindboxList, setBlindboxList] = useState([]);
   const [collectionList, setCollectionList] = useState([]);
+  const [finalcollectionList, setFinalCollectionList] = useState([]);
+  const [activeCardIndex, setActiveCardIndex] = useState(-1);
+  const [activeChestIndex, setActiveChestIndex] = useState(-1);
+
   const getBlindBox = async (owner) => {
     const result = await graph.getBlindBox(owner);
     setBlindboxList(result);
@@ -244,6 +249,19 @@ export default function Profile() {
     });
     setCollectionList(result);
   };
+
+
+  useEffect(() => {
+    const ownedNum = collectionList.length;
+    if (ownedNum < 8) {
+      const neededNum = 8 - ownedNum;
+      setFinalCollectionList(
+        collectionList.concat(nftCollectionList.slice(0, neededNum))
+      );
+    } else {
+      setFinalCollectionList(collectionList);
+    }
+  }, [collectionList, nftCollectionList]);
 
   useEffect(() => {
     if (wallet.account) {
@@ -289,7 +307,7 @@ export default function Profile() {
             lg: 64,
           }}
         >
-          {collectionList.concat(nftCollectionList).map((item, index) => (
+          {finalcollectionList.map((item, index) => (
             <Col xs={12} lg={6} key={index}>
               <NftCard info={item} />
             </Col>
@@ -341,21 +359,44 @@ export default function Profile() {
         <img src={UpgradesTitle} className="section-title" />
         <Row gutter={32} type="flex" align="middle">
           <Col xs={24} lg={9}>
-            <UpgradeCard list={chestList} name="CHEST" />
+            <UpgradeCard
+              list={chestList}
+              name="CHEST"
+              onUse={(index) => {
+                setActiveChestIndex(index);
+                console.log(index, "ind");
+              }}
+            />
           </Col>
           <Col xs={24} lg={6}>
             <div className="drop-circle">
-              DROP YOUR <br />
-              CHEST HERE
+              {activeChestIndex !== -1 ? (
+                <img src={`/upgrades/${chestList[activeChestIndex].src}.png`} />
+              ) : (
+                <span>
+                  DROP YOUR <br />
+                  CHEST HERE
+                </span>
+              )}
             </div>
             <Button className="btn-purple btn-open">OPEN</Button>
             <div className="drop-circle">
-              DROP YOUR <br />
-              CARD HERE
+              {activeCardIndex !== -1 ? (
+                <img src={`/upgrades/${cardList[activeCardIndex].src}.png`} />
+              ) : (
+                <span>
+                  DROP YOUR <br />
+                  CARD HERE
+                </span>
+              )}
             </div>
           </Col>
           <Col xs={24} lg={9}>
-            <UpgradeCard list={cardList} name="CARD" />
+            <UpgradeCard
+              list={cardList}
+              name="CARD"
+              onUse={(index) => setActiveCardIndex(index)}
+            />
           </Col>
         </Row>
       </div>
