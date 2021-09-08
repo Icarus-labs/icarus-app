@@ -1,0 +1,30 @@
+.claimed-modal {
+    .ant-modal-content {
+        background: #7416b2;
+        box-shadow: none;
+        border-radius: 40px;
+        .ant-modal-body {
+            text-align: center;
+        }
+    }
+
+    .rocket {
+        margin: -120px auto 32px;
+        display: block;
+        width: 200px;
+    }
+
+    .ant-modal-close {
+        display: none;
+    }
+
+    .ant-btn {
+        display: block;
+        margin: 0 auto 16px;
+    }
+
+    // .ant-modal-content {
+    //     border-radius: 20px;
+    //     overflow: hidden;
+    // }
+}

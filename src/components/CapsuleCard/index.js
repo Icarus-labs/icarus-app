@@ -9,6 +9,7 @@ import { numberSuffix } from "utils/Tools";
 import TimeIcon from "assets/launchpad/time.svg";
 import DateIcon from "assets/launchpad/date.svg";
 import NftGiftModal from "components/NftGiftModal";
+import ClaimedModal from "components/ClaimedModal";
 import LaunchpadRocket from "assets/launchpad-rocket.png";
 import "./style.scss";
 
@@ -17,12 +18,15 @@ export default function CapsuleCard(props) {
   const [showActive, setShowActive] = useState(true);
   const [showReady, setShowReady] = useState(false);
   const [nftGiftModalVisible, setNftGiftModalVisible] = useState(false);
+  const [claimedModalVisible, setClaimedModalVisible] = useState(false);
+
   const [nftGiftList, setNftGiftList] = useState([]);
   const [capsuleList, setCapsuleList] = useState([]);
   const wallet = useWallet();
 
   const doClaim = async (boxId) => {
     await HolderContractApi.claim(boxId, wallet);
+    setClaimedModalVisible(true);
     onRefresh();
   };
 
@@ -35,10 +39,9 @@ export default function CapsuleCard(props) {
       if (!val.tokenId) {
         return;
       }
-      console.log('I got', val)
       setNftGiftList((prev) => {
-        prev.unshift(val)
-        prev.pop()
+        prev.unshift(val);
+        prev.pop();
         return prev;
       });
     });
@@ -209,6 +212,9 @@ export default function CapsuleCard(props) {
           onCancel={() => setNftGiftModalVisible(false)}
           gifts={nftGiftList}
         />
+      )}
+      {claimedModalVisible && (
+        <ClaimedModal onCancel={() => setClaimedModalVisible(false)} />
       )}
     </div>
   );
