@@ -230,6 +230,34 @@ li {
     }
 }
 
+.btn-black {
+    color: #fff;
+    background: #37394c;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    &:hover,
+    &:focus {
+        color: #fff;
+        border: none;
+        background: #37394c;
+    }
+}
+
+.btn-black-disabled {
+    color: #9088a1 !important;
+    background: #37394c !important;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    &:hover,
+    &:focus {
+        color: #9088a1 !important;
+        border: none;
+        background: #37394c !important;
+    }
+}
+
 .btn {
     font-size: 14px;
     line-height: 16px;
@@ -397,7 +425,7 @@ li {
     span {
         padding-top: 46px;
     }
-    img{
+    img {
         margin-top: 8px;
     }
 }

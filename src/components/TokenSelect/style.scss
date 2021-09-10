@@ -1,0 +1,59 @@
+.token-select-modal {
+    .ant-modal-header,
+    .ant-modal-close {
+        display: none;
+    }
+    .ant-modal-content {
+        border-radius: 12px;
+    }
+    .title {
+        font-size: 14px;
+        line-height: 18px;
+        margin-bottom: 16px;
+        color: #15163d;
+    }
+    .search-input {
+        border: 1px solid rgba(144, 136, 161, 0.2);
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-size: 18px;
+        line-height: 24px;
+        padding: 10px 8px;
+        margin-bottom: 24px;
+        &::placeholder {
+            color: rgba(144, 136, 161, 0.5);
+        }
+    }
+    .token-name {
+        font-size: 12px;
+        line-height: 16px;
+        color: #15163d;
+        padding: 6px 0;
+        border-bottom: 1px solid #000;
+    }
+    .token-list {
+        height: 250px;
+        overflow-y: scroll;
+        .loading-icon{
+            font-size: 24px;
+            margin: 16px auto;
+        }
+        .token-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(144,136,161, .1);
+            cursor: pointer;
+            &.hidden{
+                display: none;
+            }
+            .token-logo {
+                width: 20px;
+                height: 20px;
+                margin-right: 8px;
+            }
+            .token-symbol {
+                font-size: 14px;
+                line-height: 18px;
+            }
+        }
+    }
+}

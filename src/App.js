@@ -13,6 +13,7 @@ import Launchpad from "./pages/Launchpad";
 import BuyZETH from "./pages/BuyZETH";
 
 import Mine from "./pages/Mine";
+import Swap from "./pages/Swap";
 // import MineDetail from "./pages/MineDetail";
 
 import AppHeader from "components/AppHeader";
@@ -79,6 +80,7 @@ function App() {
             <Route path="/zeth/private" component={BuyZETH} />
             <Route path="/mine" component={Mine} />
             <Route path="/star-cluster" component={Mine} />
+            <Route path="/swap" component={Swap} />
             {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
           </Switch>
           {/* <AppFooter /> */}
