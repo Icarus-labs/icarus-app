@@ -80,7 +80,7 @@ export default function Launchpad() {
               <div className="stake-ica">
                 <div>
                   <img src={IcaIcon} className="ica-icon" />
-                  <div className="title">STAKE $ICA</div>
+                  <div className="title">STAKE <span className="lower">v</span>ICA</div>
                 </div>
                 <div>
                   <span className="amount-input-wrapper">

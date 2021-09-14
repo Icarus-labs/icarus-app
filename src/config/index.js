@@ -544,7 +544,7 @@ export const blocksLeftMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "test",
+  defaultNetwork: "binance",
   //test(binance)
   test: {
     contracts: {
@@ -555,6 +555,11 @@ export default {
       holder: "0x8353df51131391Bc1c56E8625F0A2935133a647c",
       staker: "0x8E615926dA7Ca860Ea1ff1f72FfaCF4B5E047234",
       uniswap: "0x07d1dF4634a2B84c1b2F564ecdC25C04B3dEa4f5",
+    },
+    // test address  of pancake
+    pancake:{
+      router: '0x10ED43C718714eb63d5aA57B78B54704E256024E????',
+      factory: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73???'
     },
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断
@@ -582,7 +587,33 @@ export default {
       holder: "0x146EBC2fD50B8A25b7F3F670Fc2e8a673Be20951",
       staker: "0x8Be2EFb9030BD49F8Db32733eDE1783603f309F3",
       uniswap: "0xf8764CCB7a7512701652c67Cd045DF13E4C16375",
+
+      router: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
+      factory: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
+      bnb: '0x2170ed0880ac9a755fd29b2688956bd959f933f8'
     },
+    tokensList: [
+      {
+        symbol: 'BUSD',
+        logoURI: '/poolTokens/busd.svg',
+        address: '0xe9e7cea3dedca5984780bafc599bd69add087d56'
+      },
+      {
+        symbol: 'BTCB',
+        logoURI: '/poolTokens/btc.svg',
+        address: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c'
+      },
+      {
+        symbol: 'ETH',
+        logoURI: '/poolTokens/eth.svg',
+        address: '0x2170ed0880ac9a755fd29b2688956bd959f933f8'
+      },
+      {
+        symbol: 'ICA',
+        logoURI: '/poolTokens/ica.svg',
+        address: '0x0ca2f09eca544b61b91d149dea2580c455c564b2'
+      },
+    ],
     network: "binance",
     mode: "prod",
     provider: "https://bsc-dataseed.binance.org",

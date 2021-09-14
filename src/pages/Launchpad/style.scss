@@ -1,6 +1,15 @@
 .page-launchpad {
     color: #fff;
-    padding: 64px 0;
+    padding: 0 0 64px;
+    .rocket-card {
+        padding: 24px;
+        .launchpad-rocket {
+            width: 40%;
+        }
+    }
+    .capsule-card {
+        padding: 24px;
+    }
     .amount-input-wrapper {
         background: transparent;
         border: 1px solid #fff;
@@ -19,17 +28,17 @@
         }
     }
     .launchpad-logo {
-        // margin: 64px 0 0;
-        width: 80%;
-        margin-bottom: 260px;
+        width: 50%;
+        margin-top: -32px;
+        margin-bottom: 150px;
     }
     .timer-icon {
-        width: 24px;
+        width: 20px;
         vertical-align: middle;
     }
 
     .capsule-timer {
-        font-size: 32px;
+        font-size: 24px;
         line-height: 32px;
         color: #ffffff;
         background: #7416b2;
@@ -42,22 +51,28 @@
         background: #d6d8dc;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 40px;
-        padding: 24px 44px;
+        padding: 24px 32px;
         flex-direction: row;
-        height: 268px;
+        // height: 220px;
         justify-content: space-between;
         .ant-btn {
             width: 100%;
         }
         .ica-icon {
-            width: 64px;
-            margin-bottom: 16px;
+            width: 44px;
+            margin-bottom: 12px;
         }
         .title {
-            font-size: 36px;
-            line-height: 43px;
-            margin-bottom: 26px;
+            font-size: 24px;
+            line-height: 32px;
+            margin-bottom: 12px;
+            text-transform: none;
             color: #01041c;
+            .lower {
+                font-size: 20px;
+                margin-right: 2px;
+                line-height: 32px;
+            }
         }
     }
     .block-switch {
@@ -69,13 +84,13 @@
         }
     }
     .table-box {
-        height: 372px;
+        height: 350px;
         .capsule-card {
             height: 100%;
         }
         .action-area {
             position: absolute;
-            bottom: 400px;
+            bottom: 370px;
             left: 0;
             right: 0;
             display: flex;

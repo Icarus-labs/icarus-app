@@ -20,7 +20,7 @@ export default function ActionButton(props) {
   };
 
   useEffect(() => {
-    if (currentAccount) {
+    if (currentAccount && tokenAddress && contractAddress) {
       checkAllowance();
     }
   }, [tokenAddress, contractAddress, currentAccount]);
@@ -36,8 +36,8 @@ export default function ActionButton(props) {
     }
   };
 
-  return allowance > 0 ? (
-    <span>{children}</span>
+  return allowance > 0 || !tokenAddress ? (
+    <>{children}</>
   ) : (
     <Button
       type="submit"

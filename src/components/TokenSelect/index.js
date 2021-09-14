@@ -1,32 +1,24 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { Modal, Input } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import config from 'config'
 
 import "./style.scss";
 
 export default function TokenSelect(props) {
   const { tokenSelectType, onCancel, onSelect } = props;
+  const network = useSelector((state) => state.setting.network);
+
   const [search, setSearch] = useState("");
-  const [tokenList, setTokenList] = useState([]);
-  const [loadingList, setLoadingList] = useState(false);
+
+  const tokenList = config[network].tokensList
   const selectToken = (token) => {
     onSelect(tokenSelectType, token);
     setSearch('')
     onCancel();
   };
-
-  const getTokenList = useCallback(async () => {
-    setLoadingList(true);
-    const tokenListRaw = await axios.get("/tokenlist");
-    setLoadingList(false);
-
-    setTokenList(tokenListRaw.data);
-  });
-
-  useEffect(() => {
-    getTokenList();
-  }, []);
 
   return (
     <Modal
@@ -45,7 +37,6 @@ export default function TokenSelect(props) {
 
       <div className="token-name">Token name</div>
       <div className="token-list">
-        {loadingList && <LoadingOutlined className="loading-icon" />}
         {tokenList.map((token) => (
           <div
             key={token.symbol}

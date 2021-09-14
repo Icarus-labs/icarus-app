@@ -249,6 +249,7 @@ li {
     background: #37394c !important;
     border: none;
     box-sizing: border-box;
+    cursor:not-allowed;
     border-radius: 5px;
     &:hover,
     &:focus {
@@ -689,7 +690,7 @@ img {
     border-radius: 20px;
 
     & > div {
-        padding: 13px 16px;
+        padding: 10px 16px;
         cursor: pointer;
     }
     & > .active {
