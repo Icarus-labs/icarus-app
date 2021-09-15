@@ -49,7 +49,7 @@ export default {
   async doApprove(tokenAddress, contractAddress, wallet) {
     const web3 = new Web3(wallet.ethereum);
     const tokenContract = new web3.eth.Contract(Erc20Abi, tokenAddress);
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       notification.info({
         message: "Approving",
       });

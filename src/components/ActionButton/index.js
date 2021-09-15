@@ -16,6 +16,7 @@ export default function ActionButton(props) {
       contractAddress,
       wallet
     );
+    console.log('allownace is', result)
     setAllowance(result);
   };
 
@@ -29,6 +30,7 @@ export default function ActionButton(props) {
     setApproving(true);
     try {
       await CommonContractApi.doApprove(tokenAddress, contractAddress, wallet);
+      console.log('ready to check allowance')
       setApproving(false);
       checkAllowance();
     } catch (err) {
