@@ -6,7 +6,6 @@ import mm from "components/mm";
 // import { PancakeswapPair } from "simple-pancakeswap-sdk";
 import config from "config";
 import FactoryContractApi from "./FactoryContractApi";
-import { ChainId, Token, TokenAmount, Pair, Route } from "@pancakeswap/sdk";
 
 import store from "../redux/store";
 
@@ -87,19 +86,6 @@ export default {
     }
     return bestRoute;
   },
-  // async getExactRoute(fromToken, toToken, fromAmount, toAmount) {
-  //   const web3 = new Web3();
-  //   const HOT = new Token(56, fromToken.address, 18, "HOT", "Caffeine");
-  //   const NOT = new Token(56, toToken.address, 18, "NOT", "Caffeine");
-  //   const HOT_NOT = new Pair(
-  //     new TokenAmount(HOT, web3.utils.toWei(fromAmount)),
-  //     new TokenAmount(NOT, web3.utils.toWei(toAmount))
-  //   );
-
-  //   const route = new Route([HOT_NOT], NOT);
-  //   console.log("route is", route);
-  // },
-  // replace with sdk
   async checkPairExists(tokenA, tokenB, wallet) {
     return await FactoryContractApi.getPair(tokenA, tokenB, wallet);
   },
@@ -129,7 +115,7 @@ export default {
 
   async swapExactTokensForTokens(
     amountIn,
-    amountOutMin,
+    // amountOutMin,
     fromToken,
     toToken,
     wallet
@@ -141,16 +127,16 @@ export default {
       Config[network].contracts.router
     );
 
-    const path = (
-      await this.getBestRoute(
-        amountIn,
-        fromToken.address,
-        toToken.address,
-        wallet
-      )
-    ).path;
+    const bestRoute =  await this.getBestRoute(
+      amountIn,
+      fromToken.address,
+      toToken.address,
+      wallet
+    )
 
-    console.log('path is', path)
+    const path = bestRoute.path;
+
+    const amountOutMin = bestRoute.amountsOut
 
     return new Promise((resolve, reject) => {
       return contract.methods

@@ -544,17 +544,17 @@ export const blocksLeftMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "binance",
+  defaultNetwork: "test",
   //test(binance)
   test: {
     contracts: {
-      vica: "0x79d19bD96e52f74C629F3e73E5C902d8b8410578",
-      core: "0x18E9a886BCfb83AaaA1B7dEa2a40D302D9941631",
-      market: "0x1Eda0991957E74762De65A179297DF2012958594",
-      media: "0xc3bb795e13f505823F8Ef708635086b00f70002c",
-      holder: "0x8353df51131391Bc1c56E8625F0A2935133a647c",
-      staker: "0x8E615926dA7Ca860Ea1ff1f72FfaCF4B5E047234",
-      uniswap: "0x07d1dF4634a2B84c1b2F564ecdC25C04B3dEa4f5",
+      "vica": "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
+      "core": "0xF14e233B9e78ce096445dBA4792adbbab6315947",
+      "market": "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
+      "media": "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
+      "holder": "0x1c20eC0F8d649F8684ad9b958188DFDab02D82fF",
+      "staker": "0x98beF361Bcec60405636C4344B054ca173039F06",
+      "uniswap": "0x8d3517035B21A5aEb93256F8A70922E162e67Da3"
     },
     // test address  of pancake
     pancake:{

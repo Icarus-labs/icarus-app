@@ -127,7 +127,6 @@ export default function TokenSwap() {
     try {
       await RouterContractApi.swapExactTokensForTokens(
         fromAmount,
-        toAmount,
         fromToken,
         toToken,
         wallet

@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Input } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+// import { LoadingOutlined } from "@ant-design/icons";
 import config from 'config'
 
 import "./style.scss";

@@ -7,7 +7,6 @@
     "@intelllex/react-pdf": "^1.1.1",
     "@metamask/detect-provider": "^1.2.0",
     "@nextcloud/event-bus": "^1.2.0",
-    "@pancakeswap/sdk": "^2.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -31,7 +30,6 @@
     "react-use": "^15.3.8",
     "reactjs-pdf-reader": "^1.0.12",
     "redux": "^4.0.5",
-    "simple-pancakeswap-sdk": "^1.1.1",
     "use-wallet": "^0.9.0",
     "web-vitals": "^0.2.4",
     "web3": "^1.5.2"

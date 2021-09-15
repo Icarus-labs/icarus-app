@@ -65,14 +65,14 @@ export default function CapsuleCard(props) {
     return (
       <div>
         {mode === "claim" && item.state === 0 && (
-          <>
-            <Button className="btn-green" onClick={() => doClaim(item.id)}>
-              CLAIM
-            </Button>
-            <Button className="btn-green" onClick={doRedeem}>
-              UNSTAKE
-            </Button>
-          </>
+          <Button className="btn-green" onClick={() => doClaim(item.id)}>
+            CLAIM
+          </Button>
+        )}
+        {mode === "claim" && (
+          <Button className="btn-green" onClick={doRedeem}>
+            UNSTAKE
+          </Button>
         )}
         {mode === "open" && item.state === 1 && (
           <Button
