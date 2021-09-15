@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Input, Button } from "antd";
 import { useWallet } from "use-wallet";
 import { useSelector } from "react-redux";
-import graph from 'utils/graph'
+import graph from "utils/graph";
 import ActionButton from "components/ActionButton";
 import StakerContractApi from "contract/StakerContractApi";
 import CommonContractApi from "contract/CommonContractApi";
@@ -19,7 +19,7 @@ export default function Launchpad() {
   const wallet = useWallet();
   const [amount, setAmount] = useState("100");
   const [balance, setBalance] = useState("0");
-  const [blindboxList, setBlindboxList] = useState([])
+  const [blindboxList, setBlindboxList] = useState([]);
   const network = useSelector((state) => state.setting.network);
 
   const tokenAddress = config[network].contracts.vica;
@@ -27,13 +27,13 @@ export default function Launchpad() {
 
   const doStake = async () => {
     await StakerContractApi.lock(amount, wallet);
-    console.log('finished stake')
-    getBlindBox(wallet.account)
+    console.log("finished stake");
+    getBlindBox(wallet.account);
   };
 
   const getBlindBox = async (owner) => {
-    const result = await graph.getBlindBox(owner)
-    setBlindboxList(result)
+    const result = await graph.getBlindBox(owner);
+    setBlindboxList(result);
   };
 
   const getIcaBalance = async () => {
@@ -58,7 +58,10 @@ export default function Launchpad() {
         <Col xs={24} lg={10}>
           <RocketCard>
             <p>
-            EACH CAPSULE CONTAINS 1 RANDOM GENERATED NFT THAT UNLOCKS THE GAMEFI APPLICATIONS AND USERS CAN PARTICIPATE INTO ICA PLAY-TO-EARN ECONOMY.
+              <span className="hightlight">
+                Each capsule contains 1 random generated NFT
+              </span>{" "}
+              that unlocks the gamefi applications and play to earn gameplay.
             </p>
             <p>
               Each character holds a power level according to their rarity and
@@ -66,7 +69,7 @@ export default function Launchpad() {
               effects!
             </p>
             <p>
-              You can only obtain these capsules by staking $ICA with a lock
+              You can only obtain these capsules by staking vICA with a lock
               period of 30 days (100$ worth of $ICA = 1 NFT)
             </p>
           </RocketCard>
@@ -80,7 +83,9 @@ export default function Launchpad() {
               <div className="stake-ica">
                 <div>
                   <img src={IcaIcon} className="ica-icon" />
-                  <div className="title">STAKE <span className="lower">v</span>ICA</div>
+                  <div className="title">
+                    STAKE <span className="lower">v</span>ICA
+                  </div>
                 </div>
                 <div>
                   <span className="amount-input-wrapper">
@@ -111,7 +116,11 @@ export default function Launchpad() {
                 </div>
               </div>
             </div>
-            <CapsuleCard mode="claim" list={blindboxList} onRefresh={getBlindBox} />
+            <CapsuleCard
+              mode="claim"
+              list={blindboxList}
+              onRefresh={getBlindBox}
+            />
           </div>
         </Col>
       </Row>

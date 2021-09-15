@@ -3,53 +3,130 @@ import Config from "../config";
 import RouterAbi from "./abi/Router.json";
 import mm from "components/mm";
 // import * as Tools from "../utils/Tools";
-import { PancakeswapPair } from "simple-pancakeswap-sdk";
+// import { PancakeswapPair } from "simple-pancakeswap-sdk";
 import config from "config";
+import FactoryContractApi from "./FactoryContractApi";
+import { ChainId, Token, TokenAmount, Pair, Route } from "@pancakeswap/sdk";
 
 import store from "../redux/store";
 
 const { setting } = store.getState();
 const network = setting.network;
 
-const getBestRoute = async(amountIn, fromAddress, toAddress) => {
-  const pancakeswapPair = new PancakeswapPair({
-    // the contract address of the token you want to convert FROM
-    fromTokenContractAddress: fromAddress,
-    // the contract address of the token you want to convert TO
-    toTokenContractAddress: toAddress,
-    // the ethereum address of the user using this part of the dApp
-    ethereumAddress: config[network].contracts.bnb,
-  });
+const swapMediumTokens = config[network].swapMediumTokens;
+const cakeAddress = config[network].contracts.cake;
 
-  const PancakeswapPairFactory = await pancakeswapPair.createFactory();
+// const getBestRoute = async (amountIn, fromAddress, toAddress, wallet) => {
+//   const pancakeswapPair = new PancakeswapPair({
+//     // the contract address of the token you want to convert FROM
+//     fromTokenContractAddress: fromAddress,
+//     // the contract address of the token you want to convert TO
+//     toTokenContractAddress: toAddress,
+//     // the ethereum address of the user using this part of the dApp
+//     ethereumAddress: wallet.account || config[network].contracts.bnb,
+//   });
 
-  const bestRoute = await PancakeswapPairFactory.findBestRoute(amountIn);
-  console.log("best route is ", bestRoute);
+//   const PancakeswapPairFactory = await pancakeswapPair.createFactory();
 
-  return bestRoute.bestRouteQuote
-}
+//   const bestRoute = await PancakeswapPairFactory.findBestRoute(amountIn);
+
+//   console.log("best route is", bestRoute);
+
+//   return bestRoute.bestRouteQuote;
+// };
 
 export default {
-  // replace with sdk
-  // async getAmountsOut(amountIn, path, wallet) {
-  //   const web3 = new Web3(wallet.ethereum);
+  async getBestRoute(amountsIn, fromAddress, toAddress, wallet) {
+    let bestRoute = {
+      amountsOut: 0,
+    };
 
-  //   const contract = new web3.eth.Contract(
-  //     RouterAbi,
-  //     Config[network].contracts.router
-  //   );
+    const amountsOut0 = await this.getAmountsOutByPath(
+      amountsIn,
+      [fromAddress, toAddress],
+      wallet
+    );
 
-  //   const amounts = await contract.methods
-  //     .getAmountsOut(Web3.utils.toWei(amountIn), path)
-  //     .call();
+    if (bestRoute.amountsOut < amountsOut0) {
+      bestRoute.amountsOut = amountsOut0;
+      bestRoute.path = [fromAddress, toAddress];
+    }
 
-  //   return Web3.utils.fromWei(amounts[amounts.length - 1]);
-  // },
-  async getAmountsOut(amountIn, fromToken, toToken) {
-    const bestRoute = await getBestRoute(amountIn, fromToken.address, toToken.address)
+    console.log("amount 0", amountsOut0);
 
+    for (let i = 0; i < swapMediumTokens.length; i++) {
+      const mediumToken = swapMediumTokens[i];
+      try {
+        const amountsOut1 = await this.getAmountsOutByPath(
+          amountsIn,
+          [fromAddress, mediumToken, toAddress],
+          wallet
+        );
+
+        if (bestRoute.amountsOut < amountsOut1) {
+          bestRoute.amountsOut = amountsOut1;
+          bestRoute.path = [fromAddress, mediumToken, toAddress];
+        }
+
+        console.log("amount 1", amountsOut1);
+
+        const amountsOut2 = await this.getAmountsOutByPath(
+          amountsIn,
+          [fromAddress, cakeAddress, mediumToken, toAddress],
+          wallet
+        );
+        console.log("amount2 ", amountsOut2);
+
+        if (bestRoute.amountsOut < amountsOut2) {
+          bestRoute.amountsOut = amountsOut2;
+          bestRoute.path = [fromAddress, cakeAddress, mediumToken, toAddress];
+        }
+      } catch (err) {
+        console.log("error", err);
+      }
+    }
     return bestRoute;
   },
+  // async getExactRoute(fromToken, toToken, fromAmount, toAmount) {
+  //   const web3 = new Web3();
+  //   const HOT = new Token(56, fromToken.address, 18, "HOT", "Caffeine");
+  //   const NOT = new Token(56, toToken.address, 18, "NOT", "Caffeine");
+  //   const HOT_NOT = new Pair(
+  //     new TokenAmount(HOT, web3.utils.toWei(fromAmount)),
+  //     new TokenAmount(NOT, web3.utils.toWei(toAmount))
+  //   );
+
+  //   const route = new Route([HOT_NOT], NOT);
+  //   console.log("route is", route);
+  // },
+  // replace with sdk
+  async checkPairExists(tokenA, tokenB, wallet) {
+    return await FactoryContractApi.getPair(tokenA, tokenB, wallet);
+  },
+
+  async getAmountsOutByPath(amountIn, path, wallet) {
+    const web3 = new Web3(wallet.ethereum);
+
+    const contract = new web3.eth.Contract(
+      RouterAbi,
+      Config[network].contracts.router
+    );
+
+    try {
+      const amounts = await contract.methods
+        .getAmountsOut(Web3.utils.toWei(amountIn), path)
+        .call();
+
+      return Web3.utils.fromWei(amounts[amounts.length - 1]);
+    } catch (err) {
+      console.log("error", err);
+    }
+  },
+
+  async getAmountsOut(amountIn, fromAddress, toAddress, wallet) {
+    return await this.getBestRoute(amountIn, fromAddress, toAddress, wallet)
+  },
+
   async swapExactTokensForTokens(
     amountIn,
     amountOutMin,
@@ -64,10 +141,16 @@ export default {
       Config[network].contracts.router
     );
 
-    const bestRoute = await getBestRoute(amountIn, fromToken.address, toToken.address)
+    const path = (
+      await this.getBestRoute(
+        amountIn,
+        fromToken.address,
+        toToken.address,
+        wallet
+      )
+    ).path;
 
-    // calculate path here
-    const path = bestRoute.routePathArray;
+    console.log('path is', path)
 
     return new Promise((resolve, reject) => {
       return contract.methods

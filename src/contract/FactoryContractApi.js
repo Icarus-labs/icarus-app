@@ -9,6 +9,17 @@ const { setting } = store.getState();
 const network = setting.network;
 
 export default {
+  async getPair(tokenA, tokenB, wallet){
+    const web3 = new Web3(wallet.ethereum);
+
+    const contract = new web3.eth.Contract(
+      FactoryAbi,
+      Config[network].contracts.factory
+    );
+
+    const pairAddress = await contract.methods.getPair(tokenA, tokenB).call()
+    return pairAddress
+  },
   async createPair(tokenA, tokenB, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);

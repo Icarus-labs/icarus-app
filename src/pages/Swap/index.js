@@ -23,9 +23,10 @@ export default function TokenSwap() {
   const [toToken, setToToken] = useState({});
   const [toAmount, setToAmount] = useState("");
   const [exchangeRate, setExchangeRate] = useState(0);
-  const [routeText, setRouteText] = useState("");
+  // const [routeText, setRouteText] = useState("");
   const [loadingResult, setLoadingResult] = useState(false);
   const [swaping, setSwaping] = useState(false);
+  const [errHint, setErrHint] = useState();
   // const [contractName, setContractName] = useState({});
   // const [actionInfo, setActionInfo] = useState({});
   const [tokenSelectType, setTokenSelectType] = useState("");
@@ -39,14 +40,24 @@ export default function TokenSwap() {
     setLoadingResult(true);
     setToAmount("");
     setExchangeRate("");
-    const response = await RouterContractApi.getAmountsOut(
+    // const response = await RouterContractApi.getAmountsOut(
+    //   fromAmount,
+    //   fromToken,
+    //   toToken,
+    //   wallet
+    // );
+
+    const bestRoute = await RouterContractApi.getAmountsOut(
       fromAmount,
-      fromToken,
-      toToken
+      fromToken.address,
+      toToken.address,
+      wallet
     );
     setLoadingResult(false);
-    setRouteText(response.routeText);
-    setToAmount(response.expectedConvertQuote);
+    setToAmount(bestRoute.amountsOut);
+    
+    // setRouteText(response.routeText);
+    // setToAmount(response.expectedConvertQuote);
   };
 
   useEffect(() => {
@@ -54,6 +65,16 @@ export default function TokenSwap() {
       setExchangeRate(toAmount / fromAmount);
     }
   }, [fromAmount, toAmount]);
+
+  useEffect(() => {
+    if (fromToken.address && toToken.address) {
+      if (fromToken.address === toToken.address) {
+        setErrHint("Please choose two different tokens");
+      } else {
+        setErrHint("");
+      }
+    }
+  }, [fromToken.address, toToken.address]);
 
   useEffect(async () => {
     if (fromAmount && fromToken.address && toToken.address) {
@@ -284,10 +305,13 @@ export default function TokenSwap() {
                     1 {fromToken.symbol} = {exchangeRate} {toToken.symbol}
                   </span>
                 </div>
-                <div className="exchange-rate">
+                {/* <div className="exchange-rate">
                   <span>Route:</span>
                   <span>{routeText}</span>
-                </div>
+                </div> */}
+                {errHint && (
+                  <div className="error-hint exchange-rate">{errHint}</div>
+                )}
               </>
             )}
             {tab === "liquidity" && (
