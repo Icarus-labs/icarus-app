@@ -32,14 +32,14 @@
         width: 80%;
         margin: 0 auto;
         .launchpad-rocket {
-            width: 200px;
+            width: 160px !important;
             bottom: 200px;
         }
     }
     @media (max-width: 768px) {
         width: 100%;
         .launchpad-rocket {
-            width: 90px;
+            width: 90px !important;
             top: 0;
         }
     }

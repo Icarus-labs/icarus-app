@@ -79,7 +79,6 @@ export default {
    * 获取余额
    */
   async balanceOf(wallet) {
-    // const network = setting.network;
     const web3 = new Web3(wallet.ethereum);
 
     const contract = new web3.eth.Contract(
@@ -92,9 +91,7 @@ export default {
         from: wallet.account,
       });
 
-      console.log("balancess", balances);
-
-      return Tools.numDivDecimals(balances, Config[network].decimal);
+      return Number(web3.utils.fromWei(balances.lockedAmount));
     } catch (err) {
       console.log(err);
       return 0;

@@ -16,7 +16,6 @@ export default function ActionButton(props) {
       contractAddress,
       wallet
     );
-    console.log('allownace is', result)
     setAllowance(result);
   };
 

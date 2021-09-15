@@ -221,13 +221,11 @@ export default function Profile() {
     },
   ];
 
-
   const wallet = useWallet();
   const [blindboxList, setBlindboxList] = useState([]);
-  const [collectionList, setCollectionList] = useState([]);
   const [finalcollectionList, setFinalCollectionList] = useState([]);
-  const [activeCardIndex, setActiveCardIndex] = useState(-1);
-  const [activeChestIndex, setActiveChestIndex] = useState(-1);
+  // const [activeCardIndex, setActiveCardIndex] = useState(-1);
+  // const [activeChestIndex, setActiveChestIndex] = useState(-1);
 
   const getBlindBox = async (owner) => {
     const result = await graph.getBlindBox(owner);
@@ -240,18 +238,9 @@ export default function Profile() {
       item.name = "SAMOS TEST";
       item.card = "samos";
       item.dropRate = 23;
-      // {
-      //   id: 1,
-      //   name: "SAMOS",
-      //   dropRate: 23,
-      //   card: "normal",
-      // },
     });
-    setCollectionList(result);
-  };
 
-
-  useEffect(() => {
+    const collectionList = result;
     const ownedNum = collectionList.length;
     if (ownedNum < 8) {
       const neededNum = 8 - ownedNum;
@@ -261,10 +250,11 @@ export default function Profile() {
     } else {
       setFinalCollectionList(collectionList);
     }
-  }, [collectionList, nftCollectionList]);
+  };
 
   useEffect(() => {
     if (wallet.account) {
+      console.log("wallet trigger");
       getBlindBox(wallet.account);
       getCollection(wallet.account);
     }
@@ -340,7 +330,7 @@ export default function Profile() {
           </Col>
         </Row>
       </div>
-      <div className="items-section" id="items">
+      {/* <div className="items-section" id="items">
         <img src={ItemsTitle} className="section-title" />
         <Row
           gutter={{
@@ -354,8 +344,8 @@ export default function Profile() {
             </Col>
           ))}
         </Row>
-      </div>
-      <div className="upgrades-section" id="upgrades">
+      </div> */}
+      {/* <div className="upgrades-section" id="upgrades">
         <img src={UpgradesTitle} className="section-title" />
         <Row gutter={32} type="flex" align="middle">
           <Col xs={24} lg={9}>
@@ -399,8 +389,8 @@ export default function Profile() {
             />
           </Col>
         </Row>
-      </div>
-      <div className="bottom-area">
+      </div> */}
+      {/* <div className="bottom-area">
         <Row type="flex" align="middle" gutter={{ xl: 44 }}>
           <Col xs={24} xl={12} id="team" className="team-section">
             <img src={CrewTitle} className="section-title" />
@@ -452,7 +442,7 @@ export default function Profile() {
             </div>
           </Col>
         </Row>
-      </div>
+      </div> */}
     </div>
   );
 }

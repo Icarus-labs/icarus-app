@@ -11,6 +11,7 @@ import DateIcon from "assets/launchpad/date.svg";
 import NftGiftModal from "components/NftGiftModal";
 import ClaimedModal from "components/ClaimedModal";
 import LaunchpadRocket from "assets/launchpad-rocket.png";
+import ICALogo from "assets/tokens/ica.svg";
 import "./style.scss";
 
 export default function CapsuleCard(props) {
@@ -19,6 +20,8 @@ export default function CapsuleCard(props) {
   const [showReady, setShowReady] = useState(false);
   const [nftGiftModalVisible, setNftGiftModalVisible] = useState(false);
   const [claimedModalVisible, setClaimedModalVisible] = useState(false);
+
+  const [userLockedAmount, setUserLockedAmount] = useState(0);
 
   const [nftGiftList, setNftGiftList] = useState([]);
   const [capsuleList, setCapsuleList] = useState([]);
@@ -54,6 +57,16 @@ export default function CapsuleCard(props) {
   //   setNftGiftList(new Array(4).fill({}));
   //   setNftGiftModalVisible(true);
   // }, []);
+  const getUserLockedAmount = async (wallet) => {
+    const lockedAmount = await StakerContractApi.balanceOf(wallet);
+    setUserLockedAmount(lockedAmount);
+  };
+
+  useEffect(() => {
+    if (wallet.account) {
+      getUserLockedAmount(wallet);
+    }
+  }, [wallet.account, list]);
 
   const doRedeem = async () => {
     await StakerContractApi.redeem(wallet);
@@ -65,15 +78,13 @@ export default function CapsuleCard(props) {
     return (
       <div>
         {mode === "claim" && item.state === 0 && (
-          <Button className="btn-green" onClick={() => doClaim(item.id)}>
-            CLAIM
-          </Button>
+          <>
+            <Button className="btn-green" onClick={() => doClaim(item.id)}>
+              CLAIM
+            </Button>
+          </>
         )}
-        {mode === "claim" && (
-          <Button className="btn-green" onClick={doRedeem}>
-            UNSTAKE
-          </Button>
-        )}
+
         {mode === "open" && item.state === 1 && (
           <Button
             className="btn-green"
@@ -122,10 +133,13 @@ export default function CapsuleCard(props) {
     }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!list || list.length === 0) {
       return;
     }
+    list.forEach((item) => {
+      item.stakedPretty = (Number(item.staked) / Math.pow(10, 18)).toFixed(4);
+    });
     if (mode === "claim") {
       setCapsuleList(
         showActive
@@ -140,6 +154,13 @@ export default function CapsuleCard(props) {
       );
     }
   }, [list, mode, showActive]);
+
+  const toggleDetail = (index) => {
+    setCapsuleList((prev) => {
+      prev[index].showDetail = !prev[index].showDetail;
+      return [...prev];
+    });
+  };
 
   return (
     <div className="capsule-card">
@@ -164,6 +185,16 @@ export default function CapsuleCard(props) {
                 }}
               />
             </div>
+          )}
+
+          {mode === "claim" && !showActive && userLockedAmount > 0 && (
+            <Button
+              className="btn-green"
+              style={{ marginLeft: "8px" }}
+              onClick={doRedeem}
+            >
+              UNSTAKE
+            </Button>
           )}
 
           <div className="block-switch">
@@ -191,9 +222,23 @@ export default function CapsuleCard(props) {
               }`}
               key={item.id}
             >
-              <div>{numberSuffix(index + 1)} ENTRY</div>
+              <div>
+                <div>{numberSuffix(index + 1)} ENTRY</div>
+                <div className="details" onClick={() => toggleDetail(index)}>
+                  DETAILS {item.showDetail ? "⋀" : "⋁"}
+                </div>
+              </div>
               <div>
                 <Countdown date={item.endAt} renderer={timer} item={item} />
+                {item.showDetail && (
+                  <div className="show-more">
+                    <div>
+                      <img src={ICALogo} className="ica-logo" /> STAKED:{" "}
+                      {item.stakedPretty} &nbsp;&nbsp;&nbsp;&nbsp; TVL:{" "}
+                      {item.value}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="capsule-wrapper">
                 <img src={LaunchpadRocket} className="rocket" />
