@@ -12,6 +12,7 @@ import IcaIcon from "assets/tokens/ica.svg";
 import TimerIcon from "assets/timer.svg";
 import CapsuleCard from "components/CapsuleCard";
 import RocketCard from "components/RocketCard";
+import BN from 'bignumber.js'
 
 import "./style.scss";
 
@@ -48,7 +49,8 @@ export default function Launchpad() {
   useEffect(async () => {
     if (amount && wallet.account) {
       const price = await CommonContractApi.getBoxPrice(wallet);
-      setGetBoxAmount(Math.floor((amount * price) / 100));
+      console.log('price is', price)
+      setGetBoxAmount(Math.floor(new BN(amount).times(price).div(100)));
     }else{
       setGetBoxAmount(0);
     }

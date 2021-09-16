@@ -85,7 +85,6 @@ export default {
         .call()
         .then((res) => {
           const price = res._reserve0 / res._reserve1
-          console.log(price, 'reservvvvv')
           resolve(price)
           // resolve(Web3.utils.fromWei(res));
         })
