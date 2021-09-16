@@ -1,14 +1,16 @@
 import Web3 from "web3";
 import { message, notification } from "antd";
-import Config from "../config";
+import config from "../config";
 import Erc20Abi from "./abi/ERC20.json";
+import BoxPairAbi from "./abi/BoxPair.json";
 // import Wbe3Utils from "./Wbe3Utils";
 import * as Tools from "../utils/Tools";
 
 // import store from "../redux/store";
 
-// const { setting } = store.getState();
-// const network = setting.network;
+import store from "../redux/store";
+const { setting } = store.getState();
+const network = setting.network;
 
 export default {
   async getAllowance(tokenAddress, contractAddress, wallet) {
@@ -72,4 +74,26 @@ export default {
         });
     });
   },
+
+  async getBoxPrice(wallet) {
+    const web3 = new Web3(wallet.ethereum);
+    const tokenContract = new web3.eth.Contract(BoxPairAbi, config[network].contracts.box);
+
+    return new Promise((resolve, reject) => {
+      tokenContract.methods
+        .getReserves()
+        .call()
+        .then((res) => {
+          const price = res._reserve0 / res._reserve1
+          console.log(price, 'reservvvvv')
+          resolve(price)
+          // resolve(Web3.utils.fromWei(res));
+        })
+        .catch((err) => {
+          console.log("Error", err);
+          reject(err)
+        });
+    });
+  },
+
 };

@@ -552,14 +552,10 @@ export default {
       "core": "0xF14e233B9e78ce096445dBA4792adbbab6315947",
       "market": "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
       "media": "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
-      "holder": "0x1c20eC0F8d649F8684ad9b958188DFDab02D82fF",
-      "staker": "0x98beF361Bcec60405636C4344B054ca173039F06",
-      "uniswap": "0x8d3517035B21A5aEb93256F8A70922E162e67Da3"
-    },
-    // test address  of pancake
-    pancake:{
-      router: '0x10ED43C718714eb63d5aA57B78B54704E256024E????',
-      factory: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73???'
+      "holder": "0xCfaa4F77ae18b51511390929D2647C9896BCB414",
+      "staker": "0xb7767882FBc74b01966558a153416a2FacDBcc8a",
+
+      "box": "0x80E94eaF3c828535700bFe0e0393F2c8365c2966"
     },
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断
@@ -586,7 +582,6 @@ export default {
       media: "0x6bC455e856358F34c19b4B2562Ba677b1e7D15E8",
       holder: "0x146EBC2fD50B8A25b7F3F670Fc2e8a673Be20951",
       staker: "0x8Be2EFb9030BD49F8Db32733eDE1783603f309F3",
-      uniswap: "0xf8764CCB7a7512701652c67Cd045DF13E4C16375",
 
       router: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
       factory: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',

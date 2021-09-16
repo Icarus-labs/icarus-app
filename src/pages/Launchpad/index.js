@@ -19,6 +19,7 @@ export default function Launchpad() {
   const wallet = useWallet();
   const [amount, setAmount] = useState("100");
   const [balance, setBalance] = useState("0");
+  const [getBoxAmount, setGetBoxAmount] = useState(0);
   const [blindboxList, setBlindboxList] = useState([]);
   const network = useSelector((state) => state.setting.network);
 
@@ -43,6 +44,15 @@ export default function Launchpad() {
     );
     setBalance(result);
   };
+
+  useEffect(async () => {
+    if (amount && wallet.account) {
+      const price = await CommonContractApi.getBoxPrice(wallet);
+      setGetBoxAmount(Math.floor((amount * price) / 100));
+    }else{
+      setGetBoxAmount(0);
+    }
+  }, [amount, wallet]);
 
   useEffect(() => {
     if (wallet.account) {
@@ -105,6 +115,7 @@ export default function Launchpad() {
                       MAX
                     </span>
                   </span>
+                  <div className="will-get">You will get: {getBoxAmount}</div>
                   <ActionButton
                     tokenAddress={tokenAddress}
                     contractAddress={stakerContractAddress}
