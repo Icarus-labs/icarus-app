@@ -2,6 +2,7 @@ import Web3 from "web3";
 import Config from "../config";
 import StakerAbi from "./abi/Staker.json";
 import mm from "components/mm";
+import BN from 'bignumber.js'
 import * as Tools from "../utils/Tools";
 
 import store from "../redux/store";
@@ -21,7 +22,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         contract.methods
-          .lock(Web3.utils.toWei(amount, "ether"))
+          .lock(Web3.utils.toWei(new BN(amount).toFixed(18), "ether"))
           .send({
             from: wallet.account,
           })
@@ -91,7 +92,7 @@ export default {
         from: wallet.account,
       });
 
-      return Number(web3.utils.fromWei(balances.lockedAmount));
+      return Number(web3.utils.fromWei(balances.claimableAmount));
     } catch (err) {
       console.log(err);
       return 0;

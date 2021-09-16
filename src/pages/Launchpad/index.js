@@ -13,8 +13,12 @@ import TimerIcon from "assets/timer.svg";
 import CapsuleCard from "components/CapsuleCard";
 import RocketCard from "components/RocketCard";
 import BN from 'bignumber.js'
-
 import "./style.scss";
+
+BN.config({
+  ROUNDING_MODE: 1
+})
+
 
 export default function Launchpad() {
   const wallet = useWallet();
@@ -50,7 +54,7 @@ export default function Launchpad() {
     if (amount && wallet.account) {
       const price = await CommonContractApi.getBoxPrice(wallet);
       console.log('price is', price)
-      setGetBoxAmount(Math.floor(new BN(amount).times(price).div(100)));
+      setGetBoxAmount(new BN(amount).times(price).div(100).integerValue(BN.ROUND_DOWN).toString());
     }else{
       setGetBoxAmount(0);
     }

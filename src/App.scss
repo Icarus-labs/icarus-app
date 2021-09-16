@@ -39,7 +39,7 @@ body {
     min-height: 100vh;
     color: #01041c;
     background: #cbced3;
-    &.launchpad {
+    &.launchpad, &.launchpad.purple {
         background: url("./assets/launchpad-bg.png") no-repeat;
         background-size: cover;
     }

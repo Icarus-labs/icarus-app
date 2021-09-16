@@ -193,7 +193,7 @@ export default function CapsuleCard(props) {
               style={{ marginLeft: "8px" }}
               onClick={doRedeem}
             >
-              UNSTAKE
+              UNSTAKE ALL
             </Button>
           )}
 
