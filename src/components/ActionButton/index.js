@@ -4,7 +4,7 @@ import { useWallet } from "use-wallet";
 import CommonContractApi from "contract/CommonContractApi";
 
 export default function ActionButton(props) {
-  const { tokenAddress, contractAddress, children } = props;
+  const { tokenAddress, contractAddress, isPurple, children } = props;
   const [allowance, setAllowance] = useState(0);
   const [approving, setApproving] = useState(false);
   const wallet = useWallet();
@@ -29,7 +29,7 @@ export default function ActionButton(props) {
     setApproving(true);
     try {
       await CommonContractApi.doApprove(tokenAddress, contractAddress, wallet);
-      console.log('ready to check allowance')
+      console.log("ready to check allowance");
       setApproving(false);
       checkAllowance();
     } catch (err) {
@@ -43,7 +43,7 @@ export default function ActionButton(props) {
     <Button
       type="submit"
       onClick={doApprove}
-      className="btn btn-main center-block"
+      className={`${isPurple ? "btn-purple" : "btn btn-main"} center-block`}
       disabled={approving}
     >
       {approving && <span>APPROVING</span>}

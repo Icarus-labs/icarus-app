@@ -127,24 +127,24 @@ export default function AppSidebar() {
           </div>
           <span className="nav-text">GOV</span>
         </a>
-        <Link to="/profile" className="nav-link">
+        {/* <Link to="/profile" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={ProfileIcon} />
           </div>
           <span className="nav-text">PROFILE</span>
-        </Link>
+        </Link> */}
         <a href="#" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={GamefiIcon} />
           </div>
           <span className="nav-text coming-soon">GAMEFI</span>
         </a>
-        <Link to="/launchpad" className="nav-link">
+        {/* <Link to="/launchpad" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={LaunchpadIcon} />
           </div>
           <span className="nav-text">LAUNCHPAD</span>
-        </Link>
+        </Link> */}
         <a
           href="https://icarus.finance/analytics"
           target="_blank"

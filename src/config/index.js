@@ -544,18 +544,18 @@ export const blocksLeftMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "test",
+  defaultNetwork: "binance",
   //test(binance)
   test: {
     contracts: {
-      "vica": "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
-      "core": "0xF14e233B9e78ce096445dBA4792adbbab6315947",
-      "market": "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
-      "media": "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
-      "holder": "0xCfaa4F77ae18b51511390929D2647C9896BCB414",
-      "staker": "0xb7767882FBc74b01966558a153416a2FacDBcc8a",
+      vica: "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
+      core: "0xF14e233B9e78ce096445dBA4792adbbab6315947",
+      market: "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
+      media: "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
+      holder: "0xCfaa4F77ae18b51511390929D2647C9896BCB414",
+      staker: "0xb7767882FBc74b01966558a153416a2FacDBcc8a",
 
-      "box": "0x80E94eaF3c828535700bFe0e0393F2c8365c2966"
+      box: "0x80E94eaF3c828535700bFe0e0393F2c8365c2966",
     },
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断
@@ -576,94 +576,102 @@ export default {
   // binance
   binance: {
     contracts: {
-      vica: "0x8a98d77465e144427975664c348aBeD6F876C643",
-      core: "0x61d3E62F7FEa1454A3FaB767E43a5aA7403f7626",
-      market: "0x52f3bF3295987f4D5F86564a6F58aBCaf97c7e1c",
-      media: "0x6bC455e856358F34c19b4B2562Ba677b1e7D15E8",
-      holder: "0x146EBC2fD50B8A25b7F3F670Fc2e8a673Be20951",
-      staker: "0x8Be2EFb9030BD49F8Db32733eDE1783603f309F3",
+      vica: "0xbcbdeccd5cbd126e62a874e04178accbcb7ee2a1",
+      core: "0xDf15e2ED2ba15F822D2ba30E36eBF0280f967751",
+      market: "0xC9a9189665E6cE770d34dC1bC6F8908772A1Fb4b",
+      media: "0x7995eCe2D44207f350E3B54a9c8e9E242a35A0e6",
+      holder: "0x3A07CFc7118e9D09fD996220520a32A18498597D",
+      staker: "0x2489BD0e416aB42a5716bfbD850483fbd9A51edb",
 
-      router: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
-      factory: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
-      cake: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
-      bnb: '0x2170ed0880ac9a755fd29b2688956bd959f933f8'
+      box: "0xdabd923235127e4d70f6da2cdfba0efb3f674d5f",
+
+      router: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+      factory: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
+      cake: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+      bnb: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
     },
     swapMediumTokens: [
       // busd
-      '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+      "0xe9e7cea3dedca5984780bafc599bd69add087d56",
       // weth
-      '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
+      "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
       // wbnb
-      '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c'
+      "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
     ],
     tokensList: [
       {
-        symbol: 'ICA',
-        logoURI: '/poolTokens/ica.svg',
-        address: '0x0ca2f09eca544b61b91d149dea2580c455c564b2'
+        symbol: "ICA",
+        logoURI: "/poolTokens/ica.svg",
+        address: "0x0ca2f09eca544b61b91d149dea2580c455c564b2",
       },
       {
-        symbol: 'BUSD',
-        logoURI: '/poolTokens/busd.svg',
-        address: '0xe9e7cea3dedca5984780bafc599bd69add087d56'
+        symbol: "BUSD",
+        logoURI: "/poolTokens/busd.svg",
+        address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
       },
       {
-        symbol: 'BTCB',
-        logoURI: '/poolTokens/btc.svg',
-        address: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c'
+        symbol: "BTCB",
+        logoURI: "/poolTokens/btc.svg",
+        address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
       },
       {
-        symbol: 'ETH',
-        logoURI: '/poolTokens/eth.svg',
-        address: '0x2170ed0880ac9a755fd29b2688956bd959f933f8'
+        symbol: "ETH",
+        logoURI: "/poolTokens/eth.svg",
+        address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
       },
       {
-        "name": "WBNB Token",
-        "symbol": "WBNB",
-        "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c.png"
+        name: "WBNB Token",
+        symbol: "WBNB",
+        address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c.png",
       },
       {
-        "name": "Tether USD",
-        "symbol": "USDT",
-        "address": "0x55d398326f99059fF775485246999027B3197955",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0x55d398326f99059ff775485246999027b3197955.png"
+        name: "Tether USD",
+        symbol: "USDT",
+        address: "0x55d398326f99059fF775485246999027B3197955",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x55d398326f99059ff775485246999027b3197955.png",
       },
       {
-        "name": "PancakeSwap Token",
-        "symbol": "CAKE",
-        "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82.png"
+        name: "PancakeSwap Token",
+        symbol: "CAKE",
+        address: "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82.png",
       },
       {
-        "name": "Venus",
-        "symbol": "XVS",
-        "address": "0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63.png"
+        name: "Venus",
+        symbol: "XVS",
+        address: "0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63.png",
       },
       {
-        "name": "VAI Stablecoin",
-        "symbol": "VAI",
-        "address": "0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0x4bd17003473389a42daf6a0a729f6fdb328bbbd7.png"
+        name: "VAI Stablecoin",
+        symbol: "VAI",
+        address: "0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x4bd17003473389a42daf6a0a729f6fdb328bbbd7.png",
       },
       {
-        "name": "Pancake Bunny",
-        "symbol": "BUNNY",
-        "address": "0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51.png"
+        name: "Pancake Bunny",
+        symbol: "BUNNY",
+        address: "0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51.png",
       },
       // {
       //   "name": "SafeMoon",
@@ -674,45 +682,50 @@ export default {
       //   "logoURI": "https://pancakeswap.finance/images/tokens/0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3.png"
       // },
       {
-        "name": "Alpaca",
-        "symbol": "ALPACA",
-        "address": "0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0x8f0528ce5ef7b51152a59745befdd91d97091d2f.png"
+        name: "Alpaca",
+        symbol: "ALPACA",
+        address: "0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x8f0528ce5ef7b51152a59745befdd91d97091d2f.png",
       },
       {
-        "name": "Belt",
-        "symbol": "BELT",
-        "address": "0xE0e514c71282b6f4e823703a39374Cf58dc3eA4f",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0xE0e514c71282b6f4e823703a39374Cf58dc3eA4f.png"
+        name: "Belt",
+        symbol: "BELT",
+        address: "0xE0e514c71282b6f4e823703a39374Cf58dc3eA4f",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xE0e514c71282b6f4e823703a39374Cf58dc3eA4f.png",
       },
       {
-        "name": "TokoCrypto",
-        "symbol": "TKO",
-        "address": "0x9f589e3eabe42ebC94A44727b3f3531C0c877809",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0x9f589e3eabe42ebc94a44727b3f3531c0c877809.png"
+        name: "TokoCrypto",
+        symbol: "TKO",
+        address: "0x9f589e3eabe42ebC94A44727b3f3531C0c877809",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x9f589e3eabe42ebc94a44727b3f3531c0c877809.png",
       },
       {
-        "name": "Nerve Finance",
-        "symbol": "NRV",
-        "address": "0x42F6f551ae042cBe50C739158b4f0CAC0Edb9096",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0x42f6f551ae042cbe50c739158b4f0cac0edb9096.png"
+        name: "Nerve Finance",
+        symbol: "NRV",
+        address: "0x42F6f551ae042cBe50C739158b4f0CAC0Edb9096",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x42f6f551ae042cbe50c739158b4f0cac0edb9096.png",
       },
       {
-        "name": "Ellipsis",
-        "symbol": "EPS",
-        "address": "0xA7f552078dcC247C2684336020c03648500C6d9F",
-        "chainId": 56,
-        "decimals": 18,
-        "logoURI": "https://pancakeswap.finance/images/tokens/0xa7f552078dcc247c2684336020c03648500c6d9f.png"
-      }
+        name: "Ellipsis",
+        symbol: "EPS",
+        address: "0xA7f552078dcC247C2684336020c03648500C6d9F",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xa7f552078dcc247c2684336020c03648500c6d9f.png",
+      },
     ],
     network: "binance",
     mode: "prod",

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.6";
-const baseURL = "https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph";
+const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.7";
+// const baseURL = "https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph";
 
 const getBlindBox = async (owner) => {
   if(!owner){

@@ -53,8 +53,7 @@ export default function Launchpad() {
   useEffect(async () => {
     if (amount && wallet.account) {
       const price = await CommonContractApi.getBoxPrice(wallet);
-      console.log('price is', price)
-      setGetBoxAmount(new BN(amount).times(price).div(100).integerValue(BN.ROUND_DOWN).toString());
+      setGetBoxAmount(new BN(amount).div(price).div(100).integerValue(BN.ROUND_DOWN).toString());
     }else{
       setGetBoxAmount(0);
     }

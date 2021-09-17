@@ -14,6 +14,7 @@ import BuyZETH from "./pages/BuyZETH";
 
 import Mine from "./pages/Mine";
 import Swap from "./pages/Swap";
+import SwapNew from "./pages/SwapNew";
 // import MineDetail from "./pages/MineDetail";
 
 import AppHeader from "components/AppHeader";
@@ -81,6 +82,7 @@ function App() {
             <Route path="/mine" component={Mine} />
             <Route path="/star-cluster" component={Mine} />
             <Route path="/swap" component={Swap} />
+            <Route path="/swap-new" component={SwapNew} />
             {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
           </Switch>
           {/* <AppFooter /> */}
