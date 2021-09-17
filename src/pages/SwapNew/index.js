@@ -9,6 +9,8 @@ import config from "config";
 import ArrowDown from "assets/arrow-down.svg";
 import SwapIcon from "assets/swap-icon.svg";
 import PlusIcon from "assets/plus-icon.svg";
+import SwapLeft from "assets/swap-left.png";
+import SwapRight from "assets/swap-right.png";
 import CommonContractApi from "contract/CommonContractApi";
 import RouterContractApi from "contract/RouterContractApi";
 // import web3 from "components/web3";
@@ -199,7 +201,7 @@ export default function TokenSwap() {
   return (
     <div className="token-swap-new">
       <Row type="flex" justify="center">
-        <Col xs={24} lg={10}>
+        <Col xs={24} sm={22} lg={13} xl={10}>
           <div className="tabs">
             <div
               className={`tab ${tab === "swap" ? "active" : ""}`}
@@ -215,6 +217,8 @@ export default function TokenSwap() {
             </div>
           </div>
           <div className="swap-card block">
+            <img src={SwapLeft} className="swap-left" />
+            <img src={SwapRight} className="swap-right" />
             <div className="token-box">
               {fromToken.balance && (
                 <div className="balance">
