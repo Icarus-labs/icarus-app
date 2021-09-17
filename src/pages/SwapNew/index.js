@@ -211,7 +211,7 @@ export default function TokenSwap() {
             </div>
             <div
               className={`tab ${tab === "liquidity" ? "active" : ""}`}
-              onClick={() => setTab("liquidity")}
+              onClick={() => setTab("swap")}
             >
               Liquidity
             </div>
@@ -310,7 +310,7 @@ export default function TokenSwap() {
               </div>
             </div>
             {loadingResult && <LoadingOutlined className="loading-result" />}
-            {exchangeRate > 0 && (
+            {exchangeRate > 0 && tab === 'swap' && (
               <>
                 <div className="exchange-rate">
                   <span>Exchange Rate:</span>
