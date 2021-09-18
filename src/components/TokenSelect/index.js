@@ -35,7 +35,10 @@ export default function TokenSelect(props) {
   };
 
   const searchToken = async (val) => {
-    if (web3.utils.isAddress(val)) {
+    if (
+      web3.utils.isAddress(val) &&
+      tokenList.filter((item) => item.address === val).length === 0
+    ) {
       const symbol = await CommonContractApi.getSymbol(val, wallet);
       if (symbol) {
         const findToken = {

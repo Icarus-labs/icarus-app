@@ -1,58 +1,121 @@
 .token-swap {
     color: #15163d;
+    font-family: "Source Sans Pro";
+    text-transform: none;
+
     .header {
         justify-content: flex-end;
     }
-    .err-hint{
+    .err-hint {
         color: red;
     }
-    .loading-result{
+    .loading-result {
         font-size: 24px;
         margin: 16px auto;
         display: block;
     }
-    .swaping-loading{
+    .swaping-loading {
         font-size: 18px;
     }
-    .swap-card {
-        background: #d6d8dc;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    .balance {
+        color: #9088a1;
+        // text-align: right;
+        // margin-bottom: 6px;
+        position: absolute;
+        right: 0;
+        top: -21px;
+    }
+    .tabs {
+        display: flex;
+        border: 1px solid #7416b2;
+        box-sizing: border-box;
         border-radius: 40px;
-        margin-top: 90px;
+        margin: 24px auto 44px;
+        width: 200px;
+        background: #fff;
+        overflow: hidden;
+        .tab {
+            text-align: center;
+            width: 50%;
+            cursor: pointer;
+            border-radius: 40px;
+            color: #7416b2;
+            height: 40px;
+            line-height: 40px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: none;
+            &.active {
+                width: 50%;
+                color: #fff;
+                background: #7416b2;
+            }
+        }
+    }
+    .swap-card {
+        background: #ffffff;
+        border: 1px solid #7416b2;
+        box-sizing: border-box;
+        box-shadow: 0px 4px 10px 5px rgba(165, 165, 165, 0.25);
+        border-radius: 40px;
+        padding: 44px 24px;
+        position: relative;
+        .swap-left {
+            width: 240px;
+            position: absolute;
+            top: 0;
+            left: -240px;
+        }
+        .swap-right {
+            width: 300px;
+            position: absolute;
+            bottom: 0;
+            right: -280px;
+        }
+
         .caret {
             color: #9088a1;
             font-size: 10px;
         }
-        .tabs {
-            margin-bottom: 32px;
-            .tab {
-                cursor: pointer;
-                font-size: 14px;
-                line-height: 18px;
-                color: #9088a1;
-                margin-right: 32px;
-                &.active {
-                    color: #15163d;
-                }
-            }
-        }
+        // .tabs {
+        //     margin-bottom: 32px;
+        //     .tab {
+        //         cursor: pointer;
+        //         font-size: 14px;
+        //         line-height: 18px;
+        //         color: #9088a1;
+        //         margin-right: 32px;
+        //         &.active {
+        //             color: #15163d;
+        //         }
+        //     }
+        // }
         .token-box {
-            background: #cecfd2;
-            border: 1px solid rgba(144, 136, 161, 0.2);
-            box-sizing: border-box;
-            border-radius: 5px;
-            padding: 5px 8px 10px;
-
-            .top {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 20px;
+            border: 1px solid #d6d8dc;
+            border-radius: 9px;
+            background: #fff;
+            padding: 18px 14px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .left {
+                width: 32%;
             }
-            .bottom {
+            .arrow-down {
+                width: 8px;
+                margin-left: 2px;
+            }
+            .right {
+                border: 1px solid #7416b2;
+                border-radius: 5px;
+                padding: 4px;
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                width: 68%;
+                input {
+                    width: 100%;
+                }
             }
             .title {
                 font-size: 10px;
@@ -61,21 +124,24 @@
             .balance-title {
                 font-size: 10px;
                 line-height: 13px;
-                color: #9088a1;
                 padding-right: 12px;
             }
             .balance-num {
                 font-size: 10px;
                 line-height: 13px;
+                font-weight: 800;
             }
-            .max {
-                font-size: 18px;
+            .max-amount {
+                font-size: 14px;
                 display: inline-block;
                 vertical-align: middle;
-                // padding: 4px 8px;
-                color: #15163d;
-                // border: 1px solid #15163d;
+                color: #ffffff;
+                background: #7416b2;
+                border: 1px solid #7416b2;
+                border-radius: 3px;
                 margin-right: 8px;
+                line-height: 1;
+                padding: 4px 12px;
                 cursor: pointer;
             }
             .ant-input {
@@ -84,42 +150,57 @@
                 color: #15163d;
                 font-size: 18px;
                 line-height: 24px;
+                font-weight: 800;
                 &::placeholder {
-                    color: #9088a1;
+                    color: #9d96ac;
                 }
             }
             .token-select {
                 font-size: 14px;
                 line-height: 18px;
-                display: inline-block;
-                background: rgba(255, 255, 255, 0.44);
+                color: #272626;
+                display: flex;
+                // background: rgba(255, 255, 255, 0.44);
                 border-radius: 5px;
+                font-weight: 800;
                 cursor: pointer;
                 padding: 6px 10px;
             }
+            .swap-hint {
+                color: #9088a1;
+                font-size: 8px;
+                // margin-bottom: 2px;
+                font-weight: 400;
+            }
             .token-logo {
-                width: 20px;
-                height: 20px;
+                width: 36px;
+                height: 36px;
                 display: inline-block;
-                margin-right: 4px;
+                margin-right: 6px;
             }
         }
-        .arrow-down {
-            margin: 12px auto;
-            // width: 10px;
-            height: 16px;
-            display: block;
+        .swap-icon {
+            margin: 12px;
+            height: 24px;
+            width: 24px;
+            display: inline-block;
             cursor: pointer;
         }
         .exchange-rate {
-            font-size: 10px;
-            line-height: 13px;
+            color: #9088a1;
+            font-size: 12px;
+            line-height: 16px;
             padding: 12px 0 4px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 80%;
+            margin: 12px auto 16px;
+            .text {
+                font-weight: 800;
+            }
         }
-        .prices-pool-share-title{
+        .prices-pool-share-title {
             margin: 16px 0 4px;
         }
         .prices-pool-share {
@@ -152,6 +233,14 @@
             font-size: 12px;
             line-height: 16px;
             text-align: center;
+        }
+    }
+    @media (max-width: 992px) {
+        .swap-left {
+            display: none;
+        }
+        .swap-right {
+            display: none;
         }
     }
 }

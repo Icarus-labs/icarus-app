@@ -14,7 +14,7 @@ import BuyZETH from "./pages/BuyZETH";
 
 import Mine from "./pages/Mine";
 import Swap from "./pages/Swap";
-import SwapNew from "./pages/SwapNew";
+// import SwapNew from "./pages/SwapNew";
 // import MineDetail from "./pages/MineDetail";
 
 import AppHeader from "components/AppHeader";
@@ -66,7 +66,9 @@ function App() {
           location.pathname === "/star-cluster" ? "light" : theme
         } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""} ${
           location.pathname === "/launchpad" ? "launchpad" : ""
-        } ${location.pathname === "/profile" ? "profile" : ""}`}
+        } ${location.pathname === "/profile" ? "profile" : ""} ${
+          location.pathname === '/swap' ? 'swap' : ''
+        }`}
       >
         <AppSidebar />
         <div className="main-content">
@@ -82,7 +84,7 @@ function App() {
             <Route path="/mine" component={Mine} />
             <Route path="/star-cluster" component={Mine} />
             <Route path="/swap" component={Swap} />
-            <Route path="/swap-new" component={SwapNew} />
+            {/* <Route path="/swap-new" component={SwapNew} /> */}
             {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
           </Switch>
           {/* <AppFooter /> */}

@@ -43,6 +43,9 @@ body {
         background: url("./assets/launchpad-bg.png") no-repeat;
         background-size: cover;
     }
+    &.swap{
+        background: #fff;
+    }
     &.app-star-cluster {
         color: #fff;
         background: #2c2e32;
@@ -725,6 +728,9 @@ img {
     background: linear-gradient(to bottom, #720a84, #5c0f81, #51127f);
     a {
         color: #fff !important;
+    }
+    &.swap{
+        background: #1A171C;
     }
     .app-sidebar {
         background: rgba(116, 22, 178, 0.75);

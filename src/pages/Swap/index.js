@@ -7,7 +7,10 @@ import ActionButton from "components/ActionButton";
 import { useSelector } from "react-redux";
 import config from "config";
 import ArrowDown from "assets/arrow-down.svg";
+import SwapIcon from "assets/swap-icon.svg";
 import PlusIcon from "assets/plus-icon.svg";
+import SwapLeft from "assets/swap-left.png";
+import SwapRight from "assets/swap-right.png";
 import CommonContractApi from "contract/CommonContractApi";
 import RouterContractApi from "contract/RouterContractApi";
 // import web3 from "components/web3";
@@ -55,7 +58,7 @@ export default function TokenSwap() {
     );
     setLoadingResult(false);
     setToAmount(bestRoute.amountsOut);
-    
+
     // setRouteText(response.routeText);
     // setToAmount(response.expectedConvertQuote);
   };
@@ -198,49 +201,33 @@ export default function TokenSwap() {
   return (
     <div className="token-swap">
       <Row type="flex" justify="center">
-        <Col xs={24} lg={10}>
-          <div className="swap-card block">
-            <div className="tabs">
-              <span
-                onClick={() => setTab("swap")}
-                className={`tab ${tab === "swap" ? "active" : ""}`}
-              >
-                Swap
-              </span>
-              <span
-                onClick={() => setTab("liquidity")}
-                className={`tab ${tab === "liquidity" ? "active" : ""}`}
-              >
-                +Liquidity
-              </span>
+        <Col xs={24} sm={22} lg={13} xl={10}>
+          <div className="tabs">
+            <div
+              className={`tab ${tab === "swap" ? "active" : ""}`}
+              onClick={() => setTab("swap")}
+            >
+              Swap
             </div>
+            <div
+              className={`tab ${tab === "liquidity" ? "active" : ""}`}
+              onClick={() => setTab("swap")}
+            >
+              Liquidity
+            </div>
+          </div>
+          <div className="swap-card block">
+            <img src={SwapLeft} className="swap-left" />
+            <img src={SwapRight} className="swap-right" />
             <div className="token-box">
-              <div className="top">
-                <div className="title">From:</div>
-                {fromToken.balance && (
-                  <div>
-                    <span className="balance-title">Balance:</span>{" "}
-                    <span className="balance-num">{fromToken.balance}</span>
-                  </div>
-                )}
-              </div>
-              <div className="bottom">
-                <div>
-                  <Input
-                    placeholder="0.0"
-                    value={fromAmount}
-                    onChange={(e) => setFromAmount(e.target.value)}
-                  />
+              {fromToken.balance && (
+                <div className="balance">
+                  <span className="balance-title">Balance:</span>{" "}
+                  <span className="balance-num">{fromToken.balance}</span>
                 </div>
+              )}
+              <div className="left">
                 <div>
-                  <div
-                    onClick={() => {
-                      setFromAmount(fromToken.balance);
-                    }}
-                    className="max"
-                  >
-                    MAX
-                  </div>
                   <div
                     className="token-select"
                     onClick={() => setTokenSelectType("from")}
@@ -248,59 +235,86 @@ export default function TokenSwap() {
                     {fromToken.symbol ? (
                       <>
                         <img className="token-logo" src={fromToken.logoURI} />{" "}
-                        <span>{fromToken.symbol}</span>
+                        <span>
+                          <div className="swap-hint">From</div>
+                          <div>
+                            {fromToken.symbol}{" "}
+                            <img src={ArrowDown} className="arrow-down" />
+                          </div>
+                        </span>
                       </>
                     ) : (
-                      <>Select Token</>
+                      <div>
+                        Select Token{" "}
+                        <img src={ArrowDown} className="arrow-down" />
+                      </div>
                     )}
-                    <CaretDownOutlined className="caret" />
                   </div>
+                </div>
+              </div>
+              <div className="right">
+                <Input
+                  placeholder="0.0"
+                  value={fromAmount}
+                  onChange={(e) => setFromAmount(e.target.value)}
+                />
+                <div
+                  onClick={() => {
+                    setFromAmount(fromToken.balance);
+                  }}
+                  className="max-amount"
+                >
+                  MAX
                 </div>
               </div>
             </div>
             <img
-              src={tab === "swap" ? ArrowDown : PlusIcon}
-              className="arrow-down"
+              src={tab === "swap" ? SwapIcon : PlusIcon}
+              className="swap-icon"
               onClick={changeTokenOrder}
             />
+
             <div className="token-box">
-              <div className="top">
-                <div className="title">To:</div>
-                {toToken.balance && (
-                  <div>
-                    <span className="balance-title">Balance:</span>{" "}
-                    <span className="balance-num">{toToken.balance}</span>
-                  </div>
-                )}
+              {toToken.balance && (
+                <div className="balance">
+                  <span className="balance-title">Balance:</span>{" "}
+                  <span className="balance-num">{toToken.balance}</span>
+                </div>
+              )}
+              <div className="left">
+                <div
+                  className="token-select"
+                  onClick={() => setTokenSelectType("to")}
+                >
+                  {toToken.symbol ? (
+                    <>
+                      <img className="token-logo" src={toToken.logoURI} />{" "}
+                      <span>
+                        <div className="swap-hint">To</div>
+                        <div>
+                          {toToken.symbol}{" "}
+                          <img src={ArrowDown} className="arrow-down" />
+                        </div>
+                      </span>
+                    </>
+                  ) : (
+                    <div>
+                      Select Token{" "}
+                      <img src={ArrowDown} className="arrow-down" />
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="bottom">
-                <div>
-                  <Input placeholder="0.0" value={toAmount} />
-                </div>
-                <div>
-                  <div
-                    className="token-select"
-                    onClick={() => setTokenSelectType("to")}
-                  >
-                    {toToken.symbol ? (
-                      <>
-                        <img className="token-logo" src={toToken.logoURI} />{" "}
-                        <span>{toToken.symbol}</span>
-                      </>
-                    ) : (
-                      <>Select Token</>
-                    )}
-                    <CaretDownOutlined className="caret" />
-                  </div>
-                </div>
+              <div className="right">
+                <Input placeholder="0.0" value={toAmount} />
               </div>
             </div>
             {loadingResult && <LoadingOutlined className="loading-result" />}
-            {exchangeRate > 0 && (
+            {exchangeRate > 0 && tab === 'swap' && (
               <>
                 <div className="exchange-rate">
                   <span>Exchange Rate:</span>
-                  <span>
+                  <span className="text">
                     1 {fromToken.symbol} = {exchangeRate} {toToken.symbol}
                   </span>
                 </div>
@@ -341,6 +355,7 @@ export default function TokenSwap() {
               <ActionButton
                 tokenAddress={fromToken.address}
                 contractAddress={routerContractAddress}
+                isPurple={true}
               >
                 <Button
                   disabled={!fromToken.address}
@@ -350,8 +365,8 @@ export default function TokenSwap() {
                     toToken.address &&
                     fromAmount &&
                     !swaping
-                      ? "btn-black"
-                      : "btn-black-disabled"
+                      ? "btn-purple"
+                      : "btn-disabled"
                   }`}
                 >
                   Swap{" "}
