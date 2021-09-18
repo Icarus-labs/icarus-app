@@ -4,7 +4,7 @@ import config from "../config";
 import Erc20Abi from "./abi/ERC20.json";
 import BoxPairAbi from "./abi/BoxPair.json";
 // import Wbe3Utils from "./Wbe3Utils";
-import * as Tools from "../utils/Tools";
+// import * as Tools from "../utils/Tools";
 
 // import store from "../redux/store";
 
@@ -43,7 +43,7 @@ export default {
         })
         .catch((err) => {
           console.log("Error", err);
-          reject(err)
+          reject(err);
         });
     });
   },
@@ -77,22 +77,44 @@ export default {
 
   async getBoxPrice(wallet) {
     const web3 = new Web3(wallet.ethereum);
-    const tokenContract = new web3.eth.Contract(BoxPairAbi, config[network].contracts.box);
+    const tokenContract = new web3.eth.Contract(
+      BoxPairAbi,
+      config[network].contracts.box
+    );
 
     return new Promise((resolve, reject) => {
       tokenContract.methods
         .getReserves()
         .call()
         .then((res) => {
-          const price = res._reserve0 / res._reserve1
-          resolve(price)
+          const price = res._reserve0 / res._reserve1;
+          resolve(price);
           // resolve(Web3.utils.fromWei(res));
         })
         .catch((err) => {
           console.log("Error", err);
-          reject(err)
+          reject(err);
         });
     });
   },
 
+  async getSymbol(tokenAddress, wallet) {
+    const web3 = new Web3(wallet.ethereum);
+    const tokenContract = new web3.eth.Contract(Erc20Abi, tokenAddress);
+    return new Promise(async (resolve, reject) => {
+      try{
+        const symbol = await tokenContract.methods.symbol().call();
+        resolve(symbol);
+      }catch(err){
+        reject(err)
+      }
+   
+      // .then((res) => {
+      //   resolve(res);
+      // })
+      // .catch((err) => {
+      //   reject(err);
+      // });
+    });
+  },
 };
