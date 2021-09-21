@@ -581,7 +581,7 @@ export default {
       market: "0xC9a9189665E6cE770d34dC1bC6F8908772A1Fb4b",
       media: "0x7995eCe2D44207f350E3B54a9c8e9E242a35A0e6",
       holder: "0x3A07CFc7118e9D09fD996220520a32A18498597D",
-      staker: "0x2489BD0e416aB42a5716bfbD850483fbd9A51edb",
+      staker: "0x82a55205329A3eaA1e36696B0Db806cDDC971CF9",
 
       box: "0xdabd923235127e4d70f6da2cdfba0efb3f674d5f",
 

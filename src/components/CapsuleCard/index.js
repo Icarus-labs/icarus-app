@@ -235,7 +235,7 @@ export default function CapsuleCard(props) {
                     <div>
                       <img src={ICALogo} className="ica-logo" /> STAKED:{" "}
                       {item.stakedPretty} &nbsp;&nbsp;&nbsp;&nbsp; TVL:{" "}
-                      {item.value}
+                      ${item.value}
                     </div>
                   </div>
                 )}
