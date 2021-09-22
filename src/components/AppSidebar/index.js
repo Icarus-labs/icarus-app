@@ -8,7 +8,8 @@ import MoonIcon from "assets/moon.svg";
 // import { MenuOutlined } from "@ant-design/icons";
 // import HomeIcon from "assets/home-icon.svg";
 import VoteIcon from "assets/vote-icon.svg";
-import MineIcon from "assets/mine-icon.svg"
+import MineIcon from "assets/mine-icon.svg";
+import ArmoryIcon from "assets/nav/armory.svg";
 import StarIcon from "assets/star-icon.svg";
 import MigrateIcon from "assets/migrate-icon.svg";
 import ProfileIcon from "assets/nav/profile.svg";
@@ -107,44 +108,54 @@ export default function AppSidebar() {
         />
         <Link to="/mine" className="nav-link">
           <div className="block">
-            <img className="home-icon icon" src={MineIcon} />
+            <img className="home-icon icon new-icon" src={MineIcon} />
           </div>
           <span className="nav-text">MINE</span>
         </Link>
         <Link to="/star-cluster" className="nav-link">
           <div className="block">
-            <img className="home-icon icon" src={StarIcon} />
+            <img className="home-icon icon new-icon" src={StarIcon} />
           </div>
           <span className="nav-text">STAR CLUSTER</span>
         </Link>
-        <a
-          href="https://vote.icarus.finance"
-          target="_blank"
-          className="nav-link"
-        >
+        <div className="divider" />
+
+        <Link to="/launchpad" className="nav-link">
           <div className="block">
-            <img className="home-icon icon" src={VoteIcon} />
+            <img className="home-icon icon new-icon" src={LaunchpadIcon} />
           </div>
-          <span className="nav-text">GOV</span>
-        </a>
-        {/* <Link to="/profile" className="nav-link">
+          <span className="nav-text">LAUNCHPAD</span>
+        </Link>
+        <Link to="#" className="nav-link">
           <div className="block">
-            <img className="home-icon icon" src={ProfileIcon} />
+            <img className="home-icon icon new-icon" src={ProfileIcon} />
           </div>
-          <span className="nav-text">PROFILE</span>
-        </Link> */}
+          <span className="nav-text coming-soon">PROFILE</span>
+        </Link>
+        <Link to="#" className="nav-link">
+          <div className="block">
+            <img className="home-icon icon new-icon" src={ArmoryIcon} />
+          </div>
+          <span className="nav-text coming-soon">ARMORY</span>
+        </Link>
         <a href="#" className="nav-link">
           <div className="block">
             <img className="home-icon icon" src={GamefiIcon} />
           </div>
           <span className="nav-text coming-soon">GAMEFI</span>
         </a>
-        {/* <Link to="/launchpad" className="nav-link">
+        <div className="divider" />
+
+        <a
+          href="https://vote.icarus.finance"
+          target="_blank"
+          className="nav-link"
+        >
           <div className="block">
-            <img className="home-icon icon launchpad-icon" src={LaunchpadIcon} />
+            <img className="home-icon icon new-icon" src={VoteIcon} />
           </div>
-          <span className="nav-text">LAUNCHPAD</span>
-        </Link> */}
+          <span className="nav-text">DAO</span>
+        </a>
         <a
           href="https://icarus.finance/analytics"
           target="_blank"
@@ -152,7 +163,9 @@ export default function AppSidebar() {
         >
           <div className="block focus">
             <img
-              className={`home-icon icon ${!menuOpened ? "mobile-shake" : ""} `}
+              className={`home-icon icon new-icon ${
+                !menuOpened ? "mobile-shake" : ""
+              } `}
               src={AnalyticsIcon}
             />
           </div>
@@ -164,13 +177,13 @@ export default function AppSidebar() {
           className="nav-link"
         >
           <div className="block">
-            <img className="home-icon icon" src={AuditIcon} />
+            <img className="home-icon icon new-icon" src={AuditIcon} />
           </div>
           <span className="nav-text">AUDIT</span>
         </a>
-        <a onClick={() => setMigrateModalVisible(true)} className="nav-link">
+        {/* <a onClick={() => setMigrateModalVisible(true)} className="nav-link">
           <div className="block">
-            {/* <img
+            <img
               className={`home-icon icon ${!menuOpened ? "mobile-shake" : ""} `}
               src={
                 menuOpened
@@ -179,14 +192,14 @@ export default function AppSidebar() {
                   ? MigrateIconMobilePurple
                   : MigrateIconMobile
               }
-            /> */}
+            />
             <img
               className={`home-icon icon ${!menuOpened ? "mobile-shake" : ""} `}
               src={MigrateIcon}
             />
           </div>
           <span className="nav-text">MIGRATE</span>
-        </a>
+        </a> */}
       </div>
       <div className="bottom-area">
         <div className="">
