@@ -141,7 +141,7 @@ export default function AppSidebar() {
         </a>
         {/* <Link to="/launchpad" className="nav-link">
           <div className="block">
-            <img className="home-icon icon" src={LaunchpadIcon} />
+            <img className="home-icon icon launchpad-icon" src={LaunchpadIcon} />
           </div>
           <span className="nav-text">LAUNCHPAD</span>
         </Link> */}
