@@ -1,0 +1,43 @@
+.advanced-setting-modal {
+    .ant-modal-header,
+    .ant-modal-close {
+        display: none;
+    }
+    .ant-modal-content {
+        border-radius: 12px;
+    }
+    .title {
+        font-size: 14px;
+        line-height: 18px;
+        margin-bottom: 16px;
+        color: #15163d;
+    }
+    .btn-purple{
+        margin-top: 40px;
+    }
+    .tabs {
+        display: flex;
+        .tab {
+            padding: 0 12px;
+            border-radius: 8px;
+            background: rgba(175, 175, 175, 0.25);
+            margin-right: 10px;
+            height: 36px;
+            cursor: pointer;
+            font-weight: 800;
+            line-height: 36px;
+            .custom-slippage{
+                width: 72px;
+                background: transparent;
+                font-weight: 800;
+            }
+            &.active {
+                color: #fff;
+                background: #7416b2;
+                .custom-slippage{
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

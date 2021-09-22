@@ -2,6 +2,7 @@ import Web3 from "web3";
 import Config from "../config";
 import RouterAbi from "./abi/Router.json";
 import mm from "components/mm";
+import BN from "bignumber.js";
 // import * as Tools from "../utils/Tools";
 // import { PancakeswapPair } from "simple-pancakeswap-sdk";
 import config from "config";
@@ -110,14 +111,14 @@ export default {
   },
 
   async getAmountsOut(amountIn, fromAddress, toAddress, wallet) {
-    return await this.getBestRoute(amountIn, fromAddress, toAddress, wallet)
+    return await this.getBestRoute(amountIn, fromAddress, toAddress, wallet);
   },
 
   async swapExactTokensForTokens(
     amountIn,
-    // amountOutMin,
     fromToken,
     toToken,
+    slippage,
     wallet
   ) {
     const web3 = new Web3(wallet.ethereum);
@@ -127,22 +128,35 @@ export default {
       Config[network].contracts.router
     );
 
-    const bestRoute =  await this.getBestRoute(
+    const bestRoute = await this.getBestRoute(
       amountIn,
       fromToken.address,
       toToken.address,
       wallet
-    )
+    );
 
     const path = bestRoute.path;
 
-    const amountOutMin = bestRoute.amountsOut
+    const amountOutMin = new BN(bestRoute.amountsOut)
+      .times(new BN(1).minus(new BN(slippage).div(100)))
+      .toFixed(12);
+
+    console.log("aaa", amountOutMin);
+    console.log(Web3.utils.toWei(amountOutMin), "bbbb");
+
+    // console.log(
+    //   "yoooo",
+    //   slippage,
+    //   bestRoute.amountsOut,
+    //   amountOutMin,
+    //   Web3.utils.toWei(amountOutMin)
+    // );
 
     return new Promise((resolve, reject) => {
       return contract.methods
         .swapExactTokensForTokens(
           Web3.utils.toWei(amountIn),
-          Web3.utils.toWei(amountOutMin),
+          Web3.utils.toWei(bestRoute.amountsOut),
           path,
           wallet.account,
           parseInt(Date.now() / 1000) + 30 * 60

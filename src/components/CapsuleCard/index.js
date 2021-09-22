@@ -144,7 +144,7 @@ export default function CapsuleCard(props) {
       setCapsuleList(
         showActive
           ? list.filter((item) => item.state === 0)
-          : list.filter((item) => item.state === 1)
+          : list.filter((item) => item.state >= 1)
       );
     } else if (mode === "open") {
       setCapsuleList(

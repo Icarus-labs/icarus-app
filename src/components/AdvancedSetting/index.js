@@ -1,0 +1,80 @@
+import React, { useEffect, useState } from "react";
+import { Modal, Input, Button, message } from "antd";
+
+import "./style.scss";
+
+export default function AdvancedSetting(props) {
+  const { setting, onSetting, onCancel } = props;
+  const [isCustom, setIsCustom] = useState(false);
+  const [slippage, setSlippage] = useState();
+
+  useState(() => {
+    if (setting.slippage) {
+      setSlippage(slippage);
+    }
+  }, [setting]);
+
+  useEffect(() => {
+    setIsCustom(
+      slippage === 0.1 || slippage === 0.5 || slippage === 1.0 ? false : true
+    );
+  }, [slippage]);
+
+  const slippageChange = (val) => {
+    setSlippage(val);
+  };
+
+  const doChangeSetting = () => {
+    if (!slippage || typeof slippage !== 'number') {
+      message.error("Slippage not valid");
+      return false;
+    }
+    onSetting({
+      slippage,
+    });
+    onCancel();
+  };
+  return (
+    <Modal
+      wrapClassName="advanced-setting-modal"
+      visible={true}
+      footer={null}
+      onCancel={() => {
+        onCancel();
+      }}
+    >
+      <div className="title">Slippage Tolerance</div>
+      <div className="tabs">
+        <div
+          onClick={() => slippageChange(0.1)}
+          className={`tab ${slippage === 0.1 ? "active" : ""}`}
+        >
+          0.1%
+        </div>
+        <div
+          onClick={() => slippageChange(0.5)}
+          className={`tab ${slippage === 0.5 ? "active" : ""}`}
+        >
+          0.5%
+        </div>
+        <div
+          onClick={() => slippageChange(1.0)}
+          className={`tab ${slippage === 1.0 ? "active" : ""}`}
+        >
+          1.0%
+        </div>
+        <div className={`tab ${isCustom ? "active" : ""}`}>
+          <Input
+            onChange={(e) => slippageChange(Number(e.target.value))}
+            defaultValue={slippage}
+            className="custom-slippage"
+          />
+          %
+        </div>
+      </div>
+      <Button className="btn-purple" onClick={doChangeSetting}>
+        Confirm
+      </Button>
+    </Modal>
+  );
+}

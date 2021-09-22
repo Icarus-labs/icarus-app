@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Input, Button } from "antd";
 import { useWallet } from "use-wallet";
 import TokenSelect from "components/TokenSelect";
-import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
+import AdvancedSetting from "components/AdvancedSetting";
+import { LoadingOutlined } from "@ant-design/icons";
 import ActionButton from "components/ActionButton";
 import { useSelector } from "react-redux";
 import config from "config";
@@ -24,10 +25,14 @@ export default function TokenSwap() {
   const [fromToken, setFromToken] = useState({});
   const [fromAmount, setFromAmount] = useState("");
   const [toToken, setToToken] = useState({});
+  const [setting, setSetting] = useState({
+    slippage: 1.0
+  });
   const [toAmount, setToAmount] = useState("");
   const [exchangeRate, setExchangeRate] = useState(0);
   // const [routeText, setRouteText] = useState("");
   const [loadingResult, setLoadingResult] = useState(false);
+  const [advancedSettingVisible, setAdvancedSettingVisible] = useState(false);
   const [swaping, setSwaping] = useState(false);
   const [errHint, setErrHint] = useState();
   // const [contractName, setContractName] = useState({});
@@ -132,6 +137,7 @@ export default function TokenSwap() {
         fromAmount,
         fromToken,
         toToken,
+        setting.slippage,
         wallet
       );
       setSwaping(false);
@@ -310,7 +316,7 @@ export default function TokenSwap() {
               </div>
             </div>
             {loadingResult && <LoadingOutlined className="loading-result" />}
-            {exchangeRate > 0 && tab === 'swap' && (
+            {exchangeRate > 0 && tab === "swap" && (
               <>
                 <div className="exchange-rate">
                   <span>Exchange Rate:</span>
@@ -374,9 +380,12 @@ export default function TokenSwap() {
                 </Button>
               </ActionButton>
             </div>
-            {/* <div className="advanced-trigger">
-              Advanced Setting <CaretDownOutlined className="caret" />
-            </div> */}
+            <div
+              className="advanced-trigger"
+              onClick={() => setAdvancedSettingVisible(true)}
+            >
+              Advanced Setting <img src={ArrowDown} className="advanced-down" />
+            </div>
           </div>
         </Col>
       </Row>
@@ -385,6 +394,13 @@ export default function TokenSwap() {
         onCancel={() => setTokenSelectType("")}
         tokenSelectType={tokenSelectType}
       />
+      {advancedSettingVisible && (
+        <AdvancedSetting
+          onCancel={() => setAdvancedSettingVisible(false)}
+          setting={setting}
+          onSetting={(val) => setSetting(val)}
+        />
+      )}
     </div>
   );
 }
