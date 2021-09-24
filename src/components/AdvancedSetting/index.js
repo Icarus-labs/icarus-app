@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Input, Button, message } from "antd";
+import ModalCloseIcon from "assets/modal-close-icon.svg";
 
 import "./style.scss";
 
@@ -25,7 +26,7 @@ export default function AdvancedSetting(props) {
   };
 
   const doChangeSetting = () => {
-    if (!slippage || typeof slippage !== 'number') {
+    if (!slippage || typeof slippage !== "number" || slippage > 100) {
       message.error("Slippage not valid");
       return false;
     }
@@ -39,6 +40,7 @@ export default function AdvancedSetting(props) {
       wrapClassName="advanced-setting-modal"
       visible={true}
       footer={null}
+      closeIcon={<img src={ModalCloseIcon} className="modal-close-icon" />}
       onCancel={() => {
         onCancel();
       }}
@@ -63,14 +65,15 @@ export default function AdvancedSetting(props) {
         >
           1.0%
         </div>
-        <div className={`tab ${isCustom ? "active" : ""}`}>
-          <Input
-            onChange={(e) => slippageChange(Number(e.target.value))}
-            defaultValue={slippage}
-            className="custom-slippage"
-          />
-          %
-        </div>
+      </div>
+      <div className={`custom-tab ${isCustom ? "active" : ""}`}>
+        <div>Custom</div>
+        <Input
+          onChange={(e) => slippageChange(Number(e.target.value))}
+          defaultValue={slippage}
+          className="custom-slippage"
+          suffix="%"
+        />
       </div>
       <Button className="btn-purple" onClick={doChangeSetting}>
         Confirm

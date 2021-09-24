@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Modal, Input } from "antd";
 import { useWallet } from "use-wallet";
 import Web3 from "web3";
+import ModalCloseIcon from "assets/modal-close-icon.svg";
 import CommonContractApi from "contract/CommonContractApi";
 // import { LoadingOutlined } from "@ant-design/icons";
 import config from "config";
@@ -66,20 +67,19 @@ export default function TokenSelect(props) {
       wrapClassName="token-select-modal"
       visible={tokenSelectType}
       footer={null}
+      closeIcon={<img src={ModalCloseIcon} className="modal-close-icon" />}
       onCancel={() => {
         setSearch("");
         onCancel();
       }}
     >
-      <div className="title">Select a token</div>
+      <div className="title">CHOOSE YOUR TOKEN</div>
       <Input
         className="search-input"
-        placeholder="Search for a token"
+        placeholder="Search name or paste address"
         value={search}
         onChange={(e) => searchToken(e.target.value)}
       />
-
-      <div className="token-name">Token name</div>
       <div className="token-list">
         {tokenList.map((token) => (
           <div

@@ -1,41 +1,94 @@
 .advanced-setting-modal {
-    .ant-modal-header,
-    .ant-modal-close {
-        display: none;
-    }
     .ant-modal-content {
         border-radius: 12px;
     }
+
     .title {
-        font-size: 14px;
-        line-height: 18px;
-        margin-bottom: 16px;
-        color: #15163d;
+        margin: 16px auto;
+        font-family: "bebas";
+        font-size: 30px;
+        line-height: 36px;
+        color: #272626;
     }
-    .btn-purple{
-        margin-top: 40px;
+    .modal-close-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .btn-purple {
+        border-radius: 5px;
+        display: block;
+        margin: 40px auto 16px;
+        padding: 0 28px;
+        height: 36px;
+        background: #7416B2;
     }
     .tabs {
         display: flex;
         .tab {
             padding: 0 12px;
             border-radius: 8px;
-            background: rgba(175, 175, 175, 0.25);
-            margin-right: 10px;
-            height: 36px;
+            border: 1px solid #d6d8dc;
+            margin-right: 24px;
+            height: 60px;
+
             cursor: pointer;
             font-weight: 800;
-            line-height: 36px;
-            .custom-slippage{
-                width: 72px;
-                background: transparent;
-                font-weight: 800;
+            line-height: 60px;
+            width: 33%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #272626;
+            &:last-child {
+                margin-right: 0;
             }
+
             &.active {
                 color: #fff;
                 background: #7416b2;
-                .custom-slippage{
+                .custom-slippage {
                     color: #fff;
+                }
+            }
+        }
+    }
+    .custom-tab {
+        padding: 0 12px;
+        border-radius: 8px;
+        border: 1px solid #d6d8dc;
+        margin-top: 16px;
+        height: 60px;
+        line-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 18px;
+        .custom-slippage {
+            width: 100px;
+            background: transparent;
+            font-weight: 800;
+            box-shadow: none;
+            outline: none;
+            border: none;
+
+            input {
+                color: inherit;
+                background: transparent;
+                font-size: 24px;
+                line-height: 30px;
+                text-align: center;
+                border-bottom: 1px solid #000 !important;
+            }
+        }
+        &.active {
+            color: #fff;
+            background: #7416b2;
+            .custom-slippage {
+                color: #fff;
+                input {
+                    border-bottom: 1px solid #fff !important;
                 }
             }
         }

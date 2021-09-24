@@ -1,27 +1,37 @@
 .token-select-modal {
-    .ant-modal-header,
-    .ant-modal-close {
-        display: none;
-    }
+    // .ant-modal-header,
+    // .ant-modal-close {
+    //     display: none;
+    // }
     .ant-modal-content {
         border-radius: 12px;
     }
     .title {
-        font-size: 14px;
-        line-height: 18px;
-        margin-bottom: 16px;
-        color: #15163d;
+        margin: 16px auto;
+        font-family: "bebas";
+        font-size: 30px;
+        line-height: 36px;
+        color: #272626;
+    }
+    .modal-close-icon {
+        width: 26px;
+        height: 26px;
     }
     .search-input {
-        border: 1px solid rgba(144, 136, 161, 0.2);
+        border: 1px solid #d6d8dc !important;
         box-sizing: border-box;
-        border-radius: 5px;
-        font-size: 18px;
-        line-height: 24px;
-        padding: 10px 8px;
-        margin-bottom: 24px;
+        border-radius: 9px;
+
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 19px;
+
+        color: #000;
+
+        padding: 12px 16px;
+        margin-bottom: 20px;
         &::placeholder {
-            color: rgba(144, 136, 161, 0.5);
+            color: #9d96ac;
         }
     }
     .token-name {
@@ -34,25 +44,35 @@
     .token-list {
         height: 250px;
         overflow-y: scroll;
-        .loading-icon{
+        .loading-icon {
             font-size: 24px;
             margin: 16px auto;
         }
         .token-item {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(144,136,161, .1);
+            padding: 16px 10px;
+            border-radius: 9px;
+            transition: background 0.3s;
+            // border-bottom: 1px solid rgba(144, 136, 161, 0.1);
             cursor: pointer;
-            &.hidden{
+            &.hidden {
                 display: none;
             }
+            &:hover {
+                background: #7416b2;
+                .token-symbol {
+                    color: #fff;
+                }
+            }
             .token-logo {
-                width: 20px;
-                height: 20px;
-                margin-right: 8px;
+                width: 32px;
+                height: 32px;
+                margin-right: 10px;
             }
             .token-symbol {
                 font-size: 14px;
                 line-height: 18px;
+                font-weight: 800;
+                color: #272626;
             }
         }
     }
