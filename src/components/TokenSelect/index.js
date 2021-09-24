@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Input, Button, Checkbox, message } from "antd";
 import { useWallet } from "use-wallet";
@@ -22,6 +22,8 @@ export default function TokenSelect(props) {
 
   const [searchedToken, setSearchedToken] = useState({});
 
+  const [balanceMapping, setBalanceMapping] = useState({});
+
   const [importHintVisible, setImportHintVisible] = useState(false);
   const [importRead, setImportRead] = useState(false);
 
@@ -35,13 +37,34 @@ export default function TokenSelect(props) {
     tokenList = userTokens.concat(tokenList);
   }
 
+  useEffect(() => {
+    // once token list changes, update the balance
+    if (!wallet.account) {
+      return;
+    }
+    getBalanceMapping();
+  }, [wallet]);
+
   const selectToken = (token) => {
     onSelect(tokenSelectType, token);
     setSearch("");
     onCancel();
   };
 
-  const addTokenList = () => {
+  const getBalanceMapping = () => {
+    tokenList.forEach(async (item) => {
+      console.log("addr", item.address);
+      const balance = await CommonContractApi.balanceOf(item.address, wallet);
+      setBalanceMapping((prev) => {
+        return {
+          ...prev,
+          [item.address]: balance,
+        };
+      });
+    });
+  };
+
+  const addTokenList = async () => {
     if (!importRead) {
       message.error("Please be sure to understand your risk");
       return false;
@@ -52,6 +75,19 @@ export default function TokenSelect(props) {
       JSON.stringify([searchedToken, ...userTokens])
     );
     // }
+
+    const balance = await CommonContractApi.balanceOf(
+      searchedToken.address,
+      wallet
+    );
+
+    setBalanceMapping((prev) => {
+      return {
+        ...prev,
+        [searchedToken.address]: balance,
+      };
+    });
+
     resetFields();
   };
 
@@ -83,12 +119,12 @@ export default function TokenSelect(props) {
 
   return (
     <Modal
-      wrapClassName={`token-select-modal ${theme === 'purple' ? 'purple' :''}`}
+      wrapClassName={`token-select-modal ${theme === "purple" ? "purple" : ""}`}
       visible={tokenSelectType}
       footer={null}
       closeIcon={<img src={ModalCloseIcon} className="modal-close-icon" />}
       onCancel={() => {
-        resetFields()
+        resetFields();
         onCancel();
       }}
     >
@@ -165,6 +201,7 @@ export default function TokenSelect(props) {
                   />
                   <span className="token-symbol">{token.symbol}</span>
                 </div>
+                <div className="balance">{balanceMapping[token.address]}</div>
               </div>
             ))}
           </div>

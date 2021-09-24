@@ -18,6 +18,12 @@
                 }
             }
         }
+        .balance{
+            color: #fff;
+        }
+    }
+    .balance{
+
     }
     .ant-modal-content {
         border-radius: 12px;
@@ -109,6 +115,9 @@
             &:hover:not(.searched-token) {
                 background: #7416b2;
                 .token-symbol {
+                    color: #fff;
+                }
+                .balance{
                     color: #fff;
                 }
             }
