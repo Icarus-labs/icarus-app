@@ -13,6 +13,7 @@ import "./style.scss";
 export default function TokenSelect(props) {
   const { tokenSelectType, onCancel, onSelect } = props;
   const network = useSelector((state) => state.setting.network);
+  const theme = useSelector((state) => state.setting.theme);
   const wallet = useWallet();
 
   const web3 = new Web3(wallet.ethereum);
@@ -82,7 +83,7 @@ export default function TokenSelect(props) {
 
   return (
     <Modal
-      wrapClassName="token-select-modal"
+      wrapClassName={`token-select-modal ${theme === 'purple' ? 'purple' :''}`}
       visible={tokenSelectType}
       footer={null}
       closeIcon={<img src={ModalCloseIcon} className="modal-close-icon" />}

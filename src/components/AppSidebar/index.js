@@ -11,8 +11,9 @@ import VoteIcon from "assets/vote-icon.svg";
 import MineIcon from "assets/mine-icon.svg";
 import ArmoryIcon from "assets/nav/armory.svg";
 import StarIcon from "assets/star-icon.svg";
-import MigrateIcon from "assets/migrate-icon.svg";
+// import MigrateIcon from "assets/migrate-icon.svg";
 import ProfileIcon from "assets/nav/profile.svg";
+import SwapIcon from "assets/nav/swap.svg";
 import GamefiIcon from "assets/nav/gamefi.svg";
 import LaunchpadIcon from "assets/nav/launchpad.svg";
 import AnalyticsIcon from "assets/nav/analytics.svg";
@@ -106,6 +107,12 @@ export default function AppSidebar() {
           className="menu icon"
           onClick={() => setMenuOpened((prev) => !prev)}
         />
+        {/* <Link to="/swap" className="nav-link">
+          <div className="block">
+            <img className="home-icon icon new-icon" src={SwapIcon} />
+          </div>
+          <span className="nav-text">SWAP</span>
+        </Link> */}
         <Link to="/mine" className="nav-link">
           <div className="block">
             <img className="home-icon icon new-icon" src={MineIcon} />

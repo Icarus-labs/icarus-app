@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Modal, Input, Button, message } from "antd";
 import ModalCloseIcon from "assets/modal-close-icon.svg";
 
@@ -8,6 +9,7 @@ export default function AdvancedSetting(props) {
   const { setting, onSetting, onCancel } = props;
   const [isCustom, setIsCustom] = useState(false);
   const [slippage, setSlippage] = useState();
+  const theme = useSelector((state) => state.setting.theme);
 
   useState(() => {
     if (setting.slippage) {
@@ -38,7 +40,7 @@ export default function AdvancedSetting(props) {
   };
   return (
     <Modal
-      wrapClassName="advanced-setting-modal"
+      wrapClassName={`advanced-setting-modal ${theme === 'purple' ? 'purple' :''}`}
       visible={true}
       footer={null}
       closeIcon={<img src={ModalCloseIcon} className="modal-close-icon" />}

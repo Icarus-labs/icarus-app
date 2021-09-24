@@ -1,4 +1,28 @@
 .advanced-setting-modal {
+    &.purple {
+        .title {
+            color: #ffffff;
+        }
+        .ant-modal-content {
+            background: #292929;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .tabs {
+            .tab {
+                color: #fff;
+            }
+        }
+        .custom-tab {
+            color: #fff;
+            .custom-slippage {
+                color: #fff;
+                input {
+                    border-bottom: 1px solid #fff !important;
+                }
+            }
+        }
+    }
+
     .ant-modal-content {
         border-radius: 12px;
     }
@@ -21,7 +45,7 @@
         margin: 40px auto 16px;
         padding: 0 28px;
         height: 36px;
-        background: #7416B2;
+        background: #7416b2;
     }
     .tabs {
         display: flex;
