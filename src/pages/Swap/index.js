@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Input, Button } from "antd";
+import { Row, Col, Input, Button, message } from "antd";
 import { useWallet } from "use-wallet";
 import TokenSelect from "components/TokenSelect";
 import AdvancedSetting from "components/AdvancedSetting";
@@ -217,7 +217,7 @@ export default function TokenSwap() {
             </div>
             <div
               className={`tab ${tab === "liquidity" ? "active" : ""}`}
-              onClick={() => setTab("swap")}
+              onClick={() => message.info('Coming Soon')}
             >
               Liquidity
             </div>

@@ -14,6 +14,15 @@
         margin: 16px auto;
         display: block;
     }
+    .btn-disabled {
+        color: #fff;
+        background: #9088a1;
+        cursor: not-allowed;
+        &:hover {
+            color: #fff;
+            background: #9088a1;
+        }
+    }
     .swaping-loading {
         font-size: 18px;
     }
@@ -231,11 +240,11 @@
             cursor: pointer;
             margin-top: 24px;
             font-size: 12px;
-            color: #15163D;
+            color: #15163d;
             font-weight: 800;
             line-height: 16px;
             text-align: center;
-            .advanced-down{
+            .advanced-down {
                 width: 8px;
             }
         }
@@ -246,6 +255,32 @@
         }
         .swap-right {
             display: none;
+        }
+    }
+    .App.purple & {
+        .btn-disabled {
+            border: none;
+        }
+        .advanced-trigger {
+            color: #9088a1;
+        }
+        .swap-card {
+            background: #292929;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border: none;
+            .token-box {
+                background: #19161b;
+                border: 1px solid #19161b;
+                .token-select {
+                    color: #fff;
+                }
+                .right {
+                    border: none;
+                }
+                .ant-input {
+                    color: #fff;
+                }
+            }
         }
     }
 }
