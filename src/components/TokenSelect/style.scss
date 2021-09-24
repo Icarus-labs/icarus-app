@@ -41,6 +41,36 @@
         padding: 6px 0;
         border-bottom: 1px solid #000;
     }
+    .risk-hint {
+        text-align: center;
+        font-family: "Source Sans Pro";
+        margin-top: 32px;
+        .title {
+            font-weight: 800;
+            font-family: "Source Sans Pro";
+            font-size: 20px;
+            line-height: 25px;
+            text-align: center;
+            color: #9d96ac;
+            margin-bottom: 24px;
+        }
+        .desc {
+            margin-bottom: 44px;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: center;
+            color: #9d96ac;
+        }
+        .hint-check {
+            display: block;
+            margin-bottom: 44px;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 15px;
+            color: #9d96ac;
+        }
+    }
     .token-list {
         height: 250px;
         overflow-y: scroll;
@@ -52,12 +82,15 @@
             padding: 16px 10px;
             border-radius: 9px;
             transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             // border-bottom: 1px solid rgba(144, 136, 161, 0.1);
             cursor: pointer;
             &.hidden {
                 display: none;
             }
-            &:hover {
+            &:hover:not(.searched-token) {
                 background: #7416b2;
                 .token-symbol {
                     color: #fff;

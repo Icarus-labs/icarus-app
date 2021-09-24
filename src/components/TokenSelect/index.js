@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Input } from "antd";
+import { Modal, Input, Button, Checkbox, message } from "antd";
 import { useWallet } from "use-wallet";
 import Web3 from "web3";
 import ModalCloseIcon from "assets/modal-close-icon.svg";
@@ -19,6 +19,11 @@ export default function TokenSelect(props) {
 
   const [search, setSearch] = useState("");
 
+  const [searchedToken, setSearchedToken] = useState({});
+
+  const [importHintVisible, setImportHintVisible] = useState(false);
+  const [importRead, setImportRead] = useState(false);
+
   const userTokensRaw = localStorage.getItem("userTokens");
 
   const userTokens = userTokensRaw ? JSON.parse(userTokensRaw) : [];
@@ -35,6 +40,27 @@ export default function TokenSelect(props) {
     onCancel();
   };
 
+  const addTokenList = () => {
+    if (!importRead) {
+      message.error("Please be sure to understand your risk");
+      return false;
+    }
+    // if (userTokens.filter((item) => item.address === val).length === 0) {
+    localStorage.setItem(
+      "userTokens",
+      JSON.stringify([searchedToken, ...userTokens])
+    );
+    // }
+    resetFields();
+  };
+
+  const resetFields = () => {
+    setSearch("");
+    setImportHintVisible(false);
+    setImportRead(false);
+    setSearchedToken({});
+  };
+
   const searchToken = async (val) => {
     if (
       web3.utils.isAddress(val) &&
@@ -42,19 +68,11 @@ export default function TokenSelect(props) {
     ) {
       const symbol = await CommonContractApi.getSymbol(val, wallet);
       if (symbol) {
-        const findToken = {
+        setSearchedToken({
           symbol,
           logoURI: `https://pancakeswap.finance/images/tokens/${val}.png`,
           address: val,
-        };
-
-        if (userTokens.filter((item) => item.address === val).length === 0) {
-          localStorage.setItem(
-            "userTokens",
-            JSON.stringify([findToken, ...userTokens])
-          );
-        }
-        tokenList.unshift(findToken);
+        });
       }
       setSearch(val);
     } else {
@@ -69,7 +87,7 @@ export default function TokenSelect(props) {
       footer={null}
       closeIcon={<img src={ModalCloseIcon} className="modal-close-icon" />}
       onCancel={() => {
-        setSearch("");
+        resetFields()
         onCancel();
       }}
     >
@@ -80,29 +98,76 @@ export default function TokenSelect(props) {
         value={search}
         onChange={(e) => searchToken(e.target.value)}
       />
-      <div className="token-list">
-        {tokenList.map((token) => (
-          <div
-            key={token.symbol}
-            onClick={() => {
-              selectToken(token);
+      {importHintVisible && (
+        <div className="risk-hint">
+          <div className="title">Trade at your own risk!</div>
+          <div className="desc">
+            <strong>Bad actors in the space may try to scam you.</strong>
+            <br />
+            Beware of token contracts, always make sure it’s the one you’re
+            looking for.
+          </div>
+          <Checkbox
+            className="hint-check"
+            checked={importRead}
+            onChange={(e) => {
+              setImportRead(e.target.checked);
             }}
-            className={`token-item ${
-              search &&
-              token.symbol.toLowerCase().indexOf(search.toLowerCase()) < 0 &&
-              token.address.toLowerCase().indexOf(search.toLowerCase()) < 0
-                ? "hidden"
-                : ""
-            }`}
           >
-            <img
-              src={token.logoURI || "/img/default-token.svg"}
-              className="token-logo"
-            />
-            <span className="token-symbol">{token.symbol}</span>
+            I understand
+          </Checkbox>
+          <Button className="btn-purple" onClick={addTokenList}>
+            Import
+          </Button>
+        </div>
+      )}
+      {!importHintVisible &&
+        (searchedToken && searchedToken.address ? (
+          <div className="token-list">
+            <div className="token-item searched-token">
+              <div>
+                <img
+                  src={searchedToken.logoURI || "/img/default-token.svg"}
+                  className="token-logo"
+                />
+                <span className="token-symbol">{searchedToken.symbol}</span>
+              </div>
+              <Button
+                className="btn-purple"
+                onClick={() => setImportHintVisible(true)}
+              >
+                Import
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="token-list">
+            {tokenList.map((token) => (
+              <div
+                key={token.symbol}
+                onClick={() => {
+                  selectToken(token);
+                }}
+                className={`token-item ${
+                  search &&
+                  token.symbol.toLowerCase().indexOf(search.toLowerCase()) <
+                    0 &&
+                  token.address.toLowerCase().indexOf(search.toLowerCase()) < 0
+                    ? "hidden"
+                    : ""
+                }`}
+              >
+                <div>
+                  <img
+                    src={token.logoURI || "/img/default-token.svg"}
+                    className="token-logo"
+                  />
+                  <span className="token-symbol">{token.symbol}</span>
+                </div>
+              </div>
+            ))}
           </div>
         ))}
-      </div>
     </Modal>
   );
 }
