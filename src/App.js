@@ -14,6 +14,7 @@ import BuyZETH from "./pages/BuyZETH";
 
 import Mine from "./pages/Mine";
 import Swap from "./pages/Swap";
+import Yield from "./pages/Yield";
 // import SwapNew from "./pages/SwapNew";
 // import MineDetail from "./pages/MineDetail";
 
@@ -67,8 +68,8 @@ function App() {
         } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""} ${
           location.pathname === "/launchpad" ? "launchpad" : ""
         } ${location.pathname === "/profile" ? "profile" : ""} ${
-          location.pathname === '/swap' ? 'swap' : ''
-        }`}
+          location.pathname === "/swap" ? "swap" : ""
+        } ${location.pathname === "/yield" ? "yield-hubble" : ""}`}
       >
         <AppSidebar />
         <div className="main-content">
@@ -84,6 +85,7 @@ function App() {
             <Route path="/mine" component={Mine} />
             <Route path="/star-cluster" component={Mine} />
             <Route path="/swap" component={Swap} />
+            <Route path="/yield" component={Yield} />
             {/* <Route path="/swap-new" component={SwapNew} /> */}
             {/* <Route exact path="/mine/:address" component={MineDetail} /> */}
           </Switch>

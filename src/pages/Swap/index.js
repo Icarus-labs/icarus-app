@@ -14,8 +14,6 @@ import SwapLeft from "assets/swap-left.png";
 import SwapRight from "assets/swap-right.png";
 import CommonContractApi from "contract/CommonContractApi";
 import RouterContractApi from "contract/RouterContractApi";
-// import web3 from "components/web3";
-// import mm from "components/mm";
 
 import "./style.scss";
 
@@ -26,7 +24,7 @@ export default function TokenSwap() {
   const [fromAmount, setFromAmount] = useState("");
   const [toToken, setToToken] = useState({});
   const [setting, setSetting] = useState({
-    slippage: 1.0
+    slippage: 1.0,
   });
   const [toAmount, setToAmount] = useState("");
   const [exchangeRate, setExchangeRate] = useState(0);
@@ -35,25 +33,15 @@ export default function TokenSwap() {
   const [advancedSettingVisible, setAdvancedSettingVisible] = useState(false);
   const [swaping, setSwaping] = useState(false);
   const [errHint, setErrHint] = useState();
-  // const [contractName, setContractName] = useState({});
-  // const [actionInfo, setActionInfo] = useState({});
   const [tokenSelectType, setTokenSelectType] = useState("");
   const network = useSelector((state) => state.setting.network);
 
   const routerContractAddress = config[network].contracts.router;
 
-  // const [actionInfoTrigger, setActionInfoTrigger] = useState(1);
-
   const getToAmount = async () => {
     setLoadingResult(true);
     setToAmount("");
     setExchangeRate("");
-    // const response = await RouterContractApi.getAmountsOut(
-    //   fromAmount,
-    //   fromToken,
-    //   toToken,
-    //   wallet
-    // );
 
     const bestRoute = await RouterContractApi.getAmountsOut(
       fromAmount,
@@ -101,10 +89,13 @@ export default function TokenSwap() {
   };
 
   const getTokenBalance = async (token) => {
-    const tokenBalance = await CommonContractApi.balanceOf(
-      token.address,
-      wallet
-    );
+    let tokenBalance = 0;
+    if (token.symbol === "BNB") {
+      tokenBalance = await CommonContractApi.bnbBalance(wallet);
+    } else {
+      tokenBalance = await CommonContractApi.balanceOf(token.address, wallet);
+    }
+
     return tokenBalance;
   };
 
@@ -117,20 +108,27 @@ export default function TokenSwap() {
     setToAmount("");
   };
 
-  // const doApprove = () => {
-  //   const transactionParameters = {
-  //     from: wallet.account,
-  //     to: actionInfo.from_token_addr,
-  //     data: actionInfo.allowance_data,
-  //   };
-  //   console.log(transactionParameters, "parammm");
-  //   // do it
-  //   mm.sendTransaction(transactionParameters, "Approve").then((res) => {
-  //     // setActionInfoTrigger((prev) => prev + 1);
-  //   });
-  // };
+  const doBNBSwap = async () => {
+    setSwaping(true);
+    try {
+      await RouterContractApi.swapExactETHForTokens(
+        fromAmount,
+        fromToken,
+        toToken,
+        setting.slippage,
+        wallet
+      );
+      setSwaping(false);
+    } catch (err) {
+      setSwaping(false);
+    }
+  };
 
   const doSwap = async () => {
+    if (fromToken.symbol === "BNB") {
+      doBNBSwap();
+      return;
+    }
     setSwaping(true);
     try {
       await RouterContractApi.swapExactTokensForTokens(
@@ -144,65 +142,7 @@ export default function TokenSwap() {
     } catch (err) {
       setSwaping(false);
     }
-
-    // const transactionParameters = {
-    //   from: wallet.account,
-    //   to: actionInfo.contract_addr,
-    //   value: web3.utils.toHex(
-    //     fromToken.symbol === "ETH" ? actionInfo.from_token_amount : 0
-    //   ),
-    //   data: actionInfo.data,
-    // };
-    // mm.sendTransaction(transactionParameters, "Swap").then((res) => {});
   };
-
-  // useEffect(() => {
-  //   if (fromToken.symbol && toToken.symbol && fromAmount) {
-  //     setToAmount("");
-  //     setExchangeRate("");
-  //     setActionInfo({});
-  //     // setContractName("");
-  //     axios
-  //       .post("/swap/aggrInfo", {
-  //         from: fromToken.symbol,
-  //         to: toToken.symbol,
-  //         amount: fromAmount.toString(),
-  //       })
-  //       .then((res) => {
-  //         if (res.data.exchange_pairs.length >= 1) {
-  //           // const exchangePairs = res.data.exchange_pairs;
-  //           // setToAmount(
-  //           //   new BigNumber(exchangePairs[0].amount_out)
-  //           //     .shiftedBy(-18)
-  //           //     .toFixed(4)
-  //           // );
-  //           // setExchangeRate(
-  //           //   new BigNumber(exchangePairs[0].exchange_ratio)
-  //           //     .shiftedBy(-18)
-  //           //     .toFixed(4)
-  //           // );
-  //           // setContractName(exchangePairs[0].contract_name);
-  //         }
-  //       });
-  //   }
-  // }, [fromToken.symbol, toToken.symbol, fromAmount]);
-
-  // useEffect(() => {
-  //   if (contractName) {
-  //     axios
-  //       .post("/swap/swapInfo", {
-  //         contract: contractName,
-  //         from: fromToken.symbol,
-  //         to: toToken.symbol,
-  //         amount: fromAmount.toString(),
-  //         user: wallet.account,
-  //         slippage: "500",
-  //       })
-  //       .then((res) => {
-  //         setActionInfo(res.data);
-  //       });
-  //   }
-  // }, [contractName, actionInfoTrigger]);
 
   return (
     <div className="token-swap">
@@ -217,7 +157,7 @@ export default function TokenSwap() {
             </div>
             <div
               className={`tab ${tab === "liquidity" ? "active" : ""}`}
-              onClick={() => message.info('Coming Soon')}
+              onClick={() => message.info("Coming Soon")}
             >
               Liquidity
             </div>
@@ -359,6 +299,7 @@ export default function TokenSwap() {
             )}
             <div className="handle-area">
               <ActionButton
+                tokenSymbol={fromToken.symbol}
                 tokenAddress={fromToken.address}
                 contractAddress={routerContractAddress}
                 isPurple={true}

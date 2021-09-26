@@ -4,7 +4,7 @@ import { useWallet } from "use-wallet";
 import CommonContractApi from "contract/CommonContractApi";
 
 export default function ActionButton(props) {
-  const { tokenAddress, contractAddress, isPurple, children } = props;
+  const { tokenAddress, tokenSymbol, contractAddress, isPurple, children } = props;
   const [allowance, setAllowance] = useState(0);
   const [approving, setApproving] = useState(false);
   const wallet = useWallet();
@@ -37,7 +37,7 @@ export default function ActionButton(props) {
     }
   };
 
-  return allowance > 0 || !tokenAddress ? (
+  return allowance > 0 || !tokenAddress || tokenSymbol === 'BNB' ? (
     <>{children}</>
   ) : (
     <Button

@@ -605,6 +605,15 @@ export default {
         address: "0x0ca2f09eca544b61b91d149dea2580c455c564b2",
       },
       {
+        name: "BNB",
+        symbol: "BNB",
+        address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        chainId: 56,
+        decimals: 18,
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c.png",
+      },
+      {
         symbol: "BUSD",
         logoURI: "https://pancakeswap.finance/images/tokens/0xe9e7cea3dedca5984780bafc599bd69add087d56.png",
         address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",

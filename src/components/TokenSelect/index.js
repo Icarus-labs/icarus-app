@@ -53,12 +53,17 @@ export default function TokenSelect(props) {
 
   const getBalanceMapping = () => {
     tokenList.forEach(async (item) => {
-      console.log("addr", item.address);
-      const balance = await CommonContractApi.balanceOf(item.address, wallet);
+      let balance = 0;
+      if (item.symbol === "BNB") {
+        balance = await CommonContractApi.bnbBalance(wallet);
+        console.log("yaaa", balance);
+      } else {
+        balance = await CommonContractApi.balanceOf(item.address, wallet);
+      }
       setBalanceMapping((prev) => {
         return {
           ...prev,
-          [item.address]: balance,
+          [item.symbol]: balance,
         };
       });
     });
@@ -84,7 +89,7 @@ export default function TokenSelect(props) {
     setBalanceMapping((prev) => {
       return {
         ...prev,
-        [searchedToken.address]: balance,
+        [searchedToken.symbol]: balance,
       };
     });
 
@@ -201,7 +206,7 @@ export default function TokenSelect(props) {
                   />
                   <span className="token-symbol">{token.symbol}</span>
                 </div>
-                <div className="balance">{balanceMapping[token.address]}</div>
+                <div className="balance">{balanceMapping[token.symbol]}</div>
               </div>
             ))}
           </div>

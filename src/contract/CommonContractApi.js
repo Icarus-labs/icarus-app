@@ -48,6 +48,22 @@ export default {
     });
   },
 
+  async bnbBalance(wallet) {
+    const web3 = new Web3(wallet.ethereum);
+
+    return new Promise((resolve, reject) => {
+      web3.eth
+        .getBalance(wallet.account)
+        .then((res) => {
+          resolve(Web3.utils.fromWei(res));
+        })
+        .catch((err) => {
+          console.log("Error", err);
+          reject(err);
+        });
+    });
+  },
+
   async doApprove(tokenAddress, contractAddress, wallet) {
     const web3 = new Web3(wallet.ethereum);
     const tokenContract = new web3.eth.Contract(Erc20Abi, tokenAddress);
@@ -102,13 +118,13 @@ export default {
     const web3 = new Web3(wallet.ethereum);
     const tokenContract = new web3.eth.Contract(Erc20Abi, tokenAddress);
     return new Promise(async (resolve, reject) => {
-      try{
+      try {
         const symbol = await tokenContract.methods.symbol().call();
         resolve(symbol);
-      }catch(err){
-        reject(err)
+      } catch (err) {
+        reject(err);
       }
-   
+
       // .then((res) => {
       //   resolve(res);
       // })
