@@ -57,6 +57,7 @@ export default {
     for (let i = 0; i < swapMediumTokens.length; i++) {
       const mediumToken = swapMediumTokens[i];
       try {
+        console.log('time start', bestRoute.amountsOut)
         const amountsOut1 = await this.getAmountsOutByPath(
           amountsIn,
           [fromAddress, mediumToken, toAddress],
@@ -81,6 +82,9 @@ export default {
           bestRoute.amountsOut = amountsOut2;
           bestRoute.path = [fromAddress, cakeAddress, mediumToken, toAddress];
         }
+
+        console.log('time end', bestRoute.amountsOut, 'amount path 1', amountsOut1, 'amount path', amountsOut2)
+
       } catch (err) {
         console.log("error", err);
       }
@@ -148,7 +152,7 @@ export default {
       return contract.methods
         .swapExactTokensForTokens(
           Web3.utils.toWei(amountIn),
-          Web3.utils.toWei(bestRoute.amountsOut),
+          Web3.utils.toWei(amountOutMin),
           path,
           wallet.account,
           parseInt(Date.now() / 1000) + 30 * 60
@@ -204,7 +208,7 @@ export default {
     return new Promise((resolve, reject) => {
       return contract.methods
         .swapExactETHForTokens(
-          Web3.utils.toWei(bestRoute.amountsOut),
+          Web3.utils.toWei(amountOutMin),
           path,
           wallet.account,
           parseInt(Date.now() / 1000) + 30 * 60
