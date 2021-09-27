@@ -57,7 +57,7 @@ export default {
     for (let i = 0; i < swapMediumTokens.length; i++) {
       const mediumToken = swapMediumTokens[i];
       try {
-        console.log('time start', bestRoute.amountsOut)
+        console.log("time start", bestRoute.amountsOut);
         const amountsOut1 = await this.getAmountsOutByPath(
           amountsIn,
           [fromAddress, mediumToken, toAddress],
@@ -83,8 +83,14 @@ export default {
           bestRoute.path = [fromAddress, cakeAddress, mediumToken, toAddress];
         }
 
-        console.log('time end', bestRoute.amountsOut, 'amount path 1', amountsOut1, 'amount path', amountsOut2)
-
+        console.log(
+          "time end",
+          bestRoute.amountsOut,
+          "amount path 1",
+          amountsOut1,
+          "amount path",
+          amountsOut2
+        );
       } catch (err) {
         console.log("error", err);
       }
@@ -176,6 +182,7 @@ export default {
     fromToken,
     toToken,
     slippage,
+    isMax,
     wallet
   ) {
     const web3 = new Web3(wallet.ethereum);
@@ -198,17 +205,27 @@ export default {
       .times(new BN(1).minus(new BN(slippage).div(100)))
       .toFixed(12);
 
-    return new Promise((resolve, reject) => {
-      return contract.methods
-        .swapExactETHForTokens(
-          Web3.utils.toWei(amountOutMin),
-          path,
-          wallet.account,
-          parseInt(Date.now() / 1000) + 30 * 60
-        )
+    return new Promise(async (resolve, reject) => {
+      const contractMethods = contract.methods.swapExactETHForTokens(
+        Web3.utils.toWei(isMax ? "1" : amountOutMin),
+        path,
+        wallet.account,
+        parseInt(Date.now() / 1000) + 30 * 60
+      );
+
+      const estimateGas = new BN(
+        await contractMethods.estimateGas({
+          from: wallet.account,
+          value: Web3.utils.toWei(amountIn),
+        })
+      ).shiftedBy(-8);
+
+      return contractMethods
         .send({
           from: wallet.account,
-          value: Web3.utils.toWei(amountIn)
+          value: Web3.utils.toWei(
+            isMax ? new BN(amountIn).minus(estimateGas).toString() : amountIn
+          ),
         })
         .on("transactionHash", function (transactionHash) {
           mm.listen(transactionHash, "Swap");
@@ -224,13 +241,7 @@ export default {
     });
   },
 
-  async swapExactTokensForETH(
-    amountIn,
-    fromToken,
-    toToken,
-    slippage,
-    wallet
-  ) {
+  async swapExactTokensForETH(amountIn, fromToken, toToken, slippage, wallet) {
     const web3 = new Web3(wallet.ethereum);
 
     const contract = new web3.eth.Contract(

@@ -14,6 +14,7 @@ import SwapLeft from "assets/swap-left.png";
 import SwapRight from "assets/swap-right.png";
 import CommonContractApi from "contract/CommonContractApi";
 import RouterContractApi from "contract/RouterContractApi";
+import Web3 from "web3";
 
 import "./style.scss";
 
@@ -23,6 +24,7 @@ export default function TokenSwap() {
   const [fromToken, setFromToken] = useState({});
   const [fromAmount, setFromAmount] = useState("");
   const [toToken, setToToken] = useState({});
+  const [isMax, setIsMax] = useState(false);
   const [setting, setSetting] = useState({
     slippage: 1.0,
   });
@@ -116,6 +118,7 @@ export default function TokenSwap() {
         fromToken,
         toToken,
         setting.slippage,
+        isMax,
         wallet
       );
       setSwaping(false);
@@ -145,7 +148,7 @@ export default function TokenSwap() {
       doFromBNBSwap();
       return;
     }
-    if(toToken.symbol === "BNB"){
+    if (toToken.symbol === "BNB") {
       doToBNBSwap();
       return;
     }
@@ -162,6 +165,11 @@ export default function TokenSwap() {
     } catch (err) {
       setSwaping(false);
     }
+  };
+
+  const doSetMax = async () => {
+    setIsMax(true);
+    setFromAmount(fromToken.balance);
   };
 
   return (
@@ -222,11 +230,14 @@ export default function TokenSwap() {
                 <Input
                   placeholder="0.0"
                   value={fromAmount}
-                  onChange={(e) => setFromAmount(e.target.value)}
+                  onChange={(e) => {
+                    setFromAmount(e.target.value);
+                    setIsMax(false);
+                  }}
                 />
                 <div
                   onClick={() => {
-                    setFromAmount(fromToken.balance);
+                    doSetMax();
                   }}
                   className="max-amount"
                 >
