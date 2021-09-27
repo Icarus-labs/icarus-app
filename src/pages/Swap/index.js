@@ -108,7 +108,7 @@ export default function TokenSwap() {
     setToAmount("");
   };
 
-  const doBNBSwap = async () => {
+  const doFromBNBSwap = async () => {
     setSwaping(true);
     try {
       await RouterContractApi.swapExactETHForTokens(
@@ -124,9 +124,29 @@ export default function TokenSwap() {
     }
   };
 
+  const doToBNBSwap = async () => {
+    setSwaping(true);
+    try {
+      await RouterContractApi.swapExactTokensForETH(
+        fromAmount,
+        fromToken,
+        toToken,
+        setting.slippage,
+        wallet
+      );
+      setSwaping(false);
+    } catch (err) {
+      setSwaping(false);
+    }
+  };
+
   const doSwap = async () => {
     if (fromToken.symbol === "BNB") {
-      doBNBSwap();
+      doFromBNBSwap();
+      return;
+    }
+    if(toToken.symbol === "BNB"){
+      doToBNBSwap();
       return;
     }
     setSwaping(true);

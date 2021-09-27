@@ -145,9 +145,6 @@ export default {
       .times(new BN(1).minus(new BN(slippage).div(100)))
       .toFixed(12);
 
-    console.log("aaa", amountOutMin);
-    console.log(Web3.utils.toWei(amountOutMin), "bbbb");
-
     return new Promise((resolve, reject) => {
       return contract.methods
         .swapExactTokensForTokens(
@@ -201,10 +198,6 @@ export default {
       .times(new BN(1).minus(new BN(slippage).div(100)))
       .toFixed(12);
 
-    //todo, add slippage support
-    console.log("aaa", amountOutMin);
-    console.log(Web3.utils.toWei(amountOutMin), "bbbb");
-
     return new Promise((resolve, reject) => {
       return contract.methods
         .swapExactETHForTokens(
@@ -216,6 +209,59 @@ export default {
         .send({
           from: wallet.account,
           value: Web3.utils.toWei(amountIn)
+        })
+        .on("transactionHash", function (transactionHash) {
+          mm.listen(transactionHash, "Swap");
+          return transactionHash;
+        })
+        .on("receipt", (receipt) => {
+          resolve(receipt);
+        })
+        .on("error", function (error) {
+          reject(error);
+          console.log("error", error);
+        });
+    });
+  },
+
+  async swapExactTokensForETH(
+    amountIn,
+    fromToken,
+    toToken,
+    slippage,
+    wallet
+  ) {
+    const web3 = new Web3(wallet.ethereum);
+
+    const contract = new web3.eth.Contract(
+      RouterAbi,
+      Config[network].contracts.router
+    );
+
+    const bestRoute = await this.getBestRoute(
+      amountIn,
+      fromToken.address,
+      toToken.address,
+      wallet
+    );
+
+    const path = bestRoute.path;
+
+    const amountOutMin = new BN(bestRoute.amountsOut)
+      .times(new BN(1).minus(new BN(slippage).div(100)))
+      .toFixed(12);
+
+    return new Promise((resolve, reject) => {
+      return contract.methods
+        .swapExactTokensForETH(
+          Web3.utils.toWei(amountIn),
+          Web3.utils.toWei(amountOutMin),
+          path,
+          wallet.account,
+          parseInt(Date.now() / 1000) + 30 * 60
+        )
+        .send({
+          from: wallet.account,
         })
         .on("transactionHash", function (transactionHash) {
           mm.listen(transactionHash, "Swap");
