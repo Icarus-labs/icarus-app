@@ -223,7 +223,7 @@ export default function TokenSwap() {
                         </span>
                       </>
                     ) : (
-                      <div>
+                      <div className="need-select-token">
                         Select Token{" "}
                         <img src={ArrowDown} className="arrow-down" />
                       </div>
@@ -279,7 +279,7 @@ export default function TokenSwap() {
                       </span>
                     </>
                   ) : (
-                    <div>
+                    <div className="need-select-token">
                       Select Token{" "}
                       <img src={ArrowDown} className="arrow-down" />
                     </div>
