@@ -43,7 +43,8 @@ body {
         background: url("./assets/launchpad-bg.png") no-repeat;
         background-size: cover;
     }
-    &.swap, &.yield-hubble {
+    &.swap,
+    &.yield-hubble {
         background: #fff;
     }
 
@@ -316,6 +317,22 @@ li {
     &:focus {
         color: #fff;
         background: #5f1192;
+    }
+}
+
+.btn-purple-line {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 800;
+    color: #7416b2;
+    background: none;
+    border: 1px solid #7416b2;
+    border-radius: 60px;
+    &:hover,
+    &:focus {
+        color: #7416b2;
+        background: none;
+        border: 1px solid #7416b2;
     }
 }
 

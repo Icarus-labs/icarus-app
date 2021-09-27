@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Input, Button, message, Checkbox, Select } from "antd";
+import {
+  Row,
+  Col,
+  Input,
+  Button,
+  message,
+  Checkbox,
+  Tooltip,
+  Select,
+  Slider,
+} from "antd";
 import { useWallet } from "use-wallet";
 import TokenSelect from "components/TokenSelect";
 import AdvancedSetting from "components/AdvancedSetting";
@@ -9,18 +19,19 @@ import { useSelector } from "react-redux";
 import config from "config";
 import ArrowDown from "assets/arrow-down.svg";
 import TelescopeIcon from "assets/yield/telescope.svg";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import CommonContractApi from "contract/CommonContractApi";
 import RouterContractApi from "contract/RouterContractApi";
 
 import "./style.scss";
 
-const vaultList = [
-  {
-    token0: "ICA",
-    token1: "WBNB",
-    showDetail: false
-  },
-];
+const sliderMarks = {
+  0: "0%",
+  25: "25%",
+  50: "50%",
+  75: "75%",
+  100: "100%",
+};
 
 export default function Yield() {
   const wallet = useWallet();
@@ -39,6 +50,45 @@ export default function Yield() {
   const [swaping, setSwaping] = useState(false);
   const [errHint, setErrHint] = useState();
   const [tokenSelectType, setTokenSelectType] = useState("");
+  const [vaultList, setVaultList] = useState([
+    {
+      token0: "ICA",
+      token1: "WBNB",
+      showDetail: false,
+    },
+  ]);
+  const [rewardList, setRewardList] = useState([
+    {
+      period: "1d",
+      lp: "0.0000",
+      ica: "0.0000",
+    },
+    {
+      period: "1w",
+      lp: "0.0000",
+      ica: "0.0000",
+    },
+    {
+      period: "1m",
+      lp: "0.0000",
+      ica: "0.0000",
+    },
+    {
+      period: "3m",
+      lp: "0.0000",
+      ica: "0.0000",
+    },
+    {
+      period: "6m",
+      lp: "0.0000",
+      ica: "0.0000",
+    },
+    {
+      period: "1y",
+      lp: "0.0000",
+      ica: "0.0000",
+    },
+  ]);
   const network = useSelector((state) => state.setting.network);
 
   const routerContractAddress = config[network].contracts.router;
@@ -50,6 +100,13 @@ export default function Yield() {
   //   );
   //   return tokenBalance;
   // };
+
+  const toggleShowDetail = (index, showDetail) => {
+    setVaultList((prev) => {
+      prev[index].showDetail = !showDetail;
+      return [...prev];
+    });
+  };
 
   return (
     <div className="yield-hubble">
@@ -117,7 +174,7 @@ export default function Yield() {
         </Col>
       </Row>
       <div className="vault-list">
-        {vaultList.map((item) => (
+        {vaultList.map((item, index) => (
           <div className="vault-item">
             <div className="main-area">
               <div className="left">
@@ -169,9 +226,86 @@ export default function Yield() {
                   <div className="label">Deposited</div>
                   <div className="value">465.769</div>
                 </div>
+                <img
+                  src={ArrowDown}
+                  className={`arrow-down ${item.showDetail && "reverse"}`}
+                  onClick={() => toggleShowDetail(index, item.showDetail)}
+                />
               </div>
             </div>
-            <div className="action-area"></div>
+            {item.showDetail && (
+              <div className="action-area">
+                <Row gutter={24} type="flex" align="center">
+                  <Col xs={24} md={12} lg={6}>
+                    <div className="reward-table">
+                      <div className="reward-head">
+                        <div>Period</div>
+                        <div>
+                          {item.token0}-{item.token1} LP
+                        </div>
+                        <div>ICA</div>
+                      </div>
+                      <div className="reward-body">
+                        {rewardList.map((reward) => (
+                          <div className="reward-row">
+                            <div>{reward.period}</div>
+                            <div>{reward.lp}</div>
+                            <div>{reward.ica}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </Col>
+                  <Col xs={24} md={12} lg={6}>
+                    <div className="input-zone">
+                      <div>
+                        <span className="strong-title">Balance:</span> 0.0{" "}
+                        {item.token0}-{item.token1} LP
+                      </div>
+                      <Input />
+                      <Slider marks={sliderMarks} />
+                      <div className="buttons-area">
+                        <Button className="btn-purple-line">Deposit</Button>
+                        <Button className="btn-purple">Deposit All</Button>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col xs={24} md={12} lg={6}>
+                    <div className="input-zone">
+                      <div>
+                        <span className="strong-title">Deposited:</span> 0.0{" "}
+                        {item.token0}-{item.token1} LP
+                      </div>
+                      <Input />
+                      <Slider marks={sliderMarks} />
+                      <div className="buttons-area">
+                        <Button className="btn-purple-line">Withdraw</Button>
+                        <Button className="btn-trans">Withdraw All</Button>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col xs={24} md={12} lg={6}>
+                    <div className="claim-area">
+                      <div>
+                        <span className="strong-title">ICA Rewards:</span>{" "}
+                        666.42
+                      </div>
+                      <Button className="btn-purple btn-claim">Claim</Button>
+                      <div>
+                        <span className="strong-title">ICA APR:</span> 18%
+                      </div>
+
+                      <div className="breakdown">
+                        Breakdown
+                        <Tooltip title="placeholder">
+                          <InfoCircleOutlined className="info-circle" />
+                        </Tooltip>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            )}
           </div>
         ))}
       </div>
