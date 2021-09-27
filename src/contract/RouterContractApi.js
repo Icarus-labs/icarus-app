@@ -182,7 +182,6 @@ export default {
     fromToken,
     toToken,
     slippage,
-    isMax,
     wallet
   ) {
     const web3 = new Web3(wallet.ethereum);
@@ -207,25 +206,24 @@ export default {
 
     return new Promise(async (resolve, reject) => {
       const contractMethods = contract.methods.swapExactETHForTokens(
-        Web3.utils.toWei(isMax ? "1" : amountOutMin),
+        Web3.utils.toWei(amountOutMin),
         path,
         wallet.account,
         parseInt(Date.now() / 1000) + 30 * 60
       );
 
-      const estimateGas = new BN(
-        await contractMethods.estimateGas({
-          from: wallet.account,
-          value: Web3.utils.toWei(amountIn),
-        })
-      ).shiftedBy(-8);
+      // const estimateGas =
+      //   Math.floor(
+      //     await contractMethods.estimateGas({
+      //       from: wallet.account,
+      //       value: Web3.utils.toWei(amountIn),
+      //     })
+      //   ) * 1.2;
 
       return contractMethods
         .send({
           from: wallet.account,
-          value: Web3.utils.toWei(
-            isMax ? new BN(amountIn).minus(estimateGas).toString() : amountIn
-          ),
+          value: Web3.utils.toWei(amountIn),
         })
         .on("transactionHash", function (transactionHash) {
           mm.listen(transactionHash, "Swap");

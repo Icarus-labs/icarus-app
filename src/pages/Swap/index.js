@@ -24,7 +24,6 @@ export default function TokenSwap() {
   const [fromToken, setFromToken] = useState({});
   const [fromAmount, setFromAmount] = useState("");
   const [toToken, setToToken] = useState({});
-  const [isMax, setIsMax] = useState(false);
   const [setting, setSetting] = useState({
     slippage: 1.0,
   });
@@ -118,7 +117,6 @@ export default function TokenSwap() {
         fromToken,
         toToken,
         setting.slippage,
-        isMax,
         wallet
       );
       setSwaping(false);
@@ -168,8 +166,15 @@ export default function TokenSwap() {
   };
 
   const doSetMax = async () => {
-    setIsMax(true);
-    setFromAmount(fromToken.balance);
+    if (fromToken.symbol === "BNB") {
+      if (fromToken.balance > 0.01) {
+        setFromAmount(fromToken.balance - 0.01);
+      } else {
+        setFromAmount(0);
+      }
+    } else {
+      setFromAmount(fromToken.balance);
+    }
   };
 
   return (
@@ -232,7 +237,6 @@ export default function TokenSwap() {
                   value={fromAmount}
                   onChange={(e) => {
                     setFromAmount(e.target.value);
-                    setIsMax(false);
                   }}
                 />
                 <div

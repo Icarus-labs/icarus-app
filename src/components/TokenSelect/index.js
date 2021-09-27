@@ -56,7 +56,6 @@ export default function TokenSelect(props) {
       let balance = 0;
       if (item.symbol === "BNB") {
         balance = await CommonContractApi.bnbBalance(wallet);
-        console.log("yaaa", balance);
       } else {
         balance = await CommonContractApi.balanceOf(item.address, wallet);
       }
