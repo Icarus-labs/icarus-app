@@ -304,6 +304,16 @@
         .advanced-trigger {
             color: #9088a1;
         }
+        .swap-detail{
+            background: #292929;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border: none;
+            .swap-detail-row{
+                .value{
+                    color: #fff;
+                }
+            }
+        }
         .swap-card {
             background: #292929;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
