@@ -402,6 +402,19 @@ export default function TokenSwap() {
               </div>
               <div className="swap-detail-row">
                 <div className="title">
+                  Liquidity Provider Fee
+                  <Tooltip title="For each trade a 0.25% fee is paid">
+                    <InfoCircleOutlined className="info-circle" />
+                  </Tooltip>
+                </div>
+                <div
+                  className='value'
+                >
+                  {bestRoute.providerFee} {fromToken.symbol}
+                </div>
+              </div>
+              <div className="swap-detail-row">
+                <div className="title">
                   Route
                   <Tooltip title="Routing through these tokens resulted in the best price for your trade.">
                     <InfoCircleOutlined className="info-circle" />

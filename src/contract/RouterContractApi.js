@@ -121,6 +121,7 @@ export default {
     const amount1 = bestRoute.amountsOut
     const amount2 = bestRouteFair.amountsOut
     bestRoute.priceImpact =  new BN(amount1).div(amountIn).minus(amount2).div(amount2).times(100).absoluteValue().toFixed(2)
+    bestRoute.providerFee = new BN(amountIn).times(0.0025).times(2).toFixed(8)
     // bestRoute.priceImpact =  new BN(amount2).times(amountIn).minus(amount1).div(amount1).times(100).toFixed(2)
     
     return bestRoute
