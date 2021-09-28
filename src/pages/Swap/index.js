@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Input, Button, message } from "antd";
+import { Row, Col, Input, Button, message, Tooltip } from "antd";
 import { useWallet } from "use-wallet";
 import TokenSelect from "components/TokenSelect";
 import AdvancedSetting from "components/AdvancedSetting";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import ActionButton from "components/ActionButton";
 import { useSelector } from "react-redux";
 import config from "config";
@@ -12,9 +12,10 @@ import SwapIcon from "assets/swap-icon.svg";
 import PlusIcon from "assets/plus-icon.svg";
 import SwapLeft from "assets/swap-left.png";
 import SwapRight from "assets/swap-right.png";
+
 import CommonContractApi from "contract/CommonContractApi";
 import RouterContractApi from "contract/RouterContractApi";
-import Web3 from "web3";
+// import Web3 from "web3";
 
 import "./style.scss";
 
@@ -35,6 +36,7 @@ export default function TokenSwap() {
   const [swaping, setSwaping] = useState(false);
   const [errHint, setErrHint] = useState();
   const [tokenSelectType, setTokenSelectType] = useState("");
+  const [bestRoute, setBestRoute] = useState({});
   const network = useSelector((state) => state.setting.network);
 
   const routerContractAddress = config[network].contracts.router;
@@ -44,14 +46,16 @@ export default function TokenSwap() {
     setToAmount("");
     setExchangeRate("");
 
-    const bestRoute = await RouterContractApi.getAmountsOut(
+    const bestRouteRaw = await RouterContractApi.getAmountsOut(
       fromAmount,
       fromToken.address,
       toToken.address,
+      setting.slippage,
       wallet
     );
     setLoadingResult(false);
-    setToAmount(bestRoute.amountsOut);
+    setToAmount(bestRouteRaw.amountsOut);
+    setBestRoute(bestRouteRaw);
 
     // setRouteText(response.routeText);
     // setToAmount(response.expectedConvertQuote);
@@ -74,6 +78,7 @@ export default function TokenSwap() {
   }, [fromToken.address, toToken.address]);
 
   useEffect(async () => {
+    setBestRoute({});
     if (fromAmount && fromToken.address && toToken.address) {
       getToAmount();
     }
@@ -117,6 +122,7 @@ export default function TokenSwap() {
         fromToken,
         toToken,
         setting.slippage,
+        bestRoute,
         wallet
       );
       setSwaping(false);
@@ -133,6 +139,7 @@ export default function TokenSwap() {
         fromToken,
         toToken,
         setting.slippage,
+        bestRoute,
         wallet
       );
       setSwaping(false);
@@ -157,6 +164,7 @@ export default function TokenSwap() {
         fromToken,
         toToken,
         setting.slippage,
+        bestRoute,
         wallet
       );
       setSwaping(false);
@@ -363,6 +371,51 @@ export default function TokenSwap() {
               Advanced Setting <img src={ArrowDown} className="advanced-down" />
             </div>
           </div>
+
+          {bestRoute && bestRoute.pathText && (
+            <div className="swap-detail block">
+              <div className="swap-detail-row">
+                <div className="title">
+                  Minimum received
+                  <Tooltip title="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed.">
+                    <InfoCircleOutlined className="info-circle" />
+                  </Tooltip>
+                </div>
+                <div className="value">
+                  {bestRoute.minReceive} {toToken.symbol}
+                </div>
+              </div>
+              <div className="swap-detail-row">
+                <div className="title">
+                  Price Impact
+                  <Tooltip title="The difference between the market price and estimated price due to trade size.">
+                    <InfoCircleOutlined className="info-circle" />
+                  </Tooltip>
+                </div>
+                <div
+                  className={`value ${
+                    bestRoute.priceImpact > 10 ? "red" : "purple"
+                  }`}
+                >
+                  {bestRoute.priceImpact}%
+                </div>
+              </div>
+              <div className="swap-detail-row">
+                <div className="title">
+                  Route
+                  <Tooltip title="Routing through these tokens resulted in the best price for your trade.">
+                    <InfoCircleOutlined className="info-circle" />
+                  </Tooltip>
+                </div>
+                <div className="value">
+                  {fromToken.symbol} &gt;{" "}
+                  {bestRoute.pathText &&
+                    bestRoute.pathText.map((item) => <>{item}&gt; </>)}{" "}
+                  {toToken.symbol}
+                </div>
+              </div>
+            </div>
+          )}
         </Col>
       </Row>
       <TokenSelect

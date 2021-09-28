@@ -36,7 +36,7 @@ const cakeAddress = config[network].contracts.cake;
 // };
 
 export default {
-  async getBestRoute(amountsIn, fromAddress, toAddress, wallet) {
+  async getBestRoute(amountsIn, fromAddress, toAddress, slippage, wallet) {
     let bestRoute = {
       amountsOut: 0,
     };
@@ -52,49 +52,44 @@ export default {
       bestRoute.path = [fromAddress, toAddress];
     }
 
-    console.log("amount 0", amountsOut0);
-
     for (let i = 0; i < swapMediumTokens.length; i++) {
       const mediumToken = swapMediumTokens[i];
       try {
-        console.log("time start", bestRoute.amountsOut);
         const amountsOut1 = await this.getAmountsOutByPath(
           amountsIn,
-          [fromAddress, mediumToken, toAddress],
+          [fromAddress, mediumToken.address, toAddress],
           wallet
         );
 
         if (bestRoute.amountsOut < amountsOut1) {
           bestRoute.amountsOut = amountsOut1;
-          bestRoute.path = [fromAddress, mediumToken, toAddress];
+          bestRoute.path = [fromAddress, mediumToken.address, toAddress];
+          bestRoute.pathText = [mediumToken.symbol];
         }
 
-        console.log("amount 1", amountsOut1);
+        // console.log("amount 1", amountsOut1);
 
         const amountsOut2 = await this.getAmountsOutByPath(
           amountsIn,
-          [fromAddress, cakeAddress, mediumToken, toAddress],
+          [fromAddress, cakeAddress, mediumToken.address, toAddress],
           wallet
         );
-        console.log("amount2 ", amountsOut2);
+        // console.log("amount2 ", amountsOut2);
 
         if (bestRoute.amountsOut < amountsOut2) {
           bestRoute.amountsOut = amountsOut2;
           bestRoute.path = [fromAddress, cakeAddress, mediumToken, toAddress];
+          bestRoute.pathText = ["CAKE", mediumToken.symbol];
         }
-
-        console.log(
-          "time end",
-          bestRoute.amountsOut,
-          "amount path 1",
-          amountsOut1,
-          "amount path",
-          amountsOut2
-        );
       } catch (err) {
         console.log("error", err);
       }
     }
+
+    bestRoute.minReceive = new BN(bestRoute.amountsOut)
+      .times(new BN(1).minus(new BN(slippage).div(100)))
+      .toFixed(8);
+
     return bestRoute;
   },
   async checkPairExists(tokenA, tokenB, wallet) {
@@ -120,8 +115,15 @@ export default {
     }
   },
 
-  async getAmountsOut(amountIn, fromAddress, toAddress, wallet) {
-    return await this.getBestRoute(amountIn, fromAddress, toAddress, wallet);
+  async getAmountsOut(amountIn, fromAddress, toAddress, slippage, wallet) {
+    let bestRoute = await this.getBestRoute(amountIn, fromAddress, toAddress, slippage, wallet);
+    const bestRouteFair = await this.getBestRoute('1', fromAddress, toAddress, slippage, wallet);
+    const amount1 = bestRoute.amountsOut
+    const amount2 = bestRouteFair.amountsOut
+    bestRoute.priceImpact =  new BN(amount1).div(amountIn).minus(amount2).div(amount2).times(100).absoluteValue().toFixed(2)
+    // bestRoute.priceImpact =  new BN(amount2).times(amountIn).minus(amount1).div(amount1).times(100).toFixed(2)
+    
+    return bestRoute
   },
 
   async swapExactTokensForTokens(
@@ -129,6 +131,7 @@ export default {
     fromToken,
     toToken,
     slippage,
+    bestRoute,
     wallet
   ) {
     const web3 = new Web3(wallet.ethereum);
@@ -138,12 +141,12 @@ export default {
       Config[network].contracts.router
     );
 
-    const bestRoute = await this.getBestRoute(
-      amountIn,
-      fromToken.address,
-      toToken.address,
-      wallet
-    );
+    // const bestRoute = await this.getBestRoute(
+    //   amountIn,
+    //   fromToken.address,
+    //   toToken.address,
+    //   wallet
+    // );
 
     const path = bestRoute.path;
 
@@ -182,6 +185,7 @@ export default {
     fromToken,
     toToken,
     slippage,
+    bestRoute,
     wallet
   ) {
     const web3 = new Web3(wallet.ethereum);
@@ -191,12 +195,12 @@ export default {
       Config[network].contracts.router
     );
 
-    const bestRoute = await this.getBestRoute(
-      amountIn,
-      fromToken.address,
-      toToken.address,
-      wallet
-    );
+    // const bestRoute = await this.getBestRoute(
+    //   amountIn,
+    //   fromToken.address,
+    //   toToken.address,
+    //   wallet
+    // );
 
     const path = bestRoute.path;
 
@@ -239,7 +243,14 @@ export default {
     });
   },
 
-  async swapExactTokensForETH(amountIn, fromToken, toToken, slippage, wallet) {
+  async swapExactTokensForETH(
+    amountIn,
+    fromToken,
+    toToken,
+    slippage,
+    bestRoute,
+    wallet
+  ) {
     const web3 = new Web3(wallet.ethereum);
 
     const contract = new web3.eth.Contract(
@@ -247,12 +258,12 @@ export default {
       Config[network].contracts.router
     );
 
-    const bestRoute = await this.getBestRoute(
-      amountIn,
-      fromToken.address,
-      toToken.address,
-      wallet
-    );
+    // const bestRoute = await this.getBestRoute(
+    //   amountIn,
+    //   fromToken.address,
+    //   toToken.address,
+    //   wallet
+    // );
 
     const path = bestRoute.path;
 

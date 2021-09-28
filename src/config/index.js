@@ -592,11 +592,21 @@ export default {
     },
     swapMediumTokens: [
       // busd
-      "0xe9e7cea3dedca5984780bafc599bd69add087d56",
+      {
+        symbol: 'BUSD',
+        address: "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+      },
       // weth
-      "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+      {
+        symbol: 'BUSD',
+        address:  "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+      },
       // wbnb
-      "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      {
+        symbol: 'WBNB',
+        address:  "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      }
+     
     ],
     tokensList: [
       {

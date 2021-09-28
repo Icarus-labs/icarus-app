@@ -23,8 +23,8 @@
             background: #9088a1;
         }
     }
-    .need-select-token{
-                    padding: 12px 0;
+    .need-select-token {
+        padding: 12px 0;
     }
     .swaping-loading {
         font-size: 18px;
@@ -42,7 +42,7 @@
         border: 1px solid #7416b2;
         box-sizing: border-box;
         border-radius: 40px;
-        margin: 24px auto 44px;
+        margin: 0 auto 44px;
         width: 200px;
         background: #fff;
         overflow: hidden;
@@ -61,6 +61,37 @@
                 width: 50%;
                 color: #fff;
                 background: #7416b2;
+            }
+        }
+    }
+    .swap-detail {
+        background: #ffffff;
+        border: 1px solid #7416b2;
+        box-sizing: border-box;
+        border-radius: 40px;
+        padding: 24px 24px;
+        margin-top: 32px;
+        font-size: 14px;
+        .swap-detail-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 4px auto;
+            .title {
+                color: #9088a1;
+            }
+            .value {
+                color: #19161b;
+                &.purple{
+                    color: #7416B2;
+                }
+                &.red{
+                    color: #ff0000;
+                }
+            }
+            .info-circle {
+                font-size: 12px;
+                margin-left: 2px;
             }
         }
     }
@@ -114,8 +145,8 @@
 
             .left {
                 width: 40%;
-                & > div{
-                    border-right: 1px solid #D6D8DC;
+                & > div {
+                    border-right: 1px solid #d6d8dc;
                     padding-right: 12px;
                     margin-right: 16px;
                 }
@@ -140,12 +171,12 @@
                 line-height: 13px;
             }
             .balance-title {
-                font-size: 10px;
+                font-size: 12px;
                 line-height: 13px;
-                padding-right: 12px;
+                padding-right: 4px;
             }
             .balance-num {
-                font-size: 10px;
+                font-size: 13px;
                 line-height: 13px;
                 font-weight: 800;
             }
@@ -283,10 +314,10 @@
                 .token-select {
                     color: #fff;
                 }
-              
-                .left{
-                    &>div{
-                        border-right: 1px solid #ADADAD;
+
+                .left {
+                    & > div {
+                        border-right: 1px solid #adadad;
                     }
                 }
                 .right {
