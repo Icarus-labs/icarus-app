@@ -1,0 +1,65 @@
+.claim-modal {
+    font-family: "bebas";
+    .ant-modal-close {
+        display: none;
+    }
+    .ant-modal-content {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .ant-modal-body {
+        color: #000;
+        font-size: 18px;
+        line-height: 22px;
+        background: #d6d8dc;
+        text-align: center;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .ant-input {
+        background: #c4c4c4;
+        border: none;
+        margin-bottom: 8px;
+    }
+    .ant-btn {
+        margin-top: 16px;
+        width: 100%;
+    }
+    .buy-icon {
+        width: 140px;
+        display: block;
+        margin: 0 auto;
+    }
+    .modal-title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .modal-subtitle {
+        font-size: 30px;
+        line-height: 38px;
+    }
+    .amount-box {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 17.5px;
+        padding: 12px 16px;
+        position: relative;
+        width: 200px;
+        text-align: left;
+        margin: 44px auto 24px;
+        .title {
+            font-size: 14px;
+            line-height: 14px;
+            vertical-align: middle;
+        }
+        .value {
+            font-size: 20px;
+            line-height: 24px;
+            vertical-align: middle;
+        }
+        .claim-girl {
+            position: absolute;
+            right: -40px;
+            top: -25px;
+            width: 100px;
+        }
+    }
+}

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import axios from "utils/axios";
 import ConnectWallet from "components/ConnectWallet";
 import MigrateModal from "components/MigrateModal";
+import ClaimModal from "components/ClaimModal";
 import ICALogo from "assets/tokens/ica.svg";
 import "./style.scss";
 
@@ -23,6 +24,7 @@ export default function AppHeader() {
 
   const [icaBalance, setIcaBalance] = useState("");
   const [migrateModalVisible, setMigrateModalVisible] = useState(false);
+  const [claimModalVisible, setClaimModalVisible] = useState(false);
   const wallet = useWallet();
   const { account } = wallet;
 
@@ -109,6 +111,12 @@ export default function AppHeader() {
         <div className="header-right">
           {wallet.status === "connected" && account ? (
             <>
+              <a
+                className="btn-claim"
+                onClick={() => setClaimModalVisible(true)}
+              >
+                CLAIM AIRDROP
+              </a>
               <a className="btn-trans">
                 <img src={ICALogo} /> {Number(icaBalance).toFixed(3)}
               </a>
@@ -128,6 +136,14 @@ export default function AppHeader() {
           balance={icaBalance}
           onCancel={() => {
             setMigrateModalVisible(false);
+          }}
+        />
+      )}
+      {claimModalVisible && (
+        <ClaimModal
+          // balance={icaBalance}
+          onCancel={() => {
+            setClaimModalVisible(false);
           }}
         />
       )}
