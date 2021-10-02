@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Modal, Button } from "antd";
 import { Link } from "react-router-dom";
 import RocketImg from "assets/launchpad-rocket.png";
@@ -6,6 +6,7 @@ import "./style.scss";
 
 export default function ClaimedModal(props) {
   const { onCancel } = props;
+ 
 
   return (
     <Modal
