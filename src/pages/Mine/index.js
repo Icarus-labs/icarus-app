@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useWallet } from "use-wallet";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import BannerImg from "assets/banners/video-contest.png";
+import BannerImg from "assets/banners/launchpad.gif";
 import { useLocation } from "react-router-dom";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
@@ -290,13 +290,9 @@ export default function Mine() {
           </Row>
         </Col>
         <Col xs={24} lg={12}>
-          <a
-            href="https://icarus-finance.medium.com/video-contest-9a7d91bb0bf0"
-            target="_blank"
-            className="coingecko"
-          >
+          <nuxt-link to="/launchpad" class="coingecko">
             <img src={BannerImg} />
-          </a>
+          </nuxt-link>
 
           <div className="block second-line">
             <Row>

@@ -111,12 +111,12 @@ export default function AppHeader() {
         <div className="header-right">
           {wallet.status === "connected" && account ? (
             <>
-              <a
+              {/* <a
                 className="btn-claim"
                 onClick={() => setClaimModalVisible(true)}
               >
                 CLAIM AIRDROP
-              </a>
+              </a> */}
               <a className="btn-trans">
                 <img src={ICALogo} /> {Number(icaBalance).toFixed(3)}
               </a>
