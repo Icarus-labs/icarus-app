@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button, message } from "antd";
-import axios from "utils/axios";
-import Web3 from "web3";
-import mm from "components/mm";
-import erc20ABI from "contract/abi/ERC20.json";
+import { Modal, Button } from "antd";
+// import axios from "utils/axios";
+// import Web3 from "web3";
+// import mm from "components/mm";
+// import erc20ABI from "contract/abi/ERC20.json";
 import ClaimGirl from "assets/claim-girl.png";
 import ClaimApi from 'contract/ClaimContractApi'
 import { useWallet } from "use-wallet";
@@ -26,7 +26,7 @@ export default function ClaimModal(props) {
     <Modal
       footer={null}
       visible={true}
-      width={320}
+      width={400}
       wrapClassName="claim-modal"
       onCancel={() => {
         onCancel();
