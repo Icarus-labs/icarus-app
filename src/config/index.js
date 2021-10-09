@@ -544,7 +544,7 @@ export const blocksLeftMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "test",
+  defaultNetwork: "binance",
   //test(binance)
   test: {
     contracts: {
@@ -585,7 +585,7 @@ export default {
       holder: "0xBD265D3b9572Ea4039eb83f8fdfF46B7Fadd9Fe6",
       staker: "0xF3831F3fC64e5D44AfFD25afbd2Fc5e724a670d2",
 
-      claim: '0x18CdA36E7301f74e9f2039d37c6019Dc6DE8A04A',
+      claim: '0x5bF1ce175Ee1BE26E156Aae5872CA512be0483AB',
 
       box: "0xdabd923235127e4d70f6da2cdfba0efb3f674d5f",
 
