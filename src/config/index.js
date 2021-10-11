@@ -98,6 +98,11 @@ export default {
         address: "0x0ca2f09eca544b61b91d149dea2580c455c564b2",
       },
       {
+        symbol: "ZBTC",
+        logoURI: "/poolTokens/zbtc.svg",
+        address: "0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd",
+      },
+      {
         name: "BNB",
         symbol: "BNB",
         address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
