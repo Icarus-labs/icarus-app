@@ -100,8 +100,6 @@ export default {
         from: wallet.account,
       });
 
-      console.log("balancess", balances);
-
       return Tools.numDivDecimals(balances, Config[network].decimal);
     } catch (err) {
       console.log(err);

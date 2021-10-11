@@ -107,11 +107,11 @@ export default function AppSidebar() {
           className="menu icon"
           onClick={() => setMenuOpened((prev) => !prev)}
         />
-        <Link className="nav-link">
+        <Link to="/swap" className="nav-link">
           <div className="block">
             <img className="home-icon icon new-icon" src={SwapIcon} />
           </div>
-          <span className="nav-text coming-soon">SWAP</span>
+          <span className="nav-text">SWAP</span>
         </Link>
         <Link to="/mine" className="nav-link">
           <div className="block">
