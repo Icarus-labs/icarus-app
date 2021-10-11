@@ -103,6 +103,11 @@ export default {
         address: "0xd0dff49de3e314fdfd3f93c5eeee7d5d2f5515cd",
       },
       {
+        symbol: "ZETH",
+        logoURI: "/poolTokens/zeth.svg",
+        address: "0xdbeb98858f5d4dca13ea0272b2b786e9415d3992",
+      },
+      {
         name: "BNB",
         symbol: "BNB",
         address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
