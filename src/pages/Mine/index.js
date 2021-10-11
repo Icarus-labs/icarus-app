@@ -4,14 +4,14 @@ import { useWallet } from "use-wallet";
 import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import BannerImg from "assets/banners/launchpad.gif";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link, useHistory } from "react-router-dom";
 import BuyIcaIcon from "assets/buy-ica.svg";
 import BuyZbtcIcon from "assets/buy-zbtc.svg";
 import BuyZethIcon from "assets/buy-zeth.svg";
 import ICALogo from "assets/tokens/ica.svg";
 // import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
-import StarClusterImg from "assets/star-cluster-2.png";
+import StarClusterImg from "assets/banners/star-launchpad.png";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
 import { toThousands } from "utils/Tools";
@@ -21,6 +21,7 @@ import "./style.scss";
 export default function Mine() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
   const wallet = useWallet();
 
   const [poolList, setPoolList] = useState([]);
@@ -215,6 +216,10 @@ export default function Mine() {
     });
   };
 
+  const goLaunchpad = () => {
+    history.push('/launchpad')
+  }
+
   useEffect(() => {
     if (!wallet.account) {
       return;
@@ -290,9 +295,9 @@ export default function Mine() {
           </Row>
         </Col>
         <Col xs={24} lg={12}>
-          <nuxt-link to="/launchpad" class="coingecko">
+          <Link to="/swap" className="coingecko">
             <img src={BannerImg} />
-          </nuxt-link>
+          </Link>
 
           <div className="block second-line">
             <Row>
@@ -347,8 +352,9 @@ export default function Mine() {
           </div>
           <div className="num">${toThousands(starTotalStaked.toFixed(2))}</div>
         </div>
-
-        <img src={StarClusterImg} className="star-cluster-img" />
+        {/* <Link to="/launchpad" style={{display: 'block'}}> */}
+          <img src={StarClusterImg} className="star-cluster-img" onClick={goLaunchpad} />
+        {/* </Link> */}
 
         <div className="block">
           <div className="title">
