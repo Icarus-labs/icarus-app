@@ -30,6 +30,23 @@ export default {
     });
   },
 
+  async totalSupply(tokenAddress, wallet) {
+    const web3 = new Web3(wallet.ethereum);
+    const tokenContract = new web3.eth.Contract(Erc20Abi, tokenAddress);
+
+    const result = await tokenContract.methods.totalSupply().call();
+
+    return web3.utils.fromWei(result);
+  },
+
+  async getReserves(tokenAddress, wallet) {
+    const web3 = new Web3(wallet.ethereum);
+    const tokenContract = new web3.eth.Contract(BoxPairAbi, tokenAddress);
+    const reserves = await tokenContract.methods.getReserves().call();
+
+    return reserves
+  },
+
   async balanceOf(tokenAddress, wallet) {
     const web3 = new Web3(wallet.ethereum);
     const tokenContract = new web3.eth.Contract(Erc20Abi, tokenAddress);

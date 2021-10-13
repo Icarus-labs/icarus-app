@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Tooltip, Input, Slider } from "antd";
 import ArrowDown from "assets/arrow-down.svg";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 import FarmContractApi from "contract/FarmContractApi";
+import CommonContractApi from "contract/CommonContractApi";
+import ActionButton from "components/ActionButton";
+import config from "config";
 import { useWallet } from "use-wallet";
 
 import "./style.scss";
@@ -18,7 +22,13 @@ const sliderMarks = {
 export default function FarmItem(props) {
   const { item } = props;
   const wallet = useWallet();
+  const [info, setInfo] = useState({});
+  const network = useSelector((state) => state.setting.network);
   const [showDetail, setShowDetail] = useState(false);
+  const [depositAmount, setDepositAmount] = useState(0);
+  const [depositPercent, setDepositPercent] = useState(0);
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [withdrawPercent, setWithdrawPercent] = useState(0);
   const [rewardList, setRewardList] = useState([
     {
       period: "1d",
@@ -58,12 +68,77 @@ export default function FarmItem(props) {
     });
   };
 
+  const doDeposit = async () => {
+    await FarmContractApi.deposit(item.pid, depositAmount, wallet);
+    getPoolInfo()
+  };
+  const doDepositAll = async () => {
+    depositAmountChange(info.balance);
+    await FarmContractApi.deposit(item.pid, depositAmount, wallet);
+    getPoolInfo()
+  };
+  const doWithdraw = async () => {
+    await FarmContractApi.withdraw(item.pid, withdrawAmount, wallet);
+    getPoolInfo()
+  };
+  const doWithdrawAll = async () => {
+    withdrawAmountChange(info.deposited);
+    await FarmContractApi.withdrawAll(item.pid, wallet);
+    getPoolInfo()
+  };
+
+  const doClaim = async () => {
+    await FarmContractApi.withdraw(item.pid, 0, wallet);
+    getPoolInfo()
+  };
+
+  const getPoolInfo = async () => {
+    const poolInfo = await FarmContractApi.getPoolInfo(item.pid, wallet);
+    const balance = await CommonContractApi.balanceOf(poolInfo.want, wallet);
+    const deposited = await FarmContractApi.getDeposited(item.pid, wallet);
+    const pendingReward = await FarmContractApi.getPendingReward(
+      item.pid,
+      wallet
+    );
+    console.log("pool info", poolInfo);
+    const tvl = await FarmContractApi.getTVL(poolInfo.want, item, wallet);
+    setInfo((prev) => {
+      return {
+        ...prev,
+        ...poolInfo,
+        deposited,
+        pendingReward,
+        balance,
+        tvl,
+      };
+    });
+  };
+
   useEffect(async () => {
     if (wallet.account) {
-      const foo = await FarmContractApi.getPoolInfo(item.pid, wallet);
-      console.log(foo, "foooooo");
+      getPoolInfo();
     }
   }, [wallet]);
+
+  const depositAmountChange = (val) => {
+    setDepositAmount(val);
+    setDepositPercent((val / info.balance) * 100);
+  };
+
+  const depositSliderChange = async (val) => {
+    setDepositPercent(val);
+    setDepositAmount((info.balance * val) / 100);
+  };
+
+  const withdrawAmountChange = (val) => {
+    setWithdrawAmount(val);
+    setWithdrawPercent((val / info.deposited) * 100);
+  };
+
+  const withdrawSliderChange = async (val) => {
+    setWithdrawPercent(val);
+    setWithdrawAmount((info.deposited * val) / 100);
+  };
 
   return (
     <div className="farm-item">
@@ -71,14 +146,13 @@ export default function FarmItem(props) {
         <div className="left">
           <div className="lp-info">
             <div className="token-pair">
-              <img src={`/tokens/${item.want}.svg`} className="token0" />
-              {/* <img
-                  src={`/tokens/${item.token1}.svg`}
-                  className="token1"
-                /> */}
+              <img src={`/tokens/${item.want[0]}.svg`} className="token0" />
+              {item.want[1] && (
+                <img src={`/tokens/${item.want[1]}.svg`} className="token1" />
+              )}
             </div>
             <div>
-              <div className="lp-name">{item.want} LP</div>
+              <div className="lp-name">{item.want.join("-")} LP</div>
               <div className="uses">Uses: icarus.finance</div>
             </div>
           </div>
@@ -90,11 +164,11 @@ export default function FarmItem(props) {
         <div className="right">
           <div className="num-box purple-line">
             <div className="label">Wallet</div>
-            <div className="value">0</div>
+            <div className="value">{info.balance}</div>
           </div>
           <div className="num-box purple">
             <div className="label">Deposited</div>
-            <div className="value">465.769</div>
+            <div className="value">{info.deposited}</div>
           </div>
           <div className="num-box">
             <div className="label">APY</div>
@@ -106,12 +180,12 @@ export default function FarmItem(props) {
           </div>
           <div className="num-box">
             <div className="label">TVL</div>
-            <div className="value">$54,639</div>
+            <div className="value">${info.tvl}</div>
           </div>
-          <div className="num-box">
+          {/* <div className="num-box">
             <div className="label">Deposited</div>
             <div className="value">465.769</div>
-          </div>
+          </div> */}
           <img
             src={ArrowDown}
             className={`arrow-down ${showDetail && "reverse"}`}
@@ -126,9 +200,7 @@ export default function FarmItem(props) {
               <div className="reward-table">
                 <div className="reward-head">
                   <div>Period</div>
-                  <div>
-                    {item.token0}-{item.token1} LP
-                  </div>
+                  <div>{item.want.join("-")} LP</div>
                   <div>ICA</div>
                 </div>
                 <div className="reward-body">
@@ -145,37 +217,67 @@ export default function FarmItem(props) {
             <Col xs={24} md={12} lg={6}>
               <div className="input-zone">
                 <div>
-                  <span className="strong-title">Balance:</span> 0.0{" "}
-                  {item.token0}-{item.token1} LP
+                  <span className="strong-title">Balance:</span> {info.balance}{" "}
+                  {item.want.join("-")} LP
                 </div>
-                <Input />
-                <Slider marks={sliderMarks} />
+                <Input
+                  value={depositAmount}
+                  onChange={(e) => depositAmountChange(e.target.value)}
+                />
+                <Slider
+                  marks={sliderMarks}
+                  value={depositPercent}
+                  onChange={(val) => depositSliderChange(val)}
+                />
                 <div className="buttons-area">
-                  <Button className="btn-purple-line">Deposit</Button>
-                  <Button className="btn-purple">Deposit All</Button>
+                  <ActionButton
+                    tokenAddress={info.want}
+                    contractAddress={config[network].contracts.farm}
+                  >
+                    <Button className="btn-purple-line" onClick={doDeposit}>
+                      Deposit
+                    </Button>
+                    <Button className="btn-purple" onClick={doDepositAll}>
+                      Deposit All
+                    </Button>
+                  </ActionButton>
                 </div>
               </div>
             </Col>
             <Col xs={24} md={12} lg={6}>
               <div className="input-zone">
                 <div>
-                  <span className="strong-title">Deposited:</span> 0.0{" "}
-                  {item.token0}-{item.token1} LP
+                  <span className="strong-title">Deposited:</span>{" "}
+                  {info.deposited} {item.want.join("-")} LP
                 </div>
-                <Input />
-                <Slider marks={sliderMarks} />
+                <Input
+                  value={withdrawAmount}
+                  onChange={(e) => withdrawAmountChange(e.target.value)}
+                />
+                <Slider
+                  marks={sliderMarks}
+                  value={withdrawPercent}
+                  onChange={(val) => withdrawSliderChange(val)}
+                />
                 <div className="buttons-area">
-                  <Button className="btn-purple-line">Withdraw</Button>
-                  <Button className="btn-trans">Withdraw All</Button>
+                  <Button className="btn-purple-line" onClick={doWithdraw}>
+                    Withdraw
+                  </Button>
+                  <Button className="btn-trans" onClick={doWithdrawAll}>
+                    Withdraw All
+                  </Button>
                 </div>
               </div>
             </Col>
             <Col xs={24} md={12} lg={6}>
               <div className="claim-area">
                 <div>
-                  <span className="strong-title">ICA Rewards:</span> 666.42
+                  <span className="strong-title">ICA Rewards:</span>{" "}
+                  {info.pendingReward}
                 </div>
-                <Button className="btn-purple btn-claim">Claim</Button>
+                <Button className="btn-purple btn-claim" onClick={doClaim}>
+                  Claim
+                </Button>
                 <div>
                   <span className="strong-title">ICA APR:</span> 18%
                 </div>

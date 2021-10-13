@@ -7,14 +7,10 @@ import {
 } from "antd";
 import { useWallet } from "use-wallet";
 // import TokenSelect from "components/TokenSelect";
-import AdvancedSetting from "components/AdvancedSetting";
-import { LoadingOutlined } from "@ant-design/icons";
 import ActionButton from "components/ActionButton";
 import { useSelector } from "react-redux";
 import config from "config";
 import TelescopeIcon from "assets/yield/telescope.svg";
-import CommonContractApi from "contract/CommonContractApi";
-import RouterContractApi from "contract/RouterContractApi";
 import FarmItem from 'components/FarmItem'
 import "./style.scss";
 
@@ -97,7 +93,7 @@ export default function Farm() {
       </Row>
       <div className="vault-list">
         {poolList.map((item, index) => (
-          <FarmItem item={item} />
+          <FarmItem item={item} key={item.pid} />
         ))}
       </div>
     </div>

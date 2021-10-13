@@ -13,6 +13,8 @@ export const blocksLeftMapping = {
   BUSD: 1626167400,
   MATIC: 1626165053,
 };
+
+export const coingeckoURL = 'https://api.coingecko.com/api/v3'
 //template_id 1: moneyDao 定时筹款，投票释放
 // template_id 2: moneyDaoFullRelease 定时筹款，全款释放
 // template_id 3: moneyDaoFixRaise 定期筹款，投票释放
@@ -20,7 +22,7 @@ export const blocksLeftMapping = {
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "binance",
+  defaultNetwork: "test",
   //test(binance)
   test: {
     contracts: {

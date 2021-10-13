@@ -6,9 +6,17 @@
 const poolList = [
   {
     pid: 0,
-    want: 'CAKE',
+    want: ['CAKE'],
     earned: 'AUTO',
+    //used for track price
+    tokens: ['pancakeswap-token']
   },
+  {
+    pid: 1,
+    want: ['vICA', 'BUSD'],
+    earned: '',
+    tokens: ['icarus-finance', 'binance-usd']
+  }
 ];
 
 export default poolList;
