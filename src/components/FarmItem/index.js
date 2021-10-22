@@ -4,6 +4,7 @@ import ArrowDown from "assets/arrow-down.svg";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import FarmContractApi from "contract/FarmContractApi";
+import StrategyContractApi from "contract/StrategyContractApi";
 import CommonContractApi from "contract/CommonContractApi";
 import ActionButton from "components/ActionButton";
 import config from "config";
@@ -92,6 +93,11 @@ export default function FarmItem(props) {
     getPoolInfo()
   };
 
+  const doEarn = async () => {
+    await StrategyContractApi.earn(item.strategy, wallet);
+    getPoolInfo()
+  };
+
   const getPoolInfo = async () => {
     const poolInfo = await FarmContractApi.getPoolInfo(item.pid, wallet);
     const balance = await CommonContractApi.balanceOf(poolInfo.want, wallet);
@@ -100,12 +106,20 @@ export default function FarmItem(props) {
       item.pid,
       wallet
     );
+    const {apy, dailyApy} = await FarmContractApi.getApy(
+      item.pid,
+      poolInfo,
+      item.tokens,
+      wallet
+    );
     console.log("pool info", poolInfo);
     const tvl = await FarmContractApi.getTVL(poolInfo.want, item, wallet);
     setInfo((prev) => {
       return {
         ...prev,
         ...poolInfo,
+        apy,
+        dailyApy,
         deposited,
         pendingReward,
         balance,
@@ -152,7 +166,7 @@ export default function FarmItem(props) {
               )}
             </div>
             <div>
-              <div className="lp-name">{item.want.join("-")} LP</div>
+              <div className="lp-name">{item.want.join("-")} {item.want.length > 1 && <span>LP</span>}</div>
               <div className="uses">Uses: icarus.finance</div>
             </div>
           </div>
@@ -164,7 +178,7 @@ export default function FarmItem(props) {
         <div className="right">
           <div className="num-box purple-line">
             <div className="label">Wallet</div>
-            <div className="value">{info.balance}</div>
+            <div className="value">{Number(info.balance).toFixed(2)}</div>
           </div>
           <div className="num-box purple">
             <div className="label">Deposited</div>
@@ -200,7 +214,7 @@ export default function FarmItem(props) {
               <div className="reward-table">
                 <div className="reward-head">
                   <div>Period</div>
-                  <div>{item.want.join("-")} LP</div>
+                  <div>{item.want.join("-")} {item.want.length > 1 && <span>LP</span>}</div>
                   <div>ICA</div>
                 </div>
                 <div className="reward-body">
@@ -217,8 +231,8 @@ export default function FarmItem(props) {
             <Col xs={24} md={12} lg={6}>
               <div className="input-zone">
                 <div>
-                  <span className="strong-title">Balance:</span> {info.balance}{" "}
-                  {item.want.join("-")} LP
+                  <span className="strong-title">Balance:</span> {Number(info.balance).toFixed(8)}{" "}
+                  {item.want.join("-")} {item.want.length > 1 && <span>LP</span>}
                 </div>
                 <Input
                   value={depositAmount}
@@ -226,6 +240,7 @@ export default function FarmItem(props) {
                 />
                 <Slider
                   marks={sliderMarks}
+                  tooltipPlacement="bottom"
                   value={depositPercent}
                   onChange={(val) => depositSliderChange(val)}
                 />
@@ -248,7 +263,7 @@ export default function FarmItem(props) {
               <div className="input-zone">
                 <div>
                   <span className="strong-title">Deposited:</span>{" "}
-                  {info.deposited} {item.want.join("-")} LP
+                  {Number(info.deposited).toFixed(8)} {item.want.join("-")} {item.want.length > 1 && <span>LP</span>}
                 </div>
                 <Input
                   value={withdrawAmount}
@@ -257,6 +272,7 @@ export default function FarmItem(props) {
                 <Slider
                   marks={sliderMarks}
                   value={withdrawPercent}
+                  tooltipPlacement="bottom"
                   onChange={(val) => withdrawSliderChange(val)}
                 />
                 <div className="buttons-area">
@@ -277,6 +293,9 @@ export default function FarmItem(props) {
                 </div>
                 <Button className="btn-purple btn-claim" onClick={doClaim}>
                   Claim
+                </Button>
+                <Button className="btn-purple btn-claim" onClick={doEarn} style={{marginLeft: '2px'}}>
+                  Compounding
                 </Button>
                 <div>
                   <span className="strong-title">ICA APR:</span> 18%

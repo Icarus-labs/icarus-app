@@ -1,11 +1,13 @@
 import Web3 from "web3";
 import Config from "../config";
 import FarmAbi from "./abi/Farm.json";
+import RemoteFarmAbi from "./abi/RemoteFarm.json";
 import mm from "components/mm";
 import BN from "bignumber.js";
 import CommonContractApi from "contract/CommonContractApi";
+import Erc20Abi from "./abi/ERC20.json";
 import { getTokenPrice } from "utils/coingecko";
-import config from "config";
+// import config from "config";
 
 import store from "../redux/store";
 
@@ -13,6 +15,77 @@ const { setting } = store.getState();
 const network = setting.network;
 
 export default {
+  async getTokenLpPrice(tokenLpAddress, tokens, wallet) {
+    const web3 = new Web3(wallet.ethereum);
+    let price = 0
+
+    const totalSupply = await CommonContractApi.totalSupply(
+      tokenLpAddress,
+      wallet
+    );
+
+    let totalValue = 0;
+    if (tokens.length === 2) {
+      const reserve0Price = await getTokenPrice(tokens[0]);
+      const reserve1Price = await getTokenPrice(tokens[1]);
+      const reserves = await CommonContractApi.getReserves(
+        tokenLpAddress,
+        wallet
+      );
+
+      totalValue =
+        web3.utils.fromWei(reserves._reserve0) * reserve0Price +
+        web3.utils.fromWei(reserves._reserve1) * reserve1Price;
+
+      price = totalValue / totalSupply;
+    } else {
+      price = await getTokenPrice(tokens[0]);
+    }
+    return price
+  },
+  async getApy(pid, poolInfo, tokens, wallet) {
+    const web3 = new Web3(wallet.ethereum);
+
+    const contract = new web3.eth.Contract(
+      FarmAbi,
+      Config[network].contracts.farm
+    );
+
+    const commonContract = new web3.eth.Contract(
+      Erc20Abi,
+      Config[network].contracts.remoteFarm
+    );
+
+    const remoteContract = new web3.eth.Contract(
+      RemoteFarmAbi,
+      Config[network].contracts.remoteFarm
+    );
+
+    try {
+      const { allocPoint } = poolInfo;
+      const totalAllocPoint = await remoteContract.methods.totalAllocPoint();
+      const cakePerBlock = await remoteContract.methods.cakePerBlock();
+      const lpBalance = await commonContract.methods.balanceOf(poolInfo.want)
+      const lpPrice = await this.getTokenLpPrice(poolInfo.want, tokens, wallet)
+
+      const cakePrice = await getTokenPrice("pancakeswap-token");
+
+      const remoteFarmApr = new BN(allocPoint)
+        .div(totalAllocPoint)
+        .times(cakePerBlock)
+        .times(cakePrice)
+        .div(lpBalance).div(lpPrice)
+        .times(10512000);
+
+
+      return {
+        apy: "",
+        dailyApy: "",
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  },
   async getTotalLocked(pid, wallet) {
     const web3 = new Web3(wallet.ethereum);
 
@@ -30,37 +103,16 @@ export default {
       console.log(err);
     }
   },
-  async getTVL(tokenAddress, poolInfo, wallet) {
-    const totalSupply = await CommonContractApi.totalSupply(
-      tokenAddress,
-      wallet
-    );
-    let totalValue = 0;
-    let price = 0;
+  async getTVL(tokenLpAddress, poolInfo, wallet) {
     const { tokens } = poolInfo;
     // 暂时不考虑3币情况
-    if (tokens.length === 2) {
-      console.log('hereee')
-      const reserve0Price = await getTokenPrice(tokens[0]);
-      const reserve1Price = await getTokenPrice(tokens[1]);
-      const reserves = await CommonContractApi.getReserves(
-        tokenAddress,
-        wallet
-      );
+    const price = await this.getTokenLpPrice(tokenLpAddress, tokens, wallet);
 
-
-
-      totalValue =
-        reserves._reserve0 * reserve0Price + reserves._reserve1 * reserve1Price;
-
-      price = totalValue / totalSupply;
-    } else {
-      price = await getTokenPrice(tokens[0]);
-    }
+    console.log('got ppp', price)
 
     const totalLocked = await this.getTotalLocked(poolInfo.pid, wallet);
 
-    return price * totalLocked;
+    return new BN(price).times(totalLocked).toFixed(2);
   },
   async getPoolInfo(pid, wallet) {
     const web3 = new Web3(wallet.ethereum);
@@ -159,7 +211,7 @@ export default {
             from: wallet.account,
           })
           .on("transactionHash", function (transactionHash) {
-            mm.listen(transactionHash, "Withdraw");
+            mm.listen(transactionHash, amount == 0 ? "Claim" : "Withdraw");
             return transactionHash;
           })
           .on("receipt", (receipt) => {

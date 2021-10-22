@@ -28,7 +28,7 @@ export default function Launchpad() {
   const [blindboxList, setBlindboxList] = useState([]);
   const network = useSelector((state) => state.setting.network);
 
-  const tokenAddress = config[network].contracts.vica;
+  const tokenAddress = config[network].contracts.vICA;
   const stakerContractAddress = config[network].contracts.staker;
 
   const doStake = async () => {
@@ -44,7 +44,7 @@ export default function Launchpad() {
 
   const getIcaBalance = async () => {
     const result = await CommonContractApi.balanceOf(
-      config[network].contracts.vica,
+      config[network].contracts.vICA,
       wallet
     );
     setBalance(result);

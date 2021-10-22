@@ -5,11 +5,12 @@
     .name {
         font-size: 18px;
         line-height: 1;
-        // margin-bottom: 4px;
+        margin-bottom: 4px;
         color: #ffffff;
     }
     .card {
         margin-bottom: 12px;
+        max-width:100%;
     }
     .drop-rate {
         border: 1px solid #fff;

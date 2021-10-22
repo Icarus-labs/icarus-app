@@ -26,16 +26,18 @@ export default {
   //test(binance)
   test: {
     contracts: {
-      vica: "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
-      core: "0xF14e233B9e78ce096445dBA4792adbbab6315947",
-      market: "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
-      media: "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
-      holder: "0xCfaa4F77ae18b51511390929D2647C9896BCB414",
-      staker: "0xb7767882FBc74b01966558a153416a2FacDBcc8a",
+      "vICA": "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
+      "core": "0xF14e233B9e78ce096445dBA4792adbbab6315947",
+      "market": "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
+      "media": "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
+      "holder": "0x5903dB0480D93aB7aC618e086BeaeA6D2793D80A",
+      "staker": "0x44373D32Fe38F87ad5a10bEa284945f31c1ec6Ba",
+      "uniswap": "0x8d3517035B21A5aEb93256F8A70922E162e67Da3",
 
       claim: '0x18CdA36E7301f74e9f2039d37c6019Dc6DE8A04A',
 
       farm: '0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233',
+      remoteFarm: '0x73feaa1eE314F8c655E354234017bE2193C9E24E',
 
       box: "0x80E94eaF3c828535700bFe0e0393F2c8365c2966",
     },
@@ -57,7 +59,7 @@ export default {
   // binance
   binance: {
     contracts: {
-      vica: "0xbcbdeccd5cbd126e62a874e04178accbcb7ee2a1",
+      vICA: "0xbcbdeccd5cbd126e62a874e04178accbcb7ee2a1",
       core: "0x51d91ece0e099d76cdb2713b81b378d29876452e",
       market: "0x8bbc20c2237d156fe0bcb3e10c76d7a4cf42d669",
       media: "0xefe0cd4fff3143b016bd982ca271d8fc1826894b",
@@ -69,6 +71,7 @@ export default {
       box: "0xdabd923235127e4d70f6da2cdfba0efb3f674d5f",
 
       farm: '0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233',
+      remoteFarm: '0x73feaa1eE314F8c655E354234017bE2193C9E24E',
 
       router: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
       factory: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",

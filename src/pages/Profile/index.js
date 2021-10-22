@@ -72,154 +72,154 @@ export default function Profile() {
     },
   ];
 
-  const itemsList = [
-    {
-      id: 1,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 2,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 3,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 4,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 5,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 6,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 7,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-    {
-      id: 8,
-      name: "?????",
-      dropRate: "????",
-      card: "normal",
-    },
-  ];
+  // const itemsList = [
+  //   {
+  //     id: 1,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "?????",
+  //     dropRate: "????",
+  //     card: "normal",
+  //   },
+  // ];
 
-  const chestList = [
-    {
-      name: "COMMON CHEST",
-      src: "chest-common",
-      quantity: 3,
-      desc: `<p>By providing liquidity on ICA-BUSD/ETH/BTC pools, users have a chance of dropping a chest.</p><p>Collect as much as you can and turn them into epic units. These upgrades allow your NFTs to become even stronger!</p><p>*requires card to unlock</p> `,
-    },
-    {
-      name: "RARE CHEST",
-      src: "chest-rare",
-      quantity: 2,
+  // const chestList = [
+  //   {
+  //     name: "COMMON CHEST",
+  //     src: "chest-common",
+  //     quantity: 3,
+  //     desc: `<p>By providing liquidity on ICA-BUSD/ETH/BTC pools, users have a chance of dropping a chest.</p><p>Collect as much as you can and turn them into epic units. These upgrades allow your NFTs to become even stronger!</p><p>*requires card to unlock</p> `,
+  //   },
+  //   {
+  //     name: "RARE CHEST",
+  //     src: "chest-rare",
+  //     quantity: 2,
 
-      desc: `<p>To upgrade for a rare chest it is needed 5 common ones, 5 rares to create an epic.</p><p>Keep stacking and Hit upgrade when you’re ready for it!</p><p>(racio 25:5:1)</p> `,
-    },
-    {
-      name: "EPIC CHEST",
-      src: "chest-epic",
-      quantity: 1,
+  //     desc: `<p>To upgrade for a rare chest it is needed 5 common ones, 5 rares to create an epic.</p><p>Keep stacking and Hit upgrade when you’re ready for it!</p><p>(racio 25:5:1)</p> `,
+  //   },
+  //   {
+  //     name: "EPIC CHEST",
+  //     src: "chest-epic",
+  //     quantity: 1,
 
-      desc: `<p>To become the elite, you must look like it!</p><p>Improve your stats, collect the best ingame items.</p><p>Do you have what it takes to reach the top?</p> `,
-    },
-  ];
+  //     desc: `<p>To become the elite, you must look like it!</p><p>Improve your stats, collect the best ingame items.</p><p>Do you have what it takes to reach the top?</p> `,
+  //   },
+  // ];
 
-  const cardList = [
-    {
-      name: "COMMON CARD",
-      src: "card-common",
-      quantity: 25,
+  // const cardList = [
+  //   {
+  //     name: "COMMON CARD",
+  //     src: "card-common",
+  //     quantity: 25,
 
-      desc: `<p>By providing liquidity on zeth-busd / zbtc-busd pools, users have a chance of dropping a Key.</p><p>The loot inside the chests can be either ingame items, NFT level upgrade or resources, depending on the rarity.</p><p>even a simple Private may one day become a fearsome General!</p> <p>*requires equivalent chest to unlock loot</p>`,
-    },
-    {
-      name: "RARE CARD",
-      src: "card-rare",
-      quantity: 3,
+  //     desc: `<p>By providing liquidity on zeth-busd / zbtc-busd pools, users have a chance of dropping a Key.</p><p>The loot inside the chests can be either ingame items, NFT level upgrade or resources, depending on the rarity.</p><p>even a simple Private may one day become a fearsome General!</p> <p>*requires equivalent chest to unlock loot</p>`,
+  //   },
+  //   {
+  //     name: "RARE CARD",
+  //     src: "card-rare",
+  //     quantity: 3,
 
-      desc: `<p>To upgrade for a rare key it is needed 5 common ones, 5 rares to create an epic.</p><p>Keep stacking and Hit upgrade when you’re ready for it!</p><p>(racio 25:5:1)</p> `,
-    },
-    {
-      name: "EPIC CARD",
-      src: "card-epic",
-      quantity: 0,
+  //     desc: `<p>To upgrade for a rare key it is needed 5 common ones, 5 rares to create an epic.</p><p>Keep stacking and Hit upgrade when you’re ready for it!</p><p>(racio 25:5:1)</p> `,
+  //   },
+  //   {
+  //     name: "EPIC CARD",
+  //     src: "card-epic",
+  //     quantity: 0,
 
-      desc: `<p>Better, faster, stronger..<br/>It’s said the most feared enemy is the most resourceful one!</p><p>Once you have enough of these, nothing can stop you to become the space lord.</p>`,
-    },
-  ];
+  //     desc: `<p>Better, faster, stronger..<br/>It’s said the most feared enemy is the most resourceful one!</p><p>Once you have enough of these, nothing can stop you to become the space lord.</p>`,
+  //   },
+  // ];
 
-  const teamList = [
-    {
-      name: "SLOT 1",
-    },
-    {
-      name: "SLOT 2",
-    },
-    {
-      name: "SLOT 3",
-    },
-  ];
+  // const teamList = [
+  //   {
+  //     name: "SLOT 1",
+  //   },
+  //   {
+  //     name: "SLOT 2",
+  //   },
+  //   {
+  //     name: "SLOT 3",
+  //   },
+  // ];
 
-  const storageList = [
-    {
-      name: "ITEM X",
-      src: "normal",
-      level: 2,
-      quantity: 3,
-    },
-    {
-      name: "ITEM Y",
-      src: "normal",
-      level: 2,
-      quantity: 3,
-    },
-    {
-      name: "ITEM Z",
-      src: "normal",
-      level: 2,
-      quantity: 3,
-    },
-    {
-      name: "SAMOS",
-      src: "samos",
-      level: 2,
-      quantity: 3,
-    },
-    {
-      name: "SAMOS",
-      src: "samos",
-      level: 2,
-      quantity: 3,
-    },
-    {
-      name: "SAMOS",
-      src: "samos",
-      level: 2,
-      quantity: 3,
-    },
-  ];
+  // const storageList = [
+  //   {
+  //     name: "ITEM X",
+  //     src: "normal",
+  //     level: 2,
+  //     quantity: 3,
+  //   },
+  //   {
+  //     name: "ITEM Y",
+  //     src: "normal",
+  //     level: 2,
+  //     quantity: 3,
+  //   },
+  //   {
+  //     name: "ITEM Z",
+  //     src: "normal",
+  //     level: 2,
+  //     quantity: 3,
+  //   },
+  //   {
+  //     name: "SAMOS",
+  //     src: "samos",
+  //     level: 2,
+  //     quantity: 3,
+  //   },
+  //   {
+  //     name: "SAMOS",
+  //     src: "samos",
+  //     level: 2,
+  //     quantity: 3,
+  //   },
+  //   {
+  //     name: "SAMOS",
+  //     src: "samos",
+  //     level: 2,
+  //     quantity: 3,
+  //   },
+  // ];
 
   const wallet = useWallet();
   const [blindboxList, setBlindboxList] = useState([]);
@@ -234,11 +234,23 @@ export default function Profile() {
 
   const getCollection = async (owner) => {
     const result = await graph.getCollection(owner);
-    result.forEach((item) => {
-      item.name = "SAMOS TEST";
-      item.card = "samos";
-      item.dropRate = 23;
-    });
+
+    for (let i = 0; i < result.length; i++) {
+      if(result[i].contentURI.indexOf('ipfs.io') === -1){
+        continue
+      }
+      let externalInfo = await graph.getContentURI(result[i].id);
+      if(!externalInfo){
+        continue
+      }
+      // console.log('EXTERNAL', externalInfo)
+      externalInfo.dropRate = externalInfo.attributes[0].drop_rate
+      externalInfo.contentURI = externalInfo.animation_url
+      result[i] = {
+        ...result[i],
+        ...externalInfo
+      }
+    }
 
     const collectionList = result;
     const ownedNum = collectionList.length;
@@ -299,7 +311,7 @@ export default function Profile() {
         >
           {finalcollectionList.map((item, index) => (
             <Col xs={12} lg={6} key={index}>
-              <NftCard info={item} />
+              <NftCard item={item} />
             </Col>
           ))}
         </Row>
