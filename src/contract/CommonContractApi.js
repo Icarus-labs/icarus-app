@@ -3,6 +3,7 @@ import { message, notification } from "antd";
 import config from "../config";
 import Erc20Abi from "./abi/ERC20.json";
 import BoxPairAbi from "./abi/BoxPair.json";
+import BN from 'bignumber.js'
 // import Wbe3Utils from "./Wbe3Utils";
 // import * as Tools from "../utils/Tools";
 
@@ -120,7 +121,7 @@ export default {
         .getReserves()
         .call()
         .then((res) => {
-          const price = res._reserve0 / res._reserve1;
+          const price = new BN(res._reserve0).div(res._reserve1);
           resolve(price);
           // resolve(Web3.utils.fromWei(res));
         })

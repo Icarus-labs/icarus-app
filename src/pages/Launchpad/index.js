@@ -12,13 +12,12 @@ import IcaIcon from "assets/tokens/ica.svg";
 import TimerIcon from "assets/timer.svg";
 import CapsuleCard from "components/CapsuleCard";
 import RocketCard from "components/RocketCard";
-import BN from 'bignumber.js'
+import BN from "bignumber.js";
 import "./style.scss";
 
 BN.config({
-  ROUNDING_MODE: 1
-})
-
+  ROUNDING_MODE: 1,
+});
 
 export default function Launchpad() {
   const wallet = useWallet();
@@ -50,11 +49,30 @@ export default function Launchpad() {
     setBalance(result);
   };
 
+  const amountChange = (e) => {
+    console.log("now amount is", e.target.value);
+    setAmount(e.target.value);
+  };
+
   useEffect(async () => {
     if (amount && wallet.account) {
       const price = await CommonContractApi.getBoxPrice(wallet);
-      setGetBoxAmount(new BN(amount).div(price).div(100).integerValue(BN.ROUND_DOWN).toString());
-    }else{
+      console.log(
+        "amount",
+        new BN(amount).toString(),
+        " price",
+        new BN(price).toString(),
+        " ",
+        new BN(amount).div(price).div(100).toString()
+      );
+      setGetBoxAmount(
+        new BN(amount)
+          .div(price)
+          .div(100)
+          .integerValue(BN.ROUND_DOWN)
+          .toString()
+      );
+    } else {
       setGetBoxAmount(0);
     }
   }, [amount, wallet]);
@@ -107,9 +125,7 @@ export default function Launchpad() {
                     <Input
                       value={amount}
                       placeholder="0"
-                      onChange={(e) => {
-                        setAmount(e.target.value);
-                      }}
+                      onChange={amountChange}
                     />
                     <span
                       className="max"
