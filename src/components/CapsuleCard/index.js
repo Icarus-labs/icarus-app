@@ -13,6 +13,7 @@ import ClaimedModal from "components/ClaimedModal";
 import LaunchpadRocket from "assets/launchpad-rocket.png";
 import ICALogo from "assets/tokens/ica.svg";
 import "./style.scss";
+import graph from "utils/graph";
 
 export default function CapsuleCard(props) {
   const { showTitle, mode, list, onRefresh } = props;
@@ -38,11 +39,19 @@ export default function CapsuleCard(props) {
 
     setNftGiftList(new Array(capsuleNum).fill({}));
 
-    subscribe(txId, (val) => {
+    subscribe(txId, async(val) => {
       if (!val.tokenId) {
         return;
       }
-      setNftGiftList((prev) => {
+      const externalInfo = await graph.getContentURI(val.tokenId)
+      val = {
+        ...val,
+        ...externalInfo
+      }
+
+      console.log('FINAL VAL IS', val)
+
+      setNftGiftList(prev => {
         prev.unshift(val);
         prev.pop();
         return prev;

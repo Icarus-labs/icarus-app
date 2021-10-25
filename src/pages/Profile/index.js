@@ -235,22 +235,22 @@ export default function Profile() {
   const getCollection = async (owner) => {
     const result = await graph.getCollection(owner);
 
-    for (let i = 0; i < result.length; i++) {
-      if(result[i].contentURI.indexOf('ipfs.io') === -1){
-        continue
-      }
-      let externalInfo = await graph.getContentURI(result[i].id);
-      if(!externalInfo){
-        continue
-      }
-      // console.log('EXTERNAL', externalInfo)
-      externalInfo.dropRate = externalInfo.attributes[0].drop_rate
-      externalInfo.contentURI = externalInfo.animation_url
-      result[i] = {
-        ...result[i],
-        ...externalInfo
-      }
-    }
+    // for (let i = 0; i < result.length; i++) {
+    //   if(result[i].contentURI.indexOf('ipfs.io') === -1){
+    //     continue
+    //   }
+    //   let externalInfo = await graph.getContentURI(result[i].id);
+    //   if(!externalInfo){
+    //     continue
+    //   }
+    //   // console.log('EXTERNAL', externalInfo)
+    //   externalInfo.dropRate = (Number(externalInfo.attributes[0].drop_rate) / 10000).toFixed(2)
+    //   externalInfo.contentURI = externalInfo.animation_url
+    //   result[i] = {
+    //     ...result[i],
+    //     ...externalInfo
+    //   }
+    // }
 
     const collectionList = result;
     const ownedNum = collectionList.length;
