@@ -49,7 +49,7 @@ const getCollection = async (owner) => {
     if(!externalInfo){
       continue
     }
-    externalInfo.dropRate = (Number(externalInfo.attributes[0].drop_rate) / 10000).toFixed(2)
+    externalInfo.dropRate = (Number(externalInfo.attributes[0].drop_rate) / 100).toFixed(2)
     externalInfo.contentURI = externalInfo.animation_url
     medias[i] = {
       ...medias[i],
