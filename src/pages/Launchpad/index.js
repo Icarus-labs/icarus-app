@@ -60,16 +60,20 @@ export default function Launchpad() {
       if (config.defaultNetwork === "test") {
         setGetBoxAmount(
           new BN(amount)
+            .shiftedBy(18)
             .times(price)
             .div(100)
+            .shiftedBy(-18)
             .integerValue(BN.ROUND_DOWN)
             .toString()
         );
       } else {
         setGetBoxAmount(
           new BN(amount)
+            .shiftedBy(18)
             .div(price)
             .div(100)
+            .shiftedBy(-18)
             .integerValue(BN.ROUND_DOWN)
             .toString()
         );
