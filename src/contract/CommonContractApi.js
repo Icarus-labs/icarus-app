@@ -121,8 +121,9 @@ export default {
         .getReserves()
         .call()
         .then((res) => {
-          const price = new BN(res._reserve0).div(res._reserve1);
-          resolve(price);
+          // const price = new BN(res._reserve0).div(res._reserve1);
+          // resolve(price);
+          resolve([res._reserve0, res._reserve1])
           // resolve(Web3.utils.fromWei(res));
         })
         .catch((err) => {

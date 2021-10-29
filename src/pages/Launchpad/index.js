@@ -14,6 +14,7 @@ import CapsuleCard from "components/CapsuleCard";
 import RocketCard from "components/RocketCard";
 import BN from "bignumber.js";
 import "./style.scss";
+import { div } from "utils/Tools";
 
 BN.config({
   ROUNDING_MODE: 1,
@@ -50,31 +51,36 @@ export default function Launchpad() {
   };
 
   const amountChange = (e) => {
-    console.log("now amount is", e.target.value);
     setAmount(e.target.value);
   };
 
   useEffect(async () => {
     if (amount && wallet.account) {
-      const price = await CommonContractApi.getBoxPrice(wallet);
+      const reserves = await CommonContractApi.getBoxPrice(wallet);
       if (config.defaultNetwork === "test") {
         setGetBoxAmount(
           new BN(amount)
             .shiftedBy(18)
-            .times(price)
+            .times(reserves[0])
+            .div(reserves[1])
+            .integerValue(BN.ROUND_FLOOR)
             .div(100)
+            .integerValue(BN.ROUND_FLOOR)
             .shiftedBy(-18)
-            .integerValue(BN.ROUND_DOWN)
+            .integerValue(BN.ROUND_FLOOR)
             .toString()
         );
       } else {
         setGetBoxAmount(
           new BN(amount)
             .shiftedBy(18)
-            .div(price)
+            .times(reserves[1])
+            .div(reserves[0])
+            .integerValue(BN.ROUND_FLOOR)
             .div(100)
+            .integerValue(BN.ROUND_FLOOR)
             .shiftedBy(-18)
-            .integerValue(BN.ROUND_DOWN)
+            .integerValue(BN.ROUND_FLOOR)
             .toString()
         );
       }
