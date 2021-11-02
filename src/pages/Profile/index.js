@@ -224,6 +224,9 @@ export default function Profile() {
   const wallet = useWallet();
   const [blindboxList, setBlindboxList] = useState([]);
   const [finalcollectionList, setFinalCollectionList] = useState([]);
+  const [pageNo, setPageNo] = useState(1);
+  // fetch 8 items per request
+  const pageSize = 8;
   // const [activeCardIndex, setActiveCardIndex] = useState(-1);
   // const [activeChestIndex, setActiveChestIndex] = useState(-1);
 
@@ -309,11 +312,17 @@ export default function Profile() {
             lg: 64,
           }}
         >
-          {finalcollectionList.map((item, index) => (
-            <Col xs={12} lg={6} key={index}>
-              <NftCard item={item} />
-            </Col>
-          ))}
+          {finalcollectionList
+            .slice(0, pageNo * pageSize)
+            .map((item, index) => (
+              <Col xs={12} lg={6} key={index}>
+                <NftCard item={item} />
+              </Col>
+            ))}
+
+          {Math.ceil(finalcollectionList.length / pageSize) > pageNo && (
+            <a className="show-more-btn" onClick={() => setPageNo((prev) => prev + 1)}>Show more</a>
+          )}
         </Row>
       </div>
       <div className="capsule-section" id="capsule">

@@ -35,7 +35,7 @@ const getCollection = async (owner) => {
   }
   const result = await axios.post(baseURL, {
     query: `{
-      medias(where:{owner: "${owner.toLowerCase()}"}) {
+      medias(first: 1000, where:{owner: "${owner.toLowerCase()}"}) {
         id,
         contentURI,
       }
