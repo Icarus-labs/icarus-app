@@ -49,8 +49,6 @@ export default function CapsuleCard(props) {
         ...externalInfo
       }
 
-      console.log('FINAL VAL IS', val)
-
       setNftGiftList(prev => {
         prev.unshift(val);
         prev.pop();

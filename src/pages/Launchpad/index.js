@@ -14,7 +14,6 @@ import CapsuleCard from "components/CapsuleCard";
 import RocketCard from "components/RocketCard";
 import BN from "bignumber.js";
 import "./style.scss";
-import { div } from "utils/Tools";
 
 BN.config({
   ROUNDING_MODE: 1,
@@ -23,6 +22,7 @@ BN.config({
 export default function Launchpad() {
   const wallet = useWallet();
   const [amount, setAmount] = useState("100");
+  const [maxAmount, setMaxAmount] = useState(null);
   const [balance, setBalance] = useState("0");
   const [getBoxAmount, setGetBoxAmount] = useState(0);
   const [blindboxList, setBlindboxList] = useState([]);
@@ -51,13 +51,28 @@ export default function Launchpad() {
   };
 
   const amountChange = (e) => {
-    setAmount(e.target.value);
+    const newVal = e.target.value;
+    if (new BN(newVal).isGreaterThan(maxAmount)) {
+      setAmount(maxAmount.toString());
+    } else {
+      setAmount(e.target.value);
+    }
   };
 
   useEffect(async () => {
     if (amount && wallet.account) {
       const reserves = await CommonContractApi.getBoxPrice(wallet);
       if (config.defaultNetwork === "test") {
+        const maxAmount = new BN(20)
+          .shiftedBy(18)
+          .times(100)
+          .times(reserves[1])
+          .div(reserves[0])
+          .integerValue(BN.ROUND_FLOOR)
+          .shiftedBy(-18)
+          .plus(1);
+        setMaxAmount(maxAmount);
+
         setGetBoxAmount(
           new BN(amount)
             .shiftedBy(18)
@@ -71,6 +86,16 @@ export default function Launchpad() {
             .toString()
         );
       } else {
+        const maxAmount = new BN(20)
+          .shiftedBy(18)
+          .times(100)
+          .times(reserves[0])
+          .div(reserves[1])
+          .integerValue(BN.ROUND_FLOOR)
+          .shiftedBy(-18)
+          .plus(1);
+        setMaxAmount(maxAmount);
+
         setGetBoxAmount(
           new BN(amount)
             .shiftedBy(18)
@@ -142,7 +167,7 @@ export default function Launchpad() {
                     <span
                       className="max"
                       onClick={() => {
-                        setAmount(balance);
+                        amountChange({ target: { value: balance } });
                       }}
                     >
                       MAX

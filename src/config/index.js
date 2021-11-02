@@ -30,8 +30,8 @@ export default {
       "core": "0xF14e233B9e78ce096445dBA4792adbbab6315947",
       "market": "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
       "media": "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
-      "holder": "0x87691Ba86E0b36FAc9dD7DCfD0c5368D072A1bB8",
-      "staker": "0x41fD3d5a9D9ef3Da173Eaed40dE70C339779eDca",
+      "holder": "0x23De0670EC4cE0aAc563431597191872afF0af04",
+      "staker": "0xce4c0B2D5Cfe968603da374F718BCac2d87965cD",
       "uniswap": "0x8d3517035B21A5aEb93256F8A70922E162e67Da3",
 
       claim: '0x18CdA36E7301f74e9f2039d37c6019Dc6DE8A04A',
