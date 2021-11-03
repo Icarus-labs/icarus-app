@@ -12,13 +12,13 @@ const { setting } = store.getState();
 const network = setting.network;
 
 export default {
-  async claim(boxId, wallet) {
+  async claim(boxId, isOld, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
       const contract = new web3.eth.Contract(
         HolderAbi,
-        Config[network].contracts.holder
+        isOld ? Config[network].contracts.holderOld : Config[network].contracts.holder
       );
 
       return new Promise((resolve, reject) => {
@@ -45,13 +45,13 @@ export default {
     }
   },
 
-  async open(boxId, wallet) {
+  async open(boxId, isOld, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
       const contract = new web3.eth.Contract(
         HolderAbi,
-        Config[network].contracts.holder
+        isOld ? Config[network].contracts.holderOld : Config[network].contracts.holder
       );
 
       return new Promise((resolve, reject) => {
@@ -83,27 +83,27 @@ export default {
     }
   },
 
-  /**
-   * 获取余额
-   */
-  async balanceOf(wallet) {
-    // const network = setting.network;
-    const web3 = new Web3(wallet.ethereum);
+  // /**
+  //  * 获取余额
+  //  */
+  // async balanceOf(wallet) {
+  //   // const network = setting.network;
+  //   const web3 = new Web3(wallet.ethereum);
 
-    const contract = new web3.eth.Contract(
-      HolderAbi,
-      Config[network].contracts.holder
-    );
+  //   const contract = new web3.eth.Contract(
+  //     HolderAbi,
+  //     Config[network].contracts.holder
+  //   );
 
-    try {
-      const balances = await contract.methods.balanceOf(wallet.account).call({
-        from: wallet.account,
-      });
+  //   try {
+  //     const balances = await contract.methods.balanceOf(wallet.account).call({
+  //       from: wallet.account,
+  //     });
 
-      return Tools.numDivDecimals(balances, Config[network].decimal);
-    } catch (err) {
-      console.log(err);
-      return 0;
-    }
-  },
+  //     return Tools.numDivDecimals(balances, Config[network].decimal);
+  //   } catch (err) {
+  //     console.log(err);
+  //     return 0;
+  //   }
+  // },
 };

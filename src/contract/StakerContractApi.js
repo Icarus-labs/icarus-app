@@ -51,7 +51,7 @@ export default {
 
       const contract = new web3.eth.Contract(
         StakerAbi,
-        Config[network].contracts.staker
+        Config[network].contracts.stakerOld
       );
 
       return new Promise((resolve, reject) => {
@@ -84,7 +84,7 @@ export default {
 
     const contract = new web3.eth.Contract(
       StakerAbi,
-      Config[network].contracts.staker
+      Config[network].contracts.stakerOld
     );
 
     try {

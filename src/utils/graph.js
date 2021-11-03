@@ -1,8 +1,12 @@
 import axios from "axios";
 
 // const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.7";
+// test
 const baseURL =
   "https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph-test";
+
+//prod
+// const baseURL = 'https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph-testnet'
 
 const getBlindBox = async (owner) => {
   if (!owner) {
@@ -25,6 +29,7 @@ const getBlindBox = async (owner) => {
   result.data.data.blindBoxes.forEach((item) => {
     item.createdAt = item.createdAt * 1000;
     item.endAt = item.endAt * 1000;
+    item.isOld = item.createdAt < 1635901200000
   });
   return result.data.data.blindBoxes;
 };
