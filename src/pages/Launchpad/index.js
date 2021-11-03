@@ -52,13 +52,11 @@ export default function Launchpad() {
 
   const amountChange = (e) => {
     const newVal = e.target.value;
-    setAmount(newVal);
-
-    // if (new BN(newVal).isGreaterThan(maxAmount)) {
-    //   setAmount(maxAmount.toString());
-    // } else {
-    //   setAmount(e.target.value);
-    // }
+    if (new BN(newVal).isGreaterThan(maxAmount)) {
+      setAmount(maxAmount.toString());
+    } else {
+      setAmount(newVal);
+    }
   };
 
   useEffect(async () => {
