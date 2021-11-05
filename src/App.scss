@@ -715,7 +715,8 @@ img {
     }
     .main-content{
         height: unset;
-        background:  url("./assets/profile-bg.png") 100% top no-repeat;
+        background:  url("./assets/profile-bg.png") top no-repeat;
+        background-size: 100%;
         background-attachment:scroll;
     }
 }
