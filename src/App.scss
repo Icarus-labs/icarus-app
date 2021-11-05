@@ -709,10 +709,14 @@ img {
 }
 
 .profile {
-    background:  url("./assets/profile-bg.png") 100%;
-    background-attachment: fixed;
+    background: #000;
     .app-sidebar {
         display: none;
+    }
+    .main-content{
+        height: unset;
+        background:  url("./assets/profile-bg.png") 100% top no-repeat;
+        background-attachment:scroll;
     }
 }
 
