@@ -2,11 +2,11 @@ import axios from "axios";
 
 // const baseURL = "https://api.studio.thegraph.com/query/7076/gamefi/v0.0.7";
 // test
-const baseURL =
-  "https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph-test";
+// const baseURL =
+//   "https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph-test";
 
 //prod
-// const baseURL = 'https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-subgraph-testnet'
+const baseURL = 'https://subgraph-test.icarus.finance/subgraphs/name/ica/gamefi-mainnet'
 
 const getBlindBox = async (owner) => {
   if (!owner) {

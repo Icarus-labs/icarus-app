@@ -77,6 +77,7 @@ export default {
   },
 
   /**
+   * 
    * 获取余额
    */
   async balanceOf(wallet) {

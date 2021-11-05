@@ -133,11 +133,11 @@ export default function AppSidebar() {
           </div>
           <span className="nav-text">LAUNCHPAD</span>
         </Link>
-        <Link to="#" className="nav-link">
+        <Link to="/profile" className="nav-link">
           <div className="block">
             <img className="home-icon icon new-icon" src={ProfileIcon} />
           </div>
-          <span className="nav-text coming-soon">PROFILE</span>
+          <span className="nav-text">PROFILE</span>
         </Link>
         <Link to="#" className="nav-link">
           <div className="block">
