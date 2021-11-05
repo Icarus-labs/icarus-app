@@ -29,7 +29,7 @@ const getBlindBox = async (owner) => {
   result.data.data.blindBoxes.forEach((item) => {
     item.createdAt = item.createdAt * 1000;
     item.endAt = item.endAt * 1000;
-    item.isOld = item.createdAt < 1635901200000
+    // item.isOld = item.createdAt < 1635901200000
   });
   return result.data.data.blindBoxes;
 };

@@ -12,13 +12,13 @@ const { setting } = store.getState();
 const network = setting.network;
 
 export default {
-  async claim(boxId, isOld, wallet) {
+  async claim(boxId, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
       const contract = new web3.eth.Contract(
         HolderAbi,
-        isOld ? Config[network].contracts.holderOld : Config[network].contracts.holder
+        Config[network].contracts.holder
       );
 
       return new Promise((resolve, reject) => {
@@ -45,13 +45,13 @@ export default {
     }
   },
 
-  async open(boxId, isOld, wallet) {
+  async open(boxId, wallet) {
     try {
       const web3 = new Web3(wallet.ethereum);
 
       const contract = new web3.eth.Contract(
         HolderAbi,
-        isOld ? Config[network].contracts.holderOld : Config[network].contracts.holder
+        Config[network].contracts.holder
       );
 
       return new Promise((resolve, reject) => {

@@ -28,14 +28,14 @@ export default function CapsuleCard(props) {
   const [capsuleList, setCapsuleList] = useState([]);
   const wallet = useWallet();
 
-  const doClaim = async (boxId, isOld) => {
-    await HolderContractApi.claim(boxId, isOld, wallet);
+  const doClaim = async (boxId) => {
+    await HolderContractApi.claim(boxId, wallet);
     setClaimedModalVisible(true);
     onRefresh();
   };
 
-  const doOpen = async (boxId, isOld, capsuleNum) => {
-    const txId = await HolderContractApi.open(boxId, isOld, wallet);
+  const doOpen = async (boxId, capsuleNum) => {
+    const txId = await HolderContractApi.open(boxId, wallet);
 
     setNftGiftList(new Array(capsuleNum).fill({}));
 
@@ -86,7 +86,7 @@ export default function CapsuleCard(props) {
       <div>
         {mode === "claim" && item.state === 0 && (
           <>
-            <Button className="btn-green" onClick={() => doClaim(item.id, item.isOld)}>
+            <Button className="btn-green" onClick={() => doClaim(item.id)}>
               CLAIM
             </Button>
           </>
@@ -95,7 +95,7 @@ export default function CapsuleCard(props) {
         {mode === "open" && item.state === 1 && (
           <Button
             className="btn-green"
-            onClick={() => doOpen(item.id, item.isOld, item.capsule)}
+            onClick={() => doOpen(item.id, item.capsule)}
           >
             OPEN
           </Button>
