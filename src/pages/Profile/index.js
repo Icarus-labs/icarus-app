@@ -285,7 +285,7 @@ export default function Profile() {
           <li>
             <a href="#capsule"> CAPSULE </a>
           </li>
-          <li>
+          {/* <li>
             <a href="#items"> ITEMS</a>
           </li>
           <li>
@@ -293,7 +293,7 @@ export default function Profile() {
           </li>
           <li>
             <a href="#storage"> STORAGE</a>
-          </li>
+          </li> */}
         </ul>
         <ul className="outer-navigation">
           <li>

@@ -64,7 +64,10 @@ function App() {
     <ConfigProvider locale={enUS}>
       <div
         className={`App ${i18n.language} ${
-          location.pathname === "/star-cluster" ? "light" : theme
+          location.pathname === "/star-cluster" ||
+          location.pathname === "/profile"
+            ? "light"
+            : theme
         } ${location.pathname === "/star-cluster" ? "app-star-cluster" : ""} ${
           location.pathname === "/launchpad" ? "launchpad" : ""
         } ${location.pathname === "/profile" ? "profile" : ""} ${

@@ -709,7 +709,8 @@ img {
 }
 
 .profile {
-    background: #000 !important;
+    background:  url("./assets/profile-bg.png") 100%;
+    background-attachment: fixed;
     .app-sidebar {
         display: none;
     }
