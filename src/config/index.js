@@ -67,6 +67,7 @@ export default {
       market: "0x8bbc20c2237d156fe0bcb3e10c76d7a4cf42d669",
       media: "0xefe0cd4fff3143b016bd982ca271d8fc1826894b",
       holder: "0x7688199e232ED913916167Be2028689d540d6968",
+      stakerOld: "0xF3831F3fC64e5D44AfFD25afbd2Fc5e724a670d2",
       staker: "0xA30Fbeca8af6d06fd995f7A9f7B12EAab24060B6",
 
       claim: '0x5bF1ce175Ee1BE26E156Aae5872CA512be0483AB',
