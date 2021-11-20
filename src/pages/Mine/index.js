@@ -5,12 +5,17 @@ import { Row, Col, Button, Tooltip, Switch } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import BannerImg from "assets/banners/launchpad.gif";
 import { useLocation, Link, useHistory } from "react-router-dom";
-import BuyIcaIcon from "assets/buy-ica.svg";
-import BuyZbtcIcon from "assets/buy-zbtc.svg";
-import BuyZethIcon from "assets/buy-zeth.svg";
-import ICALogo from "assets/tokens/ica.svg";
+// import BuyIcaIcon from "assets/buy-ica.svg";
+// import BuyZbtcIcon from "assets/buy-zbtc.svg";
+// import BuyZethIcon from "assets/buy-zeth.svg";
+// import ICALogo from "assets/tokens/ica.svg";
+import ICAIcon from "assets/tokens/ica.svg";
+import ZBTCIcon from "assets/tokens/zbtc.svg";
+import ZETHIcon from "assets/tokens/zeth.svg";
+import StatsIcon from "assets/stats-icon.svg";
 // import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
+import TvlBadge from "assets/tvl-badge.svg";
 import StarClusterImg from "assets/banners/star-booster.gif";
 import axios from "utils/axios";
 import MineDetail from "../MineDetail";
@@ -217,8 +222,8 @@ export default function Mine() {
   };
 
   const goLaunchpad = () => {
-    history.push('/launchpad')
-  }
+    history.push("/launchpad");
+  };
 
   useEffect(() => {
     if (!wallet.account) {
@@ -250,22 +255,64 @@ export default function Mine() {
     >
       <Row gutter={{ lg: 44 }} className="top-infos">
         <Col xs={24} lg={12}>
-          <div className="tvl block">
-            <img src={ICALogo} className="logo-img" />
-            <a href="https://icarus.finance" target="_blank" className="logo">
-              icarus.finance
+          <div className="tvl-wrapper">
+            <a href="http://icarus.finance" target="_blank">
+              <img src={TvlBadge} className="tvl-badge" />
             </a>
-            <div className="num">
-              <div className="title">TVL</div>${toThousands(totalTvl)}
-            </div>
-            <div className="prices">
-              {/* <div>ETH: ${ethPrice}</div>
-                <div>BTC: ${btcPrice}</div> */}
-              <div>ICA: ${icaPrice.toFixed(3)}</div>
-              <div>ZETH: ${zethPrice.toFixed(3)}</div>
-              <div>ZBTC: ${zbtcPrice.toFixed(3)}</div>
+            <div className="tvl block">
+              <div className="num">
+                <span className="title">TVL</span>${toThousands(totalTvl)}
+              </div>
             </div>
           </div>
+
+          <div className="prices block">
+            <div>
+              <img className="price-icon" src={ICAIcon} /> ICA:{" "}
+              <span className="num">${icaPrice.toFixed(3)}</span>
+            </div>
+            <div>
+              <img className="price-icon" src={ZBTCIcon} /> ZBTC:{" "}
+              <span className="num">${zbtcPrice.toFixed(3)}</span>
+            </div>
+            <div>
+              <img className="price-icon" src={ZETHIcon} /> ZETH:{" "}
+              <span className="num">${zethPrice.toFixed(3)}</span>
+            </div>
+          </div>
+
+          <div className="stats-wrapper">
+            <img src={StatsIcon} class="stats-icon" />
+            <div class="stats-content">
+              <div className="stats-block">
+                <div class="title">
+                  <span className="highlight">ICA</span> Market Cap:
+                </div>
+                <div class="value">
+                  <span className="highlight">
+                    {Number(icaMarketCap).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+              <div className="stats-block">
+                <div class="title">Total Minted:</div>
+                <div class="value">
+                  <span className="highlight">
+                    {Number(icaTotalMinted).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+              <div className="stats-block">
+                <div class="title">Total Burned:</div>
+                <div class="value">{Number(icaTotalBurned).toFixed(2)}</div>
+              </div>
+            </div>
+          </div>
+        </Col>
+        <Col xs={24} lg={12}>
+          <Link to="/swap" className="coingecko">
+            <img src={BannerImg} />
+          </Link>
 
           <Row gutter={44}>
             <Col xs={12} lg={12}>
@@ -282,7 +329,7 @@ export default function Mine() {
               </div>
             </Col>
             <Col xs={12} lg={12}>
-              <div className="block second-line">
+              <div className="block second-line highlight">
                 <div className="title">
                   MINED{" "}
                   <Tooltip title="Total amount mined across all pools in USD.">
@@ -293,13 +340,8 @@ export default function Mine() {
               </div>
             </Col>
           </Row>
-        </Col>
-        <Col xs={24} lg={12}>
-          <Link to="/swap" className="coingecko">
-            <img src={BannerImg} />
-          </Link>
 
-          <div className="block second-line">
+          {/* <div className="block second-line">
             <Row>
               <Col xs={8}>
                 <img src={BuyIcaIcon} className="buy-icon" />
@@ -329,18 +371,18 @@ export default function Mine() {
                 </a>
               </Col>
             </Row>
-          </div>
+          </div> */}
         </Col>
       </Row>
 
-      <div className="bar">
+      {/* <div className="bar">
         <div>
           <span className="highlight">ICA</span> Market Cap: $
           {Number(icaMarketCap).toFixed(2)}
         </div>
         <div>Total Minted: {Number(icaTotalMinted).toFixed(2)}</div>
         <div>Total Burned: {Number(icaTotalBurned).toFixed(2)}</div>
-      </div>
+      </div> */}
 
       <div className="star-cluster-dashboard">
         <div className="block">
@@ -353,7 +395,11 @@ export default function Mine() {
           <div className="num">${toThousands(starTotalStaked.toFixed(2))}</div>
         </div>
         {/* <Link to="/launchpad" style={{display: 'block'}}> */}
-          <img src={StarClusterImg} className="star-cluster-img" onClick={goLaunchpad} />
+        <img
+          src={StarClusterImg}
+          className="star-cluster-img"
+          onClick={goLaunchpad}
+        />
         {/* </Link> */}
 
         <div className="block">

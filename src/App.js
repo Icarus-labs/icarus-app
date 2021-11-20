@@ -72,7 +72,9 @@ function App() {
           location.pathname === "/launchpad" ? "launchpad" : ""
         } ${location.pathname === "/profile" ? "profile" : ""} ${
           location.pathname === "/swap" ? "swap" : ""
-        } ${location.pathname === "/farm" ? "yield-hubble" : ""}`}
+        } ${location.pathname === "/farm" ? "yield-hubble" : ""} ${
+          location.pathname === "/mine" ? "app-mine" : ""
+        }`}
       >
         <AppSidebar />
         <div className="main-content">
