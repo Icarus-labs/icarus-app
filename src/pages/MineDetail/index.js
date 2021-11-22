@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, message, Tooltip } from "antd";
+import { Button, message } from "antd";
 // import { Link, useLocation } from "react-router-dom";
 // import { QuestionCircleOutlined } from "@ant-design/icons";
 import tokenImg from "config/tokenImg";
@@ -7,7 +7,7 @@ import { useWallet } from "use-wallet";
 import config, { blocksLeftMapping } from "config";
 import axios from "utils/axios";
 import mm from "components/mm";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
+// import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import DepositModal from "components/DepositModal";
 import UnstakeModal from "components/UnstakeModal";
@@ -18,6 +18,7 @@ import EarnedBlock from "components/EarnedBlock";
 import { toThousands } from "utils/Tools";
 import AddMetamaskIcon from "assets/add-metamask.svg";
 import AddLiquidityIcon from "assets/add-liquidity.svg";
+import ArrowIcon from "assets/mine-detail-arrow.svg";
 import UserIcon from "assets/user-icon.svg";
 
 import "./style.scss";
@@ -392,15 +393,21 @@ export default function MineDetail(props) {
             )}
 
             {mode === "line" && (
+              <DataBlocks isLine={"isLine"} poolInfo={poolInfo} item={item} />
+            )}
+
+            {mode === "line" && (
               <div>
                 {showMore ? (
-                  <UpOutlined
+                  <img
+                    src={ArrowIcon}
                     className="toggle-btn"
                     onClick={() => setShowMore(false)}
                   />
                 ) : (
-                  <DownOutlined
-                    className="toggle-btn"
+                  <img
+                    src={ArrowIcon}
+                    className="toggle-btn toggle-btn-reverse"
                     onClick={() => setShowMore(true)}
                   />
                 )}
@@ -409,73 +416,77 @@ export default function MineDetail(props) {
           </div>
         </div>
 
-        <DataBlocks poolInfo={poolInfo} item={item} />
-
-        <StakedBlock
-          poolInfo={poolInfo}
-          item={item}
-          onAdd={() => setDepositModalVisible(true)}
-          onMinus={() => setUnstakeModalVisible(true)}
-        />
-
-        <EarnedBlock poolInfo={poolInfo} />
-
-        <div className="staked-block"></div>
+        {mode === "card" && <DataBlocks poolInfo={poolInfo} item={item} />}
 
         {(mode === "card" || showMore) && (
-          <div className="card-bottom">
-            <div
-              className={`btns ${
-                Number(poolInfo.staked) > 0 ? "" : "single-btn"
-              }`}
-            >
-              {isLocked ? (
-                <LockedButton />
-              ) : wallet.status === "connected" ? (
-                approveParams &&
-                approveParams.txs &&
-                approveParams.txs.length > 0 ? (
-                  <Button onClick={doApprove} className="btn">
-                    Approve
-                  </Button>
-                ) : true ||
-                  Number(poolInfo.staked) > 0 ||
-                  Number(poolInfo.earnedICA) > 0 ||
-                  Number(poolInfo.earned) > 0 ? (
-                  <Button
-                    onClick={() => {
-                      doClaim();
-                    }}
-                    className="btn btn-claim"
-                  >
-                    CLAIM
-                  </Button>
-                ) : (
-                  !item.inactive && (
-                    <Button
-                      className="btn"
-                      onClick={() => {
-                        setDepositModalVisible(true);
-                      }}
-                    >
-                      STAKE
-                    </Button>
-                  )
-                )
-              ) : (
-                <ConnectWallet />
-              )}
-            </div>
-            {poolInfo.type === "reward3rd" && !item.inactive && (
+          <div className={showMore && 'is-show-more'}>
+            <StakedBlock
+              poolInfo={poolInfo}
+              item={item}
+              onAdd={() => setDepositModalVisible(true)}
+              onMinus={() => setUnstakeModalVisible(true)}
+            />
+
+            {mode === 'line' && <div className="divider" />}
+
+            {mode === 'card' && <div className="horizon-divider" />}
+
+            <EarnedBlock poolInfo={poolInfo} />
+            <div className="card-bottom">
               <div
-                className={`info-line end-block ${
-                  blocksLeft <= 0 ? "hide" : ""
+                className={`btns ${
+                  Number(poolInfo.staked) > 0 ? "" : "single-btn"
                 }`}
               >
-                <span>End</span>
-                <span>{blocksLeft} BLOCKS</span>
+                {isLocked ? (
+                  <LockedButton />
+                ) : wallet.status === "connected" ? (
+                  approveParams &&
+                  approveParams.txs &&
+                  approveParams.txs.length > 0 ? (
+                    <Button onClick={doApprove} className="btn">
+                      Approve
+                    </Button>
+                  ) : true ||
+                    Number(poolInfo.staked) > 0 ||
+                    Number(poolInfo.earnedICA) > 0 ||
+                    Number(poolInfo.earned) > 0 ? (
+                    <Button
+                      onClick={() => {
+                        doClaim();
+                      }}
+                      className="btn btn-claim"
+                    >
+                      CLAIM
+                    </Button>
+                  ) : (
+                    !item.inactive && (
+                      <Button
+                        className="btn"
+                        onClick={() => {
+                          setDepositModalVisible(true);
+                        }}
+                      >
+                        STAKE
+                      </Button>
+                    )
+                  )
+                ) : (
+                  <ConnectWallet />
+                )}
               </div>
-            )}
+
+              {poolInfo.type === "reward3rd" && !item.inactive && (
+                <div
+                  className={`info-line end-block ${
+                    blocksLeft <= 0 ? "hide" : ""
+                  }`}
+                >
+                  <span>End</span>
+                  <span>{blocksLeft} BLOCKS</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

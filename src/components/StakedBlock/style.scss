@@ -1,7 +1,22 @@
 .staked-block {
     display: flex;
     align-items: center;
+  
     // justify-content: space-between;
+    .purple &{
+        .token-circle{
+            border: 1px solid #fff;
+            .value{
+                color: #fff;
+            }
+        }
+        .quick-btns{
+            .btn{
+                color: #fff;
+                border: 1px solid #fff;
+            }
+        }
+    }
     .title {
         font-size: 20px;
         line-height: 24px;

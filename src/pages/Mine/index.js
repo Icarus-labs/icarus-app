@@ -13,6 +13,7 @@ import ICAIcon from "assets/tokens/ica.svg";
 import ZBTCIcon from "assets/tokens/zbtc.svg";
 import ZETHIcon from "assets/tokens/zeth.svg";
 import StatsIcon from "assets/stats-icon.svg";
+import StatsIconDark from "assets/stats-icon-dark.svg";
 // import MoonIcon from "assets/moon.svg";
 import ModeIcon from "assets/mode.svg";
 import TvlBadge from "assets/tvl-badge.svg";
@@ -47,7 +48,7 @@ export default function Mine() {
   const [showDeposited, setShowDeposited] = useState(false);
   const [thirdPrices, setThirdPrice] = useState({});
   const mode = useSelector((state) => state.setting.mode);
-  // const theme = useSelector((state) => state.setting.theme);
+  const theme = useSelector((state) => state.setting.theme);
 
   // const [currentTab, setCurrentTab] = useState("zeth");
   const [loadingPools, setLoadingPools] = useState(false);
@@ -282,7 +283,7 @@ export default function Mine() {
           </div>
 
           <div className="stats-wrapper">
-            <img src={StatsIcon} class="stats-icon" />
+            <img src={theme === 'light' ? StatsIcon : StatsIconDark} class="stats-icon" />
             <div class="stats-content">
               <div className="stats-block">
                 <div class="title">
@@ -302,7 +303,7 @@ export default function Mine() {
                   </span>
                 </div>
               </div>
-              <div className="stats-block">
+              <div className="stats-block special">
                 <div class="title">Total Burned:</div>
                 <div class="value">{Number(icaTotalBurned).toFixed(2)}</div>
               </div>
@@ -316,7 +317,7 @@ export default function Mine() {
 
           <Row gutter={44}>
             <Col xs={12} lg={12}>
-              <div className="block second-line">
+              <div className="block second-line special-block">
                 <div className="title">
                   DEPOSITED{" "}
                   <Tooltip title="Total deposited amount across all pools in USD.">

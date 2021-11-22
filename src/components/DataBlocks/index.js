@@ -4,9 +4,9 @@ import { toThousands } from "utils/Tools";
 import "./style.scss";
 
 export default function DataBlocks(props) {
-  const { poolInfo, item } = props;
+  const { poolInfo, item, isLine } = props;
   return (
-    <div className="data-blocks">
+    <div className={`data-blocks ${isLine}`}>
       <div className="data-block highlight">
         <div className="title">TVL:</div>
         <div className="value">

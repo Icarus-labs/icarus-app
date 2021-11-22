@@ -1,4 +1,60 @@
 .page-mine {
+    .App.purple &, &.star-cluster {
+        .block {
+            background: #292929;
+            border: none;
+            &.prices {
+                background: #7416b2;
+            }
+            &.highlight {
+                color: #fff;
+                background: #7416b2;
+            }
+            &.special-block {
+                background: none;
+                color: #fff;
+                border: 1px solid #fff;
+                .title {
+                    color: #fff;
+                }
+            }
+        }
+        .stats-wrapper {
+            background: #fff;
+            border: none;
+            .stats-content {
+                background: #292929;
+                border-left: 2px solid #292929;
+                height: 140px;
+                .stats-block {
+                    &.special {
+                        color: #34374a;
+                        background: #edeef0;
+                    }
+                    .highlight {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .bar {
+            background: #292929;
+            & > div {
+                color: #fff;
+                border: 1px solid #fff;
+            }
+        }
+        .block-switch {
+            background: transparent;
+            & > div {
+                color: #fff;
+            }
+            .active {
+                color: #353659;
+                background: #fff;
+            }
+        }
+    }
     .stats-wrapper {
         background: #353659;
         border-radius: 24px;
@@ -30,6 +86,9 @@
                 text-align: left;
                 .highlight {
                     color: #7416b2;
+                }
+                &.special {
+                    background: #edeef0;
                 }
                 &.grey {
                     background: #edeef0;
@@ -404,6 +463,9 @@
         // .line-wrapper{
         //     width: 100%;
         // }
+        .stats-wrapper{
+            margin-bottom: 24px;
+        }
         .coingecko {
             height: unset;
             img {

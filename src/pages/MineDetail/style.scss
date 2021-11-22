@@ -5,7 +5,18 @@
     justify-content: space-between;
     position: relative;
     overflow: hidden;
-    .is-line {
+    &.is-line {
+        .top-line {
+            justify-content: flex-start;
+        }
+        .top-line-wrapper {
+            width: 160px;
+            margin-right: 32px;
+        }
+    }
+    .horizon-divider{
+        height: 8px;
+
     }
 
     &.block {
@@ -84,9 +95,30 @@
     text-align: center;
     color: #f9cb2a;
 }
-
+.is-show-more {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 220px;
+    .top-line-wrapper {
+        width: 220px;
+    }
+}
+.divider {
+    width: 1px;
+    height: 79px;
+    background: #d6d8dc;
+}
 .toggle-btn {
-    margin-left: 12px;
+    // margin-left: 12px;
+    // margin-top: 32px;
+    cursor: pointer;
+    width: 20px;
+    position: absolute;
+    right: 32px;
+    top: 56px;
+}
+.toggle-btn-reverse {
+    transform: rotate(180deg);
 }
 .add-liquidity-icon {
     width: 60px;
