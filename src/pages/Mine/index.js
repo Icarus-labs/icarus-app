@@ -283,7 +283,10 @@ export default function Mine() {
           </div>
 
           <div className="stats-wrapper">
-            <img src={theme === 'light' ? StatsIcon : StatsIconDark} class="stats-icon" />
+            <img
+              src={theme === "light" ? StatsIcon : StatsIconDark}
+              class="stats-icon"
+            />
             <div class="stats-content">
               <div className="stats-block">
                 <div class="title">
@@ -386,32 +389,39 @@ export default function Mine() {
       </div> */}
 
       <div className="star-cluster-dashboard">
-        <div className="block">
-          <div className="title">
-            DEPOSITED{" "}
-            <Tooltip title="Total deposited amount across all pools in USD.">
-              <QuestionCircleOutlined className="title-icon" />
-            </Tooltip>
-          </div>
-          <div className="num">${toThousands(starTotalStaked.toFixed(2))}</div>
-        </div>
-        {/* <Link to="/launchpad" style={{display: 'block'}}> */}
         <img
           src={StarClusterImg}
           className="star-cluster-img"
           onClick={goLaunchpad}
         />
-        {/* </Link> */}
-
-        <div className="block">
-          <div className="title">
-            MINED{" "}
-            <Tooltip title="Total amount mined across all pools in USD.">
-              <QuestionCircleOutlined className="title-icon" />
-            </Tooltip>
-          </div>
-          <div className="num">${toThousands(starTotalMined.toFixed(2))}</div>
-        </div>
+        <Row gutter={24}>
+          <Col xs={12} lg={12}>
+            <div className="block special-block">
+              <div className="title">
+                DEPOSITED{" "}
+                <Tooltip title="Total deposited amount across all pools in USD.">
+                  <QuestionCircleOutlined className="title-icon" />
+                </Tooltip>
+              </div>
+              <div className="num">
+                ${toThousands(starTotalStaked.toFixed(2))}
+              </div>
+            </div>
+          </Col>
+          <Col xs={12} lg={12}>
+            <div className="block highlight">
+              <div className="title">
+                MINED{" "}
+                <Tooltip title="Total amount mined across all pools in USD.">
+                  <QuestionCircleOutlined className="title-icon" />
+                </Tooltip>
+              </div>
+              <div className="num">
+                ${toThousands(starTotalMined.toFixed(2))}
+              </div>
+            </div>
+          </Col>
+        </Row>
       </div>
 
       <div className="bar">
