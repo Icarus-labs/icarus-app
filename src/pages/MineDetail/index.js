@@ -14,6 +14,7 @@ import UnstakeModal from "components/UnstakeModal";
 import ConnectWallet from "components/ConnectWallet";
 import DataBlocks from "components/DataBlocks";
 import StakedBlock from "components/StakedBlock";
+import EarnedBlock from "components/EarnedBlock";
 import { toThousands } from "utils/Tools";
 import AddMetamaskIcon from "assets/add-metamask.svg";
 import AddLiquidityIcon from "assets/add-liquidity.svg";
@@ -386,42 +387,12 @@ export default function MineDetail(props) {
                       />
                     </a>
                   )}
-                  {/* <span className="tvl">
-                    TVL: ${toThousands(item.tvl) || 0}
-                  </span> */}
                 </span>
               </div>
             )}
 
             {mode === "line" && (
               <div>
-                {/* <span>APR:</span>
-                poolInfo.type === "reward3rd" ? (
-                  <Tooltip
-                    title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
-                  >
-                    <span>{item.apy || 0}% </span>
-                  </Tooltip>
-                ) : (
-                  <Tooltip
-                    title={`${
-                      item.reward_apy ? "ICA APR: " + item.reward_apy + "%" : ""
-                    } ${
-                      item.income_apy
-                        ? ` | ${
-                            item.reward_tokens.indexOf("BTCB") > -1
-                              ? "BTCB"
-                              : "ETH"
-                          } APR: ` +
-                          item.income_apy +
-                          "%"
-                        : ""
-                    }`}
-                  >
-                    <span>{item.apy || 0}% </span>
-                  </Tooltip>
-                )} */}
-
                 {showMore ? (
                   <UpOutlined
                     className="toggle-btn"
@@ -436,29 +407,18 @@ export default function MineDetail(props) {
               </div>
             )}
           </div>
-          {(mode === "card" || showMore) && (
-            <>
-           
-              <div className="info-line">
-                <span>EARNED:</span>
-                <span style={{ textAlign: "right" }}>
-                  {poolInfo.reward_tokens &&
-                    poolInfo.reward_tokens.map((reward, index) => (
-                      <div key={index}>
-                        {poolInfo.type === "reward3rd" || reward === "ICA"
-                          ? `${poolInfo.earnedICA || 0} ${reward}`
-                          : `${poolInfo.earned || 0} ${reward}`}
-                      </div>
-                    ))}
-                </span>
-              </div>
-            </>
-          )}
         </div>
 
         <DataBlocks poolInfo={poolInfo} item={item} />
 
-        <StakedBlock poolInfo={poolInfo} item={item} />
+        <StakedBlock
+          poolInfo={poolInfo}
+          item={item}
+          onAdd={() => setDepositModalVisible(true)}
+          onMinus={() => setUnstakeModalVisible(true)}
+        />
+
+        <EarnedBlock poolInfo={poolInfo} />
 
         <div className="staked-block"></div>
 
@@ -482,54 +442,14 @@ export default function MineDetail(props) {
                   Number(poolInfo.staked) > 0 ||
                   Number(poolInfo.earnedICA) > 0 ||
                   Number(poolInfo.earned) > 0 ? (
-                  <>
-                    <div className="quick-btns">
-                      {!item.inactive && (
-                        <div>
-                          <Button
-                            onClick={() => {
-                              setDepositModalVisible(true);
-                            }}
-                            className="btn"
-                          >
-                            +
-                          </Button>
-                          <span
-                            className={`action-hint ${
-                              item.version == 2 && item.fee ? "" : "v-hidden"
-                            }`}
-                          >
-                            DEPOSIT FEE: {item.fee.split(" ")[0]}
-                          </span>
-                        </div>
-                      )}
-                      <div>
-                        <Button
-                          onClick={() => {
-                            setUnstakeModalVisible(true);
-                          }}
-                          className="btn"
-                        >
-                          -
-                        </Button>
-                        <span
-                          className={`action-hint ${
-                            item.version == 2 && item.fee ? "" : "v-hidden"
-                          }`}
-                        >
-                          WITHDRAW FEE: {item.fee.split(" ")[1]}
-                        </span>
-                      </div>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        doClaim();
-                      }}
-                      className="btn"
-                    >
-                      CLAIM
-                    </Button>
-                  </>
+                  <Button
+                    onClick={() => {
+                      doClaim();
+                    }}
+                    className="btn btn-claim"
+                  >
+                    CLAIM
+                  </Button>
                 ) : (
                   !item.inactive && (
                     <Button
@@ -546,29 +466,6 @@ export default function MineDetail(props) {
                 <ConnectWallet />
               )}
             </div>
-            {/* <div className="info-line user-tvl">
-              <span>
-                {poolInfo.lp_url && (
-                  <a
-                    className="add-liquidity"
-                    href={poolInfo.lp_url}
-                    target="_blank"
-                  >
-                    Add Liquidity
-                  </a>
-                )}
-              </span>
-              <span>
-                TVL: $
-                {poolInfo.type === "reward3rd"
-                  ? poolInfo.starStakedInUsd
-                    ? toThousands(poolInfo.starStakedInUsd)
-                    : 0
-                  : poolInfo.stakedInUsd
-                  ? toThousands(poolInfo.stakedInUsd)
-                  : 0}
-              </span>
-            </div> */}
             {poolInfo.type === "reward3rd" && !item.inactive && (
               <div
                 className={`info-line end-block ${

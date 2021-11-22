@@ -1,4 +1,4 @@
-.staked-block {
+.earned-block {
     display: flex;
     align-items: center;
     // justify-content: space-between;
@@ -11,18 +11,22 @@
         margin-bottom: 0 !important;
     }
     .token-circle {
-        border: 1px solid #7416b2;
+        border: 1px solid #353659;
         box-sizing: border-box;
         border-radius: 5px;
         padding: 12px 10px;
         width: 100%;
         display: flex;
         align-items: center;
+        &:nth-child(3){
+            margin-left: 6px;
+        }
         .tokens {
             position: relative;
             padding-right: 8px;
             border-right: 0.5px solid #d6d8dc;
             margin-right: 6px !important;
+            min-width: 20px;
             .token-item {
                 width: 18px;
                 height: 18px;
@@ -44,43 +48,6 @@
         .deposited {
             font-size: 12px;
             line-height: 1;
-            color: #9088a1;
-        }
-    }
-    .quick-btns {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        // margin-bottom: 12px;
-        margin-left: 8px;
-        &>div{
-            &:nth-child(2){
-                margin-left: 4px;
-            }
-        }
-        .btn {
-            border: 1px solid #7416b2;
-            box-sizing: border-box;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 22px;
-            // line-height: 31px;
-            color: #7416b2;
-            background: none;
-
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .action-hint {
-            // font-weight: bold;
-            // font-family: 'Source Sans Serif';
-            text-transform: initial;
-            font-size: 8px;
-            line-height: 10px;
-            text-align: center;
             color: #9088a1;
         }
     }

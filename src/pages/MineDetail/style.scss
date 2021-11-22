@@ -28,6 +28,9 @@
             margin-top: -1px;
         }
     }
+    .btn-claim {
+        background: #7416b2;
+    }
     &.is-line {
         min-height: unset;
         .star-boost {
@@ -127,24 +130,7 @@
         //     margin-top: 64px;
         // }
     }
-    .quick-btns {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 12px;
-        .btn {
-            width: 50px;
-            height: 30px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            border-radius: 20px;
-            justify-content: center;
-        }
-        .action-hint {
-            font-size: 12px;
-        }
-    }
+
     @media screen and (max-width: 992px) {
         .btns {
             .btn {
