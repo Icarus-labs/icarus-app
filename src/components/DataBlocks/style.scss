@@ -1,0 +1,40 @@
+.data-blocks {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .data-block {
+        padding: 8px 7px;
+        border-radius: 9px;
+        flex: 1;
+        border: 1px solid #7416b2;
+        margin: 0 6px;
+        &:first-child {
+            margin-left: 0;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        .title {
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 20px;
+            margin-bottom: 12px;
+            color: #7416b2;
+            font-family: "Source Sans Serif";
+        }
+        .value {
+            font-size: 14px;
+            line-height: 18px;
+            color: #9088a1;
+        }
+        &.highlight {
+            background: #7416b2;
+            .title {
+                color: #ffffff;
+            }
+            .value {
+                color: #ffffff;
+            }
+        }
+    }
+}

@@ -570,7 +570,23 @@ img {
 .pool-item {
     border-radius: 24px;
     .tokens {
+        position: relative;
         margin-right: 16px;
+        .token-item-link:nth-child(1) {
+            .token-item {
+                width: 44px;
+                height: 44px;
+            }
+        }
+        .token-item-link:nth-child(2) {
+            position: absolute;
+            bottom: 0;
+            right: -13px;
+            .token-item {
+                width: 26px;
+                height: 26px;
+            }
+        }
     }
     .apy {
         font-size: 16px;
@@ -600,7 +616,9 @@ img {
         font-size: 22px;
         line-height: 26px;
         a {
-            color: #4f4e4e;
+            font-size: 30px;
+            line-height: 36px;
+            color: #353659;
         }
     }
     .tvl {
@@ -715,11 +733,11 @@ img {
     .app-sidebar {
         display: none;
     }
-    .main-content{
+    .main-content {
         height: unset;
-        background:  url("./assets/profile-bg.png") top no-repeat;
+        background: url("./assets/profile-bg.png") top no-repeat;
         background-size: 100%;
-        background-attachment:scroll;
+        background-attachment: scroll;
     }
 }
 
@@ -730,23 +748,23 @@ img {
     display: flex;
     align-items: center;
     // background: #d6d8dc;
-    color: #7416B2;
+    color: #7416b2;
     height: 50px;
-    border: 1px solid #7416B2;
+    border: 1px solid #7416b2;
     // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
 
     & > div {
-        color: #7416B2;
+        color: #7416b2;
         padding: 0 16px;
         height: 50px;
         line-height: 50px;
-        
+
         cursor: pointer;
     }
     & > .active {
         color: #ffffff;
-        background: #7416B2;
+        background: #7416b2;
         border-radius: 20px;
     }
 }

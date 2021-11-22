@@ -12,8 +12,12 @@ import { useSelector } from "react-redux";
 import DepositModal from "components/DepositModal";
 import UnstakeModal from "components/UnstakeModal";
 import ConnectWallet from "components/ConnectWallet";
+import DataBlocks from "components/DataBlocks";
+import StakedBlock from "components/StakedBlock";
 import { toThousands } from "utils/Tools";
-import MetamaskIcon from "assets/metamask.svg";
+import AddMetamaskIcon from "assets/add-metamask.svg";
+import AddLiquidityIcon from "assets/add-liquidity.svg";
+import UserIcon from "assets/user-icon.svg";
 
 import "./style.scss";
 
@@ -65,8 +69,8 @@ export default function MineDetail(props) {
       const timeLeft =
         blocksLeftMapping[poolInfo.reward_tokens[0]] -
         new Date().valueOf() / 1000;
-      
-      const blocks = parseInt(timeLeft / 3)
+
+      const blocks = parseInt(timeLeft / 3);
       setBlocksLeft(blocks);
       // if(blocks <= 0){
       //   item.inactive = true
@@ -296,9 +300,18 @@ export default function MineDetail(props) {
     <>
       <div
         className={`pool-item handle-card line-block ${
-          mode === "card" ? "block is-card" : "is-line"
+          mode === "card" ? "block is-card" : "block is-line"
         }`}
       >
+        <div className="tvl-badge">
+          <img src={UserIcon} className="user-icon" /> TVL: $
+          {toThousands(item.tvl) || 0}
+        </div>
+        {(poolInfo.type === "single" || poolInfo.type === "reward3rd") && (
+          <a className="add-metamask" onClick={addToMetamask} target="_blank">
+            <img src={AddMetamaskIcon} className="metamask-icon" />
+          </a>
+        )}
         {/* {item.boostAPR && <div className="star-boost">{item.boostAPR}%</div>} */}
         <div className="card-top">
           <div className="info-line top-line">
@@ -328,9 +341,6 @@ export default function MineDetail(props) {
                     >
                       {poolInfo.reward_tokens[0]}
                     </a>
-                  </span>
-                  <span className="tvl">
-                    TVL: ${toThousands(item.tvl) || 0}
                   </span>
                 </span>
               </div>
@@ -363,17 +373,30 @@ export default function MineDetail(props) {
                       {item.stake_token}
                     </a>
                   </span>
-                  <span className="tvl">
+
+                  {poolInfo.lp_url && (
+                    <a
+                      className="add-liquidity"
+                      href={poolInfo.lp_url}
+                      target="_blank"
+                    >
+                      <img
+                        src={AddLiquidityIcon}
+                        className="add-liquidity-icon"
+                      />
+                    </a>
+                  )}
+                  {/* <span className="tvl">
                     TVL: ${toThousands(item.tvl) || 0}
-                  </span>
+                  </span> */}
                 </span>
               </div>
             )}
 
             {mode === "line" && (
               <div>
-                <span>APR:</span>
-                {poolInfo.type === "reward3rd" ? (
+                {/* <span>APR:</span>
+                poolInfo.type === "reward3rd" ? (
                   <Tooltip
                     title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
                   >
@@ -397,7 +420,7 @@ export default function MineDetail(props) {
                   >
                     <span>{item.apy || 0}% </span>
                   </Tooltip>
-                )}
+                )} */}
 
                 {showMore ? (
                   <UpOutlined
@@ -413,64 +436,9 @@ export default function MineDetail(props) {
               </div>
             )}
           </div>
-          <div className="info-line apr">
-            {mode === "card" && (
-              <>
-                <span>APR:</span>
-                <div>
-                  {poolInfo.type === "reward3rd" ? (
-                    <Tooltip
-                      title={`${item.reward_tokens[0]} APR: ${item.apy || 0}%`}
-                    >
-                      <span>{item.apy || 0}% </span>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip
-                      title={`${
-                        item.reward_apy
-                          ? "ICA APR: " + item.reward_apy + "%"
-                          : ""
-                      } ${
-                        item.income_apy
-                          ? ` | ${
-                              item.reward_tokens.indexOf("BTCB") > -1
-                                ? "BTCB"
-                                : "ETH"
-                            } APR: ` +
-                            item.income_apy +
-                            "%"
-                          : ""
-                      }`}
-                    >
-                      <span>{item.apy || 0}% </span>
-                    </Tooltip>
-                  )}
-                </div>
-              </>
-            )}
-          </div>
           {(mode === "card" || showMore) && (
             <>
-              <div className="info-line">
-                <span>EARN:</span>
-                <span>
-                  {item.reward_tokens.map((token, index) => (
-                    <span key={index}>
-                      <span>{token}</span>{" "}
-                      {index !== item.reward_tokens.length - 1 ? "+" : ""}
-                    </span>
-                  ))}
-                </span>
-              </div>
-
-              <div className="info-line">
-                <span>STAKED:</span>
-                <span>
-                  {poolInfo.staked ? Number(poolInfo.staked) : 0}{" "}
-                  {item.stake_token}
-                </span>
-              </div>
-
+           
               <div className="info-line">
                 <span>EARNED:</span>
                 <span style={{ textAlign: "right" }}>
@@ -487,6 +455,12 @@ export default function MineDetail(props) {
             </>
           )}
         </div>
+
+        <DataBlocks poolInfo={poolInfo} item={item} />
+
+        <StakedBlock poolInfo={poolInfo} item={item} />
+
+        <div className="staked-block"></div>
 
         {(mode === "card" || showMore) && (
           <div className="card-bottom">
@@ -572,7 +546,7 @@ export default function MineDetail(props) {
                 <ConnectWallet />
               )}
             </div>
-            <div className="info-line user-tvl">
+            {/* <div className="info-line user-tvl">
               <span>
                 {poolInfo.lp_url && (
                   <a
@@ -581,17 +555,6 @@ export default function MineDetail(props) {
                     target="_blank"
                   >
                     Add Liquidity
-                  </a>
-                )}
-                {(poolInfo.type === "single" ||
-                  poolInfo.type === "reward3rd") && (
-                  <a
-                    className="add-metamask"
-                    onClick={addToMetamask}
-                    target="_blank"
-                  >
-                    Add to Metamask
-                    <img src={MetamaskIcon} className="metamask-icon" />
                   </a>
                 )}
               </span>
@@ -605,9 +568,13 @@ export default function MineDetail(props) {
                   ? toThousands(poolInfo.stakedInUsd)
                   : 0}
               </span>
-            </div>
+            </div> */}
             {poolInfo.type === "reward3rd" && !item.inactive && (
-              <div className={`info-line end-block ${blocksLeft <= 0 ? 'hide' : ''}`}>
+              <div
+                className={`info-line end-block ${
+                  blocksLeft <= 0 ? "hide" : ""
+                }`}
+              >
                 <span>End</span>
                 <span>{blocksLeft} BLOCKS</span>
               </div>

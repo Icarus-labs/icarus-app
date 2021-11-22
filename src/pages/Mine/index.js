@@ -462,14 +462,14 @@ export default function Mine() {
 
       {loadingPools && <LoadingOutlined className="loading-icon" />}
       {!loadingPools && (
-        <div className={mode === "line" ? "block line-wrapper" : ""}>
+        <div className={mode === "line" ? "line-wrapper" : ""}>
           <Row className="pool-list" gutter={44}>
             {poolList &&
               poolList.map((item, index) => (
                 <Col
                   xs={24}
                   lg={mode === "line" ? 24 : 12}
-                  xl={mode === "line" ? 24 : 6}
+                  xl={mode === "line" ? 24 : 8}
                   className={`${
                     (showDeposited && !item.hasStaked) ||
                     (showActive && item.inactive) ||

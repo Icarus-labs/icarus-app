@@ -4,9 +4,33 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    overflow: hidden;
+    .is-line {
+    }
+
+    &.block {
+        border-radius: 20px;
+    }
+    .tvl-badge {
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: #fff;
+        padding: 8px 10px;
+        background: #353659;
+        border: 2px solid #353659;
+        box-sizing: border-box;
+        border-radius: 0px 0 0px 9px;
+        .user-icon {
+            width: 10px;
+            margin-right: 2px;
+            vertical-align: middle;
+            margin-top: -1px;
+        }
+    }
     &.is-line {
         min-height: unset;
-        .star-boost{
+        .star-boost {
             position: relative;
             top: -10px;
             right: unset;
@@ -19,7 +43,6 @@
     }
 }
 
-
 .add-liquidity {
     color: #9887cd;
     font-size: 16px;
@@ -28,11 +51,10 @@
     }
 }
 .add-metamask {
-    color: #dd7616;
-    font-size: 16px;
-    &:hover {
-        color: #dd7616;
-    }
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 32px;
 }
 
 .pool-item.handle-card {
@@ -63,10 +85,15 @@
 .toggle-btn {
     margin-left: 12px;
 }
-.metamask-icon{
-    width: 16px;
-    margin-left: 4px;
+.add-liquidity-icon {
+    width: 60px;
+    display: block;
 }
+// .metamask-icon {
+//     width: 16px;
+//     margin-left: 4px;
+// }
+
 .open-soon {
     position: absolute;
     top: 6px;
@@ -76,7 +103,7 @@
 .info-line.user-tvl {
     margin: 16px auto 0;
 }
-.info-line.end-block{
+.info-line.end-block {
     font-size: 12px;
     margin-top: 8px;
 }
@@ -91,8 +118,9 @@
     .btns {
         margin-top: 12px;
         .btn {
-            // width: 80%;
+            width: 140px;
             padding: 8px 0;
+            border-radius: 5px;
             text-align: center;
         }
         // &.single-btn{

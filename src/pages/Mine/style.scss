@@ -254,7 +254,7 @@
     }
 
     .block {
-        border-radius: 40px;
+        border-radius: 24px;
         margin-bottom: 25px;
         text-align: left;
         &.highlight {
@@ -336,7 +336,7 @@
     }
 
     .loading-icon {
-        color: #fff;
+        // color: #fff;
         font-size: 44px;
         display: block;
         margin: 44px auto;

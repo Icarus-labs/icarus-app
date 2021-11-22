@@ -1,0 +1,50 @@
+.staked-block {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    .title {
+        font-size: 20px;
+        line-height: 24px;
+        color: #9088a1 !important;
+        font-family: "bebas";
+        margin-right: 20px;
+        margin-bottom: 0 !important;
+    }
+    .token-circle {
+        border: 1px solid #7416b2;
+        box-sizing: border-box;
+        border-radius: 5px;
+        padding: 12px 10px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        .tokens {
+            position: relative;
+            padding-right: 8px;
+            border-right: 0.5px solid #d6d8dc;
+            margin-right: 6px !important;
+            .token-item {
+                width: 18px;
+                height: 18px;
+                &:nth-child(2) {
+                    width: 12px;
+                    height: 12px;
+                    position: absolute;
+                    right: 4px;
+                    bottom: -6px;
+                }
+            }
+        }
+        .value {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 16px;
+            color: #000000;
+        }
+        .deposited {
+            font-size: 12px;
+            line-height: 1;
+            color: #9088a1;
+        }
+    }
+}
