@@ -280,7 +280,7 @@ export default function Profile() {
       <nav className="page-nav">
         <ul className="page-navigation">
           <li>
-            <a href="#nft-collection">NET COLLECTION</a>
+            <a href="#nft-collection">NFT COLLECTION</a>
           </li>
           <li>
             <a href="#capsule"> CAPSULE </a>
