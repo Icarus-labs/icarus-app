@@ -74,44 +74,80 @@ export default function Mine() {
 
     let totalTvlRaw = 0;
 
-    for (let i = 0; i < list.length; i++) {
+    list.forEach(async item => {
       const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
         params: {
-          pool: list[i].address,
+          pool: item.address,
         },
       });
       if (!poolInfo || !poolInfo.data.data) {
-        continue;
+        return
       }
       if (
-        list[i].address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
-        list[i].address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ||
-        list[i].address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38" ||
-        list[i].address === "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
-        list[i].address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
-        list[i].address === "0xe7bE10DDCDFb3301d94d95991A214e58b71924C5" ||
-        list[i].address === "0x574B029F3159a1EF732f25d5f3b7C51Fad3bcfFE" ||
-        list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670" ||
-        list[i].address === "0xfB3Bf392552973B5Db8CEAaf9AB896a32F5c4e4A" ||
-        list[i].address === "0xdd9937F73115AD155dF124eF0F64DA65Cf8Cc3d4" ||
-        list[i].address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A" ||
-        list[i].address === "0x568E19cD1d0fA3C6b06A9850287829B94449B28D"
-        // list[i].address === "0xbcBDeCCd5cbD126E62A874e04178AccbcB7eE2A1"
+        item.address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
+        item.address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ||
+        item.address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38" ||
+        item.address === "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
+        item.address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
+        item.address === "0xe7bE10DDCDFb3301d94d95991A214e58b71924C5" ||
+        item.address === "0x574B029F3159a1EF732f25d5f3b7C51Fad3bcfFE" ||
+        item.address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670" ||
+        item.address === "0xfB3Bf392552973B5Db8CEAaf9AB896a32F5c4e4A" ||
+        item.address === "0xdd9937F73115AD155dF124eF0F64DA65Cf8Cc3d4" ||
+        item.address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A" ||
+        item.address === "0x568E19cD1d0fA3C6b06A9850287829B94449B28D"
       ) {
-        list[i].inactive = true;
+        item.inactive = true;
       }
-      list[i].apy = poolInfo.data.data.apy;
-      list[i].income_apy = poolInfo.data.data.income_apy;
-      list[i].reward_apy = poolInfo.data.data.reward_apy;
-      list[i].tvl = poolInfo.data.data.tvl;
-      list[i].currentTab = currentTab;
+      item.apy = poolInfo.data.data.apy;
+      item.income_apy = poolInfo.data.data.income_apy;
+      item.reward_apy = poolInfo.data.data.reward_apy;
+      item.tvl = poolInfo.data.data.tvl;
+      item.currentTab = currentTab;
 
-      totalTvlRaw += Number(list[i].tvl);
-    }
-    setTotalTvl((prev) => prev + totalTvlRaw);
-    setPoolList((prev) => prev.concat(list));
+      totalTvlRaw += Number(item.tvl);
+      setTotalTvl((prev) => prev + totalTvlRaw);
+      setPoolList((prev) => prev.concat(item));
+    })
 
+    // for (let i = 0; i < list.length; i++) {
+    //   const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
+    //     params: {
+    //       pool: list[i].address,
+    //     },
+    //   });
+    //   if (!poolInfo || !poolInfo.data.data) {
+    //     continue;
+    //   }
+    //   if (
+    //     list[i].address === "0x00A089b819856E81f1dd88BB79759CD8a85a6C4e" ||
+    //     list[i].address === "0x07b40e5dc40f21b3E1Ba47845845E83dF5665DbF" ||
+    //     list[i].address === "0x4E38E87bcAF375ccAF38CBa49d2b45DE58319f38" ||
+    //     list[i].address === "0x5F8F5b526Ae06680547ffA91c76f7209639f779B" ||
+    //     list[i].address === "0x105bde807777B695830d4e9D80ba65c308CEBd11" ||
+    //     list[i].address === "0xe7bE10DDCDFb3301d94d95991A214e58b71924C5" ||
+    //     list[i].address === "0x574B029F3159a1EF732f25d5f3b7C51Fad3bcfFE" ||
+    //     list[i].address === "0x2dd1d9a0C8fDC66328eaBf27e166d281b3a5E670" ||
+    //     list[i].address === "0xfB3Bf392552973B5Db8CEAaf9AB896a32F5c4e4A" ||
+    //     list[i].address === "0xdd9937F73115AD155dF124eF0F64DA65Cf8Cc3d4" ||
+    //     list[i].address === "0xA2B04f1409F741E59A175Eee43E998d3bFf36C6A" ||
+    //     list[i].address === "0x568E19cD1d0fA3C6b06A9850287829B94449B28D"
+    //   ) {
+    //     list[i].inactive = true;
+    //   }
+    //   list[i].apy = poolInfo.data.data.apy;
+    //   list[i].income_apy = poolInfo.data.data.income_apy;
+    //   list[i].reward_apy = poolInfo.data.data.reward_apy;
+    //   list[i].tvl = poolInfo.data.data.tvl;
+    //   list[i].currentTab = currentTab;
+
+    //   totalTvlRaw += Number(list[i].tvl);
     // }
+
+    // setTotalTvl((prev) => prev + totalTvlRaw);
+    // setPoolList((prev) => prev.concat(list));
+
+
   };
 
   // const changeTheme = (param) => {
@@ -285,30 +321,30 @@ export default function Mine() {
           <div className="stats-wrapper">
             <img
               src={theme === "light" ? StatsIcon : StatsIconDark}
-              class="stats-icon"
+              className="stats-icon"
             />
-            <div class="stats-content">
+            <div className="stats-content">
               <div className="stats-block">
-                <div class="title">
+                <div className="title">
                   <span className="highlight">ICA</span> Market Cap:
                 </div>
-                <div class="value">
+                <div className="value">
                   <span className="highlight">
                     {Number(icaMarketCap).toFixed(2)}
                   </span>
                 </div>
               </div>
               <div className="stats-block">
-                <div class="title">Total Minted:</div>
-                <div class="value">
+                <div className="title">Total Minted:</div>
+                <div className="value">
                   <span className="highlight">
                     {Number(icaTotalMinted).toFixed(2)}
                   </span>
                 </div>
               </div>
               <div className="stats-block special">
-                <div class="title">Total Burned:</div>
-                <div class="value">{Number(icaTotalBurned).toFixed(2)}</div>
+                <div className="title">Total Burned:</div>
+                <div className="value">{Number(icaTotalBurned).toFixed(2)}</div>
               </div>
             </div>
           </div>

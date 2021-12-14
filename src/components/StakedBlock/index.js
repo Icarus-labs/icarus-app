@@ -18,7 +18,7 @@ export default function StakedBlock(props) {
           ) : (
             <span>
               {item.stake_token.split("-").map((token) => (
-                <img src={tokenImg[token]} className="token-item" />
+                <img src={tokenImg[token]} className="token-item" key={token} />
               ))}
             </span>
           )}

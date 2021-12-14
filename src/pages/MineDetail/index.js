@@ -419,7 +419,7 @@ export default function MineDetail(props) {
         {mode === "card" && <DataBlocks poolInfo={poolInfo} item={item} />}
 
         {(mode === "card" || showMore) && (
-          <div className={showMore && 'is-show-more'}>
+          <div className={showMore ? 'is-show-more' : ''}>
             <StakedBlock
               poolInfo={poolInfo}
               item={item}

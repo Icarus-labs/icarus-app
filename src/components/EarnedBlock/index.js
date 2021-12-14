@@ -10,7 +10,7 @@ export default function EarnedBlock(props) {
 
       {poolInfo.reward_tokens &&
         poolInfo.reward_tokens.map((reward, index) => (
-          <div className="token-circle">
+          <div className="token-circle" key={index}>
             <span className="tokens">
               <img
                 src={tokenImg[String(reward).toUpperCase()]}
