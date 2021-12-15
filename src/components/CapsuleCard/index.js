@@ -23,6 +23,7 @@ export default function CapsuleCard(props) {
   const [claimedModalVisible, setClaimedModalVisible] = useState(false);
 
   const [userLockedAmount, setUserLockedAmount] = useState(0);
+  const [oldUserLockedAmount, setOldUserLockedAmount] = useState(0);
 
   const [nftGiftList, setNftGiftList] = useState([]);
   const [capsuleList, setCapsuleList] = useState([]);
@@ -69,14 +70,25 @@ export default function CapsuleCard(props) {
     setUserLockedAmount(lockedAmount);
   };
 
+  const getOldUserLockedAmount = async (wallet) => {
+    const lockedAmount = await StakerContractApi.oldBalanceOf(wallet);
+    setOldUserLockedAmount(lockedAmount);
+  };
+
   useEffect(() => {
     if (wallet.account) {
       getUserLockedAmount(wallet);
+      getOldUserLockedAmount(wallet);
     }
   }, [wallet.account, list]);
 
   const doRedeem = async () => {
     await StakerContractApi.redeem(wallet);
+    onRefresh();
+  };
+
+  const doOldRedeem = async () => {
+    await StakerContractApi.oldRedeem(wallet);
     onRefresh();
   };
 
@@ -124,7 +136,7 @@ export default function CapsuleCard(props) {
     );
   };
 
-  const timer = ({ hours, minutes, seconds, completed, props }) => {
+  const timer = ({ days, hours, minutes, seconds, completed, props }) => {
     const { item } = props;
     if (completed) {
       return <ActionWrapper item={item} />;
@@ -132,7 +144,7 @@ export default function CapsuleCard(props) {
       return (
         <TimeWrapper
           item={item}
-          hours={hours}
+          hours={hours + days * 24}
           minutes={minutes}
           seconds={seconds}
         />
@@ -201,6 +213,16 @@ export default function CapsuleCard(props) {
               onClick={doRedeem}
             >
               UNSTAKE ALL
+            </Button>
+          )}
+
+          {mode === "claim" && !showActive && oldUserLockedAmount > 0 && (
+            <Button
+              className="btn-green"
+              style={{ marginLeft: "8px" }}
+              onClick={doOldRedeem}
+            >
+              UNSTAKE
             </Button>
           )}
 

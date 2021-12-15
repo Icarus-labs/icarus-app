@@ -51,6 +51,37 @@ export default {
 
       const contract = new web3.eth.Contract(
         StakerAbi,
+        Config[network].contracts.staker
+      );
+
+      return new Promise((resolve, reject) => {
+        contract.methods
+          .redeem()
+          .send({
+            from: wallet.account,
+          })
+          .on("transactionHash", function (transactionHash) {
+            mm.listen(transactionHash, "Redeem");
+            return transactionHash;
+          })
+          .on("receipt", (receipt) => {
+            resolve(receipt);
+          })
+          .on("error", function (error) {
+            console.log("error", error);
+          });
+      });
+    } catch (err) {
+      return false;
+    }
+  },
+
+  async oldRedeem(wallet) {
+    try {
+      const web3 = new Web3(wallet.ethereum);
+
+      const contract = new web3.eth.Contract(
+        StakerAbi,
         Config[network].contracts.stakerOld
       );
 
@@ -81,6 +112,26 @@ export default {
    * 获取余额
    */
   async balanceOf(wallet) {
+    const web3 = new Web3(wallet.ethereum);
+
+    const contract = new web3.eth.Contract(
+      StakerAbi,
+      Config[network].contracts.staker
+    );
+
+    try {
+      const balances = await contract.methods.balanceOf(wallet.account).call({
+        from: wallet.account,
+      });
+
+      return Number(web3.utils.fromWei(balances.claimableAmount));
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
+  },
+
+  async oldBalanceOf(wallet) {
     const web3 = new Web3(wallet.ethereum);
 
     const contract = new web3.eth.Contract(
