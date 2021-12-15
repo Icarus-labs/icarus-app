@@ -72,7 +72,9 @@ export default function Mine() {
       return false;
     }
 
-    let totalTvlRaw = 0;
+    // let totalTvlRaw = 0;
+
+    console.log('getting pool info', list.length)
 
     list.forEach(async item => {
       const poolInfo = await axios.get(`/${currentTab}/pools/info`, {
@@ -105,8 +107,10 @@ export default function Mine() {
       item.tvl = poolInfo.data.data.tvl;
       item.currentTab = currentTab;
 
-      totalTvlRaw += Number(item.tvl);
-      setTotalTvl((prev) => prev + totalTvlRaw);
+      // console.log(1111111111, item.tvl)
+
+      // totalTvlRaw += Number(item.tvl);
+      setTotalTvl((prev) => prev + Number(item.tvl));
       setPoolList((prev) => prev.concat(item));
     })
 
