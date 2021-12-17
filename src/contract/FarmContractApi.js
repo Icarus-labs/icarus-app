@@ -17,7 +17,7 @@ const network = setting.network;
 export default {
   async getTokenLpPrice(tokenLpAddress, tokens, wallet) {
     const web3 = new Web3(wallet.ethereum);
-    let price = 0
+    let price = 0;
 
     const totalSupply = await CommonContractApi.totalSupply(
       tokenLpAddress,
@@ -41,20 +41,17 @@ export default {
     } else {
       price = await getTokenPrice(tokens[0]);
     }
-    return price
+    return price;
   },
   async getApy(pid, poolInfo, tokens, wallet) {
+    const { allocPoint, want } = poolInfo;
     const web3 = new Web3(wallet.ethereum);
+    // const contract = new web3.eth.Contract(
+    //   FarmAbi,
+    //   Config[network].contracts.farm
+    // );
 
-    const contract = new web3.eth.Contract(
-      FarmAbi,
-      Config[network].contracts.farm
-    );
-
-    const commonContract = new web3.eth.Contract(
-      Erc20Abi,
-      Config[network].contracts.remoteFarm
-    );
+    const tokenContract = new web3.eth.Contract(Erc20Abi, want);
 
     const remoteContract = new web3.eth.Contract(
       RemoteFarmAbi,
@@ -62,11 +59,21 @@ export default {
     );
 
     try {
-      const { allocPoint } = poolInfo;
-      const totalAllocPoint = await remoteContract.methods.totalAllocPoint();
-      const cakePerBlock = await remoteContract.methods.cakePerBlock();
-      const lpBalance = await commonContract.methods.balanceOf(poolInfo.want)
-      const lpPrice = await this.getTokenLpPrice(poolInfo.want, tokens, wallet)
+      const totalAllocPoint = await remoteContract.methods
+        .totalAllocPoint()
+        .call();
+
+      const cakePerBlock = new BN(
+        await remoteContract.methods.cakePerBlock().call()
+      ).shiftedBy(-18);
+
+      const lpBalance = new BN(
+        await tokenContract.methods
+          .balanceOf(Config[network].contracts.remoteFarm)
+          .call()
+      ).shiftedBy(-18);
+
+      const lpPrice = await this.getTokenLpPrice(want, tokens, wallet);
 
       const cakePrice = await getTokenPrice("pancakeswap-token");
 
@@ -74,13 +81,28 @@ export default {
         .div(totalAllocPoint)
         .times(cakePerBlock)
         .times(cakePrice)
-        .div(lpBalance).div(lpPrice)
-        .times(10512000);
+        .div(lpBalance)
+        .div(lpPrice);
 
+      // console.log(
+      //   new BN(allocPoint)
+      //     .div(totalAllocPoint)
+      //     .times(cakePerBlock)
+      //     .shiftedBy(-18)
+      //     .times(cakePrice)
+      //     .shiftedBy(18)
+      //     .div(lpBalance)
+      //     .toString(),
+      //   "aaaaa"
+      // );
+      // const remoteFarmAprDaily = remoteFarmApr.div(365);
+
+      const yearlyApy = remoteFarmApr.times(10512000).times(100).toFixed(2).toString();
+      const dailyApy = remoteFarmApr.times(28800).times(100).toFixed(2).toString();
 
       return {
-        apy: "",
-        dailyApy: "",
+        dailyApy,
+        yearlyApy,
       };
     } catch (err) {
       console.log(err);
@@ -107,8 +129,6 @@ export default {
     const { tokens } = poolInfo;
     // 暂时不考虑3币情况
     const price = await this.getTokenLpPrice(tokenLpAddress, tokens, wallet);
-
-    console.log('got ppp', price)
 
     const totalLocked = await this.getTotalLocked(poolInfo.pid, wallet);
 

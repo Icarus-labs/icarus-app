@@ -18,7 +18,6 @@ export default function AdvancedSetting(props) {
   }, [setting]);
 
   useEffect(() => {
-    console.log('I got slilll', slippage)
     setIsCustom(
       slippage === 0.1 || slippage === 0.5 || slippage === 1.0 ? false : true
     );

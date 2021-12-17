@@ -106,19 +106,19 @@ export default function FarmItem(props) {
       item.pid,
       wallet
     );
-    const {apy, dailyApy} = await FarmContractApi.getApy(
+    const {dailyApy, yearlyApy} = await FarmContractApi.getApy(
       item.pid,
       poolInfo,
       item.tokens,
       wallet
     );
-    console.log("pool info", poolInfo);
+  
     const tvl = await FarmContractApi.getTVL(poolInfo.want, item, wallet);
     setInfo((prev) => {
       return {
         ...prev,
         ...poolInfo,
-        apy,
+        yearlyApy,
         dailyApy,
         deposited,
         pendingReward,
@@ -186,11 +186,11 @@ export default function FarmItem(props) {
           </div>
           <div className="num-box">
             <div className="label">APY</div>
-            <div className="value">138.21%</div>
+            <div className="value">{info.yearlyApy}%</div>
           </div>
           <div className="num-box">
             <div className="label">Daily</div>
-            <div className="value">1.45%</div>
+            <div className="value">{info.dailyApy}%</div>
           </div>
           <div className="num-box">
             <div className="label">TVL</div>
@@ -218,8 +218,8 @@ export default function FarmItem(props) {
                   <div>ICA</div>
                 </div>
                 <div className="reward-body">
-                  {rewardList.map((reward) => (
-                    <div className="reward-row">
+                  {rewardList.map((reward, index) => (
+                    <div className="reward-row" key={index}>
                       <div>{reward.period}</div>
                       <div>{reward.lp}</div>
                       <div>{reward.ica}</div>

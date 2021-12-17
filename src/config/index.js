@@ -22,7 +22,7 @@ export const coingeckoURL = 'https://api.coingecko.com/api/v3'
 
 export default {
   // 默认要连接的network，测试环境默认用 test，生产环境默认用 ethereum
-  defaultNetwork: "binance",
+  defaultNetwork: "test",
   //test(binance)
   test: {
     contracts: {
@@ -40,7 +40,7 @@ export default {
       claim: '0x18CdA36E7301f74e9f2039d37c6019Dc6DE8A04A',
 
       farm: '0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233',
-      remoteFarm: '0x73feaa1eE314F8c655E354234017bE2193C9E24E',
+      remoteFarm: '0x5DE7bac9263E23ba155c8eC42A7C77A5bA4122b2',
 
       box: "0x80E94eaF3c828535700bFe0e0393F2c8365c2966",
     },
@@ -249,8 +249,6 @@ export default {
       },
     ],
 
-    yield: '0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233',
-    
     network: "binance",
     mode: "prod",
     provider: "https://bsc-dataseed.binance.org",
