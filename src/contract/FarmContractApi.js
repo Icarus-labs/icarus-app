@@ -84,19 +84,6 @@ export default {
         .div(lpBalance)
         .div(lpPrice);
 
-      // console.log(
-      //   new BN(allocPoint)
-      //     .div(totalAllocPoint)
-      //     .times(cakePerBlock)
-      //     .shiftedBy(-18)
-      //     .times(cakePrice)
-      //     .shiftedBy(18)
-      //     .div(lpBalance)
-      //     .toString(),
-      //   "aaaaa"
-      // );
-      // const remoteFarmAprDaily = remoteFarmApr.div(365);
-
       const yearlyApy = remoteFarmApr.times(10512000).times(100).toFixed(2).toString();
       const dailyApy = remoteFarmApr.times(28800).times(100).toFixed(2).toString();
 

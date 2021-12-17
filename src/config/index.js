@@ -1,4 +1,4 @@
-import poolList from './poolList'
+import poolList from "./poolList";
 
 export const chainIdMapping = {
   1: "ETH Mainnet",
@@ -14,7 +14,7 @@ export const blocksLeftMapping = {
   MATIC: 1626165053,
 };
 
-export const coingeckoURL = 'https://api.coingecko.com/api/v3'
+export const coingeckoURL = "https://api.coingecko.com/api/v3";
 //template_id 1: moneyDao 定时筹款，投票释放
 // template_id 2: moneyDaoFullRelease 定时筹款，全款释放
 // template_id 3: moneyDaoFixRaise 定期筹款，投票释放
@@ -26,24 +26,26 @@ export default {
   //test(binance)
   test: {
     contracts: {
-      "vICA": "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
-      "core": "0xF14e233B9e78ce096445dBA4792adbbab6315947",
-      "market": "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
-      "media": "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
-      "holder": "0x10Cf350e1E1A509d24B55BF10E8208149AEfD999",
-      "staker": "0xF9B35982Ff2649F05e1353E7723B10E9D1888070",
-      "uniswap": "0x8d3517035B21A5aEb93256F8A70922E162e67Da3",
-      "admin": "0xE0658E036D80C5D93894422Cd8746D77E0c0d8B5",
-      "holderImpl": "0xFD97d203421f700BE3228DC4711D9E606CB8e54f",
-      "stakerImpl": "0x1741C7b479992BF1428AFD37922c1263A173984F",
+      vICA: "0xa14c51Fe67eb2756298Bb0A22d757C62be01AEAF",
+      core: "0xF14e233B9e78ce096445dBA4792adbbab6315947",
+      market: "0xa527213aFa6d074A44018774191D1E01B18ffcf8",
+      media: "0x5d1707406DAb46c84ff24F11B56ef412668017Cd",
+      holder: "0x10Cf350e1E1A509d24B55BF10E8208149AEfD999",
+      staker: "0xF9B35982Ff2649F05e1353E7723B10E9D1888070",
+      uniswap: "0x8d3517035B21A5aEb93256F8A70922E162e67Da3",
+      admin: "0xE0658E036D80C5D93894422Cd8746D77E0c0d8B5",
+      holderImpl: "0xFD97d203421f700BE3228DC4711D9E606CB8e54f",
+      stakerImpl: "0x1741C7b479992BF1428AFD37922c1263A173984F",
 
-      claim: '0x18CdA36E7301f74e9f2039d37c6019Dc6DE8A04A',
+      claim: "0x18CdA36E7301f74e9f2039d37c6019Dc6DE8A04A",
 
-      farm: '0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233',
-      remoteFarm: '0x5DE7bac9263E23ba155c8eC42A7C77A5bA4122b2',
+      farm: "0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233",
+      remoteFarm: "0x5DE7bac9263E23ba155c8eC42A7C77A5bA4122b2",
 
       box: "0x80E94eaF3c828535700bFe0e0393F2c8365c2966",
     },
+    swapMediumTokens: [],
+    tokensList: [],
     network: "test",
     //区分测试环境与生产环境。目前只用在了网络环境切换的判断
     mode: "test",
@@ -70,12 +72,12 @@ export default {
       stakerOld: "0xF3831F3fC64e5D44AfFD25afbd2Fc5e724a670d2",
       staker: "0xA30Fbeca8af6d06fd995f7A9f7B12EAab24060B6",
 
-      claim: '0x5bF1ce175Ee1BE26E156Aae5872CA512be0483AB',
+      claim: "0x5bF1ce175Ee1BE26E156Aae5872CA512be0483AB",
 
       box: "0xdabd923235127e4d70f6da2cdfba0efb3f674d5f",
 
-      farm: '0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233',
-      remoteFarm: '0x73feaa1eE314F8c655E354234017bE2193C9E24E',
+      farm: "0xFFF06755d3390A0cc6C71Ba1Fdf4BCEca4DC5233",
+      remoteFarm: "0x73feaa1eE314F8c655E354234017bE2193C9E24E",
 
       router: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
       factory: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
@@ -85,20 +87,19 @@ export default {
     swapMediumTokens: [
       // busd
       {
-        symbol: 'BUSD',
-        address: "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+        symbol: "BUSD",
+        address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
       },
       // weth
       {
-        symbol: 'BUSD',
-        address:  "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+        symbol: "BUSD",
+        address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
       },
       // wbnb
       {
-        symbol: 'WBNB',
-        address:  "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-      }
-     
+        symbol: "WBNB",
+        address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      },
     ],
     tokensList: [
       {
@@ -127,17 +128,20 @@ export default {
       },
       {
         symbol: "BUSD",
-        logoURI: "https://pancakeswap.finance/images/tokens/0xe9e7cea3dedca5984780bafc599bd69add087d56.png",
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0xe9e7cea3dedca5984780bafc599bd69add087d56.png",
         address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
       },
       {
         symbol: "BTCB",
-        logoURI: "https://pancakeswap.finance/images/tokens/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c.png",
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c.png",
         address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
       },
       {
         symbol: "ETH",
-        logoURI: "https://pancakeswap.finance/images/tokens/0x2170ed0880ac9a755fd29b2688956bd959f933f8.png",
+        logoURI:
+          "https://pancakeswap.finance/images/tokens/0x2170ed0880ac9a755fd29b2688956bd959f933f8.png",
         address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
       },
       {
