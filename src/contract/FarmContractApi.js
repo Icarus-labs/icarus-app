@@ -46,10 +46,10 @@ export default {
   async getApy(pid, poolInfo, tokens, wallet) {
     const { allocPoint, want } = poolInfo;
     const web3 = new Web3(wallet.ethereum);
-    // const contract = new web3.eth.Contract(
-    //   FarmAbi,
-    //   Config[network].contracts.farm
-    // );
+    const farmContract = new web3.eth.Contract(
+      FarmAbi,
+      Config[network].contracts.farm
+    );
 
     const tokenContract = new web3.eth.Contract(Erc20Abi, want);
 
@@ -73,9 +73,12 @@ export default {
           .call()
       ).shiftedBy(-18);
 
+      const poolLockedAmount = new BN(await farmContract.methods.wantLockedTotal(pid).call()).shiftedBy(-18)
+
       const lpPrice = await this.getTokenLpPrice(want, tokens, wallet);
 
       const cakePrice = await getTokenPrice("pancakeswap-token");
+      const icaPrice = await getTokenPrice("icarus-finance");
 
       const remoteFarmApr = new BN(allocPoint)
         .div(totalAllocPoint)
@@ -84,12 +87,41 @@ export default {
         .div(lpBalance)
         .div(lpPrice);
 
-      const yearlyApy = remoteFarmApr.times(10512000).times(100).toFixed(2).toString();
-      const dailyApy = remoteFarmApr.times(28800).times(100).toFixed(2).toString();
+      const yearlyApy = remoteFarmApr
+        .times(10512000)
+        .times(100)
+        .toFixed(2)
+        .toString();
+      const dailyApy = remoteFarmApr
+        .times(28800)
+        .times(100)
+        .toFixed(2)
+        .toString();
+
+      const icaRewardPerBlock = new BN(allocPoint).div(totalAllocPoint).times(cakePerBlock).times(cakePrice).div(icaPrice).div(poolLockedAmount).toNumber()
+
+      const compoundBase = new BN(yearlyApy).div(100).times(0.6).div(365).plus(1);
+
+      const compoundAPR = [
+        //1d
+        compoundBase.pow(6).toNumber(),
+        //1w
+        compoundBase.pow(42).toNumber(),
+        //1m
+        compoundBase.pow(180).toNumber(),
+        //3m
+        compoundBase.pow(540).toNumber(),
+        //6m
+        compoundBase.pow(1080).toNumber(),
+        //1y
+        compoundBase.pow(2190).toNumber(),
+      ];
 
       return {
         dailyApy,
         yearlyApy,
+        icaRewardPerBlock,
+        compoundAPR,
       };
     } catch (err) {
       console.log(err);
@@ -243,8 +275,11 @@ export default {
         Config[network].contracts.farm
       );
 
+      console.log("contract is", contract);
+
       return new Promise((resolve, reject) => {
-        contract.methods.withdrawAll
+        contract.methods
+          .withdrawAll(pid)
           .send({
             from: wallet.account,
           })

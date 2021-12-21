@@ -30,38 +30,8 @@ export default function FarmItem(props) {
   const [depositPercent, setDepositPercent] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [withdrawPercent, setWithdrawPercent] = useState(0);
-  const [rewardList, setRewardList] = useState([
-    {
-      period: "1d",
-      lp: "0.0000",
-      ica: "0.0000",
-    },
-    {
-      period: "1w",
-      lp: "0.0000",
-      ica: "0.0000",
-    },
-    {
-      period: "1m",
-      lp: "0.0000",
-      ica: "0.0000",
-    },
-    {
-      period: "3m",
-      lp: "0.0000",
-      ica: "0.0000",
-    },
-    {
-      period: "6m",
-      lp: "0.0000",
-      ica: "0.0000",
-    },
-    {
-      period: "1y",
-      lp: "0.0000",
-      ica: "0.0000",
-    },
-  ]);
+
+  const [totalDeposited, setTotalDeposited] = useState(0);
 
   const toggleShowDetail = () => {
     setShowDetail((prev) => {
@@ -71,31 +41,31 @@ export default function FarmItem(props) {
 
   const doDeposit = async () => {
     await FarmContractApi.deposit(item.pid, depositAmount, wallet);
-    getPoolInfo()
+    getPoolInfo();
   };
   const doDepositAll = async () => {
     depositAmountChange(info.balance);
     await FarmContractApi.deposit(item.pid, depositAmount, wallet);
-    getPoolInfo()
+    getPoolInfo();
   };
   const doWithdraw = async () => {
     await FarmContractApi.withdraw(item.pid, withdrawAmount, wallet);
-    getPoolInfo()
+    getPoolInfo();
   };
   const doWithdrawAll = async () => {
     withdrawAmountChange(info.deposited);
     await FarmContractApi.withdrawAll(item.pid, wallet);
-    getPoolInfo()
+    getPoolInfo();
   };
 
   const doClaim = async () => {
     await FarmContractApi.withdraw(item.pid, 0, wallet);
-    getPoolInfo()
+    getPoolInfo();
   };
 
   const doEarn = async () => {
     await StrategyContractApi.earn(item.strategy, wallet);
-    getPoolInfo()
+    getPoolInfo();
   };
 
   const getPoolInfo = async () => {
@@ -106,13 +76,9 @@ export default function FarmItem(props) {
       item.pid,
       wallet
     );
-    const {dailyApy, yearlyApy} = await FarmContractApi.getApy(
-      item.pid,
-      poolInfo,
-      item.tokens,
-      wallet
-    );
-  
+    const { dailyApy, yearlyApy, compoundAPR, icaRewardPerBlock } =
+      await FarmContractApi.getApy(item.pid, poolInfo, item.tokens, wallet);
+
     const tvl = await FarmContractApi.getTVL(poolInfo.want, item, wallet);
     setInfo((prev) => {
       return {
@@ -120,6 +86,8 @@ export default function FarmItem(props) {
         ...poolInfo,
         yearlyApy,
         dailyApy,
+        compoundAPR,
+        icaRewardPerBlock,
         deposited,
         pendingReward,
         balance,
@@ -154,6 +122,11 @@ export default function FarmItem(props) {
     setWithdrawAmount((info.deposited * val) / 100);
   };
 
+  useEffect(() => {
+    const total = Number(info.deposited) + Number(depositAmount);
+    setTotalDeposited(total);
+  }, [info.deposited, depositAmount]);
+
   return (
     <div className="farm-item">
       <div className="main-area">
@@ -166,7 +139,9 @@ export default function FarmItem(props) {
               )}
             </div>
             <div>
-              <div className="lp-name">{item.want.join("-")} {item.want.length > 1 && <span>LP</span>}</div>
+              <div className="lp-name">
+                {item.want.join("-")} {item.want.length > 1 && <span>LP</span>}
+              </div>
               <div className="uses">Uses: icarus.finance</div>
             </div>
           </div>
@@ -214,25 +189,102 @@ export default function FarmItem(props) {
               <div className="reward-table">
                 <div className="reward-head">
                   <div>Period</div>
-                  <div>{item.want.join("-")} {item.want.length > 1 && <span>LP</span>}</div>
+                  <div>
+                    {item.want.join("-")}{" "}
+                    {item.want.length > 1 && <span>LP</span>}
+                  </div>
                   <div>ICA</div>
                 </div>
-                <div className="reward-body">
-                  {rewardList.map((reward, index) => (
-                    <div className="reward-row" key={index}>
-                      <div>{reward.period}</div>
-                      <div>{reward.lp}</div>
-                      <div>{reward.ica}</div>
+                {info.compoundAPR && info.compoundAPR.length === 6 && (
+                  <div className="reward-body">
+                    <div className="reward-row">
+                      <div>1d</div>
+                      <div>
+                        {(info.compoundAPR[0] * totalDeposited).toFixed(2)}
+                      </div>
+                      <div>
+                        {(
+                          info.icaRewardPerBlock *
+                          28800 *
+                          totalDeposited
+                        ).toFixed(2)}
+                      </div>
                     </div>
-                  ))}
-                </div>
+                    <div className="reward-row">
+                      <div>1w</div>
+                      <div>
+                        {(info.compoundAPR[1] * totalDeposited).toFixed(2)}
+                      </div>
+                      <div>
+                        {(
+                          info.icaRewardPerBlock *
+                          201600 *
+                          totalDeposited
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className="reward-row">
+                      <div>1m</div>
+                      <div>
+                        {(info.compoundAPR[2] * totalDeposited).toFixed(2)}
+                      </div>
+                      <div>
+                        {(
+                          info.icaRewardPerBlock *
+                          864000 *
+                          totalDeposited
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className="reward-row">
+                      <div>3m</div>
+                      <div>
+                        {(info.compoundAPR[3] * totalDeposited).toFixed(2)}
+                      </div>
+                      <div>
+                        {(
+                          info.icaRewardPerBlock *
+                          2592000 *
+                          totalDeposited
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className="reward-row">
+                      <div>6m</div>
+                      <div>
+                        {(info.compoundAPR[4] * totalDeposited).toFixed(2)}
+                      </div>
+                      <div>
+                        {(
+                          info.icaRewardPerBlock *
+                          5184000 *
+                          totalDeposited
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className="reward-row">
+                      <div>1y</div>
+                      <div>
+                        {(info.compoundAPR[5] * totalDeposited).toFixed(2)}
+                      </div>
+                      <div>
+                        {(
+                          info.icaRewardPerBlock *
+                          10368000 *
+                          totalDeposited
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </Col>
             <Col xs={24} md={12} lg={6}>
               <div className="input-zone">
                 <div>
-                  <span className="strong-title">Balance:</span> {Number(info.balance).toFixed(8)}{" "}
-                  {item.want.join("-")} {item.want.length > 1 && <span>LP</span>}
+                  <span className="strong-title">Balance:</span>{" "}
+                  {Number(info.balance).toFixed(8)} {item.want.join("-")}{" "}
+                  {item.want.length > 1 && <span>LP</span>}
                 </div>
                 <Input
                   value={depositAmount}
@@ -263,7 +315,8 @@ export default function FarmItem(props) {
               <div className="input-zone">
                 <div>
                   <span className="strong-title">Deposited:</span>{" "}
-                  {Number(info.deposited).toFixed(8)} {item.want.join("-")} {item.want.length > 1 && <span>LP</span>}
+                  {Number(info.deposited).toFixed(8)} {item.want.join("-")}{" "}
+                  {item.want.length > 1 && <span>LP</span>}
                 </div>
                 <Input
                   value={withdrawAmount}
@@ -294,7 +347,11 @@ export default function FarmItem(props) {
                 <Button className="btn-purple btn-claim" onClick={doClaim}>
                   Claim
                 </Button>
-                <Button className="btn-purple btn-claim" onClick={doEarn} style={{marginLeft: '2px'}}>
+                <Button
+                  className="btn-purple btn-claim"
+                  onClick={doEarn}
+                  style={{ marginLeft: "2px" }}
+                >
                   Compounding
                 </Button>
                 <div>
